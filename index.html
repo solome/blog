@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>掬一捧清水窺明月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="掬一捧清水窺明月">
+<meta property="og:url" content="http://solome.js.org/blog/index.html">
+<meta property="og:site_name" content="掬一捧清水窺明月">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="掬一捧">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺明月" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">掬一捧清水窺明月</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">博客</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://solome.js.org/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="layout/post-gmtc-vr3d" class="article article-type-layout/post" itemscope itemprop="blogPost">
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/gmtc-vr3d/">VR 及 3D 技术在 Web 端架构设计与实践</a>
+    </h1>
+  
+
+        <div class="article-dateref">
+  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (China Standard Time)
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文基于2021年GMTC全球大前端技术大会”移动技术新趋势”专题下主题分享<a target="_blank" rel="noopener" href="//gmtc.infoq.cn/2021/beijing/presentation/3531">《VR 及 3D 技术在 Web 端架构设计与实践》</a>整理而来。内容与当日分享基本无异，仅以文字的形式重新整理一遍。</p>
+</blockquote>
+<style type="text/css">
+body, .article-inner {background-color: white;}
+article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;padding: 12px;margin: 12px 0 0;background-color: rgb(239 236 236);border-bottom:none;font-family: Roboto, -apple-system, BlinkMacSystemFont, sans-serif;}article .ref:hover {background-color: rgb(228 223 223);}.ref-img {width: 56px;height: 56px;}.ref-content {padding: 0 0 0 12px;flex: 1;flex-direction: column;display: flex;min-width: 10px;}.ref-title, .ref-subTitle, .ref-link {overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}.ref-title {font-size: 16px;font-weight: 500;line-height: 20px;color: rgb(31, 34, 37);}.ref-subTitle {line-height: 19px;}.ref-link {line-height: 17px;color: rgb(161, 162, 163);}
+.fancyboxflex .fancybox {flex: 1;}
+</style>
+<a class="ref" href="//gmtc.infoq.cn/2021/beijing/presentation/3531" target="_blank">
+  <img class="ref-img" src="/blog/gmtc-vr3d/5c7caa3b1c540.jpeg">
+  <div class="ref-content">
+    <div class="ref-title">GMTC_全球大前端技术大会-InfoQ</div>
+    <div class="ref-subTitle">"GMTC是由极客邦科技和InfoQ中国主办的顶级技术盛会，关注移动、前端、AI应用等多个技术领域，促进全球技术交流，推动国内技术升级。GMTC为期4天，包括两天的会议和两天的培训课，主要面向各行业对移动开发、前端、AI技术感兴趣的中高端技术人员，大会聚焦前沿技术及实践经验，旨在帮助参会者了解移动开发&前端领域最新的技术趋势与最佳实践。"</div>
+    <div class="ref-link">https://gmtc.infoq.cn/2021/beijing/presentation/3531</div>
+  </div>
+</a>
+
+<p>VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终端就能让人真正的置身其中，用自己直觉的空间感去感受整个房屋特征。本次分享将介绍贝壳如视前端团队是如何基于 VR 3D 模型进行前端架构设计的。除此之外，还将分享我们团队是如何基于 VR 看房能力探索新的业务形式以及面临的技术挑战。</p>
+<h2 id="基于-VR-3D-模型前端架构设计"><a href="#基于-VR-3D-模型前端架构设计" class="headerlink" title="基于 VR 3D 模型前端架构设计"></a>基于 VR 3D 模型前端架构设计</h2><p>在讲前端架构设计之前，先详细介绍下看房场景下的 VR 3D 模型的组成及形态。</p>
+<h3 id="看房-VR-3D-模型的组成及形态"><a href="#看房-VR-3D-模型的组成及形态" class="headerlink" title="看房 VR 3D 模型的组成及形态"></a>看房 VR 3D 模型的组成及形态</h3><p>房源的 VR 3D 模型的形态有多种，但在用户层面直观感受到的主要有三个形态：3D 模型形态、点位全景形态及 VR 眼镜视角形态。下面对这三个形态做详细介绍。</p>
+<h4 id="3D-模型"><a href="#3D-模型" class="headerlink" title="3D 模型"></a>3D 模型</h4><p>首先，我们简单思考一下三维模型是如何在二维平面抽象建模的？目前主流的三维模型抽象建模是基于多边形网格（Polygon Mesh），如图一所示。整体感知就是多边形面片愈多（面片密度）还原的三维立体效果愈真实。最精简的多边形自然是三角形（大部分场景下说的面片即三角面片），三维物体的每个细节可以通过三角面片的顶点、边及面等几何数学概念来描述。微观上来看，基于面片建模的三维模型本质上都是密度及其复杂的几何体。</p>
+<figure>
+  <img src="/blog/gmtc-vr3d/pic1.png"  alt="多边形网格模拟立体效果" />
+  <figcaption>图一：多边形网格模拟立体效果</figcaption>
+</figure>
+
+<p>因此，依赖一些专业 3D 扫描仪（比如如视自研的黎曼、伽罗华等扫描仪）或全景相机等设备采集数据后，再通过算法加工可以获取这些描述三维立体结构的三角面片数据。前端再利用 WebGL/Three.js 等技术将其渲染至浏览器上，此时我们能得到房源的三维立体轮廓，效果如图二（左）所示的网格模型。当然，图二（右）才是我们期望的效果，仅仅有三维”骨架”轮廓是不够的，我们需要在此基础上贴一层”皮肤”，而这层”皮肤”则是通过UV纹理贴图添加上的。</p>
+<figure>
+  <div style="display:flex;" class="fancyboxflex">
+    <img style="width:100%;" src="/blog/gmtc-vr3d/pic2left.gif" />
+    <img style="width:100%;" src="/blog/gmtc-vr3d/pic2right.gif" />
+  </div>
+  <figcaption>图二：三角面片描述的三维效果</figcaption>
+</figure>
+
+<p>对于三维模型有两个比较重要的坐标系统，一个是顶点的位置<code>(x,y,z)</code>坐标，另一个则是UV坐标。什么是UV呢？简言之，就是二维平面贴图映射到三维模型表面的依据。比如典型的UV贴图效果如图三所示，刚刚前文提到三维结构是通过顶点、边及面组成的三角面片组成的，这个三角面是二维的，通过一些数据依赖映射关系从UV贴图中抠出一个相同边、面的三角形贴到三角面片上。所以，此处的UV即指定义了二维平面图片每个点的位置与三维结构三角面片位置的映射关系信息。作为前端工程师，这个跟前端雪碧图（Sprite）概念将多个图标合并成一张图的原理是一致的。</p>
+<figure>
+  <img style="width: 35%" src="/blog/gmtc-vr3d/pic3.png"  alt="房源UV贴图" />
+  <figcaption>图三：房源UV贴图</figcaption>
+</figure>
+
+<p>至此，基于三角面片和UV贴图数据我们成功渲染出了房源的 3D 模型。当然，出于性能考虑我们的三角面片密度不是特别高的，纯粹依靠 3D 模型在终端设备（iOS\Android等）还原房源的真实细节现阶段并不现实。三角面片少，数据量低，内存占用低，我们可以通过 3D 模型还原房源的整体结构。至于细节，则通过点位立方体全景的方式去实现。</p>
+<h4 id="点位全景"><a href="#点位全景" class="headerlink" title="点位全景"></a>点位全景</h4><p>前文提到房源的整体结构通过 3D 模型体现，至于细节则通过全景的形式来表现。我们会在房源选择多个合适的点位拍摄全景图片，然后以立方体全景的方式渲染以实现720 º环顾的效果，如图四（左）所示。</p>
+<figure>
+  <div style="display:flex;">
+    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic4left.gif"  alt="全景效果" /></div>
+    <div style="flex: 14;padding: 0 0 0 40px; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic4right.png"  alt="全景贴图展开" /></div>
+  </div>
+  <figcaption>图四：立方体全景效果及其展开</figcaption>
+</figure>
+
+<p>全景的实现是比较成熟的技术，主流的实现方式有立方体全景和球型全景。两种方式各有优缺点，由于立方体全景二次加工成本低如视目前以立方体全景技术实现为主。立方体全景的原理是渲染一个立方体盒子，给其上、下、前、后、左和右六个面各贴上一张图。需要注意的是，这六张图从中选择连续的四张图拼接在一起是一张连贯的全景图，如图四（右）所示T字形立方体贴图展开。此时，当人眼放置在立方体中心点观望四周是连贯的全景效果。</p>
+<p>全景的效果完全依赖贴图的清晰度，所以我们可以拍摄高清2048分辨率的全景图片去体现房源某个位置的细节信息。这也是看房 VR 3D 模型的第二个核心形态点位全景形态。</p>
+<h4 id="VR-眼镜全景"><a href="#VR-眼镜全景" class="headerlink" title="VR 眼镜全景"></a>VR 眼镜全景</h4><p>前文提到的 3D 模型和点位全景形态都是基于二维显示屏展现的（裸眼体验），如果想让用户具备身临其境的感觉往往需要依赖 VR 眼镜设备。针对这类设备我们需要适配<a target="_blank" rel="noopener" href="//www.w3.org/TR/webxr/">WebXR Device API</a>，我们现阶段的适配策略是渲染两个相同的点位立方体全景，分别供左右眼感知。最终适配的效果如图五所示。</p>
+<figure>
+  <div style="flex: 1;"><img src="/blog/gmtc-vr3d/pic5left.gif"  alt="眼镜全景" /></div>
+  <figcaption>图五：VR 眼镜全景</figcaption>
+</figure>
+
+<p>限于大部分用户的设备还是iOS\Android，目前的裸眼 VR 3D 体验是主流。随着硬件设备的推广，等到 VR 眼镜走向普通用户时，这种更具身临其境的体验会慢慢更多用户接触到。</p>
+<p>当然，除了本文提到 3D 模型形态、点位全景和 VR 眼镜全景三种形态之外，我们内部还有多种其他形态，如模型垂直视角、深度图渲染的全景视角等形态，但是偏技术领域且与普通用户感知不深，此处不详细介绍了。</p>
+<p>最后，基于这三种形态外加一个房源的二维户型图就组成了我们看房 VR 3D 模型的核心结构，在此基础不断完善各种交互（比如形态间切换补间Tween动画）、产品功能逐步演变成大家所熟悉的贝壳如视 VR 看房。</p>
+<blockquote>
+<p>演讲问答环节及后续的反馈情况来看，大家对分享提到的形态间切换的Tween动画实现比较感兴趣，且部分同行表示自己实现的效果达不到如视的移动真实感。此处细节较多，准备后续单独出文章分享，本文暂不花费篇幅详细介绍。</p>
+</blockquote>
+<h3 id="前端架构分层设计"><a href="#前端架构分层设计" class="headerlink" title="前端架构分层设计"></a>前端架构分层设计</h3><figure>
+  <img src="/blog/gmtc-vr3d/pic6.png"  alt="前端架构分层设计" />
+  <figcaption>图六：前端架构分层设计</figcaption>
+</figure>
+
+<p>前文提到房源的 VR 3D 模型的组成及三个核心形态，我们实现了通过 3D 技术真实还原房源信息。经过多轮的产品需求迭代，我们在 VR 3D 模型的基础上不断地完善整个前端的架构分层设计。现阶段，整个VR用户端前端设计中我们抽象了三层：Web 服务层、前端数据层和 View 层。</p>
+<p>我们将 View 层划分成四个方向进行抽象，第一个方向是纯DOM层的，比如首屏内容、控制面板、信息面板等，这层我们通常以React/Vue 组件进行抽象服用。第二个方向是基于 Canvas/WebGL 渲染的三维视图，其功能即前文提到的房源 VR 3D 模型交互。第三个方向是我们维护的 3D 插件生态，以 VR 3D 模型为基础且以插件的形式派生出新的交互、能力（比如，模型中的指南针、电视视频等均以插件的形式集成）。最后一个方向是协议层抽象，我们 VR 是通过Web前端技术渲染实现的，以WebView作为容器集成在终端App里面，通过jsBridge的方式实现双向通信。为了保障业务代码的统一性，我们将第三方依赖（jsBridge/RTC/WebSocket等）进行一层协议抽象，以达到面向协议开发以抹平不同终端差异性的目的。</p>
+<figure>
+  <img src="/blog/gmtc-vr3d/pic7.png"  alt="数据序列帧抽象" />
+  <figcaption>图七：数据序列帧抽象</figcaption>
+</figure>
+
+<p>第二层是数据层的抽象。此处的数据并不是面向后端服务的数据层，而是前端UI交互的数据层抽象。我们将UI交互的状态以全局帧数据的形式抽象出来，当UI发生变化则同步至帧数据；当然，如果帧数据被发生改动（修改帧数据对象）则也会驱动UI发生相同变化。这个过程通过JavaSciprt中Proxy拦截数据对象实现的，如图七。换言之，UI交互能产生新的帧数据，通过帧数据也能还原对应的UI状态。至于，为什么要花费大量精力做这个工作后文讲解业务部分时会有详细介绍。</p>
+<p>第三层 Web 层有两个方向的核心服务，其中基于Node.js/Go实现的 HTTP 服务主要提供 VR 页面的HTML”壳子”和首屏数据，而基于WebSocket服务的全双工数据通道则保障了 VR 体验过程与后台服务的实时通讯。WebSocket 长链接技术有传统HTTP方式无可比拟的优势（协议私有、实时性高、性能优异等），对我们业务的智能化、性能体验提升等无可替代，下文描述业务探索和性能体验部分大家会有更深切的感知。</p>
+<p>贝壳如视用户端的前端设计大致如此，我们大部分核心业务如VR 语言导览、VR 实时带看和AR 讲房等都是基于此设计研发的。</p>
+<h3 id="基于-3D-模型与传统-DOM-开发的差异性对比"><a href="#基于-3D-模型与传统-DOM-开发的差异性对比" class="headerlink" title="基于 3D 模型与传统 DOM 开发的差异性对比"></a>基于 3D 模型与传统 DOM 开发的差异性对比</h3><p>作为一名工作频繁接触3D相关技术的研发工程师，经常被咨询基于 3D 模型研发与传统DOM开发的区别。与传统前端开发差异性是存在的，但是适应如下三点基本就迈入前端3D开发的门槛。</p>
+<h4 id="三维坐标系-vs-DOM树"><a href="#三维坐标系-vs-DOM树" class="headerlink" title="三维坐标系 vs DOM树"></a>三维坐标系 vs DOM树</h4><p>前端DOM树布局是基于CSS盒子模型和Flex布局，页面大部分布局都是基于此实现的，此外还有圣杯、双飞翼等经典布局体系。在二维层面依托强大的CSS，前端布局是随心所欲的。但是放在三维空间，我们大部分时间都在跟坐标系及坐标系间切换打交道。</p>
+<figure>
+  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic8.png"  alt="三维建模坐标体系" />
+  <figcaption>图八：三维建模坐标体系</figcaption>
+</figure>
+
+<p>三维研发的首个门槛就是跟各种坐标系打交道，比如三维物体本身的坐标系（一般称呼为本地坐标系），一个三维空间会存在多个三维物体，如何放置这些三维物体则需要一个三维世界坐标系来定位。此外，三维空间的三维物体通常都是静止的，其移动、旋转等操作都是控制相机的移动来实现的（当然，相机也是一种特殊的三维物体），如图八所示。然而，我们终端设备的屏幕是二维的，相机作为一个”眼睛”将三维物体投影到二维屏幕上又涉及到平面坐标系、齐次坐标系等等。所以，如何理清这些坐标系的概念和坐标系间的相互转换是3D研发的首个门槛，搞清这些在日后的研发中就能做到”游刃有余”。</p>
+<h4 id="面向异步-Hooks-事件"><a href="#面向异步-Hooks-事件" class="headerlink" title="面向异步 Hooks 事件"></a>面向异步 Hooks 事件</h4><p>在处理三维模型行为交互体验时与传统前端还有个很明显的差异就是面临的异步细节要多得多。在DOM层面前端开发时，我们接触的异步事件主要集中在点击、触摸、滚动和Ajax异步请求等。但是在三维交互中，除此之外我们还频繁接触放大缩小、拖拽位移、模式切换等各类异步行为。</p>
+<figure>
+  <div style="display:flex;">
+    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic9left.gif"  alt="全景走点效果" /></div>
+    <div style="flex: 3;padding: 0 0 0 10px; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic9right.png"  alt="涉及异步hooks事件" /></div>
+  </div>
+  <figcaption>图九：点位全景切换走点</figcaption>
+</figure>
+
+<p>在如视内部的底层渲染引擎中，我们维护了比较完善的异步Hooks事件集来应对各种场景的交互行为。比如，如图九（左）效果是我们常见的VR 房源点位全景交互走点移动，整个过程触发了九个异步事件回调，如图九（右）所列。这些回调将整个过程的细节全部暴露出来，方便研发人员更精准地把控体验。一般的终端工程师很难体验这种交互层面细维度精准把控的开发体验，初次接触需要适应。</p>
+<h4 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h4><p>最后一个比较明显的差异性是三维空间里面的碰撞监测。</p>
+<figure>
+  <img style="width: 50%;min-width: 200px;" src="/blog/gmtc-vr3d/pic10.gif"  alt="物体间遮挡与重叠" />
+  <figcaption>图十：物体间遮挡与重叠</figcaption>
+</figure>
+
+<p>如图十所示，在三维空间中摆置新物体难免会涉及遮盖、重叠的情况。在实际开发中，我们尽量规避这种现象的发生。碰撞监测常规的做法是针对物体创建一个规则的立体几何外形将其包围然后分析是否有重叠的部分；还有种思路是建立一条射线，获取此射线与两个物体间的焦点然后分析是否重合。<br>碰撞监测在不同的场景一般会采用合适的方式，对于移动的物体，有时候我们还需要在建模体系中添加物理引擎的支持。碰撞检测在不同的业务场景下，检测的策略是不同的，这个比较考验研发对整个三维空间的理解能力，本文就不展开更细节的内容了。</p>
+<h2 id="新型业务场景探索与实践"><a href="#新型业务场景探索与实践" class="headerlink" title="新型业务场景探索与实践"></a>新型业务场景探索与实践</h2><p>前文涉及的都是偏技术领域的，下面向大家分享下在已有的技术储备下，如视是如何在业务上做的一些探索与实践的。</p>
+<h3 id="三维空间分析计算与二次加工"><a href="#三维空间分析计算与二次加工" class="headerlink" title="三维空间分析计算与二次加工"></a>三维空间分析计算与二次加工</h3><figure>
+  <img src="/blog/gmtc-vr3d/pic11.gif"  alt="物体（家具）识别" />
+  <figcaption>图十一：物体（家具）识别</figcaption>
+</figure>
+
+<p>三维模型是来源于现实真实的房源（通过专业设备拍摄及算法分析获取），我们可以对三维模型进行分析并将里面的家具物体识别出来（如图十一所示）。识别出这些物体后我们就能做些有趣的事情了，比如识别出显示器或电视，可以在此处添加一个视频播放广告或节目来营造更加真实的3D场景，效果如图十二（左）。识别平滑地面，我们可以放置一个扫地机器人或3D宝箱来做些营销活动等等，效果如图十二（中）、（右）。</p>
+<figure>
+  <div style="display:flex;">
+    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic12left.gif" alt="电视视频" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic12center.gif"  alt="扫地机器人" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;transform: scale(0.9153225806451613);transform-origin: left;"><img src="/blog/gmtc-vr3d/pic12right.gif"  alt="宝箱营销" /></div>
+  </div>
+  <figcaption>图十二：根据物体识别添加动态内容</figcaption>
+</figure>
+
+<p>除了空间内的物体识别之外，户型图也是我们二次加工的重点方向。比如，我们将二手房源里面家具及装修物体全部清理掉，然后就得到一个及其”纯净”的白模模型；在基于原有的户型结构重新规划将一个两室一厅的房源改造成一个三室一厅的房源，然后再重新加工装修风格和摆置家居物体等。</p>
+<p>整个过程，如图十三（左）所示，经历了从真实复杂的普通房源到简洁的白模再到复杂的新装修家居风格过程，给潜在的购房用户提前示例这套房源的改造空间。</p>
+<figure>
+  <div style="display:flex;">
+    <div style="flex: 7;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic13left.png" alt="加工过程" /></div>
+    <div style="flex: 2; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic13right.gif"  alt="一键切换" /></div>
+  </div>
+  <figcaption>图十三：真实房源的二次加工</figcaption>
+</figure>
+
+<p>此外，我们在技术体验上也做了些突破，在终端层面实现真实房源与设计房源一键切换和同屏对比的交互体验，最终效果如图十三（右）所示。</p>
+<h3 id="VR-实时带看：同屏连线，高效看房"><a href="#VR-实时带看：同屏连线，高效看房" class="headerlink" title="VR 实时带看：同屏连线，高效看房"></a>VR 实时带看：同屏连线，高效看房</h3><p>另外一个业务场景探索则是线上 VR 实时带看能力的落地。首先，解释下为什么要往这个方向探索？大家有过买房或租房体验的都知道，大部分场景都是经纪人开车载着你去实地看房，一天下来也就看几套房源可能还要爬楼梯、等红绿灯或被太阳曝晒等意外情况。</p>
+<figure>
+  <div style="display:flex;">
+    <div style="flex: 4;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic14left.png" alt="3D 交互与二维交互对比" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="/blog/gmtc-vr3d/pic14right1.gif"  alt="VR 同屏1" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="/blog/gmtc-vr3d/pic14right2.gif"  alt="VR 同屏2" /></div>
+  </div>
+  <figcaption>图十四：3D 交互与二维交互对比及 VR 同屏</figcaption>
+</figure>
+
+<p>尽管 VR 房源虽然还原了房源的真实场景，但是三维空间交互还是比较复杂的，需要用户去探索细节。如图十四（左）是经典的信息流布局：搜索 ➙ 导航 ➙ 推荐 ➙ 筛选 ➙ 列表，这是二维最高效的信息展示布局，国内绝大部分提供数据服务的App（电商京东、餐饮美团、房产贝壳等）均是这类布局。</p>
+<p>但是三维空间交互就没有这么明确了，全景只能查看当前点位且全景游走大部分用户并不知晓。此外，诸如房源的小区信息和附近学校、医院等信息也无法在 VR 3D 模型中明确体现。因此，我们实现了由用户无目的的在 VR 3D 模型中漫游、探索信息转向专业由经纪人带领画面同步、实时语言讲解。</p>
+<p>前文提到我们将前端所有的交互以序列帧数据的形式进行了抽象，用户交互会产生帧数据然后通过WebSocket将生成的帧数据同步给另外一个用户来驱动另外一个用户画面的更新。语音的话目前RTC技术比较成熟，我们落地即可，效果如图十四（右）所示。</p>
+<figure>
+  <img src="/blog/gmtc-vr3d/pic15.png"  alt="终端App与微信小程序VR 实时带看通道链路" />
+  <figcaption>图十五：终端App与微信小程序VR 实时带看通道链路</figcaption>
+</figure>
+
+<p>除了端与端VR 带看之外，我们还实现终端App(iOS/Android)与微信小程序的VR 实时语音带看的业务能力，整个链路通道如图十五所示。</p>
+<p>线上VR实时带看能力在2018年底我们就已经初步实现落地，由于2020年新冠疫情影响造成大批潜在购房用户和经纪人居家隔离，线上VR 实时带看目前已经成为了看房业务的核心场景。</p>
+<h3 id="VR-智能讲房：智能解说，身临其境"><a href="#VR-智能讲房：智能解说，身临其境" class="headerlink" title="VR 智能讲房：智能解说，身临其境"></a>VR 智能讲房：智能解说，身临其境</h3><p>前面提到 VR 带看是通过专业的经纪人陪同去了解房源解决 VR 3D 看房获取信息的方式不高效问题。但这个业务场景也存在些许缺陷：</p>
+<ul>
+<li>人力成本：经纪人不一定能及时响应，比如深夜休息时段。  </li>
+<li>专业水平：不能保障经纪人对所有的房源都了解，又诸如方言等沟通效率。  </li>
+</ul>
+<figure>
+  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic16.gif"  alt="社交恐惧症" />
+  <figcaption>图十六：“社交恐惧症”：客户不愿跟陌生人沟通</figcaption>
+</figure>
+
+<ul>
+<li>顾客“社交恐惧症”：不是人人都愿意跟陌生人沟通等。  </li>
+</ul>
+<p>鉴于此，我们尝试把 VR 3D 交互做得更智能些。怎么做才更智能呢？首先，我们得不完全依赖真实的经纪人。我们将真实的经纪人形象和音色采集出来然后通过视频拼接和语言TTS服务来抽象出一个虚拟经纪人，并将此虚拟经纪人形象搬到用户的终端屏幕上，如图十七所示。</p>
+<figure>
+  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic17.gif"  alt="虚拟数字经纪人" />
+  <figcaption>图十七：虚拟数字经纪人</figcaption>
+</figure>
+
+<p>有了虚拟的经纪人，那么该讲解什么样的内容呢？VR 带看语音来自于经纪人，画面行为帧数据也来源于经纪人行为。此时，就需要通过算法层面去合成讲稿并生产对应的音频和序列帧数据。整体的架构如图十八所示，前端所需要支持的就是定义画面行为的序列帧数据格式规范，由AI团队的剧本服务和NLG服务去计算LRC文本讲稿和行为序列。然后，通过主控服务生成带讲稿音频虚拟经纪人视频并附带行为序列帧数据给前端”翻译”。</p>
+<figure>
+  <img src="/blog/gmtc-vr3d/pic18.png"  alt="AR 讲房架构" />
+  <figcaption>图十八：AR 讲房架构</figcaption>
+</figure>
+
+<p>因为涉及的点过多，更多的细节本文就不再详细讲解了。大家可以扫描图十九的二维码或访问 <a target="_blank" rel="noopener" href="//open.realsee.com/ke/15XKMYpVwOw3R7j8/BoZqQK8KmaAtncxhvTYre9ztvW9D50zg/?v3=1">珠江罗马嘉园东区 2室1厅</a> 这套房源进行体验。总之，由于WebSocket双工实时性和前端序列帧数据抽象，VR 的整体体验变得更加智能化。</p>
+<figure>
+  <div style="display:flex;">
+    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic19left.png" alt="体验二维码" /></div>
+    <div style="flex: 2; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="/blog/gmtc-vr3d/pic19right.png"  alt="入口位置" /></div>
+  </div>
+  <figcaption>图十九：AR 讲房体验二维码</figcaption>
+</figure>
+
+<h2 id="面临的性能挑战及应对方案"><a href="#面临的性能挑战及应对方案" class="headerlink" title="面临的性能挑战及应对方案"></a>面临的性能挑战及应对方案</h2><p>在过去三年的 VR 看房及衍生业务研发中我们主要面临的性能瓶颈有两个：加载耗时和内存溢出。</p>
+<h3 id="加载耗时"><a href="#加载耗时" class="headerlink" title="加载耗时"></a>加载耗时</h3><p>在2019年8月份前，贝壳如视 VR 首屏加载平均耗时7.6s，截至2021年7月份已经降至1.92s，正常网络情况下用户基本无需等待过多时间去体验VR房源。如此巨大的提升我们究竟做了些什么呢？首先我们先分析之前慢的原因，然后”对症下药”。而且首屏的性能提升也不是一蹴而就的事情，我们内部成立了个性能体验专项虚拟团队持续了近一年才达到最终1.92s的效果。</p>
+<p>问题出在哪儿呢？主要在三个方面：</p>
+<h4 id="密集的HTTP请求"><a href="#密集的HTTP请求" class="headerlink" title="密集的HTTP请求"></a>密集的HTTP请求</h4><p>前文提到 VR 3D 模型依赖大量的模型UV贴图和全景图片；除此之外，还有大量的地图、讲房音视频等资源。在浏览器的限制下同个域下的CDN请求限制在3~6个（不同浏览器会有差异）。大量的网络请求只能排队等待。</p>
+<h4 id="实时计算"><a href="#实时计算" class="headerlink" title="实时计算"></a>实时计算</h4><p>前端存在大量的实时计算，比如3D模型文件的解压缩、户型图数据解析、三维空间分析及碰撞监测等。由于JavaScript的单进程，这些计算依赖也阻塞一些核心逻辑。</p>
+<h4 id="模块渲染加载策略不合理"><a href="#模块渲染加载策略不合理" class="headerlink" title="模块渲染加载策略不合理"></a>模块渲染加载策略不合理</h4><p>由于VR 开发初期考虑不周全，我们的异步渲染加载策略设计并不合理，优先级策略划分错乱。</p>
+<p>分析原因后，优化策略就很明确了。针对密集的HTTP请求我们先添加更多CDN域名支持，保障同时刻的请求限制在五个以内并增加HTTP2协议支持。实时计算带来的耗时采取的策略是充分利用缓存（离线计算缓存、浏览器缓存以及服务端计算缓存等）；同时，我们对模块渲染加载策略进行了重新设计，每个模块都规划好权重，按照权重来加载。此外，部分非核心交互则由用户触发后再加载渲染。由于历史包袱过重，真个过程持续了近一年，最终有了7.6s到2.55s的首屏加载的性能提升，过程如图二十（左）所示。</p>
+<figure>
+  <div style="display:flex;">
+    <div style="flex: 3;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic20left.png" alt="耗时变化" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="/blog/gmtc-vr3d/pic20right.gif"  alt="加载效果" /></div>
+  </div>
+  <figcaption>图二十：VR 首屏性能提升过程</figcaption>
+</figure>
+
+<p>除上文提到的优化之外，我们还充分挖掘了部分客户端的能力。第一个能力是<strong>客户端HTTP请求拦截代理和缓存</strong>，通常情况下WebView缓存池”阈值”很低，而客户端缓存池则大得多；此外，分析对比来看客户端的HTTP请求效率要比WebView的HTTP请求高很多。支持HTTP请求代理和缓存之后，整个加载耗时降低了近500ms。</p>
+<p>另外一个核心能力则是增加了<strong>客户端首屏渲染</strong>：即进入 VR 页面前客户端提前预载好首屏内容，在加载阶段展示客户端内容，等前端完成首屏渲染之后再换成前端的渲染效果。整个过程是无缝的，用户甚至感知不到加载过程，最终的效果如图二十（右）所示。</p>
+<h3 id="内存溢出"><a href="#内存溢出" class="headerlink" title="内存溢出"></a>内存溢出</h3><p>加载耗时现阶段已经取得比较好的效果，我们目前遭遇的最大的瓶颈是内存溢出。</p>
+<figure>
+  <img src="/blog/gmtc-vr3d/pic21.png"  alt="VR 内存占用" />
+  <figcaption>图二十一：VR 内存占用</figcaption>
+</figure>
+
+<p>在前文首屏优化中提到我们耗费大量的时间完善了模块加载渲染策略，因此在 VR 交互过程中，随着各个模块不断完成渲染，内存占用是逐步递增的，如图二十一（左）所示。在图二十一（右）扇形图中也列举了不同模块的内存占用情况。目前，iOS设备的WebView内存崩溃的阈值大约在1.5G左右，Android设备则不同机型阈值不完全一致，高端Android设备普遍比iOS设备高很多，但低端机阈值远低于1.5G内存。</p>
+<p>规避内存溢出问题我们从两个方向入手：</p>
+<h4 id="增加内存池"><a href="#增加内存池" class="headerlink" title="增加内存池"></a>增加内存池</h4><p>目前我们测试过iOS/Android 设备各类WebView控件，除了实现WebView独立进程之外并没有找到突破WebView内存限制的方式。这个属于WebView容器瓶颈。</p>
+<h4 id="降低内存占用"><a href="#降低内存占用" class="headerlink" title="降低内存占用"></a>降低内存占用</h4><p>我们做了些突破，比如按需渲染，非可视区域销毁模块等等，但仅仅降低了崩溃率，成效并不明显。</p>
+<p>而且，随着业务的不断迭代，VR 能力愈来愈丰富，内存占用还在不断提升。依赖WebView+WebGL+jsBridge技术栈落地的VR体验现阶段有很明显的局限性，虽然纯原生技术栈已经提上日程但短期来看还是很难落地的。为了弱化内存溢出带来的影响，我们目前采取的策略是根据用户的使用场景以动态降级的方式给予用户最合适的交互体验。</p>
+<figure>
+  <img src="/blog/gmtc-vr3d/pic22.png"  alt="VR 性能瓶颈影响因素鱼骨图" />
+  <figcaption>图二十二：VR 性能瓶颈影响因素鱼骨图</figcaption>
+</figure>
+
+<p>性能优化的本质是渐进增强和优雅降级，把握每个细节把自己该做的部分做好一般都会有比较好的性能表现。我们系统分析了造成性能瓶颈各个因素，如图二十二所示。事实上，我们很难做些突破然后彻底解决内存问题，只能降级保障体验。</p>
+<p>如何做到更”智能”地渐进增强和优雅降级？首先需要的是前端支持模块的”热插拔”能力，即能动态的销毁某个模块以将内存空间给其他模块使用。此外，我们维护一个关于内存瓶颈的数据仓库，依托WebSocket的双工能力，VR 交互时会收集用户的终端设备信息及部分VR用户行为，并在实时分析该用户的终端的最大承受能力，推送给前端再动态地加载或卸载前端模块，从而达到加强体验或降级的效果。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>前面给大家讲述了贝壳如视前端团队如何基于 VR 及 3D 技术在Web领域架构设计，并分享了在这个领域上的一些业务探索、实践及应对性能瓶颈的具体措施。本次的演讲的专题是”移动技术新趋势”，最后站在技术的角度上做如下四个方面的经验（或趋势）总结来结束本次的演讲内容吧。</p>
+<h3 id="可玩性"><a href="#可玩性" class="headerlink" title="可玩性"></a>可玩性</h3><p>三维领域研发比传统基于DOM前端研发有趣得多，比如团队就有产品说过三维空间二次加工装修设计是更高阶的”乐高”式游戏，欢迎大家加入这个领域。</p>
+<h3 id="序列帧抽象及数据驱动"><a href="#序列帧抽象及数据驱动" class="headerlink" title="序列帧抽象及数据驱动"></a>序列帧抽象及数据驱动</h3><p>过往的前端交互都是用户主动触发的，但是在 3D 方向的交互模型更需要自动播放，提高信息获取的方式。前端数据层序列帧抽象，支持数据驱动、序列化和反序列化将是不可或缺的一环。</p>
+<h3 id="“热插拔”"><a href="#“热插拔”" class="headerlink" title="“热插拔”"></a>“热插拔”</h3><p>3D 领域开发内存占用是远大于传统前端页面的，尤其在终端设备WebView容器下内存限制更明显。模块、组件及插件等封装都需要支持”热插拔”，从而做到动态加强体验或降级的效果。</p>
+<h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>我们已经逐步在抛弃主动式Ajax，数据的实时性和智能化都依赖WebSocket的双工能力。目前，WebSocket服务已经是核心基础建设。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="cks20r1cu0001t0lngtpl39t2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="layout/post-those-years-nba-player" class="article article-type-layout/post" itemscope itemprop="blogPost">
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Sat Nov 16 2019 03:00:00 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/those-years-nba-player/">那些年我关注过的NBA球星</a>
+    </h1>
+  
+
+        <div class="article-dateref">
+  首次编辑于 Sat Nov 16 2019 03:00:00 GMT+0800 (China Standard Time)
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>我不喜欢用”那些年”这类很直白缅怀过去的字眼做标题，但是折腾许久才慢慢意识到现在的我已经找不着更好一点儿的词汇了。其实这就是一篇缅怀过去的一篇文章，并且是关于NBA球星的。因为我意识到自己已经很难和过去一样关注NBA赛事的输赢，NBA于我渐行渐远。</p>
+</blockquote>
+<h2 id="第一次接触"><a href="#第一次接触" class="headerlink" title="第一次接触"></a>第一次接触</h2><p>首次接触NBA是在2007年，同学的一份体育类报纸被我当作隔离水泥的墙纸贴在宿舍的墙上。</p>
+<p>因为家距离学校不足一公里，我成为班级里极少数的”走读生”。但是学校还是给我预留了一个床位，或许嫌弃家附近的塑料工厂太吵，也可能是觉得晚自习十点后的夜太黑，亦或是思索着换种方式能与同学走得更近些，毕竟居住在一室共同的话题才多。总之，我在学校宿舍待了一段时间，每夜入睡前都会不经意间瞧见墙上的那图、那文字。</p>
+<figure>
+  <img style="width: 60%" src="//i.loli.net/2019/11/17/C13eRcgW4HnS8t9.jpg" alt="科比・布莱恩特 vs. 拉沙德・刘易斯" />
+  <figcaption>科比・布莱恩特 vs. 拉沙德・刘易斯</figcaption>
+</figure>
+
+<p>报纸封面的新闻是关于拉沙德・刘易斯跟魔术队签了一份价值超亿的转会合同。虽然玩篮球有很长一段时间了，体验过扔进框的喜悦，享受过拼抢的激动；但那时我不知道世界上有NBA这类东西、这个联盟。我很好奇这个人有多厉害，一个运动员能值这么大价值？</p>
+<p>刚刚步入高中的我后来也发现，了解NBA资讯越多就能与同学有更多的共同话题，特别是体魄强壮的男生。往后周六日，我也愈来愈关注CCTV5频道、慢慢准时追着NBA球赛。</p>
+<p>球赛是无聊的，远没有自己在球场扔球来得好玩。追比赛的动力只为了上学第一天的周一能与同学有更多的谈资：谁赢了？哪个球星得了多少分？哪只队伍还有进季后赛的机会。</p>
+<p>球赛是无聊的，我坚持了一段时间就再也没接触NBA球赛了。因为懂得少，因为自己打篮球只是扔个球，因为比赛的输赢好像跟我无关。大家都喜欢科比、麦迪、詹姆斯、加内特，可是他们距离我好远。但是了解到身边存在着许多热衷篮球的同学，不论高矮、性别、成绩，喜欢的球队赢了关注的球员表现亮眼了都会很开心。</p>
+<p>球赛是无聊的，某个周六上午最后一节课刚刚结束，同桌迫不及待地悄悄跟我说”阳儿，下午打篮球不？我借到了一个篮球下午可以来”。果然，我居然没有注意到在他课桌的死角内放置着一个起着毛刺的篮球，我们课堂上时常喊着饥饿其实就是为了能够在操场上流汗。</p>
+<p>这种邀请我是不会拒绝的，从下午两点玩到六点，要不是快到饭点我们是不会离开的。<br>同桌是真心爱篮球的，一直嫌弃自己一米七八的身高还不够高，因为喜欢加内特能够在一个夏天把自己晒得黝黑黝黑的。<br>于我而言，这比看篮球比赛有意思多了，挣着球一群人流着汗…</p>
+<h2 id="中国队"><a href="#中国队" class="headerlink" title="中国队"></a>中国队</h2><p>08年是中国多灾多难的一年，也是我存储许多记忆的一年。</p>
+<p>年初的南方大雪，寒假在家的我担心父亲还能不能回家过年，给我准备新衣裳、发压岁钱。</p>
+<p>刚开学不久，新闻里播着西藏拉萨打砸抢烧暴力事件，文科老师偶尔也在课堂上义愤填膺。</p>
+<p>当我紧张忙着午间休憩时，又听闻四川汶川地震。幸好在四川的外婆没啥事。趁着暑假，和妹妹二人勇敢地去了一趟四川德阳。经历过几次余震，却无意识畏惧，日常就是和妹妹在德阳街道图书馆看书，在家追着动漫，对川式水煮五花肉也终身难忘，刺激味蕾的记忆是挥之不去的。</p>
+<figure>
+  <img style="width: 80%" src="//i.loli.net/2019/11/17/RcA9CdtbB7igSVO.jpg" alt="北京奥运" />
+  <figcaption>2008・北京奥运</figcaption>
+</figure>
+
+<p>最重要的还是北京奥运啦，”北京欢迎你”的调调随处都存在着。</p>
+<p>那个阶段我关注的是刘翔的110米栏、中国足球、中国篮球。等待了一上午，刘翔没有完成比赛，心中难以释怀；或许1356就不应该交给一个人的身上。<br>足球是对阵美丽遥远的新西兰，拿下奥运首个进球的中国队没有拿下比赛；中国队的实力怎么这么不济，这是我难以接受的事实。还好，篮球比赛是很精彩的。</p>
+<p>印象最深刻的是中国对战美国和中国对战西班牙——对战世界第一、第二。<br>第一例进球是姚明的三分，赛前我构思了第一个球的各种场景，却没猜测到居然会是姚明的三分。<br>朱芳雨、王仕鹏的手感好好，各种进；看着矮矮的刘炜，运起球来各种潇洒；易建联、王治郅、孙悦与美国全明星对位起来一点儿也不虚。<br>双方有来有回不可开交，虽然半场之后中国队慢慢落入下风。<br>缺失我们都知道这是一场结果赤裸裸的比赛，但还是为中国队的球员骄傲，发自内心的。<br>更何况，对阵西班牙的比赛中国队差点还赢了。</p>
+<p>原来篮球这么好看，哦不原来打篮球的那一群人是如此优秀。</p>
+<h2 id="季后赛"><a href="#季后赛" class="headerlink" title="季后赛"></a>季后赛</h2><p>学业的压力徒增，生活中面临的诱惑也多了许多，流汗的疯狂却越来越少；不过，看NBA球赛却成为学习之外的日常。</p>
+<figure>
+  <img style="width: 60%" src="//i.loli.net/2019/11/17/PyYmGBsi982LE6v.jpg" alt="季后赛姚明迎接湖人队防守" />
+  <figcaption>季后赛姚明迎接湖人队防守</figcaption>
+</figure>
+
+
+<p>〇九上半年，班级中最具人气的球员麦迪被交易走了，没有麦迪的火箭队其实更强大。季后赛与湖人挣抢七让我见识到竞技体育的韧性，记忆最深刻的是那一场比赛好多同学凌晨就逃离校园去看比赛了，期待奇迹却没有奇迹。</p>
+<figure>
+  <img style="width: 50%;" src="//i.loli.net/2019/11/17/58xRCczaVfjXKJg.jpg" alt="勒布朗・詹姆斯 vs. 拉沙德・刘易斯" />
+  <figcaption>勒布朗・詹姆斯 vs. 拉沙德・刘易斯</figcaption>
+</figure>
+
+<p>另外一边则是詹姆斯的骑士和魔术鏖战着，我知道有许多人不喜欢詹姆斯，但是看过那一轮系列赛的我对他的评价始终是无与伦比的优秀。有第二场绝杀转身举指的怒吼，也有第六场的黯然离去，上演着我以为只有电影里面才有的剧情。</p>
+<figure>
+  <img style="width: 60%" src="//i.loli.net/2019/11/17/y4HSirBYb6J5xmw.jpg" alt="季后赛科比：湖人 vs. 魔术" />
+  <figcaption>季后赛科比：湖人 vs. 魔术</figcaption>
+</figure>
+
+<p>〇九总决赛的主角是科比，第一场科比求胜的眼神告诉我”第二名才是真正的输家”不是简单说说而已。熬过巴蒂尔和阿泰斯特防守，那个时期的联盟还有什么组合能够阻止科比夺冠的心。第二年依旧是科比与凯尔特人大战七场，科比上演了自己曼巴式复仇，不过看着他们这群球员比赛真的好可爱。</p>
+<p>一一年是是神奇的逆转，当小牛夺冠诺维茨基第一时间离开球场；拉起球衣捂住脸掩盖自己失控的情绪。〇六年总决赛被翻盘，〇七年被勇士”黑八”，一〇年又被马刺”黑七”，没有被打入谷底的耻辱，怎会有攀上顶峰的泪水。</p>
+<p>一二年在热火的詹姆斯终于拿到自己想要的荣誉，虽然我不认同”无冠之王不是王”的价值观。</p>
+<p>一三年，雷・阿伦的神奇三分与吉诺比利神一般的表现以及邓肯最后一场最后一刻不甘地捶地板。马刺太老了、GDP时代结束了 …</p>
+<p>一四年，去年马刺的失利让我耿耿于怀了许久，想不到今年能够卷土重来，我好害怕马刺再输。但总决赛阵容与去年一般，我告诉我自己这个系列赛我一场都不愿意错过。<br>可惜，最后一次比赛却发生在我毕业答辩时刻…</p>
+<figure>
+  <img src="//i.loli.net/2019/11/17/cbgDJx8uoqjPK7i.jpg" alt="马刺夺冠" />
+  <figcaption>马刺夺冠："每一次的失败都是下一次的卷土重来"</figcaption>
+</figure>
+
+
+
+<p>马刺夺冠时刻就是我毕业答辩的时刻。总决赛的最后一场，我在答辩室盯着3G网络手机中的文字直播，可是答辩的次序被安排在了上午。我的内心是紊乱的，毕业设计做得不够好，害怕被老师刁难，又担心马刺不能赢。想不到大学的最后时刻是如此纠结的体验，庆幸结局都是美好的。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>未来很长的一段时间我可能会很难再关注NBA联赛，吸引我的是某些球员，让我不舍的是那碎片一样的岁月，而非NBA联赛，无关篮球。追求自己想要、喜欢的路途感觉真好，虽然会一路波折、忐忑、耻辱。</p>
+<blockquote>
+<p>版权声明：文中涉及图片素材均来源于<a target="_blank" rel="noopener" href="//www.zimbio.com">Zimbio</a>，版权归属于<a target="_blank" rel="noopener" href="//www.zimbio.com">Zimbio</a>。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/those-years-nba-player/" data-id="cks31vbo10004hulndia1g9tl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-tech-salon-13-app-proto" class="article article-type-post" itemscope itemprop="blogPost">
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/tech-salon-13-app-proto/">前端工程化开发方案app-proto</a>
+    </h1>
+  
+
+        <div class="article-dateref">
+  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (China Standard Time)
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文是针对去年（2016年10月）美团点评技术沙龙第13期分享的<a target="_blank" rel="noopener" href="https://www.slideshare.net/meituan/13appproto">《前端工程化开发方案app-proto介绍》</a>整理而来的技术博客。<br>年初的时候又针对Koa2.0做了些许语法适配和完整的SSR支持（<a href="https://solome.js.org/slides/app-proto-2.0/">app-proto-2.0</a>）。</p>
+</blockquote>
+<p>什么是前端工程化？根据具体的业务特点，将前端的开发流程、技术、工具、经验等规范化、标准化就是前端工程化。<br>它的目的是让前端开发能够“自成体系”，最大程度地提高前端工程师的开发效率，降低技术选型、前后端联调等带来的协调沟通成本。</p>
+<p>美团点评厦门智能住宿前端研发团队通过多个前端项目开发的探索和实践，基于“约定优于配置”（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Convention_over_configuration">Convention Over Configuration</a>）的原则制定了一套前端工程化开发方案app-proto。本文将简要介绍其中的一些设计细节和约定。</p>
+<h4 id="面临的业务特点"><a href="#面临的业务特点" class="headerlink" title="面临的业务特点"></a>面临的业务特点</h4><p>智能住宿前端团队承担的前端业务主要面向B端项目，用户主要是商家、销售、运营、产品经理以及研发人员。</p>
+<p>诸如工单管理、信息管理、门锁运营、PMS（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Property_management_system">Property management system</a>）、CRM（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Customer_relationship_management">Customer relationship management</a>）及AMS（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Asset_management">Asset management system</a>）等项目都是单页面工具类应用，特点是功能交互繁多、复杂表单，非展示类、无SEO（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Search_engine_optimization">Search engine optimization</a>）需求。</p>
+<p>如果这些项目脱离浏览器这个“外壳”，与传统的原生桌面GUI软件无异。换言之，这些项目就是一种运行于浏览器的工具软件。</p>
+<blockquote>
+<p>实际上，部分项目我们也确实利用CEF（<a target="_blank" rel="noopener" href="https://bitbucket.org/chromiumembedded/cef">Chromium Embedded Framework</a>）等技术给其套个“外壳”，当作传统的桌面GUI应用提供给用户使用。</p>
+</blockquote>
+<p>同时，部分服务需要从智能门锁、控制盒Wifi等硬件设备收录状态数据，限于硬件环境测试的不稳定性，后端的开发测试周期远比前端开发周期长。大部分场景下，前后端需并行开发，后端工程师并不能在第一时间兼顾到前端所需的API接口等服务，给前端开发造成没有必要的“等待期”，影响开发进度。</p>
+<p>此外，项目多、敏捷需求多、开发周期短以及面向多后端服务（多个后端团队）等也是我们前端研发团队面临的挑战。</p>
+<h4 id="一些前端经验总结"><a href="#一些前端经验总结" class="headerlink" title="一些前端经验总结"></a>一些前端经验总结</h4><p>针对多个项目的开发实践和探索，我们在对前端工程化设计中得到如下一些经验总结：</p>
+<ul>
+<li>前端开发应该“自成体系”（包括构建、部署及前端运维），不应该和后端项目耦合在一起。</li>
+<li>避免“大而全”的重量级框架，一个框架真的满足不了所有的业务场景。项目多了，我们又不想为每个新项目重新造一遍技术“轮子”。</li>
+<li>新的前端技术（<a target="_blank" rel="noopener" href="https://facebook.github.io/react/">React</a>、<a target="_blank" rel="noopener" href="https://vuejs.org/">Vue</a>、<a target="_blank" rel="noopener" href="https://angular.io/">Angular2</a>等）和工具（<a target="_blank" rel="noopener" href="http://gruntjs.com/">Grunt</a>/<a target="_blank" rel="noopener" href="http://gulpjs.com/">gulp</a>、<a target="_blank" rel="noopener" href="https://webpack.github.io/">webpack</a>、<a target="_blank" rel="noopener" href="https://babeljs.io/">Babel</a>等）不断涌现、迭代，新技术选型应避免“改头换面”式重构。</li>
+<li>工程化设计要合理分层且相互独立，随时应对新需求和技术的变化，任何一层能够低成本被替换、淘汰。</li>
+</ul>
+<h4 id="设计概览"><a href="#设计概览" class="headerlink" title="设计概览"></a>设计概览</h4><p>目前，app-proto将前端工程化项目拆分成三大模块：Node服务（负责数据代理、url路由和服务端渲染）、Web应用开发（专注Web交互体验）以及前端运维（构建、测试、部署及监控等）。整体的结构设计如图1所示。</p>
+<figure>
+  <img src="/blog/tech-salon-13-app-proto/structural-design.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="Structural Design" />
+  <figcaption>app-proto 结构设计图</figcaption>
+</figure>
+
+<ul>
+<li>Node服务：用于实现前后端分离，核心功能是实现数据代理中转，附带url路由分发和服务端渲染功能。</li>
+<li>Web应用开发：纯粹的前端模块，给予前端工程师极大的自由度进行技术选型，专注于Web交互体验的开发。</li>
+<li>前端运维：主要指前端项目构建和部署、工程质量（源码质量检查和测试等）及监控服务（日志、性能等）等工作。</li>
+</ul>
+<h4 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a>前后端分离</h4><p>正如前文所强调的，前端模块开发应该“自成体系”，而不是后端项目的一部分（Controller或View层）。比如说，前端工程师要在本地跑通完整的项目，就必须配置好后端所需开发环境和各种服务，如果后端涉及的服务多、变化频繁，配置开发联调环境工作往往是耗时耗力的。为了实现彻底的前后端分离，我们在前端开发体系中引入了Node服务层。</p>
+<p>在最初的开发中，为了降低Node端的开发和运营成本，我们极力避免在Node服务中“掺合”过多的业务逻辑。经过几个项目的实践，最后“约定”在Node服务中我们仅仅做三件事：数据代理、路由分发和服务端渲染。</p>
+<h5 id="数据代理"><a href="#数据代理" class="headerlink" title="数据代理"></a>数据代理</h5><p>首先，前端数据从何而来？通过Ajax的形式直接从后端服务中获取数据是传统的方式，但是在应对多后端服务时，还是面临着诸如请求认证、CORS(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">Cross-origin resource sharing</a>)等困扰。常见的解决方案是通过<a target="_blank" rel="noopener" href="https://github.com/nodejitsu/node-http-proxy">http-proxy</a>，即在Node端通过HTTP请求得到数据后，Web端再通过Ajax的方式从Node端间接获取后端数据，Node服务起到“桥梁”的作用。</p>
+<p>方案<code>http-proxy</code>对已经成熟的后端服务是具备实用价值的，但是在后端服务并没有完成开发（或前后端并行开发）的场景下时，开发阶段前端的数据来源依旧是个问题。同时，前端还面临诸多请求合并、缓存等需求，解决这些困扰，前端工程师需要和后端技术人员做大量的沟通、约定。</p>
+<p>在这里，我们基于原有的<code>http-proxy</code>基础上在Node服务中添加<code>datasources</code>模块，尝试在数据的处理上给予前端工程师很大的自由度，并实现“按照约定写代码”。</p>
+<p>举例说明，开发某一前端业务时涉及到<code>pms</code>和<code>upm</code>两个后端服务，且提供的API内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># pms API</span><br>pms/api/v2.01/login<br>pms/api/v2.01/inn/create<br>pms/api/v2.01/inn/get<br><br><span class="hljs-comment"># upm API</span><br>upm/api/v3.15/menu<br></code></pre></td></tr></table></figure>
+
+<p>面对这些接口，理想情况下前端直接通过<code>ajax.post(&#39;pms/api/v2.01/login&#39;, params)</code>方式获取即可。但是，<code>pms</code>接口服务尚处在开发阶段，面临跨域或不可用问题。<code>upm</code>接口服务虽稳定，但是该服务由第三方团队维护，请求需要权限认证。传统的Ajax方式在这类场景下并不适用。而<code>datasources</code>模块是通过怎样的设计来优化这些问题的呢？首先，我们将前端需要的API映射到前端源码仓库，映射的目录结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># server/datasources/&#123;后端系统&#125;/&#123;接口目录&#125;</span><br>── datasources<br>    ├── pms<br>    │   ├── login.js<br>    │   ├── login.json<br>    │   └── inn<br>    │       ├── create.js<br>    │       └── get.js<br>    └── upm<br>        ├── menu.js<br>        └── menu.json<br></code></pre></td></tr></table></figure>
+
+<p>其中，每个<code>**.js</code>后缀的文件的内容是将原本Web端Ajax操作转移到Node端的HTTP请求，以<code>pms/login.js</code>为例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/* async 函数 */</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">params</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> http = <span class="hljs-built_in">this</span>.http<br>  <span class="hljs-keyword">const</span> pms = <span class="hljs-built_in">this</span>.config.api.pms<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> apiUri = <span class="hljs-string">`<span class="hljs-subst">$&#123;pms.prefix&#125;</span>/login`</span><br>    <span class="hljs-comment">// http 请求：http.post() 方法封装了权限认证</span><br>    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> http.post(apiUri, params)<br><br>    <span class="hljs-comment">// 简单的数据格式校验</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Number</span>(result.status) === <span class="hljs-number">0</span> &amp;&amp;<br>      (<span class="hljs-string">&#x27;data&#x27;</span> <span class="hljs-keyword">in</span> result) &amp;&amp;<br>      (<span class="hljs-string">&#x27;bid&#x27;</span> <span class="hljs-keyword">in</span> result.data)) &#123;<br>      <span class="hljs-comment">// 将bid值记录至session</span><br>      <span class="hljs-built_in">this</span>.session.bid = result.data.bid<br>    &#125;<br>    <span class="hljs-keyword">return</span> result<br>  &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>    <span class="hljs-comment">// 后端API出现异常 (实时通知 or 记录日志)</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当然，对于那些已经成熟稳定的API服务直接通过<code>http-proxy</code>方式实现数据中转即可。但由于需求变更频繁，后端API服务始终处在不断迭代中，前端在进行数据处理过程中总会面临如下的几种情况：</p>
+<ul>
+<li>接口校验或数据二次加工：面临多后端服务，API的格式可能不一致；或者对数据列表排序加工等。</li>
+<li>合并请求：可以发多个http请求，避免Web端同时发送多个Ajax请求。</li>
+<li>前端运维的数据：比如城市字典、阴阳历转换表等固定数据。</li>
+<li>缓存数据：如请求的用户信息，短期内不会有大变动，可以采用<a target="_blank" rel="noopener" href="https://github.com/th507/node-hl-cache">Half-life cache</a>等算法实现简单缓存。</li>
+<li>需权限认证的接口：<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2617">HTTP Authentication</a>。</li>
+</ul>
+<p>这些场景下都建议使用<code>datasources</code>模块进行数据中转，将原本需由前后端沟通协调才能实现的功能全部交给前端自行处理，给予前端工程师处理数据提供自由度的同时也降低了后端API的开发维度。</p>
+<p>那该如何快捷地调用<code>datasources</code>目录下的<code>async</code>函数呢？这里我们做了简单封装，将该目录下的所有<code>**.js</code>文件解析到Koa的上下文环境中以<code>this.ds</code>对象进行存储，并按照目录结构进行驼峰式（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Camel_case">Camel-Case</a>）命名，转换过程见图2。</p>
+<figure>
+  <img src="/blog/tech-salon-13-app-proto/datasources-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="datasources-recipes" />
+  <figcaption>datasources 目录解析转换过程</figcaption>
+</figure>
+
+<p>在Koa中间件中通过<code>this.ds</code>对象调用，比如<code>src/datasources/pms/login.js</code>函数映射至<code>this.ds.PmsLogin()</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Koa Middlewares</span><br>app.use(<span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>  <span class="hljs-comment">// ..`.</span><br>  <span class="hljs-comment">// 最后一个参数为是否使用mock</span><br>  <span class="hljs-keyword">const</span> loginData = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.ds.PmsLogin(params, <span class="hljs-literal">false</span>)<br>  <span class="hljs-comment">// ...</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>在Web端可以统一封装<code>ds()</code>方法，无需关注Ajax请求<code>Headers</code>、是否跨域等问题：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Web (Browser)</span><br>ds(<span class="hljs-string">&#x27;PmsLogin&#x27;</span>, &#123; username, password &#125;, <span class="hljs-literal">true</span>)<br>  .then(success)<br>  .catch(error)<br></code></pre></td></tr></table></figure>
+
+<h5 id="Mock支持"><a href="#Mock支持" class="headerlink" title="Mock支持"></a>Mock支持</h5><p>正如前文所提到的，后端研发进度一般滞后于前端，在后端API服务可用之前，前端仅有一份API文档供参考。在规范中，<code>**.json</code>后缀的文件就起到Mock作用，同样以<code>pms/login.json</code>举例：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">0</span>,<br>  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;成功&quot;</span>,<br>  <span class="hljs-attr">&quot;data&quot;</span>: &#123; <span class="hljs-attr">&quot;bid&quot;</span>: <span class="hljs-string">&quot;@string(32)&quot;</span>, <span class="hljs-attr">&quot;innCount&quot;</span>: <span class="hljs-number">1</span> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>具体的<code>json</code>格式写法请参考<a target="_blank" rel="noopener" href="http://mockjs.com/">mockjs</a>、<a target="_blank" rel="noopener" href="https://github.com/nuysoft/Mock/wiki/Syntax-Specification">Syntax Specification</a>。</p>
+</blockquote>
+<p>简言之，当API服务可用时则执行<code>**.js</code>后缀文件中的<code>async</code>函数来获取数据，不可用时则解析<code>**.json</code>后缀Mock文件，并不需要单独开启一个Mock服务。</p>
+<h4 id="路由分发"><a href="#路由分发" class="headerlink" title="路由分发"></a>路由分发</h4><p>对url路由的处理和数据代理的做法类似，按照目录结构来管理。url路由配置在<code>server/pages</code>目录下，目录下的文件会自动映射成为路由。</p>
+<p>比如url为<code>http://example.com/pms</code>页面，映射到<code>server/pages/pms.js</code>文件的写法如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">urls</span>: [<span class="hljs-string">&#x27;/pms&#x27;</span>, <span class="hljs-string">&#x27;/pms/error&#x27;</span>],       <span class="hljs-comment">// 多种正则如：[&#x27;/pms&#x27;, [&#x27;/pms/v1&#x27;], [&#x27;/pms/v**&#x27;]]</span><br>  <span class="hljs-attr">methods</span>: [<span class="hljs-string">&#x27;GET&#x27;</span>],                   <span class="hljs-comment">// 多种method：[&#x27;GET&#x27;, &#x27;POST&#x27;]</span><br>  <span class="hljs-attr">js</span>: [<span class="hljs-string">&#x27;http://code.jquery.com/jquery-1.12.0.min.js&#x27;</span>],<br>  <span class="hljs-attr">css</span>: [<span class="hljs-string">&#x27;http://yui.yahooapis.com/pure/0.6.0/pure-min.css&#x27;</span>],<br>  <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;default&#x27;</span>,                <span class="hljs-comment">// 服务端渲染模板</span><br>  <span class="hljs-attr">middlewares</span>: [],                    <span class="hljs-comment">// 针对本页面的中间件</span><br>  <span class="hljs-attr">controller</span>: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>&#123;  <span class="hljs-comment">// Koa中间件最后一环</span><br>    <span class="hljs-comment">// 可以从this.ds对象中拿数据</span><br>    <span class="hljs-keyword">const</span> loginData = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.ds.PmsLogin(params)<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;来自服务端数据&#x27;</span>, loginData&#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>由于<code>urls</code>支持多种正则，原则上每个根url映射<code>server/pages/</code>目录下一个<code>**.js</code>文件，映射关系如图3所示。</p>
+<figure>
+  <img src="/blog/tech-salon-13-app-proto/pages-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
+  <figcaption>pages目录文件与url映射关系</figcaption>
+</figure>
+
+
+<p>如果对<code>js</code>、<code>css</code>、<code>template</code>没有特殊设置（采用默认设置）的情况下，可精简如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">urls</span>: [<span class="hljs-string">&#x27;/pms&#x27;</span>, <span class="hljs-string">&#x27;/pms/error&#x27;</span>],<br>  <span class="hljs-attr">controller</span>: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> loginData = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.ds.PmsLogin(params)<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;来自服务端数据&#x27;</span>, loginData&#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，<code>controller</code>项是Koa中间件的最后一环，要求其返回值是可序列化的对象用于模板渲染的服务端参数，在此处也可以进行权限校验、从<code>this.ds</code>对象中拿数据等操作。</p>
+<h5 id="服务端渲染"><a href="#服务端渲染" class="headerlink" title="服务端渲染"></a>服务端渲染</h5><p>Node服务端最后一个核心功能是渲染：输出 HTML Shell和 JSON。输出JSON字符串的用途是为了浏览器端能以Ajax形式动态获取数据，而输出的HTML内容则是我们Web应用的所需的HTML“壳子”。</p>
+<p>正如前文提到我们的业务特点是“一种运行于浏览器的工具软件”，重操作交互、无SEO需求。因此，同构（<a target="_blank" rel="noopener" href="http://isomorphic.net/">Isomorphic JavaScript</a>）不是强需求，不是每次都要依赖服务器来重复处理逻辑和数据。服务端只需要渲染简单完善的HTML结构即可，具体的页面内容则由客户端JavaScript实现。简言之，不鼓励将前端JavaScript脚本再在Node服务端重复执行一遍。</p>
+<blockquote>
+<p>如果了解过Google推崇的 <a target="_blank" rel="noopener" href="https://developers.google.com/web/progressive-web-apps/">Progressive Web App</a>，你可以参考《<a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/architecture/app-shell">The App Shell Model</a>》一文来理解HTML“壳子”更多的用途。</p>
+</blockquote>
+<p>渲染最简单的HTML“壳子”如下:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>app-proto<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-built_in">window</span>.serveData=&#123;<span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;来自服务端数据&#x27;</span>&#125;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;//cdn/file-5917b08e4c7569d461b1.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>提供简单的服务端数据<code>window.serveData</code>供客户端使用，更多渲染则由<code>//cdn/file-5917b08e4c7569d461b1.js</code>进行增量控制。</p>
+<h6 id="静态资源与Node端衔接"><a href="#静态资源与Node端衔接" class="headerlink" title="静态资源与Node端衔接"></a>静态资源与Node端衔接</h6><p>那Web端构建的静态资源是如何Node服务端做衔接的呢？前端静态资源构建工作与Node服务相互分离，Node服务在开启的过程中会读取前端构建生成的静态资源映射表。前端的构建过程如图4所示，在构建工作完成之后会生成<code>assets.json</code>静态资源映射表。</p>
+<figure>
+  <img src="/blog/tech-salon-13-app-proto/static-file-map.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
+  <figcaption>静态资源映射文件assets.json构建</figcaption>
+</figure>
+
+<blockquote>
+<p>前端构建工具基本都提供静态资源映射表生成插件，比如构建工具Webpack就存在插件<a target="_blank" rel="noopener" href="https://github.com/kossnocorp/assets-webpack-plugin">assets-webpack-plugin</a>来实现该功能。</p>
+</blockquote>
+<p>生成的<code>assets.json</code>映射表内容参考如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-string">&quot;index&quot;</span>:        <span class="hljs-comment">// 对应的页面（url: example.com/index）</span><br>    &#123; <span class="hljs-string">&quot;js&quot;</span>:<span class="hljs-string">&quot;//s0.example.net/pms/index-2abb99.js&quot;</span> &#125;,  <span class="hljs-comment">// 涉及到的静态资源列表（带版本号）</span><br>  <span class="hljs-string">&quot;login&quot;</span>:<br>    &#123; <span class="hljs-string">&quot;js&quot;</span>:<span class="hljs-string">&quot;//s0.example.net/pms/login-5917b0.js&quot;</span> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>比如在渲染页面<code>example.com/index</code>时，Node服务会以<code>index</code>作为键值，读取<code>assets.json</code>中带版本号的静态资源CDN地址列表，用于在“壳子”中与前端资源的衔接工作。</p>
+<h3 id="Web端的一些“约定”"><a href="#Web端的一些“约定”" class="headerlink" title="Web端的一些“约定”"></a>Web端的一些“约定”</h3><p>Web端的技术选项是没有强制性限制的，无论你采用何种构建工具、前端库，只要生成符合约定供Node端使用的<code>assets.json</code>文件即可。</p>
+<p>前端工程师可以根据具体的业务特点、团队技术喜好来选取合理的开发方案，无论是React、Vue还是Angular2并不做强限制。尽管给予Web前端开发很大的自由度，但是鼓励遵循下面几条“约定”：</p>
+<ul>
+<li>Ajax请求从Node端代理，而非具体后端服务。</li>
+<li>鼓励将JavaScript、CSS、HTML视为前端领域的“汇编”。</li>
+<li>重视前端页面状态管理，推荐的方案有<a target="_blank" rel="noopener" href="https://github.com/reactjs/redux">Redux</a>、<a target="_blank" rel="noopener" href="https://github.com/vuejs/vuex">vuex</a>及<a target="_blank" rel="noopener" href="https://github.com/mobxjs/mobx">MobX</a>等。</li>
+<li>强调组件化，面向组件集开发。</li>
+</ul>
+<p>这里重点强调下面向组件集的前端开发。在项目初期我们一般不会马上投入到业务开发，而是针对设计师和产品经理提供的设计稿、产品原型图实现一套组件集或选择合适的开源组件集，积累好基础组件集后再投入到具体业务开发。</p>
+<p>在进行前端技术调研时，该技术是否有配套的开源组件集往往是我们考虑的重点。比如基于React实现的开源组件集<a target="_blank" rel="noopener" href="http://ant.design/">ant.design</a>、<a target="_blank" rel="noopener" href="http://www.material-ui.com/">Material-UI</a>等，我们部分前端项目都直接或间接的使用到了，极大地减少了研发成本。</p>
+<p>当然，美团点评内部也提供一个组件中心平台（可参考<a target="_blank" rel="noopener" href="https://slides.com/solome/mt-components-hub/live#/">美团点评前端组件中心介绍Slide</a>），鼓励大家将各自项目中的有价值组件分享出来，实现组件跨项目复用。</p>
+<h4 id="工程化支持"><a href="#工程化支持" class="headerlink" title="工程化支持"></a>工程化支持</h4><h5 id="项目脚手架"><a href="#项目脚手架" class="headerlink" title="项目脚手架"></a>项目脚手架</h5><p>项目脚手架的作用是在启动一个新项目时，通过几个简单命令就能快速搭建好项目的开发环境。我们基于<a target="_blank" rel="noopener" href="http://yeoman.io/">Yeoman</a>构建了一个完整的项目脚手架。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装脚手架</span><br>$ npm install -g yo<br>$ npm install -g @ia/generator-app-proto@latest<br><span class="hljs-comment"># 初始化新项目（进行简单选择）</span><br>$ yo @ia/app-proto<br></code></pre></td></tr></table></figure>
+
+<h5 id="工程质量保障"><a href="#工程质量保障" class="headerlink" title="工程质量保障"></a>工程质量保障</h5><p>我们重视项目的每次<code>commit</code>，同个项目要求遵循同一套编码规范，并采用<a target="_blank" rel="noopener" href="http://eslint.org/">ESLint</a>等工具进行约束，对于一些复用性高的核心组件也强制要求写测试。<br>为保障项目质量，每个项目都要求接入美团点评基于<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Stash_(software">Stash</a>实现的Castle CI系统，每次的源码提交都会自动执行一遍ESLint、测试和构建，并生成构建日志通过公司内部沟通工具大象进行实时消息推送。</p>
+<h5 id="标准化测试环境管理"><a href="#标准化测试环境管理" class="headerlink" title="标准化测试环境管理"></a>标准化测试环境管理</h5><p>美团点评内部提供了基于Docker实现的测试环境管理服务Cargo，用于提升测试和联调测试效率，促进DevOps开发模式。将项目接入到Cargo服务后，只需在仓库中提供简单的配置文件<code>cargo.yml</code>（配置参考如下），就会自动生成一套测试环境。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 依赖的镜像</span><br>image: registry.cargo.example.com/node:v4.2.1<br><span class="hljs-comment"># 容器占用的端口</span><br>ports:<br>  - <span class="hljs-string">&#x27;8998&#x27;</span><br><span class="hljs-comment"># 环境变量</span><br>env:<br>  -  COMMON_VARIABLE = <span class="hljs-string">&#x27;true&#x27;</span><br>  -  NODE_ENV = <span class="hljs-string">&#x27;cargo&#x27;</span><br>  -  DEBUG = <span class="hljs-string">&#x27;app-proto,datasource.*&#x27;</span><br><span class="hljs-comment"># 收集的日志文件</span><br>logs:<br>  -  error = /var/path/logs/app-proto/error.log<br>  -  out = /var/path/logs/app-proto/out.log<br><span class="hljs-comment"># 构建脚本</span><br>build_script: bin/pre-deploy-staging<br><span class="hljs-comment"># 运行脚本</span><br>run_script: bin/cargo-start<br></code></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>前端工程化体系的引入，让前端开发能和原生App应用项目开发一样“自成体系”，脱离了对后端项目的依赖。基于“约定优于配置”、“按照约定写代码”的原则对Node层功能的设定能够降低沟通协调成本，构建、部署等工作的规范化，使前端技术人员的开发重点回归到Web应用的交互体验本身，回归到“纯粹”的前端研发。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/tech-salon-13-app-proto/" data-id="cks31ssdu0002hulnhfgk2hf5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-javascript-async" class="article article-type-post" itemscope itemprop="blogPost">
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Fri Dec 16 2016 15:18:22 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/javascript-async/">JavaScript異步編程小結</a>
+    </h1>
+  
+
+        <div class="article-dateref">
+  首次编辑于 Fri Dec 16 2016 15:18:22 GMT+0800 (China Standard Time)
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>JavaScript是單線程的，除了你的JS代码，其它操作都是并行执行的(everything runs in parallel except your code)。</p>
+<p>在JS執行線程中進行的行為被稱作同步(Synchronous)操作，非JS執行線程執行的行為則被稱呼為異步(Asynchronous)操作。<br>諸如Ajax/HTTP請求、I/O操作等行為均與JS執行線程無關（由自己獨立的線程進行運作），這些行為在執行完成之後會將結果通知到JS執行線程；<br>因此，JS執行線程中會有個類似<code>while(true)</code>的循環，以觀察者的姿態<code>監聽</code>（轮询）是否有其它線程傳遞消息過來，一旦捕獲到則執行本JS執行線程中相應的函數塊（回調）。</p>
+<p>JavaScript事件循環不是本文的重點（<a target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/1-UC3cwd0KZtdSRAd6edLD-CvrOeM-IOpJYcb8rhElBY/edit?usp=sharing">JavaScript Event Loop</a>），本文僅對前端異步編程進行些許總結。個人的理解是JavaScript異步編程方式只有兩種方式：回調和觀察者模式。需要注意的是：</p>
+<ul>
+<li>Promises/A+ 是如何優雅地使用回調而設計的一種編程規範，本質依舊是回調</li>
+<li>事件監聽和觀察者模式（發佈/訂閱模式）完全可以理解成是“一個孩子的不同暱稱”</li>
+<li>Generators 是一種特性，實現函數在執行過程中暫停、並在將來的某個時刻恢復執行的功能</li>
+<li>Generators+Promises 可以搭配漂亮的語法糖，將異步源碼寫得像同步源碼</li>
+</ul>
+<h3 id="Callback-Functions"><a href="#Callback-Functions" class="headerlink" title="Callback Functions"></a>Callback Functions</h3><p>函數式編程中有個概念叫做高階函數(Higher-order Functions)，其有個特性是一個函數可以作為另外一個函數的參數。通常我們將那個作為另外一個函數參數的函數稱呼為回調函數。</p>
+<p>為方便描述和解釋，此處模擬一個具體的業務場景：通過Ajax方式請求<code>**/api/v1.0/user/&#123;id&#125;</code>接口獲取某個用戶的信息(Asynchronous behavior)，然後針對拿到的用戶信息進行後續的處理。<br>典型的做法是將<code>Ajax</code>異步請求之後進行的操作封裝成<code>callback()</code>函數，在接口訪問成功得到用戶信息之後再執行該函數：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserInfoCallback</span>(<span class="hljs-params">id, callback</span>) </span>&#123;<br>  $.ajax(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>    <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> callback(<span class="hljs-literal">null</span>, data),<br>    <span class="hljs-attr">error</span>: <span class="hljs-function">(<span class="hljs-params">xhr, textStatus, errorThrown</span>)</span><br><span class="hljs-function">      =&gt;</span> callback(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(textStatus), errorThrown),<br>  &#125;)<br>&#125;<br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, handleUserInfo)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Promises-A"><a href="#Promises-A" class="headerlink" title="Promises/A+"></a>Promises/A+</h3><blockquote>
+<p>An open standard for sound, interoperable JavaScript promises—by implementers, for implementers.</p>
+</blockquote>
+<p>濫用回調帶來的問題是代碼邏輯耦合度很高，面臨回調災難。Promises/A+是種合理使用回調的<strong>規範</strong>，避免回調的濫用。</p>
+<h4 id="特點一：提供好看的API，由嵌套回調-callback-hell-轉向鏈式語法"><a href="#特點一：提供好看的API，由嵌套回調-callback-hell-轉向鏈式語法" class="headerlink" title="特點一：提供好看的API，由嵌套回調(callback hell)轉向鏈式語法"></a>特點一：提供好看的API，由嵌套回調(<a target="_blank" rel="noopener" href="http://callbackhell.com/">callback hell</a>)轉向鏈式語法</h4><p>首先將請求用戶信息的Ajax異步操作包裝成一個Promise實例，後續的同步行為通過該實例對象的<code>then()</code>方法調用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserInfoPromise</span>(<span class="hljs-params">id</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> &#123;<br>    $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill,<br>      <span class="hljs-attr">error</span>: reject,<br>    &#125;) <span class="hljs-comment">// end $.ajax</span><br>  &#125;) <span class="hljs-comment">// end return</span><br>&#125; <span class="hljs-comment">// end getUserInfoPromise</span><br><br>getUserInfoPromise(<span class="hljs-string">&#x27;10086&#x27;</span>)<br>  .then(<span class="hljs-function"><span class="hljs-params">userInfo</span> =&gt;</span> handleUserInfo)<br>  .catch(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+
+<h4 id="特點二：Promises-不會與回調綁定耦合，可緩存異步操作結果"><a href="#特點二：Promises-不會與回調綁定耦合，可緩存異步操作結果" class="headerlink" title="特點二：Promises 不會與回調綁定耦合，可緩存異步操作結果"></a>特點二：Promises 不會與回調綁定耦合，可緩存異步操作結果</h4><p>假設存在這樣的一個業務場景：獲取用戶id為<code>10086</code>的用戶信息，然後在不同的兩個階段對其異步操作獲取的用戶信息進行兩種不同的操作（分別為<code>handleUserInfo()</code>和<code>console.log()</code>）。<br>在兩個階段中，都需要異步操作獲取得到的<code>userInfo</code>數據，如果採用傳統回調方式，一般採用閉包的方式緩存<code>userInfo</code>或者暴力點重複進行一次Ajax異步請求。</p>
+<p>但是採用Promise方式，則無需這些很<strong>複雜</strong>的實現方式，因為可以重複使用Promise對象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 閉包緩存</span><br><span class="hljs-keyword">let</span> globUserInfo = <span class="hljs-literal">null</span><br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-function"><span class="hljs-params">userInfo</span> =&gt;</span> globUserInfo = userInfo)<br><span class="hljs-comment">// 難以保證 globUserInfo 已經更新</span><br>handleUserInfo(globUserInfo)<br><span class="hljs-built_in">console</span>.log(globUserInfo)<br><br><span class="hljs-comment">// 進行了兩次異步操作</span><br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, handleUserInfo)<br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-built_in">console</span>.log)<br><br><span class="hljs-comment">// 保存Promise對象</span><br><span class="hljs-keyword">const</span> userInfoPromise = getUserInfoPromise(<span class="hljs-string">&#x27;10086&#x27;</span>)<br>userInfoPromise.then(handleUserInfo)<br><span class="hljs-comment">// 可以再次使用`userInfoPromise`對象</span><br>userInfoPromise.then(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>這種策略和函數式編程中<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lazy_evaluation">lazy evaluation</a>概念是類似的，強調<code>call-by-need</code>。</li>
+<li>也可以對異步操作進行柯裡化(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Currying">Curring</a>)暫存異步操作的結果（類似的概念還有thunk，參考<a target="_blank" rel="noopener" href="https://github.com/tj/node-thunkify">node-thunkify</a>）。</li>
+</ul>
+<h4 id="特點三：可組合，復用"><a href="#特點三：可組合，復用" class="headerlink" title="特點三：可組合，復用"></a>特點三：可組合，復用</h4><p>類似於函數式編程中推廣的從已有的函數中創建新函數，也可以通過已有的Promise對象生成新的Promise對象。<br>比如獲取多個用戶信息，可使用<code>Promise.all()</code>方法實現異步操作的組合：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> promises = [<span class="hljs-string">&#x27;10010&#x27;</span>, <span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-string">&#x27;10000&#x27;</span>].map(<br>  <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<br>    <span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill, <span class="hljs-attr">error</span>: reject,<br>    &#125;)<br>))<br><span class="hljs-keyword">const</span> userInfosPromise = <span class="hljs-built_in">Promise</span>.all(promises)<br>  .then(<span class="hljs-built_in">console</span>.log)<br>  .catch(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>感覺上Promise/A+規範是函數式編程概念在前端領域的一次最佳實踐（回調的語法糖）。更多詳細的內容待補充。</p>
+</blockquote>
+<h3 id="Event-Emitters"><a href="#Event-Emitters" class="headerlink" title="Event Emitters"></a>Event Emitters</h3><p>事件監聽式異步編程本質上還是依賴於回調函數實現的，區別在於回調函數並不執行異步行為完成後需要的操作，而是發佈一個通知去觸發執行相應的函數。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> EventEmitter <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;events&#x27;</span><br><span class="hljs-keyword">const</span> emitter = <span class="hljs-keyword">new</span> EventEmitter()<br><span class="hljs-comment">// 註冊</span><br>emitter.on(<span class="hljs-string">&#x27;event&#x27;</span>, handleUserInfo)<br>$.ajax(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;event&#x27;</span>, data), <span class="hljs-comment">// 觸發：異步操作這個行為帶來的影響</span><br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>事件監聽其實是觀察者模式的一種實現：當一個對象發生變化時，所有依賴他的相關操作都會得到通知，只不過事件監聽弱化了對象的變化而強調行為（對象數據變更也是一種行為）。<br>比如上面的代碼段強調的是Ajax操作這個行為，一旦完成就<strong>通知</strong>到<code>handleUserInfo()</code>函數的調用，並攜帶參數變更對象數據。</p>
+<p>如果採用觀察者模式的話，一般這樣直接處理數據（強調數據變化帶來的影響，造成數據變化的場景可能存在多處），然後觸發數據變動後的行為：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> userInfo = <span class="hljs-literal">null</span><br>emitter.on(<span class="hljs-string">&#x27;event&#x27;</span>, <span class="hljs-function">() =&gt;</span> handleUserInfo(userInfo))<br><span class="hljs-keyword">const</span> updateUserInfo = <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>  userInfo = data       <span class="hljs-comment">// userInfo對象方式變更</span><br>  emitter.emit(<span class="hljs-string">&#x27;event&#x27;</span>) <span class="hljs-comment">// 通知相關依賴的操作：數據變更帶來的影響</span><br>&#125;<br>$.ajax(<br>  url: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: updateUserInfo, <span class="hljs-comment">// 觸發</span><br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
+<p>很明顯，觀察者模式要比事件監聽方式擴充性更強（雖然本質一致，但是強調側重點不同）。</p>
+<figure style="padding-top: 0;margin-top: .5em;">
+  <img src="/blog/javascript-async/pingpong.gif" />
+  <figcaption>陷入`emit`死循環</figcaption>
+</figure>
+事件監聽式異步編程無異於`goto`語句，稍有不慎形如`on()`、`emit()`、`subscribe()`、`publish()`等方法摻雜在各處，“剪不清，理還亂”；
+如果不是“約定”化編程不建議採用。比如下面這段源碼，稍不慎就陷入如圖1所示場景。
+
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> emitter = <span class="hljs-keyword">new</span> EventEmitter()<br><span class="hljs-keyword">const</span> foo = <span class="hljs-function">() =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;bar&#x27;</span>)<br><span class="hljs-keyword">const</span> bar = <span class="hljs-function">() =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;foo&#x27;</span>)<br>emitter.on(<span class="hljs-string">&#x27;foo&#x27;</span>, foo)<br>emitter.on(<span class="hljs-string">&#x27;bar&#x27;</span>, bar)<br>foo()    <span class="hljs-comment">// 陷入死循環</span><br></code></pre></td></tr></table></figure>
+
+
+<p>和回調式異步編程（包括Promises/A+規範）相比，事件監聽式異步編程的軟肋在於需要手動註冊(Manual)。<br>原本可以通過數據綁定(Data binding)<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe()</a>方法來實現觀察者模式，很可惜該方法已被<code>deprecated</code>掉；目前推薦的是<code>get</code>和<code>set</code>+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a>方式實現（相關討論：<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/36258502/why-object-observe-has-been-deprecated">36258502</a>）。</p>
+<p>但是手動維護這些<code>on()</code>、<code>emit()</code>、<code>get()</code>、<code>set()</code>等方法在項目是很折騰的，通過一些第三方工具包可以實現由<code>Manual</code>到<code>Automatic</code>轉變。<br>比如採用<a target="_blank" rel="noopener" href="http://mobxjs.github.io/mobx/index.html">MobX</a>可以實現得更加優雅：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; observable, autorun &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mobx&#x27;</span><br><span class="hljs-keyword">const</span> store = observable(&#123;<span class="hljs-attr">userInfo</span>: <span class="hljs-literal">null</span>&#125;)<br><span class="hljs-comment">// 只要變動`store`對象，就會自動觸發`handleUserInfo()`函數</span><br>autorun(<span class="hljs-function">() =&gt;</span> handleUserInfo(store.userInfo))<br>$.ajax(<br>  url: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> store.userInfo = data,<br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h3><h4 id="Coroutine-協程-a-k-a-co-operative-routines"><a href="#Coroutine-協程-a-k-a-co-operative-routines" class="headerlink" title="Coroutine 協程 (a.k.a. co-operative routines)"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Coroutine">Coroutine</a> 協程 (a.k.a. co-operative routines)</h4><p>一般程序中，函數調用一定是從頭到尾執行直到遇到<code>return</code>或執行完；<br>而coroutine 則容許函數執行到一半時就中斷(yield)，中斷時函數內部上下文環境(context)會被緩存下來。<br>程序主體可以隨時恢復(resume)這個被緩存的coroutine，繼續從剛才被中斷處執行後續內容。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> *<span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>)<br>  <span class="hljs-keyword">yield</span> <span class="hljs-number">10086</span>           <span class="hljs-comment">// 在此處中斷 coroutine</span><br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>)<br>&#125;<br><br><span class="hljs-keyword">const</span> bar = foo()                   <span class="hljs-comment">// 保存 coroutine 內部狀態的變量</span><br>bar.next()                          <span class="hljs-comment">// 調用`foo()`函數，遇到 yield 中斷程序調用</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;main, not in `foo()`&#x27;</span>) <span class="hljs-comment">// 已經從`foo()`函數中跳出來了，可以幹些其它事情</span><br>bar.next()                          <span class="hljs-comment">// 恢復`foo()`的調用，從 yield 中斷處繼續執行</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Thread-VS-Coroutine"><a href="#Thread-VS-Coroutine" class="headerlink" title="Thread VS Coroutine"></a>Thread VS Coroutine</h4><blockquote>
+<p>With threads, the operating system switches running threads preemptively according to its scheduler,<br>which is an algorithm in the operating system kernel.<br>With coroutines, the programmer and programming language determine when to switch coroutines;<br>in other words, tasks are cooperatively multitasked by pausing and resuming functions at set points,<br>typically (but not necessarily) within a single thread.<br /><br>—— <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1934715/difference-between-a-coroutine-and-a-thread">stackoverflow: difference-between-a-coroutine-and-a-thread</a></p>
+</blockquote>
+<h4 id="Generator-a-k-a-semicoroutines-VS-Coroutine"><a href="#Generator-a-k-a-semicoroutines-VS-Coroutine" class="headerlink" title="Generator (a.k.a. semicoroutines) VS Coroutine"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Generator_(computer_programming)">Generator</a> (a.k.a. semicoroutines) VS Coroutine</h4><p>Generator與Coroutine 的區別是Generator 只能從上次中斷處繼續執行，而Coroutine則沒有這樣的限制（可以指定從哪裡繼續執行）。<br>因此，Generator可以視作是Coroutine的一種特殊情況，上文涉及的源碼例子其實就是Generator的應用舉例。<br>其中，Generator涉及<code>bar.next()</code>自動流程管理的解決方案可以參考<a target="_blank" rel="noopener" href="https://github.com/tj/co">co</a>、<a target="_blank" rel="noopener" href="https://github.com/thunks/thunks">thunks</a>等。</p>
+<h4 id="async-await-“語法糖”"><a href="#async-await-“語法糖”" class="headerlink" title="async/await “語法糖”"></a>async/await “語法糖”</h4><p>聲明的<code>async</code>函數就是將Generator函數和自動執行器包裝在一個函數裡面（參考<a target="_blank" rel="noopener" href="https://gist.github.com/solome/064e48f5205943dff7d4918b3bf18e0d">async2generator()</a>），<br>以達到異步編碼編程模式與同步編碼一致。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> run = <span class="hljs-keyword">async</span> () =&gt; &#123;<br>  <span class="hljs-keyword">const</span> userInfo = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> &#123;<br>    $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill,<br>      <span class="hljs-attr">error</span>: reject,<br>    &#125;) <span class="hljs-comment">// end $.ajax</span><br>  &#125;) <span class="hljs-comment">// end return</span><br>  handleUserInfo(userInfo)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="不是總結的總結"><a href="#不是總結的總結" class="headerlink" title="不是總結的總結"></a>不是總結的總結</h3><ul>
+<li>函數式編程領域的知識還是要多多接觸的。</li>
+<li>有些前端領域的新鮮事物在其他領域可能就是些習以為常的東西，擴充知識面很重要。</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://callbackhell.com/">Callback Hell</a>: A guide to writing asynchronous JavaScript programs.</li>
+<li><a target="_blank" rel="noopener" href="https://promisesaplus.com/">Promises/A+</a>: An open standard for sound, interoperable JavaScript promises—by implementers, for implementers.</li>
+<li><a target="_blank" rel="noopener" href="https://www.promisejs.org/">promisejs.org</a>: A website dedicated to promises in JavaScript.</li>
+<li><a target="_blank" rel="noopener" href="https://facebook.github.io/regenerator/">regenerator</a>: Source transformer enabling ECMAScript 6 generator functions in JavaScript-of-today.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tc39/ecmascript-asyncawait">ecmascript-asyncawait</a>: Async/await for ECMAScript.</li>
+<li><a target="_blank" rel="noopener" href="http://devsmash.com/blog/whats-the-big-deal-with-generators">whats-the-big-deal-with-generators</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4287.pdf">Threads, Fibers &amp; Coroutines</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/javascript-async/" data-id="cks30o1050003qfln7hrydrd9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="layout/post-pure-functions-in-fp" class="article article-type-layout/post" itemscope itemprop="blogPost">
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Wed Sep 07 2016 15:18:22 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/pure-functions-in-fp/">函数式编程之纯函数</a>
+    </h1>
+  
+
+        <div class="article-dateref">
+  首次编辑于 Wed Sep 07 2016 15:18:22 GMT+0800 (China Standard Time)
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>数学上的函数指的是两个集合间的一种特殊的映射关系。这个特殊体现在什么地方呢？</p>
+<p>我们将集合<code>A</code>的元素称呼为输入值，集合<code>B</code>的元素称呼为输出值，且集合<code>A</code>、<code>B</code>存在这样的映射关系：<br><strong>每个输入值只会映射一个输出值，不同的输入值可以映射相同的输出值，不会出现同一个输入值映射不同的输出值</strong>。</p>
+<p>比如，下图集合<code>A</code>和集合<code>B</code>的映射关系即符合数学函数的定义。</p>
+<figure>
+  <img style="width: auto;" src="/blog/pure-functions-in-fp/set_map.svg" alt="containing block" />
+  <figcaption>fn：除以5的余数</figcaption>
+</figure>
+
+
+<blockquote>
+<p>在函数式编程语言中，满足这种数学意义上的函数即为纯函数(Pure Function)：<br>相同的输入（参数），永远得到的是相同的输出（返回值），并且没有任何可观察的”副作用”。<br>自然，与纯函数的概念相反的函数（即相同参数的函数在不同环境或时机调用得到的返回值不一致）叫做非纯函数(Impure Function)。</p>
+</blockquote>
+<h3 id="关于函数副作用-side-effect"><a href="#关于函数副作用-side-effect" class="headerlink" title="关于函数副作用(side-effect)"></a>关于<strong>函数副作用</strong>(side-effect)</h3><p><strong>函数副作用</strong>指当调用函数时，在计算返回值数值的过程中，对主调用函数产生附加的影响。</p>
+<h4 id="更高作用域的变量”悄悄”发生变更"><a href="#更高作用域的变量”悄悄”发生变更" class="headerlink" title="更高作用域的变量”悄悄”发生变更"></a>更高作用域的变量”悄悄”发生变更</h4><figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> glob = <span class="hljs-number">1</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x</span>) </span>&#123; <span class="hljs-keyword">return</span> ++glob + x &#125;<br><span class="hljs-built_in">console</span>.log(foo(<span class="hljs-number">1</span>)) <span class="hljs-comment">// =&gt; 3</span><br></code></pre></td></tr></table></figure>
+
+<p>变量<code>glob</code>的值随着<code>foo()</code>的调用发生变化，表现得很不明显。</p>
+<h4 id="“隐晦”地修改了引用参数"><a href="#“隐晦”地修改了引用参数" class="headerlink" title="“隐晦”地修改了引用参数"></a>“隐晦”地修改了引用参数</h4><figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> glob = <span class="hljs-number">1</span><br><span class="hljs-keyword">const</span> obj = &#123; glob &#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x</span>) </span>&#123; <span class="hljs-keyword">return</span> ++x.glob &#125;<br>foo(obj)<br><span class="hljs-built_in">console</span>.log(glob) <span class="hljs-comment">// =&gt; 2</span><br></code></pre></td></tr></table></figure>
+
+<p>虽然对象<code>obj</code>定义为<code>const</code>，但是修改了间接引用的变量<code>glob</code>；这种场景引发的bug其实是很难捕获的（尤其是具备指针概念的C/C++语言）。</p>
+<p>函数副作用确实是滋生Bug的”温床”，造成的问题一般都很”隐晦”；<br>有些开发场景中，我们其实也无法避免函数的副作用（典型的例子是读写数据库操作的函数）。<br>最好的做法是，要将这些副作用限制在可控的范围内。</p>
+<h3 id="纯函数带来的好处"><a href="#纯函数带来的好处" class="headerlink" title="纯函数带来的好处"></a>纯函数带来的好处</h3><h4 id="函数调用结果可缓存"><a href="#函数调用结果可缓存" class="headerlink" title="函数调用结果可缓存"></a>函数调用结果可缓存</h4><p>相同参数得到的返回值是相同的。<br>如果通过参数获取返回值的过程计算量过大，我们可以缓存函数调用的结果，避免相同参数为了获取返回值进行重复计算。<br>典型的实践是对递归函数做性能优化的<code>memoize</code>技术。</p>
+<p>以<code>fibonacci(n)</code>递归函数为例，传统的实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fibonacci</span> (<span class="hljs-params">n</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (n === <span class="hljs-number">0</span> || n === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> n<br>  <span class="hljs-keyword">return</span> fibonacci(n-<span class="hljs-number">1</span>) + fibonacci(n-<span class="hljs-number">2</span>)<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(fibonacci(<span class="hljs-number">10</span>))<br></code></pre></td></tr></table></figure>
+
+<p>计算的复杂度以参数<code>n</code>呈指数级增长：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">f</span>(<span class="hljs-number">0</span>) = <span class="hljs-number">0</span><br><span class="hljs-title">f</span>(<span class="hljs-number">1</span>) = <span class="hljs-number">1</span><br><span class="hljs-title">f</span>(<span class="hljs-number">2</span>) = f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">0</span>) = <span class="hljs-number">1</span><br><span class="hljs-title">f</span>(<span class="hljs-number">3</span>) = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) = <span class="hljs-number">2</span><br><span class="hljs-title">f</span>(<span class="hljs-number">4</span>) = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) = <span class="hljs-number">3</span><br><span class="hljs-title">f</span>(<span class="hljs-number">5</span>) = f(<span class="hljs-number">4</span>) + f(<span class="hljs-number">3</span>)<br>     = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) = <span class="hljs-number">5</span><br><span class="hljs-title">f</span>(<span class="hljs-number">6</span>) = f(<span class="hljs-number">5</span>) + f(<span class="hljs-number">4</span>)<br>     = f(<span class="hljs-number">4</span>) + f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) = <span class="hljs-number">8</span><br>... ...<br></code></pre></td></tr></table></figure>
+
+<p>为了获取<code>fibonacci(n)</code>的结果，我们不得不将<code>fibonacci(n-1)</code>和<code>fibonacci(n-2)</code>都得计算一遍；<br>如果我们在调用一次<code>fibonacci(n)</code>之后，就将其缓存起来，下次再调用时就无需重新再计算。<br>稍加改造，添加对计算结果的缓存：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> fibonacci = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> cache = &#123;&#125;<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (n <span class="hljs-keyword">in</span> cache) <span class="hljs-keyword">return</span> cache[n]<br>    <span class="hljs-keyword">return</span> (cache[n] = (n === <span class="hljs-number">0</span> || n === <span class="hljs-number">1</span>) ? n : fib(n-<span class="hljs-number">1</span>) + fib(n-<span class="hljs-number">2</span>))<br>  &#125;<br>&#125;)()<br><span class="hljs-built_in">console</span>.log(fibonacci(<span class="hljs-number">10</span>))<br></code></pre></td></tr></table></figure>
+
+<p>这是典型的以空间换效率的优化思路，避免了额外计算的浪费。<br>这样实现的前提就是，该递归函数是纯函数，相同参数得到的返回值一定是相同的；如果不能保证相同，我们无法做缓存。</p>
+<p>当然，我们可以实现一个<code>memoize()</code>函数来统一做缓存这样的工作。<br>JavaScript函数式编程支持库如均提供<code>memoize()</code>函数，这里提供一种不太健壮（内存溢出）的实现方案。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">memoize</span> (<span class="hljs-params">func</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> memo = &#123;&#125;<br>  <span class="hljs-keyword">const</span> slice = <span class="hljs-built_in">Array</span>.prototype.slice<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> args = slice.call(<span class="hljs-built_in">arguments</span>)<br><br>    <span class="hljs-keyword">if</span> (args <span class="hljs-keyword">in</span> memo) <span class="hljs-keyword">return</span> memo[args]<br>    <span class="hljs-keyword">return</span> (memo[args] = func.apply(<span class="hljs-built_in">this</span>, args))<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这样函数调用的次数愈多效率会慢慢变得愈高。</p>
+</blockquote>
+<h4 id="便于移植和测试"><a href="#便于移植和测试" class="headerlink" title="便于移植和测试"></a>便于移植和测试</h4><p>纯函数是”自给自足”的，所有的函数依赖均由函数自身提供（或参数）；<br>因此，我们将一个函数移植到另外一个系统时，是无需考虑成本的<br>（当然，如果一个函数依赖一个全局变量，在移植该函数时必须”慎重”，<br>要将这个全局变量的逻辑一起迁移过去）。</p>
+<p>相同参数得到的函数返回值是固定的，这一特性也使纯函数更易测试——你无需模拟出一些特殊的测试环境，只要明确定义好函数参数的范围即可。</p>
+<h4 id="引用透明（Referential-Transparent）"><a href="#引用透明（Referential-Transparent）" class="headerlink" title="引用透明（Referential Transparent）"></a>引用透明（Referential Transparent）</h4><blockquote>
+<p>An expression is said to be referentially transparent if it can be replaced with its corresponding value without changing the program’s behavior. As a result, evaluating a referentially transparent function gives the same value for same arguments. Such functions are called pure functions.<br>—— <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Referential_transparency">https://en.wikipedia.org/wiki/Referential_transparency</a></p>
+</blockquote>
+<p>该如何理解呢？可以拿上文提到的<code>fibonacci()</code>函数举例，比如存在这样一个函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">n, fun</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> fun(n) + fun(n)<br>&#125;<br><br>foo(<span class="hljs-number">10</span>, fibonacci)<br></code></pre></td></tr></table></figure>
+
+<p>调用<code>foo(10, fibonacci)</code>会发现<code>fibonacci(10)</code>被执行了两遍。因为纯函数具备引用透明性，某些表达式被<strong>替换</strong>并不会改变函数的行为；因此，对<code>foo()</code>进行些许变动会使其性能得到质的提升。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span> (<span class="hljs-params">n, fun</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> fun(n) * <span class="hljs-number">2</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>毕竟在此场景中，一次乘法运算成本远比一次<code>fibonacci(10)</code>递归运算的成本来得低。</p>
+<p>这里的由<code>fibonacci(n) + fibonacci(n) =&gt; 2*fibonacci(n)</code>转变完全跟数学概念中的<code>f(x) = x + x = 2 *x</code>函数推导一致。</p>
+<p>因为纯函数的引用透明的特性，我们完全可以将多个函数构成的复杂程序（函数）<strong>推导</strong>成更加简单的方式。</p>
+<h4 id="并行代码"><a href="#并行代码" class="headerlink" title="并行代码"></a>并行代码</h4><p>纯函数无副作用，同时调用两个函数或同个函数被同时调用两次都不会抢占外部公共资源的情况。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>程序设计中的大部分Bug都是有函数副作用引入的，实际开发中必须鼓励纯函数的编写（尤其在JavaScript、Python这类<strong>胶水</strong>语言中）。</li>
+<li>在函数式编程范畴中，欲想以函数为基础生成新的函数，那纯函数是这些新函数的基石。</li>
+<li>多尝试使用<code>memoize</code>技术对递归函数进行性能优化。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/pure-functions-in-fp/" data-id="cks31r3jt0000huln2r2d20ha" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-show-icon-in-web" class="article article-type-post" itemscope itemprop="blogPost">
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Tue Feb 10 2015 15:26:12 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/show-icon-in-web/">Web頁面上的那些圖標</a>
+    </h1>
+  
+
+        <div class="article-dateref">
+  首次编辑于 Tue Feb 10 2015 15:26:12 GMT+0800 (China Standard Time)
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一個網頁不會是由純字符組成的，需要些些訏訏的<strong>圖標</strong>去點綴；最早的前端的工作主要是多數人不屑的<strong>切圖</strong>，這與<strong>編程</strong>耦合太弱。<br>不過話說要是絕大多數的網頁沒有那些圖標的點綴會變得多麼地慘白。</p>
+<p>在一個HTML結構的頁面中，使用圖標最常接觸的是標籤<code>&lt;img&gt;</code>和css屬性<code>background-image</code>。<code>&lt;img&gt;</code>純粹是為了顯示圖片而添加的標籤，適用於尺寸大的圖片，強調圖片的信息，不屬於頁面圖標的範疇（在web設計中，圖標和圖片是兩種概念：圖標在某種程度可有可惡，起到修飾點綴的效果，本身沒有什麼信息量；而圖片不同，圖片也是頁面欲展示給用戶的信息）；因此，依賴<code>&lt;img&gt;</code>標籤實現的點綴圖標的作用的，都是不那麼合理的，因為<code>&lt;img&gt;</code>不是幹這種事情的，對搜索引擎亦是不友好的。</p>
+<p>下面討論下，如何給一個web頁面添加修飾點綴用途的圖標的方式。</p>
+<h3 id="方式一：css屬性background-image"><a href="#方式一：css屬性background-image" class="headerlink" title="方式一：css屬性background-image"></a>方式一：css屬性<code>background-image</code></h3><p><code> background-image</code>主要用來設定塊級標籤的背景圖片，一般的使用形式如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.selector</span> &#123;<br>    <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string"> &#x27;/* 要顯示的圖片網址 */&#x27; </span>);<br>    <span class="hljs-attribute">background-repeat</span>:no-repeat;<br>    <span class="hljs-attribute">background-color</span>: /* 背景顏色 */;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>這種方式不會將圖片的信息放在HTML結構中，而是通過css來維護管理的；實現方式最大的缺陷是如果一個頁面中存在好多些類似的圖標，那麼用戶客戶端的每次訪問就必須為了那些點綴增加許許多多的HTTP請求。</p>
+<p>當然，最好的方式是將多個小圖標軿湊成一張大圖片來避免不必要的HTTP請求。</p>
+<h3 id="方式二：依賴background-position實現的Sprite圖"><a href="#方式二：依賴background-position實現的Sprite圖" class="headerlink" title="方式二：依賴background-position實現的Sprite圖"></a>方式二：依賴<code>background-position</code>實現的Sprite圖</h3><p>將多張小圖標合併成一張大圖片，頁面元素使用時只選擇其中的一部分顯示，這樣一堆小圖標合成的大圖片一般稱作Sprite圖（精靈圖，雪碧圖等）。<br>除了使用css屬性<code>background-image</code>之外，還要利用<code>background-position</code>來定位大圖中小圖標的坐標位置；通常情況下，還要指定小圖標的長寬信息，即<code>width</code>和<code>height</code>屬性。一般的使用形式如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.selector</span> &#123;<br>    <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">/* 要顯示的圖片網址 */</span>);<br>    <span class="hljs-attribute">background-repeat</span>: no-repeat;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> -<span class="hljs-number">63px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">10px</span>;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Sprite圖避免了多次HTTP請求問題，但是難點在於Sprite圖的手動生成是一件極其繁瑣的事情，每次更新圖標都需要重新繪製Sprite圖；<br>小圖標在Sprite圖中的坐標位置在寫入css<code>background-position</code>屬性中時也要注意。</p>
+<p>Sprite手動生成的確繁瑣，但是Sprite圖的自動化生成方面的技術也趨於成熟，典型的有<a target="_blank" rel="noopener" href="http://compass-style.org/help/tutorials/spriting/">Spriting with Compass</a>和<a target="_blank" rel="noopener" href="https://github.com/jorgebastida/glue">glue</a>。</p>
+<p>如果你的css框架是基於Compass(sass)的話，Sprite圖的合併並不是什麼要耗費經歷的事情；倘若不是，善用<a target="_blank" rel="noopener" href="https://github.com/jorgebastida/glue">glue</a>也會讓你從在折騰圖像處理軟件的非編程工作中解脫出來。</p>
+<p>Compass 在使用Sprite圖時直接通過<code>@include icon-sprite(&#39;/* 小圖標路徑 */&#39;)</code>即可，最後編譯成css文件時也會自動編譯生成對應的Sprite圖，你不必考慮坐標關係；即使要換個圖標，也只是更換圖標後重新編譯即可。</p>
+<p>使用<a target="_blank" rel="noopener" href="https://github.com/jorgebastida/glue">glue</a>則更加強大了，不僅可以生成CSS也可以生成SCSS，甚至更底層地你可以生成一系列的hash映射數據自己動手來處理Sprite圖的使用邏輯；Sprite圖中的圖標的坐標位置全部在一個hash表中，完全可以自由定製。</p>
+<p>最後，Sprite圖的軿湊還有個比較費神的問題就是：那麼多的小圖標，有些頁面在用而有些頁面不用那怎麼進行軿湊Sprite圖呢？</p>
+<p>全部圖標都軿湊成一張大圖片？沒有必要吧，因為有些圖標在這個頁面中沒有使用到憑什麼要拼在一起呢？一般情況下Sprite圖的軿湊邏輯如下：</p>
+<ul>
+<li>頁面區分：軿湊的Sprite圖涉及的小圖只在某種類型的頁面（模塊使用）。</li>
+<li>類型區分：同種類型的圖標軿湊在一塊組成Sprite圖。</li>
+</ul>
+<h3 id="方式三：圖片數字化BASE64"><a href="#方式三：圖片數字化BASE64" class="headerlink" title="方式三：圖片數字化BASE64"></a>方式三：圖片數字化BASE64</h3><p>Sprite圖是使用圖標點綴頁面最好的解決方案之一，接近完美，但還是有一個問題需要解決：<br>對圖標的重複性不友好，即不太兼容<code>background-repeat</code>屬性（通常情況下都設定為<code>no-repeat</code>）；<br>典型的如評分五角星，如果有五顆五角星來表示100%，但要表示80%時，就必須依賴<code>repeat</code>和<code>width:80%</code>。</p>
+<p>還有就是電商網站熱衷使用的<code>new</code>、<code>hot</code>等促銷提示小圖標。這些圖標是微型的，而且需出現的時機無規律；拼在Sprite圖中總是讓人覺得<strong>彆扭</strong>。</p>
+<p>此外，Sprite圖的使用CSS要依賴外部的圖片，要是圖片信息直接在CSS文件中就好了。而BASE64格式的圖片可以以字符串的形式嵌入到CSS文件中。<br>因此，復用一個CSS文件直接拷貝CSS文件即可，無需再考慮外部依賴的圖標數據。</p>
+<p>BASE64的解碼和編碼算法也是很容易的，如 <a target="_blank" rel="noopener" href="https://docs.python.org/2/library/base64.html">https://docs.python.org/2/library/base64.html</a> 。通過Compass實現BASE編碼直接使用<code>@include inline-image(/* 圖標路徑 */)</code>，和前面提到的生成Sprite圖一樣簡單。</p>
+<p>總之，前面提到的重複的評分五角星和電商網站熱衷使用的<code>new</code>、<code>hot</code>小圖標均可以採用BASE64的格式。可惜的，在低端瀏覽器（IE6）是不支持這種寫法的。</p>
+<h3 id="方式四：圖標也是字體webfont"><a href="#方式四：圖標也是字體webfont" class="headerlink" title="方式四：圖標也是字體webfont"></a>方式四：圖標也是字體webfont</h3><p>前面提到的圖標都是位圖，在手機屏幕動不動就是1080像素的瀏覽器來說位圖在高分辨率情況下容易出現<strong>鋸齒</strong>。如果使用<code>svg</code>矢量圖的話，就無法進行Sprite化處理。</p>
+<p><code>webfont</code>就是一種將圖標當作字體來使用（在某種程度上也可以理解成矢量圖標的Sprite化）；將一系列的矢量圖標轉換成矢量字體集文件（如<code>woff</code>格式）和正常字體一樣使用。</p>
+<p>不過目前讓人頭疼的地方是不是所有瀏覽器都支持<code>webfont</code>，即使支持了還只能使用純色扁平的圖標，而且瀏覽器對字體的過渡優化偶爾也會造成圖標的顯示效果失真。</p>
+<p>如果一個網站的設計風格是純色調，扁平化，那麼大氛圍的使用<code>webfont</code>是個很好的選擇。</p>
+<h3 id="方式五：css3自己畫圖標"><a href="#方式五：css3自己畫圖標" class="headerlink" title="方式五：css3自己畫圖標"></a>方式五：css3自己畫圖標</h3><p>CSS3上有許多讓人欣喜的特性，比如<code>transorm</code>和<code>tranition</code>這連個變換和過渡的屬性值，在設計頁面元素背景圖時特別有效；再撮合些CSS動畫效果會得到通過圖片無法得到的交互效果。</p>
+<p>不過這樣的功能目前也只僅僅侷限與頁面元素的背景圖而已。</p>
+<p>另外一種情況是使用<code>border</code>屬性值的處理以很<code>hack</code>的方式繪製一些集合圖形。<br>如三角形<i class="fa fa-caret-up fa-fw"></i>的繪製，一般情況下兼容性最強大的CSS源碼如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.triangle</span> &#123;<br>    <span class="hljs-attribute">position</span>: absolute;<br>    <span class="hljs-attribute">top</span>: <span class="hljs-number">11px</span>;<br>    <span class="hljs-attribute">right</span>: <span class="hljs-number">7px</span>; <span class="hljs-comment">/* 絕對定位 */</span><br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">border</span>: <span class="hljs-number">4px</span> dashed transparent;<br>    <span class="hljs-attribute">border-top</span>: <span class="hljs-number">4px</span> solid <span class="hljs-number">#2bb8aa</span>;<br>    *<span class="hljs-attribute">display</span>: none;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>當然，總是有人喜歡使用CSS來繪製那些原本使用圖片展示的圖標；個人覺得這是耗費精力沒有必要的工作。為什麼要把那麼簡單的工作複雜化呢？CSS畢竟是用來點綴元素的，而非用來繪圖的。</p>
+<p>最後，大部分網站圖標的使用都是上面提到的五種方式相結合進行使用的。</p>
+<p>電商網站上面的奇怪<code>三角形</code>：</p>
+<blockquote>
+<ul>
+<li>实心三角形<i class="fa fa-star fa-fw"></i></li>
+</ul>
+</blockquote>
+<ul>
+<li>脱字号［即“^”］</li>
+</ul>
+<p>這兩種圖標一般跟導航相關（如頂部導航）；用戶點擊後圖標的方向會反轉（會摻雜一些反轉動畫的效果）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/show-icon-in-web/" data-id="cks33z4b100005mln99o08x1m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="layout/post-feeling-of-writing" class="article article-type-layout/post" itemscope itemprop="blogPost">
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Wed Mar 12 2014 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/feeling-of-writing/">写字的感觉</a>
+    </h1>
+  
+
+        <div class="article-dateref">
+  首次编辑于 Wed Mar 12 2014 23:30:00 GMT+0800 (China Standard Time)
+</div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以前很在意自己写字的感觉，很惬意那意外的享受。</p>
+<p>最近买了一款比较昂贵的钢笔，不为别的，仅仅是钢笔的外观很好看，吸引于我。拿到笔后，放进墨汁，手感远没有想象中的好；抑或是久未触笔的我，已经没了那凌驾于纸间的自在。</p>
+<p>记得那个忘不了的季节，在书店里，什么奇怪的书籍都不在意，只是在漫漫的字帖中挖掘心仪的那些字体。拿着奇奇怪怪的字帖，一笔一笔地，享受着满足的成就感。使用的钢笔只是一种垃圾货，却依旧当作宝；忍不得别人的触碰，倍加爱护。那时的我知道，要写好字，就的要有一支完美的笔。仅此而已。</p>
+<p>意料之中的故事，我最初的审美观确是让人无法理解的“草书”。无论怎样，我随时向我身边的人炫耀着或许只有自己能看明白的字体。最终，启蒙老师无法忍受了。可是我依旧我行我素。我说，你们不懂；他说，不是不懂，而是太懂。</p>
+<p>后来，后来就没有了。我忘记了最后一次和那位老师是如何交流的；离开学校，也就离开了他；更加遗憾难过的是，曾经待了七年的学校在生源不足的情况下，关闭了。曾经，离开的时候，心里暗暗说过，等我以后，在某一日，我会回来让学校变得更好。最近一次去学校的时候，其实是我酿造的意外，教学楼什么的都没变，只是操场上布满了杂草。曾经，和别人打过架的操场；曾经，在这里被授予过骄傲小红花的操场；曾经，在这里排好队后回家的操场。你最大的失败，是无法改变；一件事，你不能改变结局，那就是一件无意义的事；即使，有时你能猜到结局。</p>
+<blockquote>
+<p>“你所创造的是一项伟大的艺术品，而非一堆堆垃圾。”</p>
+</blockquote>
+<p>不知道，这是谁说过的话；不知晓，抑或是我在某本书看到的。不知如何，我在父亲的手里获得一支我很满意的钢笔。我是不在乎细节的，那只钢笔陪伴了我许久，直至丢失的时候，我沉寂了许久。我开始告别以前的潦草，只是因为我发现和我字体类似人实在太多。不爱和别人一样。其实，在某种程度上，是喜欢上了同桌的字体。她写的字和她的人一样，就是这样的一种感觉。原来在通过手书写出的文字中也能找到某种异样的感觉；而且，除了你很难会有其他人知道。</p>
+<p>有时候，改变是痛苦的，尤其是改变叫“习惯”的那东西；有时候，改变只是谋求换一种感觉。有同学说过，我写作文的速度比他抄的速度还快；只为完成作业的他，怎么会懂？我只是在追求那种写字的感觉。其实，字无须写的有多么好，你要能让你想给她看的人能识别就好；可是，那种写字的感觉，那种心情只有你自己才知道。君不知，能读懂你写字心态的人真不多。</p>
+<p>步入大学后，学上计算机后的我，打字速度一直在进步。从刚开始依赖于word文档，到现在整天在HTML和CSS中摸索，以创造更美的视觉效果。与写字的感觉渐行渐远，近乎忘却。</p>
+<p>老家的枣树每年都会结很多枣，回老家打枣几乎成为回老家唯一的理由。曾经的玩伴，现在的你们都在做些什么；很遗憾的是，我已经忘记了你们那些亲切的名字；颇具讽刺的是，那些和我打过架的，我都还记得；或许，打与被打才会留下痕迹。</p>
+<p>曾听离校学长说过，成功的大学经历，是在你离开的时候和你进来的时候心态是一样的；如果不一样，其实，你已学会了成长，喝下了大学的毒。</p>
+<p>曾经的好友埋怨过我，“不是说好的吗你以后要做一名作家？”确实，其实现在学习计算机的我依旧未变。以前是用文字倾诉心情，而如今，用代码传递意外。只是观众少了许多，抑或是对观众的要求更高了。</p>
+<p>有多少人还能记得写字的感觉呢？曾经的朋友是说过，我背叛了她，说好的，你未来是要做作家的！其实，她不懂，敲代码与构思文字是一样的，只是换了一种方式宣泄情绪。永远不会懂。</p>
+<figure>
+  <img style="width: 100%;" src="//i.loli.net/2019/11/13/Qaq9yVK28W1wtZB.png" alt="銀杏碎葉" />
+  <figcaption>銀杏碎葉・2014秋,拍摄于北京奥森公园</figcaption>
+</figure>
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/feeling-of-writing/" data-id="cks30mfc20000qflnfu8obx7c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/gmtc-vr3d/">VR 及 3D 技术在 Web 端架构设计与实践</a>
+          </li>
+        
+          <li>
+            <a href="/blog/those-years-nba-player/">那些年我关注过的NBA球星</a>
+          </li>
+        
+          <li>
+            <a href="/blog/tech-salon-13-app-proto/">前端工程化开发方案app-proto</a>
+          </li>
+        
+          <li>
+            <a href="/blog/javascript-async/">JavaScript異步編程小結</a>
+          </li>
+        
+          <li>
+            <a href="/blog/pure-functions-in-fp/">函数式编程之纯函数</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 - 2021 掬一捧<br>
+      版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">博客</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+
+  
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
