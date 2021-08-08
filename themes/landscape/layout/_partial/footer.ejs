@@ -1,0 +1,11 @@
+<footer id="footer">
+  <% if (theme.sidebar === 'bottom'){ %>
+    <%- partial('_partial/sidebar') %>
+  <% } %>
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 - <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %><br>
+      版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
+    </div>
+  </div>
+</footer>
