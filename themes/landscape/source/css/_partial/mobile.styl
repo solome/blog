@@ -2,27 +2,33 @@
   opacity: 0
   display: none;
 
+.mobile-nav-on
+  #mobile-nav
+    display: block
+    opacity: 1
+    left: 0
+
 @media mq-mobile
   #mobile-nav
     opacity: 1
-    display: block;
-    position: absolute
+    position: fixed
     top: 0
-    left: 0
+    left: -100%
     width: mobile-nav-width
     height: 100%
-    background: color-mobile-nav-background
+    background: #607d8b
     border-right: 1px solid #fff
+    z-index: 1
 
 @media mq-mobile
   .mobile-nav-link
     display: block
-    color: color-grey
+    color: white
     text-decoration: none
     padding: 15px 20px
     font-weight: bold
     &:hover
-      color: #fff
+      color: #e5f1f8
 
 @media mq-mobile
   .article-entry

@@ -8,9 +8,9 @@ categories: 技术分享
 年初的时候又针对Koa2.0做了些许语法适配和完整的SSR支持（[app-proto-2.0](https://solome.js.org/slides/app-proto-2.0/)）。
 
 什么是前端工程化？根据具体的业务特点，将前端的开发流程、技术、工具、经验等规范化、标准化就是前端工程化。
-它的目的是让前端开发能够“自成体系”，最大程度地提高前端工程师的开发效率，降低技术选型、前后端联调等带来的协调沟通成本。
+它的目的是让前端开发能够"自成体系"，最大程度地提高前端工程师的开发效率，降低技术选型、前后端联调等带来的协调沟通成本。
 
-美团点评厦门智能住宿前端研发团队通过多个前端项目开发的探索和实践，基于“约定优于配置”（[Convention Over Configuration](https://en.wikipedia.org/wiki/Convention_over_configuration)）的原则制定了一套前端工程化开发方案app-proto。本文将简要介绍其中的一些设计细节和约定。
+美团点评厦门智能住宿前端研发团队通过多个前端项目开发的探索和实践，基于"约定优于配置"（[Convention Over Configuration](https://en.wikipedia.org/wiki/Convention_over_configuration)）的原则制定了一套前端工程化开发方案app-proto。本文将简要介绍其中的一些设计细节和约定。
 
 #### 面临的业务特点
 
@@ -18,11 +18,11 @@ categories: 技术分享
 
 诸如工单管理、信息管理、门锁运营、PMS（[Property management system](https://en.wikipedia.org/wiki/Property_management_system)）、CRM（[Customer relationship management](https://en.wikipedia.org/wiki/Customer_relationship_management)）及AMS（[Asset management system](https://en.wikipedia.org/wiki/Asset_management)）等项目都是单页面工具类应用，特点是功能交互繁多、复杂表单，非展示类、无SEO（[Search engine optimization](https://en.wikipedia.org/wiki/Search_engine_optimization)）需求。
 
-如果这些项目脱离浏览器这个“外壳”，与传统的原生桌面GUI软件无异。换言之，这些项目就是一种运行于浏览器的工具软件。
+如果这些项目脱离浏览器这个"外壳"，与传统的原生桌面GUI软件无异。换言之，这些项目就是一种运行于浏览器的工具软件。
 
-> 实际上，部分项目我们也确实利用CEF（[Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef)）等技术给其套个“外壳”，当作传统的桌面GUI应用提供给用户使用。
+> 实际上，部分项目我们也确实利用CEF（[Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef)）等技术给其套个"外壳"，当作传统的桌面GUI应用提供给用户使用。
 
-同时，部分服务需要从智能门锁、控制盒Wifi等硬件设备收录状态数据，限于硬件环境测试的不稳定性，后端的开发测试周期远比前端开发周期长。大部分场景下，前后端需并行开发，后端工程师并不能在第一时间兼顾到前端所需的API接口等服务，给前端开发造成没有必要的“等待期”，影响开发进度。
+同时，部分服务需要从智能门锁、控制盒Wifi等硬件设备收录状态数据，限于硬件环境测试的不稳定性，后端的开发测试周期远比前端开发周期长。大部分场景下，前后端需并行开发，后端工程师并不能在第一时间兼顾到前端所需的API接口等服务，给前端开发造成没有必要的"等待期"，影响开发进度。
 
 此外，项目多、敏捷需求多、开发周期短以及面向多后端服务（多个后端团队）等也是我们前端研发团队面临的挑战。
 
@@ -30,9 +30,9 @@ categories: 技术分享
 
 针对多个项目的开发实践和探索，我们在对前端工程化设计中得到如下一些经验总结：
 
-- 前端开发应该“自成体系”（包括构建、部署及前端运维），不应该和后端项目耦合在一起。
-- 避免“大而全”的重量级框架，一个框架真的满足不了所有的业务场景。项目多了，我们又不想为每个新项目重新造一遍技术“轮子”。
-- 新的前端技术（[React](https://facebook.github.io/react/)、[Vue](https://vuejs.org/)、[Angular2](https://angular.io/)等）和工具（[Grunt](http://gruntjs.com)/[gulp](http://gulpjs.com)、[webpack](https://webpack.github.io)、[Babel](https://babeljs.io)等）不断涌现、迭代，新技术选型应避免“改头换面”式重构。
+- 前端开发应该"自成体系"（包括构建、部署及前端运维），不应该和后端项目耦合在一起。
+- 避免"大而全"的重量级框架，一个框架真的满足不了所有的业务场景。项目多了，我们又不想为每个新项目重新造一遍技术"轮子"。
+- 新的前端技术（[React](https://facebook.github.io/react/)、[Vue](https://vuejs.org/)、[Angular2](https://angular.io/)等）和工具（[Grunt](http://gruntjs.com)/[gulp](http://gulpjs.com)、[webpack](https://webpack.github.io)、[Babel](https://babeljs.io)等）不断涌现、迭代，新技术选型应避免"改头换面"式重构。
 - 工程化设计要合理分层且相互独立，随时应对新需求和技术的变化，任何一层能够低成本被替换、淘汰。
 
 
@@ -51,17 +51,17 @@ categories: 技术分享
 
 #### 前后端分离
 
-正如前文所强调的，前端模块开发应该“自成体系”，而不是后端项目的一部分（Controller或View层）。比如说，前端工程师要在本地跑通完整的项目，就必须配置好后端所需开发环境和各种服务，如果后端涉及的服务多、变化频繁，配置开发联调环境工作往往是耗时耗力的。为了实现彻底的前后端分离，我们在前端开发体系中引入了Node服务层。
+正如前文所强调的，前端模块开发应该"自成体系"，而不是后端项目的一部分（Controller或View层）。比如说，前端工程师要在本地跑通完整的项目，就必须配置好后端所需开发环境和各种服务，如果后端涉及的服务多、变化频繁，配置开发联调环境工作往往是耗时耗力的。为了实现彻底的前后端分离，我们在前端开发体系中引入了Node服务层。
 
-在最初的开发中，为了降低Node端的开发和运营成本，我们极力避免在Node服务中“掺合”过多的业务逻辑。经过几个项目的实践，最后“约定”在Node服务中我们仅仅做三件事：数据代理、路由分发和服务端渲染。
+在最初的开发中，为了降低Node端的开发和运营成本，我们极力避免在Node服务中"掺合"过多的业务逻辑。经过几个项目的实践，最后"约定"在Node服务中我们仅仅做三件事：数据代理、路由分发和服务端渲染。
 
 ##### 数据代理
 
-首先，前端数据从何而来？通过Ajax的形式直接从后端服务中获取数据是传统的方式，但是在应对多后端服务时，还是面临着诸如请求认证、CORS([Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing))等困扰。常见的解决方案是通过[http-proxy](https://github.com/nodejitsu/node-http-proxy)，即在Node端通过HTTP请求得到数据后，Web端再通过Ajax的方式从Node端间接获取后端数据，Node服务起到“桥梁”的作用。
+首先，前端数据从何而来？通过Ajax的形式直接从后端服务中获取数据是传统的方式，但是在应对多后端服务时，还是面临着诸如请求认证、CORS([Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing))等困扰。常见的解决方案是通过[http-proxy](https://github.com/nodejitsu/node-http-proxy)，即在Node端通过HTTP请求得到数据后，Web端再通过Ajax的方式从Node端间接获取后端数据，Node服务起到"桥梁"的作用。
 
 方案`http-proxy`对已经成熟的后端服务是具备实用价值的，但是在后端服务并没有完成开发（或前后端并行开发）的场景下时，开发阶段前端的数据来源依旧是个问题。同时，前端还面临诸多请求合并、缓存等需求，解决这些困扰，前端工程师需要和后端技术人员做大量的沟通、约定。
 
-在这里，我们基于原有的`http-proxy`基础上在Node服务中添加`datasources`模块，尝试在数据的处理上给予前端工程师很大的自由度，并实现“按照约定写代码”。
+在这里，我们基于原有的`http-proxy`基础上在Node服务中添加`datasources`模块，尝试在数据的处理上给予前端工程师很大的自由度，并实现"按照约定写代码"。
 
 举例说明，开发某一前端业务时涉及到`pms`和`upm`两个后端服务，且提供的API内容如下：
 
@@ -217,13 +217,13 @@ export default {
 
 ##### 服务端渲染
 
-Node服务端最后一个核心功能是渲染：输出 HTML Shell和 JSON。输出JSON字符串的用途是为了浏览器端能以Ajax形式动态获取数据，而输出的HTML内容则是我们Web应用的所需的HTML“壳子”。
+Node服务端最后一个核心功能是渲染：输出 HTML Shell和 JSON。输出JSON字符串的用途是为了浏览器端能以Ajax形式动态获取数据，而输出的HTML内容则是我们Web应用的所需的HTML"壳子"。
 
-正如前文提到我们的业务特点是“一种运行于浏览器的工具软件”，重操作交互、无SEO需求。因此，同构（[Isomorphic JavaScript](http://isomorphic.net/)）不是强需求，不是每次都要依赖服务器来重复处理逻辑和数据。服务端只需要渲染简单完善的HTML结构即可，具体的页面内容则由客户端JavaScript实现。简言之，不鼓励将前端JavaScript脚本再在Node服务端重复执行一遍。
+正如前文提到我们的业务特点是"一种运行于浏览器的工具软件"，重操作交互、无SEO需求。因此，同构（[Isomorphic JavaScript](http://isomorphic.net/)）不是强需求，不是每次都要依赖服务器来重复处理逻辑和数据。服务端只需要渲染简单完善的HTML结构即可，具体的页面内容则由客户端JavaScript实现。简言之，不鼓励将前端JavaScript脚本再在Node服务端重复执行一遍。
 
-> 如果了解过Google推崇的 [Progressive Web App](https://developers.google.com/web/progressive-web-apps/)，你可以参考《[The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell)》一文来理解HTML“壳子”更多的用途。
+> 如果了解过Google推崇的 [Progressive Web App](https://developers.google.com/web/progressive-web-apps/)，你可以参考《[The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell)》一文来理解HTML"壳子"更多的用途。
 
-渲染最简单的HTML“壳子”如下:
+渲染最简单的HTML"壳子"如下:
 
 ```html
 <!DOCTYPE html>
@@ -265,16 +265,16 @@ Node服务端最后一个核心功能是渲染：输出 HTML Shell和 JSON。输
 }
 ```
 
-比如在渲染页面`example.com/index`时，Node服务会以`index`作为键值，读取`assets.json`中带版本号的静态资源CDN地址列表，用于在“壳子”中与前端资源的衔接工作。
+比如在渲染页面`example.com/index`时，Node服务会以`index`作为键值，读取`assets.json`中带版本号的静态资源CDN地址列表，用于在"壳子"中与前端资源的衔接工作。
 
-### Web端的一些“约定”
+### Web端的一些"约定"
 
 Web端的技术选项是没有强制性限制的，无论你采用何种构建工具、前端库，只要生成符合约定供Node端使用的`assets.json`文件即可。
 
-前端工程师可以根据具体的业务特点、团队技术喜好来选取合理的开发方案，无论是React、Vue还是Angular2并不做强限制。尽管给予Web前端开发很大的自由度，但是鼓励遵循下面几条“约定”：
+前端工程师可以根据具体的业务特点、团队技术喜好来选取合理的开发方案，无论是React、Vue还是Angular2并不做强限制。尽管给予Web前端开发很大的自由度，但是鼓励遵循下面几条"约定"：
 
 - Ajax请求从Node端代理，而非具体后端服务。
-- 鼓励将JavaScript、CSS、HTML视为前端领域的“汇编”。
+- 鼓励将JavaScript、CSS、HTML视为前端领域的"汇编"。
 - 重视前端页面状态管理，推荐的方案有[Redux](https://github.com/reactjs/redux)、[vuex](https://github.com/vuejs/vuex)及[MobX](https://github.com/mobxjs/mobx)等。
 - 强调组件化，面向组件集开发。
 
@@ -330,4 +330,4 @@ run_script: bin/cargo-start
 
 #### 总结
 
-前端工程化体系的引入，让前端开发能和原生App应用项目开发一样“自成体系”，脱离了对后端项目的依赖。基于“约定优于配置”、“按照约定写代码”的原则对Node层功能的设定能够降低沟通协调成本，构建、部署等工作的规范化，使前端技术人员的开发重点回归到Web应用的交互体验本身，回归到“纯粹”的前端研发。
+前端工程化体系的引入，让前端开发能和原生App应用项目开发一样"自成体系"，脱离了对后端项目的依赖。基于"约定优于配置"、"按照约定写代码"的原则对Node层功能的设定能够降低沟通协调成本，构建、部署等工作的规范化，使前端技术人员的开发重点回归到Web应用的交互体验本身，回归到"纯粹"的前端研发。

@@ -5,12 +5,9 @@ date:   2021-07-18 23:30:00 +0800
 categories: 技术分享
 ---
 
-
-
 > 本文基于2021年GMTC全球大前端技术大会"移动技术新趋势"专题下主题分享[《VR 及 3D 技术在 Web 端架构设计与实践》](//gmtc.infoq.cn/2021/beijing/presentation/3531)整理而来。内容与当日分享基本无异，仅以文字的形式重新整理一遍。
 
 <style type="text/css">
-body, .article-inner {background-color: white;}
 article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;padding: 12px;margin: 12px 0 0;background-color: rgb(239 236 236);border-bottom:none;font-family: Roboto, -apple-system, BlinkMacSystemFont, sans-serif;}article .ref:hover {background-color: rgb(228 223 223);}.ref-img {width: 56px;height: 56px;}.ref-content {padding: 0 0 0 12px;flex: 1;flex-direction: column;display: flex;min-width: 10px;}.ref-title, .ref-subTitle, .ref-link {overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}.ref-title {font-size: 16px;font-weight: 500;line-height: 20px;color: rgb(31, 34, 37);}.ref-subTitle {line-height: 19px;}.ref-link {line-height: 17px;color: rgb(161, 162, 163);}
 .fancyboxflex .fancybox {flex: 1;}
 </style>
@@ -46,8 +43,8 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <img style="width:100%;" src="/blog/gmtc-vr3d/pic2left.gif" />
-    <img style="width:100%;" src="/blog/gmtc-vr3d/pic2right.gif" />
+    <div style="flex: 1"><img style="width:100%;" src="/blog/gmtc-vr3d/pic2left.gif" /></div>
+    <div style="flex: 1"><img style="width:100%;" src="/blog/gmtc-vr3d/pic2right.gif" /></div>
   </div>
   <figcaption>图二：三角面片描述的三维效果</figcaption>
 </figure>

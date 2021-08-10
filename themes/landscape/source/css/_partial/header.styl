@@ -17,7 +17,6 @@
 
 #header-inner
   position: relative
-  overflow: hidden
 
 #banner
   display: none
@@ -54,7 +53,7 @@ $logo-text
   line-height: logo-size
   letter-spacing: 2px
   font-family: 'hiragino mincho pron', 'source han serif', serif;
-  color: #607d8b;
+  color: #258fb8;
 
 #subtitle
   @extend $logo-text
@@ -68,6 +67,7 @@ $logo-text
 #main-nav
   float: left
   margin-left: -15px
+  overflow: visible;
 
 $nav-link
   float: left
@@ -80,6 +80,7 @@ $nav-link
   padding: 20px 15px
   &:hover
     opacity: 1
+    color: darkred
 
 .nav-icon
   @extend $nav-link
