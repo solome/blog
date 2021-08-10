@@ -1,5 +1,5 @@
 ---
-title:  "JavaScript異步編程小結"
+title:  "JavaScript 異步編程小結"
 date:   2016-12-16 15:18:22 +0800
 categories: 学习札記
 ---
