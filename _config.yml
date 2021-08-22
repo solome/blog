@@ -108,10 +108,8 @@ marked:
   smartypants: false
   quotes: '""'''
 
-
 kramed:
   smartypants: false
-
 # markdown:
 #   render:
 #     smartypants: false

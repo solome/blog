@@ -7,7 +7,7 @@ prev: Prev
 next: Next
 comment: Comments
 archive_a: Archives
-archive_b: "Archives: %s"
+archive_b: 'Archives: %s'
 page: Page %d
 recent_posts: Recent Posts
 newer: 上一篇
@@ -17,3 +17,4 @@ powered_by: Powered by
 rss_feed: RSS Feed
 category: Category
 tag: Tag
+slides: Slides
