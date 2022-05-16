@@ -66,7 +66,12 @@
       <div class="outer">
         <section id="main">
   
-    <article id="layout/post-memory-usage-pic" class="article article-type-layout/post" itemscope itemprop="blogPost">
+    <article
+  id="layout/post-memory-usage-pic"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
   <!-- <div class="article-meta">
     <div class="article-date">
   首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (China Standard Time)
@@ -78,26 +83,22 @@
 
   </div> -->
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 itemprop="name">
       <a class="article-title" href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
     </h1>
   
-
-        <div class="article-dateref">
+ <div class="article-dateref">
   首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (China Standard Time)
 </div>
-
-      </header>
+    </header>
     
     <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>二零年年末，我所在如视的前端团队针对核心C端项目 <strong>VR 3D 看房</strong> 做了次从2.0到3.0的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过<a target="_blank" rel="noopener" href="https://perfdog.qq.com/"> PerfDog 性能狗</a> 性能分析发现：我们一个 VR 3D 页面在 PC 端占用120MB左右内存，在 iPhone 12 上竟然高达360MB。</p>
-<p>在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修前后的效果对比，这又新增了一个 VR 实例，内存占用已超700MB。</p>
+       <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>二零年年末，我所在如视的前端团队针对核心 C 端项目 <strong>VR 3D 看房</strong> 做了次从 2.0 到 3.0 的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过<a target="_blank" rel="noopener" href="https://perfdog.qq.com/"> PerfDog 性能狗</a> 性能分析发现：我们一个 VR 3D 页面在 PC 端占用 120MB 左右内存，在 iPhone 12 上竟然高达 360MB。</p>
+<p>在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修前后的效果对比，这又新增了一个 VR 实例，内存占用已超 700MB。</p>
 <figure>
   <div style="display:flex;" class="fancyboxflex">
     <div style="flex: 1"><img style="width:100%;" src="/blog/memory-usage-pic/memo-vr.png" /></div>
@@ -105,10 +106,10 @@
   <figcaption>图一：2.0和3.0 内存占用情况</figcaption>
 </figure>
 
-<p>此外，随着用户的交互（开启地图、逐帧动画等），内存还在不断递增，高峰期已经超过1G。而 iOS 系统 WebView 内存溢出的阈值最高也才1.5G，VR 页面已经濒临崩溃。</p>
+<p>此外，随着用户的交互（开启地图、逐帧动画等），内存还在不断递增，高峰期已经超过 1G。而 iOS 系统 WebView 内存溢出的阈值最高也才 1.5G，VR 页面已经濒临崩溃。</p>
 <p>很好奇为啥会占用了那么多的内存？让我们来简单探究一下吧。</p>
 <h2 id="图片内存占用"><a href="#图片内存占用" class="headerlink" title="图片内存占用"></a>图片内存占用</h2><p>三维模型一般由面片数据（顶点、线）和贴图组成，内存占用的大头是图片。那一张图片渲染至浏览器占用的内存该怎么计算呢？</p>
-<p>一般浏览器渲染图片<strong>BitMap</strong>选用的是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RGBA_color_model#RGBA8888">ARGB_8888</a>：颜色信息由透明度A（Alpha）与R（Red），G（Green），B（Blue）四部分组成，每个部分都占8位，总共占32位。即一个像素：</p>
+<p>一般浏览器渲染图片<strong>BitMap</strong>选用的是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RGBA_color_model#RGBA8888">ARGB_8888</a>：颜色信息由透明度 A（Alpha）与 R（Red），G（Green），B（Blue）四部分组成，每个部分都占 8 位，总共占 32 位。即一个像素：</p>
 <blockquote>
 <ul>
 <li><strong>A</strong> - alpha 透明 8bit(位)</li>
@@ -117,12 +118,12 @@
 <li><strong>B</strong> - Blue 8bit(位)</li>
 </ul>
 </blockquote>
-<p>&quot;1Byte(字节)=8bit(位)&quot; 因此，<strong>一个像素会占用四个字节</strong>。<br>所以一张 <code>2048*2048</code> 的图片占用的内存有：<code>2048*2048*4 Byte</code>，换算成MB单位 <code>2048*2048*4/ (1024*1024) Byte = 16MB</code>。</p>
+<p>&quot;1Byte(字节)=8bit(位)&quot; 因此，<strong>一个像素会占用四个字节</strong>。<br>所以一张 <code>2048*2048</code> 的图片占用的内存有：<code>2048*2048*4 Byte</code>，换算成 MB 单位 <code>2048*2048*4/ (1024*1024) Byte = 16MB</code>。</p>
 <blockquote>
 <p>图片占用的内存跟图片文件体积大小无关，仅跟其分辨率相关。压缩图片目的是为了 CDN 下载速度更快、节省存储空间，但无法节省浏览器占用内存。</p>
 </blockquote>
-<p><strong>&quot;一个像素会占用四个字节&quot;</strong> 这个结论适用于绝大部分PC、macOS等终端设备，但在移动端并不完全适用，详细内容请往下看。</p>
-<h2 id="终端设备"><a href="#终端设备" class="headerlink" title="终端设备"></a>终端设备</h2><p>以iPhone为例，先统计下历代iPhone屏幕信息：</p>
+<p><strong>&quot;一个像素会占用四个字节&quot;</strong> 这个结论适用于绝大部分 PC、macOS 等终端设备，但在移动端并不完全适用，详细内容请往下看。</p>
+<h2 id="终端设备"><a href="#终端设备" class="headerlink" title="终端设备"></a>终端设备</h2><p>以 iPhone 为例，先统计下历代 iPhone 屏幕信息：</p>
 <table>
 <thead>
 <tr>
@@ -130,7 +131,7 @@
 <th align="center">逻辑像素</th>
 <th align="center">渲染像素</th>
 <th align="center">物理像素</th>
-<th align="center">设备像素比DPR</th>
+<th align="center">设备像素比 DPR</th>
 <th align="center">一个像素用几个字节</th>
 </tr>
 </thead>
@@ -140,7 +141,7 @@
 <td align="center">320*480</td>
 <td align="center">320*480</td>
 <td align="center">1</td>
-<td align="center">4个字节</td>
+<td align="center">4 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 4/4s</td>
@@ -148,7 +149,7 @@
 <td align="center">640*960</td>
 <td align="center">640*960</td>
 <td align="center">2</td>
-<td align="center">4 * 2个字节</td>
+<td align="center">4 * 2 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 5/5C/5s/SE</td>
@@ -156,7 +157,7 @@
 <td align="center">640*1136</td>
 <td align="center">640*1136</td>
 <td align="center">2</td>
-<td align="center">4 * 2个字节</td>
+<td align="center">4 * 2 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 6/6s/7/8/SE2</td>
@@ -164,7 +165,7 @@
 <td align="center">750*1334</td>
 <td align="center">750*1334</td>
 <td align="center">2</td>
-<td align="center">4 * 2个字节</td>
+<td align="center">4 * 2 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone XR/11</td>
@@ -172,7 +173,7 @@
 <td align="center">828*1792</td>
 <td align="center">828*1792</td>
 <td align="center">2</td>
-<td align="center">4 * 2个字节</td>
+<td align="center">4 * 2 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone X/Xs/11 Pro</td>
@@ -180,7 +181,7 @@
 <td align="center">1125*2436</td>
 <td align="center">1125*2436</td>
 <td align="center">3</td>
-<td align="center">4 * 3个字节</td>
+<td align="center">4 * 3 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 12 mini</td>
@@ -196,7 +197,7 @@
 <td align="center">1170*2532</td>
 <td align="center">1170*2532</td>
 <td align="center">3</td>
-<td align="center">4 * 3个字节</td>
+<td align="center">4 * 3 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 6/6s/7/8/ Plus</td>
@@ -212,7 +213,7 @@
 <td align="center">1242*2688</td>
 <td align="center">1242*2688</td>
 <td align="center">3</td>
-<td align="center">4 * 3个字节</td>
+<td align="center">4 * 3 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 12 Pro Max</td>
@@ -220,7 +221,7 @@
 <td align="center">1284*2778</td>
 <td align="center">1284*2778</td>
 <td align="center">3</td>
-<td align="center">4 * 3个字节</td>
+<td align="center">4 * 3 个字节</td>
 </tr>
 </tbody></table>
 <blockquote>
@@ -230,9 +231,9 @@
 <li><strong>渲染像素</strong>：操作系统抽象的像素。</li>
 </ul>
 </blockquote>
-<p>从 iPhone 4 代开始，iPhone 屏幕的物理分辨率是很高的，除了 &quot;iPhone 6/6s/7/8/ Plus&quot; 和 &quot;iPhone 12 mini&quot; 设备之外，iOS 系统基本是把2个或3个物理像素当作1个逻辑像素来使用的（放大倍数了）。</p>
-<p>Android 系统则比较凌乱，但本质还是<strong>将多个物理像素当作一个逻辑像素来渲染使用</strong>。因此，一张<code>2048*2048</code>图片内存占用换算公式是:  <code>(物理分辨率/逻辑像素)*2048*2048*4/ (1024*1024) MB</code>。</p>
-<p>这基本解释了移动端设备图片占用的内存要比 PC 上统计的要多出2倍、3倍甚至4倍以上。这也解释了明明是旗舰机型崩溃率反而增加了，比如 iOS 系统 WebView 内存崩溃的阈值固定在 1.5G 以下，旗舰机型 iPhone 12 Pro Max 更加容易达到这个阈值。</p>
+<p>从 iPhone 4 代开始，iPhone 屏幕的物理分辨率是很高的，除了 &quot;iPhone 6/6s/7/8/ Plus&quot; 和 &quot;iPhone 12 mini&quot; 设备之外，iOS 系统基本是把 2 个或 3 个物理像素当作 1 个逻辑像素来使用的（放大倍数了）。</p>
+<p>Android 系统则比较凌乱，但本质还是<strong>将多个物理像素当作一个逻辑像素来渲染使用</strong>。因此，一张<code>2048*2048</code>图片内存占用换算公式是: <code>(物理分辨率/逻辑像素)*2048*2048*4/ (1024*1024) MB</code>。</p>
+<p>这基本解释了移动端设备图片占用的内存要比 PC 上统计的要多出 2 倍、3 倍甚至 4 倍以上。这也解释了明明是旗舰机型崩溃率反而增加了，比如 iOS 系统 WebView 内存崩溃的阈值固定在 1.5G 以下，旗舰机型 iPhone 12 Pro Max 更加容易达到这个阈值。</p>
 <blockquote>
 <p>介于设备屏幕 LCD、OLED 等材质差异，实际统计会有些许偏差，但是数量级不会有太多出入。</p>
 </blockquote>
@@ -252,15 +253,15 @@
   <figcaption>图三：UV 贴图及网格数据组成模型（512*512）</figcaption>
 </figure>
 
-<p>因此，我们以<a target="_blank" rel="noopener" href="https://open.realsee.com/ke/6gyq3v1verxD7JO1/qeNadDJvp5oSPhzhbTo7mVEC3LM4rOA2/?v3=1">贝壳·VR看房 | 常楹公元 2室1厅</a> 房源为例，其实景 VR 的 UV 贴图有12张。</p>
-<p>所以，此看房VR 图片所占用的内存有：</p>
+<p>因此，我们以<a target="_blank" rel="noopener" href="https://open.realsee.com/ke/6gyq3v1verxD7JO1/qeNadDJvp5oSPhzhbTo7mVEC3LM4rOA2/?v3=1">贝壳·VR 看房 | 常楹公元 2 室 1 厅</a> 房源为例，其实景 VR 的 UV 贴图有 12 张。</p>
+<p>所以，此看房 VR 图片所占用的内存有：</p>
 <h3 id="①-常态情况"><a href="#①-常态情况" class="headerlink" title="① 常态情况"></a>① 常态情况</h3><ul>
 <li>PC 端：<code>2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12= 108MB</code></li>
 <li>iPhone 8：<code>(2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12) * 2= 216MB</code></li>
 <li>iPhone 12：<code>(2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12) * 3= 324MB</code></li>
 </ul>
 <p>此处分析的这还仅仅是一个实景 VR 依赖图片占用的内存。</p>
-<h3 id="②-走点-moveToPano"><a href="#②-走点-moveToPano" class="headerlink" title="② 走点 moveToPano"></a>② 走点 moveToPano</h3><p>由于走点为了过渡动画效果，一般会出现两个立方体全景，所以全景图片由6张图片变成12张。</p>
+<h3 id="②-走点-moveToPano"><a href="#②-走点-moveToPano" class="headerlink" title="② 走点 moveToPano"></a>② 走点 moveToPano</h3><p>由于走点为了过渡动画效果，一般会出现两个立方体全景，所以全景图片由 6 张图片变成 12 张。</p>
 <ul>
 <li>PC 端：<code>2048*2048*4/(1024*1024)*6*2 + 512*512*4/ (1024*1024)*12= 204MB</code></li>
 <li>iPhone 8：<code>(2048*2048*4/(1024*1024)*6*2 + 512*512*4/ (1024*1024)*12)*2= 408MB</code></li>
@@ -268,7 +269,7 @@
 </ul>
 <p>看此数据，基本解释：</p>
 <ul>
-<li>高端 iOS 设备比低端 iOS 设备更容易出现黑白屏内存溢出问题。（iOS端 WebView 内存崩溃的阈值在1.5G以下）。</li>
+<li>高端 iOS 设备比低端 iOS 设备更容易出现黑白屏内存溢出问题。（iOS 端 WebView 内存崩溃的阈值在 1.5G 以下）。</li>
 <li>全景走点时<strong>更加容易</strong>内存溢出。</li>
 <li>除了图片占用内存之外，<code>Five</code> 涉及的其他部分其实并没有占用过多内存。（也就意味着图片之外的优化空间不多）。</li>
 </ul>
@@ -288,7 +289,7 @@
 <li>iPhone 12：<code>14065*265*4/(1024*1024)*3=42.65470504760742MB</code></li>
 </ul>
 <p>将这张雪碧图放在<code>&lt;image&gt;</code>标签中确实是这样的内存占用。但是，一旦套用 CSS 帧动画实现之后：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> logo-sprites-animation &#123;<br>  <span class="hljs-number">0%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span>;<br>  &#125;<br>  <span class="hljs-number">100%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">13800px</span> <span class="hljs-number">0</span>;<br>  &#125;<br>&#125;<br> <br><span class="hljs-attribute">animation</span>: logo-sprites-animation <span class="hljs-number">2.208s</span> <span class="hljs-number">0s</span> <span class="hljs-built_in">steps</span>(<span class="hljs-number">53</span>) infinite normal;<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> logo-sprites-animation &#123;<br>  <span class="hljs-number">0%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span>;<br>  &#125;<br>  <span class="hljs-number">100%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">13800px</span> <span class="hljs-number">0</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-attribute">animation</span>: logo-sprites-animation <span class="hljs-number">2.208s</span> <span class="hljs-number">0s</span> <span class="hljs-built_in">steps</span>(<span class="hljs-number">53</span>) infinite normal;<br></code></pre></td></tr></table></figure>
 
 <p>通过 PerfDog 统计的内存占用却是图片内存的三倍：</p>
 <ul>
@@ -297,23 +298,29 @@
 <li>iPhone 12 端：<code>14065*265*4/(1024*1024)*3*3=127.96411514282227MB</code></li>
 </ul>
 <p>这个三倍是怎么来的，目前尚未找到相关资料，个人猜测的逻辑是：<br>此处的逐帧动画本质上是个补间动画，用在帧动画中，需要上一帧、当前帧、下一帧 来计算补间动画，同时需要三张图片，所以可能会同时存在三张图片实例。</p>
-<p>这个目前尚属猜测逻辑。但需要关注的经验是：<strong>逐帧动画慎用，帧数最好限制在24帧以内，且占用内存不要超过20MB。</strong></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>有兴趣的同学，可以安装 <a target="_blank" rel="noopener" href="https://perfdog.qq.com/"><strong>PerfDog性能狗</strong></a> 工具自己实践一下本文的数据是否存在偏差。</p>
-
-      
+<p>这个目前尚属猜测逻辑。但需要关注的经验是：<strong>逐帧动画慎用，帧数最好限制在 24 帧以内，且占用内存不要超过 20MB。</strong></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>有兴趣的同学，可以安装 <a target="_blank" rel="noopener" href="https://perfdog.qq.com/"><strong>PerfDog 性能狗</strong></a> 工具自己实践一下本文的数据是否存在偏差。</p>
+ 
     </div>
     <footer class="article-footer">
       <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="cl0lvwarn00006zfy5l5saet0" class="article-share-link">Share</a>
       
-      
+      <a href="http://solome.js.org/blog/memory-usage-pic/#disqus_thread" class="article-comment-link">Comments</a>
+       
     </footer>
   </div>
   
 </article>
 
 
+
   
-    <article id="layout/post-gmtc-vr3d" class="article article-type-layout/post" itemscope itemprop="blogPost">
+    <article
+  id="layout/post-gmtc-vr3d"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
   <!-- <div class="article-meta">
     <div class="article-date">
   首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (China Standard Time)
@@ -325,26 +332,22 @@
 
   </div> -->
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 itemprop="name">
       <a class="article-title" href="/blog/gmtc-vr3d/">VR 及 3D 技术在 Web 端架构设计与实践</a>
     </h1>
   
-
-        <div class="article-dateref">
+ <div class="article-dateref">
   首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (China Standard Time)
 </div>
-
-      </header>
+    </header>
     
     <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文基于2021年GMTC全球大前端技术大会&quot;移动技术新趋势&quot;专题下主题分享<a target="_blank" rel="noopener" href="//gmtc.infoq.cn/2021/beijing/presentation/3531">《VR 及 3D 技术在 Web 端架构设计与实践》</a>整理而来。内容与当日分享基本无异，仅以文字的形式重新整理一遍。</p>
+       <blockquote>
+<p>本文基于 2021 年 GMTC 全球大前端技术大会&quot;移动技术新趋势&quot;专题下主题分享<a target="_blank" rel="noopener" href="//gmtc.infoq.cn/2021/beijing/presentation/3531">《VR 及 3D 技术在 Web 端架构设计与实践》</a>整理而来。内容与当日分享基本无异，仅以文字的形式重新整理一遍。</p>
 </blockquote>
 <style type="text/css">
 article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;padding: 12px;margin: 12px 0 0;background-color: rgb(239 236 236);border-bottom:none;font-family: Roboto, -apple-system, BlinkMacSystemFont, sans-serif;}article .ref:hover {background-color: rgb(228 223 223);}.ref-img {width: 56px;height: 56px;}.ref-content {padding: 0 0 0 12px;flex: 1;flex-direction: column;display: flex;min-width: 10px;}.ref-title, .ref-subTitle, .ref-link {overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}.ref-title {font-size: 16px;font-weight: 500;line-height: 20px;color: rgb(31, 34, 37);}.ref-subTitle {line-height: 19px;}.ref-link {line-height: 17px;color: rgb(161, 162, 163);}
@@ -368,7 +371,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <figcaption>图一：多边形网格模拟立体效果</figcaption>
 </figure>
 
-<p>因此，依赖一些专业 3D 扫描仪（比如如视自研的黎曼、伽罗华等扫描仪）或全景相机等设备采集数据后，再通过算法加工可以获取这些描述三维立体结构的三角面片数据。前端再利用 WebGL/Three.js 等技术将其渲染至浏览器上，此时我们能得到房源的三维立体轮廓，效果如图二（左）所示的网格模型。当然，图二（右）才是我们期望的效果，仅仅有三维&quot;骨架&quot;轮廓是不够的，我们需要在此基础上贴一层&quot;皮肤&quot;，而这层&quot;皮肤&quot;则是通过UV纹理贴图添加上的。</p>
+<p>因此，依赖一些专业 3D 扫描仪（比如如视自研的黎曼、伽罗华等扫描仪）或全景相机等设备采集数据后，再通过算法加工可以获取这些描述三维立体结构的三角面片数据。前端再利用 WebGL/Three.js 等技术将其渲染至浏览器上，此时我们能得到房源的三维立体轮廓，效果如图二（左）所示的网格模型。当然，图二（右）才是我们期望的效果，仅仅有三维&quot;骨架&quot;轮廓是不够的，我们需要在此基础上贴一层&quot;皮肤&quot;，而这层&quot;皮肤&quot;则是通过 UV 纹理贴图添加上的。</p>
 <figure>
   <div style="display:flex;" class="fancyboxflex">
     <div style="flex: 1"><img style="width:100%;" src="/blog/gmtc-vr3d/pic2left.gif" /></div>
@@ -377,14 +380,14 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <figcaption>图二：三角面片描述的三维效果</figcaption>
 </figure>
 
-<p>对于三维模型有两个比较重要的坐标系统，一个是顶点的位置<code>(x,y,z)</code>坐标，另一个则是UV坐标。什么是UV呢？简言之，就是二维平面贴图映射到三维模型表面的依据。比如典型的UV贴图效果如图三所示，刚刚前文提到三维结构是通过顶点、边及面组成的三角面片组成的，这个三角面是二维的，通过一些数据依赖映射关系从UV贴图中抠出一个相同边、面的三角形贴到三角面片上。所以，此处的UV即指定义了二维平面图片每个点的位置与三维结构三角面片位置的映射关系信息。作为前端工程师，这个跟前端雪碧图（Sprite）概念将多个图标合并成一张图的原理是一致的。</p>
+<p>对于三维模型有两个比较重要的坐标系统，一个是顶点的位置<code>(x,y,z)</code>坐标，另一个则是 UV 坐标。什么是 UV 呢？简言之，就是二维平面贴图映射到三维模型表面的依据。比如典型的 UV 贴图效果如图三所示，刚刚前文提到三维结构是通过顶点、边及面组成的三角面片组成的，这个三角面是二维的，通过一些数据依赖映射关系从 UV 贴图中抠出一个相同边、面的三角形贴到三角面片上。所以，此处的 UV 即指定义了二维平面图片每个点的位置与三维结构三角面片位置的映射关系信息。作为前端工程师，这个跟前端雪碧图（Sprite）概念将多个图标合并成一张图的原理是一致的。</p>
 <figure>
   <img style="width: 35%" src="/blog/gmtc-vr3d/pic3.png"  alt="房源UV贴图" />
   <figcaption>图三：房源UV贴图</figcaption>
 </figure>
 
-<p>至此，基于三角面片和UV贴图数据我们成功渲染出了房源的 3D 模型。当然，出于性能考虑我们的三角面片密度不是特别高的，纯粹依靠 3D 模型在终端设备（iOS\Android等）还原房源的真实细节现阶段并不现实。三角面片少，数据量低，内存占用低，我们可以通过 3D 模型还原房源的整体结构。至于细节，则通过点位立方体全景的方式去实现。</p>
-<h4 id="点位全景"><a href="#点位全景" class="headerlink" title="点位全景"></a>点位全景</h4><p>前文提到房源的整体结构通过 3D 模型体现，至于细节则通过全景的形式来表现。我们会在房源选择多个合适的点位拍摄全景图片，然后以立方体全景的方式渲染以实现720 º环顾的效果，如图四（左）所示。</p>
+<p>至此，基于三角面片和 UV 贴图数据我们成功渲染出了房源的 3D 模型。当然，出于性能考虑我们的三角面片密度不是特别高的，纯粹依靠 3D 模型在终端设备（iOS\Android 等）还原房源的真实细节现阶段并不现实。三角面片少，数据量低，内存占用低，我们可以通过 3D 模型还原房源的整体结构。至于细节，则通过点位立方体全景的方式去实现。</p>
+<h4 id="点位全景"><a href="#点位全景" class="headerlink" title="点位全景"></a>点位全景</h4><p>前文提到房源的整体结构通过 3D 模型体现，至于细节则通过全景的形式来表现。我们会在房源选择多个合适的点位拍摄全景图片，然后以立方体全景的方式渲染以实现 720 º 环顾的效果，如图四（左）所示。</p>
 <figure>
   <div style="display:flex;">
     <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic4left.gif"  alt="全景效果" /></div>
@@ -393,44 +396,44 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <figcaption>图四：立方体全景效果及其展开</figcaption>
 </figure>
 
-<p>全景的实现是比较成熟的技术，主流的实现方式有立方体全景和球型全景。两种方式各有优缺点，由于立方体全景二次加工成本低如视目前以立方体全景技术实现为主。立方体全景的原理是渲染一个立方体盒子，给其上、下、前、后、左和右六个面各贴上一张图。需要注意的是，这六张图从中选择连续的四张图拼接在一起是一张连贯的全景图，如图四（右）所示T字形立方体贴图展开。此时，当人眼放置在立方体中心点观望四周是连贯的全景效果。</p>
-<p>全景的效果完全依赖贴图的清晰度，所以我们可以拍摄高清2048分辨率的全景图片去体现房源某个位置的细节信息。这也是看房 VR 3D 模型的第二个核心形态点位全景形态。</p>
+<p>全景的实现是比较成熟的技术，主流的实现方式有立方体全景和球型全景。两种方式各有优缺点，由于立方体全景二次加工成本低如视目前以立方体全景技术实现为主。立方体全景的原理是渲染一个立方体盒子，给其上、下、前、后、左和右六个面各贴上一张图。需要注意的是，这六张图从中选择连续的四张图拼接在一起是一张连贯的全景图，如图四（右）所示 T 字形立方体贴图展开。此时，当人眼放置在立方体中心点观望四周是连贯的全景效果。</p>
+<p>全景的效果完全依赖贴图的清晰度，所以我们可以拍摄高清 2048 分辨率的全景图片去体现房源某个位置的细节信息。这也是看房 VR 3D 模型的第二个核心形态点位全景形态。</p>
 <h4 id="VR-眼镜全景"><a href="#VR-眼镜全景" class="headerlink" title="VR 眼镜全景"></a>VR 眼镜全景</h4><p>前文提到的 3D 模型和点位全景形态都是基于二维显示屏展现的（裸眼体验），如果想让用户具备身临其境的感觉往往需要依赖 VR 眼镜设备。针对这类设备我们需要适配<a target="_blank" rel="noopener" href="//www.w3.org/TR/webxr/">WebXR Device API</a>，我们现阶段的适配策略是渲染两个相同的点位立方体全景，分别供左右眼感知。最终适配的效果如图五所示。</p>
 <figure>
   <div style="flex: 1;"><img src="/blog/gmtc-vr3d/pic5left.gif"  alt="眼镜全景" /></div>
   <figcaption>图五：VR 眼镜全景</figcaption>
 </figure>
 
-<p>限于大部分用户的设备还是iOS\Android，目前的裸眼 VR 3D 体验是主流。随着硬件设备的推广，等到 VR 眼镜走向普通用户时，这种更具身临其境的体验会慢慢更多用户接触到。</p>
+<p>限于大部分用户的设备还是 iOS\Android，目前的裸眼 VR 3D 体验是主流。随着硬件设备的推广，等到 VR 眼镜走向普通用户时，这种更具身临其境的体验会慢慢更多用户接触到。</p>
 <p>当然，除了本文提到 3D 模型形态、点位全景和 VR 眼镜全景三种形态之外，我们内部还有多种其他形态，如模型垂直视角、深度图渲染的全景视角等形态，但是偏技术领域且与普通用户感知不深，此处不详细介绍了。</p>
-<p>最后，基于这三种形态外加一个房源的二维户型图就组成了我们看房 VR 3D 模型的核心结构，在此基础不断完善各种交互（比如形态间切换补间Tween动画）、产品功能逐步演变成大家所熟悉的贝壳如视 VR 看房。</p>
+<p>最后，基于这三种形态外加一个房源的二维户型图就组成了我们看房 VR 3D 模型的核心结构，在此基础不断完善各种交互（比如形态间切换补间 Tween 动画）、产品功能逐步演变成大家所熟悉的贝壳如视 VR 看房。</p>
 <blockquote>
-<p>演讲问答环节及后续的反馈情况来看，大家对分享提到的形态间切换的Tween动画实现比较感兴趣，且部分同行表示自己实现的效果达不到如视的移动真实感。此处细节较多，准备后续单独出文章分享，本文暂不花费篇幅详细介绍。</p>
+<p>演讲问答环节及后续的反馈情况来看，大家对分享提到的形态间切换的 Tween 动画实现比较感兴趣，且部分同行表示自己实现的效果达不到如视的移动真实感。此处细节较多，准备后续单独出文章分享，本文暂不花费篇幅详细介绍。</p>
 </blockquote>
 <h3 id="前端架构分层设计"><a href="#前端架构分层设计" class="headerlink" title="前端架构分层设计"></a>前端架构分层设计</h3><figure>
   <img src="/blog/gmtc-vr3d/pic6.png"  alt="前端架构分层设计" />
   <figcaption>图六：前端架构分层设计</figcaption>
 </figure>
 
-<p>前文提到房源的 VR 3D 模型的组成及三个核心形态，我们实现了通过 3D 技术真实还原房源信息。经过多轮的产品需求迭代，我们在 VR 3D 模型的基础上不断地完善整个前端的架构分层设计。现阶段，整个VR用户端前端设计中我们抽象了三层：Web 服务层、前端数据层和 View 层。</p>
-<p>我们将 View 层划分成四个方向进行抽象，第一个方向是纯DOM层的，比如首屏内容、控制面板、信息面板等，这层我们通常以React/Vue 组件进行抽象服用。第二个方向是基于 Canvas/WebGL 渲染的三维视图，其功能即前文提到的房源 VR 3D 模型交互。第三个方向是我们维护的 3D 插件生态，以 VR 3D 模型为基础且以插件的形式派生出新的交互、能力（比如，模型中的指南针、电视视频等均以插件的形式集成）。最后一个方向是协议层抽象，我们 VR 是通过Web前端技术渲染实现的，以WebView作为容器集成在终端App里面，通过jsBridge的方式实现双向通信。为了保障业务代码的统一性，我们将第三方依赖（jsBridge/RTC/WebSocket等）进行一层协议抽象，以达到面向协议开发以抹平不同终端差异性的目的。</p>
+<p>前文提到房源的 VR 3D 模型的组成及三个核心形态，我们实现了通过 3D 技术真实还原房源信息。经过多轮的产品需求迭代，我们在 VR 3D 模型的基础上不断地完善整个前端的架构分层设计。现阶段，整个 VR 用户端前端设计中我们抽象了三层：Web 服务层、前端数据层和 View 层。</p>
+<p>我们将 View 层划分成四个方向进行抽象，第一个方向是纯 DOM 层的，比如首屏内容、控制面板、信息面板等，这层我们通常以 React/Vue 组件进行抽象服用。第二个方向是基于 Canvas/WebGL 渲染的三维视图，其功能即前文提到的房源 VR 3D 模型交互。第三个方向是我们维护的 3D 插件生态，以 VR 3D 模型为基础且以插件的形式派生出新的交互、能力（比如，模型中的指南针、电视视频等均以插件的形式集成）。最后一个方向是协议层抽象，我们 VR 是通过 Web 前端技术渲染实现的，以 WebView 作为容器集成在终端 App 里面，通过 jsBridge 的方式实现双向通信。为了保障业务代码的统一性，我们将第三方依赖（jsBridge/RTC/WebSocket 等）进行一层协议抽象，以达到面向协议开发以抹平不同终端差异性的目的。</p>
 <figure>
   <img src="/blog/gmtc-vr3d/pic7.png"  alt="数据序列帧抽象" />
   <figcaption>图七：数据序列帧抽象</figcaption>
 </figure>
 
-<p>第二层是数据层的抽象。此处的数据并不是面向后端服务的数据层，而是前端UI交互的数据层抽象。我们将UI交互的状态以全局帧数据的形式抽象出来，当UI发生变化则同步至帧数据；当然，如果帧数据被发生改动（修改帧数据对象）则也会驱动UI发生相同变化。这个过程通过JavaSciprt中Proxy拦截数据对象实现的，如图七。换言之，UI交互能产生新的帧数据，通过帧数据也能还原对应的UI状态。至于，为什么要花费大量精力做这个工作后文讲解业务部分时会有详细介绍。</p>
-<p>第三层 Web 层有两个方向的核心服务，其中基于Node.js/Go实现的 HTTP 服务主要提供 VR 页面的HTML&quot;壳子&quot;和首屏数据，而基于WebSocket服务的全双工数据通道则保障了 VR 体验过程与后台服务的实时通讯。WebSocket 长链接技术有传统HTTP方式无可比拟的优势（协议私有、实时性高、性能优异等），对我们业务的智能化、性能体验提升等无可替代，下文描述业务探索和性能体验部分大家会有更深切的感知。</p>
-<p>贝壳如视用户端的前端设计大致如此，我们大部分核心业务如VR 语言导览、VR 实时带看和AR 讲房等都是基于此设计研发的。</p>
-<h3 id="基于-3D-模型与传统-DOM-开发的差异性对比"><a href="#基于-3D-模型与传统-DOM-开发的差异性对比" class="headerlink" title="基于 3D 模型与传统 DOM 开发的差异性对比"></a>基于 3D 模型与传统 DOM 开发的差异性对比</h3><p>作为一名工作频繁接触3D相关技术的研发工程师，经常被咨询基于 3D 模型研发与传统DOM开发的区别。与传统前端开发差异性是存在的，但是适应如下三点基本就迈入前端3D开发的门槛。</p>
-<h4 id="三维坐标系-vs-DOM树"><a href="#三维坐标系-vs-DOM树" class="headerlink" title="三维坐标系 vs DOM树"></a>三维坐标系 vs DOM树</h4><p>前端DOM树布局是基于CSS盒子模型和Flex布局，页面大部分布局都是基于此实现的，此外还有圣杯、双飞翼等经典布局体系。在二维层面依托强大的CSS，前端布局是随心所欲的。但是放在三维空间，我们大部分时间都在跟坐标系及坐标系间切换打交道。</p>
+<p>第二层是数据层的抽象。此处的数据并不是面向后端服务的数据层，而是前端 UI 交互的数据层抽象。我们将 UI 交互的状态以全局帧数据的形式抽象出来，当 UI 发生变化则同步至帧数据；当然，如果帧数据被发生改动（修改帧数据对象）则也会驱动 UI 发生相同变化。这个过程通过 JavaSciprt 中 Proxy 拦截数据对象实现的，如图七。换言之，UI 交互能产生新的帧数据，通过帧数据也能还原对应的 UI 状态。至于，为什么要花费大量精力做这个工作后文讲解业务部分时会有详细介绍。</p>
+<p>第三层 Web 层有两个方向的核心服务，其中基于 Node.js/Go 实现的 HTTP 服务主要提供 VR 页面的 HTML&quot;壳子&quot;和首屏数据，而基于 WebSocket 服务的全双工数据通道则保障了 VR 体验过程与后台服务的实时通讯。WebSocket 长链接技术有传统 HTTP 方式无可比拟的优势（协议私有、实时性高、性能优异等），对我们业务的智能化、性能体验提升等无可替代，下文描述业务探索和性能体验部分大家会有更深切的感知。</p>
+<p>贝壳如视用户端的前端设计大致如此，我们大部分核心业务如 VR 语言导览、VR 实时带看和 AR 讲房等都是基于此设计研发的。</p>
+<h3 id="基于-3D-模型与传统-DOM-开发的差异性对比"><a href="#基于-3D-模型与传统-DOM-开发的差异性对比" class="headerlink" title="基于 3D 模型与传统 DOM 开发的差异性对比"></a>基于 3D 模型与传统 DOM 开发的差异性对比</h3><p>作为一名工作频繁接触 3D 相关技术的研发工程师，经常被咨询基于 3D 模型研发与传统 DOM 开发的区别。与传统前端开发差异性是存在的，但是适应如下三点基本就迈入前端 3D 开发的门槛。</p>
+<h4 id="三维坐标系-vs-DOM-树"><a href="#三维坐标系-vs-DOM-树" class="headerlink" title="三维坐标系 vs DOM 树"></a>三维坐标系 vs DOM 树</h4><p>前端 DOM 树布局是基于 CSS 盒子模型和 Flex 布局，页面大部分布局都是基于此实现的，此外还有圣杯、双飞翼等经典布局体系。在二维层面依托强大的 CSS，前端布局是随心所欲的。但是放在三维空间，我们大部分时间都在跟坐标系及坐标系间切换打交道。</p>
 <figure>
   <img style="width: 50%;" src="/blog/gmtc-vr3d/pic8.png"  alt="三维建模坐标体系" />
   <figcaption>图八：三维建模坐标体系</figcaption>
 </figure>
 
-<p>三维研发的首个门槛就是跟各种坐标系打交道，比如三维物体本身的坐标系（一般称呼为本地坐标系），一个三维空间会存在多个三维物体，如何放置这些三维物体则需要一个三维世界坐标系来定位。此外，三维空间的三维物体通常都是静止的，其移动、旋转等操作都是控制相机的移动来实现的（当然，相机也是一种特殊的三维物体），如图八所示。然而，我们终端设备的屏幕是二维的，相机作为一个&quot;眼睛&quot;将三维物体投影到二维屏幕上又涉及到平面坐标系、齐次坐标系等等。所以，如何理清这些坐标系的概念和坐标系间的相互转换是3D研发的首个门槛，搞清这些在日后的研发中就能做到&quot;游刃有余&quot;。</p>
-<h4 id="面向异步-Hooks-事件"><a href="#面向异步-Hooks-事件" class="headerlink" title="面向异步 Hooks 事件"></a>面向异步 Hooks 事件</h4><p>在处理三维模型行为交互体验时与传统前端还有个很明显的差异就是面临的异步细节要多得多。在DOM层面前端开发时，我们接触的异步事件主要集中在点击、触摸、滚动和Ajax异步请求等。但是在三维交互中，除此之外我们还频繁接触放大缩小、拖拽位移、模式切换等各类异步行为。</p>
+<p>三维研发的首个门槛就是跟各种坐标系打交道，比如三维物体本身的坐标系（一般称呼为本地坐标系），一个三维空间会存在多个三维物体，如何放置这些三维物体则需要一个三维世界坐标系来定位。此外，三维空间的三维物体通常都是静止的，其移动、旋转等操作都是控制相机的移动来实现的（当然，相机也是一种特殊的三维物体），如图八所示。然而，我们终端设备的屏幕是二维的，相机作为一个&quot;眼睛&quot;将三维物体投影到二维屏幕上又涉及到平面坐标系、齐次坐标系等等。所以，如何理清这些坐标系的概念和坐标系间的相互转换是 3D 研发的首个门槛，搞清这些在日后的研发中就能做到&quot;游刃有余&quot;。</p>
+<h4 id="面向异步-Hooks-事件"><a href="#面向异步-Hooks-事件" class="headerlink" title="面向异步 Hooks 事件"></a>面向异步 Hooks 事件</h4><p>在处理三维模型行为交互体验时与传统前端还有个很明显的差异就是面临的异步细节要多得多。在 DOM 层面前端开发时，我们接触的异步事件主要集中在点击、触摸、滚动和 Ajax 异步请求等。但是在三维交互中，除此之外我们还频繁接触放大缩小、拖拽位移、模式切换等各类异步行为。</p>
 <figure>
   <div style="display:flex;">
     <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic9left.gif"  alt="全景走点效果" /></div>
@@ -439,7 +442,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <figcaption>图九：点位全景切换走点</figcaption>
 </figure>
 
-<p>在如视内部的底层渲染引擎中，我们维护了比较完善的异步Hooks事件集来应对各种场景的交互行为。比如，如图九（左）效果是我们常见的VR 房源点位全景交互走点移动，整个过程触发了九个异步事件回调，如图九（右）所列。这些回调将整个过程的细节全部暴露出来，方便研发人员更精准地把控体验。一般的终端工程师很难体验这种交互层面细维度精准把控的开发体验，初次接触需要适应。</p>
+<p>在如视内部的底层渲染引擎中，我们维护了比较完善的异步 Hooks 事件集来应对各种场景的交互行为。比如，如图九（左）效果是我们常见的 VR 房源点位全景交互走点移动，整个过程触发了九个异步事件回调，如图九（右）所列。这些回调将整个过程的细节全部暴露出来，方便研发人员更精准地把控体验。一般的终端工程师很难体验这种交互层面细维度精准把控的开发体验，初次接触需要适应。</p>
 <h4 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h4><p>最后一个比较明显的差异性是三维空间里面的碰撞监测。</p>
 <figure>
   <img style="width: 50%;min-width: 200px;" src="/blog/gmtc-vr3d/pic10.gif"  alt="物体间遮挡与重叠" />
@@ -453,7 +456,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <figcaption>图十一：物体（家具）识别</figcaption>
 </figure>
 
-<p>三维模型是来源于现实真实的房源（通过专业设备拍摄及算法分析获取），我们可以对三维模型进行分析并将里面的家具物体识别出来（如图十一所示）。识别出这些物体后我们就能做些有趣的事情了，比如识别出显示器或电视，可以在此处添加一个视频播放广告或节目来营造更加真实的3D场景，效果如图十二（左）。识别平滑地面，我们可以放置一个扫地机器人或3D宝箱来做些营销活动等等，效果如图十二（中）、（右）。</p>
+<p>三维模型是来源于现实真实的房源（通过专业设备拍摄及算法分析获取），我们可以对三维模型进行分析并将里面的家具物体识别出来（如图十一所示）。识别出这些物体后我们就能做些有趣的事情了，比如识别出显示器或电视，可以在此处添加一个视频播放广告或节目来营造更加真实的 3D 场景，效果如图十二（左）。识别平滑地面，我们可以放置一个扫地机器人或 3D 宝箱来做些营销活动等等，效果如图十二（中）、（右）。</p>
 <figure>
   <div style="display:flex;">
     <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic12left.gif" alt="电视视频" /></div>
@@ -484,20 +487,20 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <figcaption>图十四：3D 交互与二维交互对比及 VR 同屏</figcaption>
 </figure>
 
-<p>尽管 VR 房源虽然还原了房源的真实场景，但是三维空间交互还是比较复杂的，需要用户去探索细节。如图十四（左）是经典的信息流布局：搜索 ➙ 导航 ➙ 推荐 ➙ 筛选 ➙ 列表，这是二维最高效的信息展示布局，国内绝大部分提供数据服务的App（电商京东、餐饮美团、房产贝壳等）均是这类布局。</p>
+<p>尽管 VR 房源虽然还原了房源的真实场景，但是三维空间交互还是比较复杂的，需要用户去探索细节。如图十四（左）是经典的信息流布局：搜索 ➙ 导航 ➙ 推荐 ➙ 筛选 ➙ 列表，这是二维最高效的信息展示布局，国内绝大部分提供数据服务的 App（电商京东、餐饮美团、房产贝壳等）均是这类布局。</p>
 <p>但是三维空间交互就没有这么明确了，全景只能查看当前点位且全景游走大部分用户并不知晓。此外，诸如房源的小区信息和附近学校、医院等信息也无法在 VR 3D 模型中明确体现。因此，我们实现了由用户无目的的在 VR 3D 模型中漫游、探索信息转向专业由经纪人带领画面同步、实时语言讲解。</p>
-<p>前文提到我们将前端所有的交互以序列帧数据的形式进行了抽象，用户交互会产生帧数据然后通过WebSocket将生成的帧数据同步给另外一个用户来驱动另外一个用户画面的更新。语音的话目前RTC技术比较成熟，我们落地即可，效果如图十四（右）所示。</p>
+<p>前文提到我们将前端所有的交互以序列帧数据的形式进行了抽象，用户交互会产生帧数据然后通过 WebSocket 将生成的帧数据同步给另外一个用户来驱动另外一个用户画面的更新。语音的话目前 RTC 技术比较成熟，我们落地即可，效果如图十四（右）所示。</p>
 <figure>
   <img src="/blog/gmtc-vr3d/pic15.png"  alt="终端App与微信小程序VR 实时带看通道链路" />
   <figcaption>图十五：终端App与微信小程序VR 实时带看通道链路</figcaption>
 </figure>
 
-<p>除了端与端VR 带看之外，我们还实现终端App(iOS/Android)与微信小程序的VR 实时语音带看的业务能力，整个链路通道如图十五所示。</p>
-<p>线上VR实时带看能力在2018年底我们就已经初步实现落地，由于2020年新冠疫情影响造成大批潜在购房用户和经纪人居家隔离，线上VR 实时带看目前已经成为了看房业务的核心场景。</p>
+<p>除了端与端 VR 带看之外，我们还实现终端 App(iOS/Android)与微信小程序的 VR 实时语音带看的业务能力，整个链路通道如图十五所示。</p>
+<p>线上 VR 实时带看能力在 2018 年底我们就已经初步实现落地，由于 2020 年新冠疫情影响造成大批潜在购房用户和经纪人居家隔离，线上 VR 实时带看目前已经成为了看房业务的核心场景。</p>
 <h3 id="VR-智能讲房：智能解说，身临其境"><a href="#VR-智能讲房：智能解说，身临其境" class="headerlink" title="VR 智能讲房：智能解说，身临其境"></a>VR 智能讲房：智能解说，身临其境</h3><p>前面提到 VR 带看是通过专业的经纪人陪同去了解房源解决 VR 3D 看房获取信息的方式不高效问题。但这个业务场景也存在些许缺陷：</p>
 <ul>
-<li>人力成本：经纪人不一定能及时响应，比如深夜休息时段。  </li>
-<li>专业水平：不能保障经纪人对所有的房源都了解，又诸如方言等沟通效率。  </li>
+<li>人力成本：经纪人不一定能及时响应，比如深夜休息时段。</li>
+<li>专业水平：不能保障经纪人对所有的房源都了解，又诸如方言等沟通效率。</li>
 </ul>
 <figure>
   <img style="width: 50%;" src="/blog/gmtc-vr3d/pic16.gif"  alt="社交恐惧症" />
@@ -505,21 +508,21 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 </figure>
 
 <ul>
-<li>顾客“社交恐惧症”：不是人人都愿意跟陌生人沟通等。  </li>
+<li>顾客“社交恐惧症”：不是人人都愿意跟陌生人沟通等。</li>
 </ul>
-<p>鉴于此，我们尝试把 VR 3D 交互做得更智能些。怎么做才更智能呢？首先，我们得不完全依赖真实的经纪人。我们将真实的经纪人形象和音色采集出来然后通过视频拼接和语言TTS服务来抽象出一个虚拟经纪人，并将此虚拟经纪人形象搬到用户的终端屏幕上，如图十七所示。</p>
+<p>鉴于此，我们尝试把 VR 3D 交互做得更智能些。怎么做才更智能呢？首先，我们得不完全依赖真实的经纪人。我们将真实的经纪人形象和音色采集出来然后通过视频拼接和语言 TTS 服务来抽象出一个虚拟经纪人，并将此虚拟经纪人形象搬到用户的终端屏幕上，如图十七所示。</p>
 <figure>
   <img style="width: 50%;" src="/blog/gmtc-vr3d/pic17.gif"  alt="虚拟数字经纪人" />
   <figcaption>图十七：虚拟数字经纪人</figcaption>
 </figure>
 
-<p>有了虚拟的经纪人，那么该讲解什么样的内容呢？VR 带看语音来自于经纪人，画面行为帧数据也来源于经纪人行为。此时，就需要通过算法层面去合成讲稿并生产对应的音频和序列帧数据。整体的架构如图十八所示，前端所需要支持的就是定义画面行为的序列帧数据格式规范，由AI团队的剧本服务和NLG服务去计算LRC文本讲稿和行为序列。然后，通过主控服务生成带讲稿音频虚拟经纪人视频并附带行为序列帧数据给前端&quot;翻译&quot;。</p>
+<p>有了虚拟的经纪人，那么该讲解什么样的内容呢？VR 带看语音来自于经纪人，画面行为帧数据也来源于经纪人行为。此时，就需要通过算法层面去合成讲稿并生产对应的音频和序列帧数据。整体的架构如图十八所示，前端所需要支持的就是定义画面行为的序列帧数据格式规范，由 AI 团队的剧本服务和 NLG 服务去计算 LRC 文本讲稿和行为序列。然后，通过主控服务生成带讲稿音频虚拟经纪人视频并附带行为序列帧数据给前端&quot;翻译&quot;。</p>
 <figure>
   <img src="/blog/gmtc-vr3d/pic18.png"  alt="AR 讲房架构" />
   <figcaption>图十八：AR 讲房架构</figcaption>
 </figure>
 
-<p>因为涉及的点过多，更多的细节本文就不再详细讲解了。大家可以扫描图十九的二维码或访问 <a target="_blank" rel="noopener" href="//open.realsee.com/ke/15XKMYpVwOw3R7j8/BoZqQK8KmaAtncxhvTYre9ztvW9D50zg/?v3=1">珠江罗马嘉园东区 2室1厅</a> 这套房源进行体验。总之，由于WebSocket双工实时性和前端序列帧数据抽象，VR 的整体体验变得更加智能化。</p>
+<p>因为涉及的点过多，更多的细节本文就不再详细讲解了。大家可以扫描图十九的二维码或访问 <a target="_blank" rel="noopener" href="//open.realsee.com/ke/15XKMYpVwOw3R7j8/BoZqQK8KmaAtncxhvTYre9ztvW9D50zg/?v3=1">珠江罗马嘉园东区 2 室 1 厅</a> 这套房源进行体验。总之，由于 WebSocket 双工实时性和前端序列帧数据抽象，VR 的整体体验变得更加智能化。</p>
 <figure>
   <div style="display:flex;">
     <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic19left.png" alt="体验二维码" /></div>
@@ -529,12 +532,12 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 </figure>
 
 <h2 id="面临的性能挑战及应对方案"><a href="#面临的性能挑战及应对方案" class="headerlink" title="面临的性能挑战及应对方案"></a>面临的性能挑战及应对方案</h2><p>在过去三年的 VR 看房及衍生业务研发中我们主要面临的性能瓶颈有两个：加载耗时和内存溢出。</p>
-<h3 id="加载耗时"><a href="#加载耗时" class="headerlink" title="加载耗时"></a>加载耗时</h3><p>在2019年8月份前，贝壳如视 VR 首屏加载平均耗时7.6s，截至2021年7月份已经降至1.92s，正常网络情况下用户基本无需等待过多时间去体验VR房源。如此巨大的提升我们究竟做了些什么呢？首先我们先分析之前慢的原因，然后&quot;对症下药&quot;。而且首屏的性能提升也不是一蹴而就的事情，我们内部成立了个性能体验专项虚拟团队持续了近一年才达到最终1.92s的效果。</p>
+<h3 id="加载耗时"><a href="#加载耗时" class="headerlink" title="加载耗时"></a>加载耗时</h3><p>在 2019 年 8 月份前，贝壳如视 VR 首屏加载平均耗时 7.6s，截至 2021 年 7 月份已经降至 1.92s，正常网络情况下用户基本无需等待过多时间去体验 VR 房源。如此巨大的提升我们究竟做了些什么呢？首先我们先分析之前慢的原因，然后&quot;对症下药&quot;。而且首屏的性能提升也不是一蹴而就的事情，我们内部成立了个性能体验专项虚拟团队持续了近一年才达到最终 1.92s 的效果。</p>
 <p>问题出在哪儿呢？主要在三个方面：</p>
-<h4 id="密集的HTTP请求"><a href="#密集的HTTP请求" class="headerlink" title="密集的HTTP请求"></a>密集的HTTP请求</h4><p>前文提到 VR 3D 模型依赖大量的模型UV贴图和全景图片；除此之外，还有大量的地图、讲房音视频等资源。在浏览器的限制下同个域下的CDN请求限制在3~6个（不同浏览器会有差异）。大量的网络请求只能排队等待。</p>
-<h4 id="实时计算"><a href="#实时计算" class="headerlink" title="实时计算"></a>实时计算</h4><p>前端存在大量的实时计算，比如3D模型文件的解压缩、户型图数据解析、三维空间分析及碰撞监测等。由于JavaScript的单进程，这些计算依赖也阻塞一些核心逻辑。</p>
-<h4 id="模块渲染加载策略不合理"><a href="#模块渲染加载策略不合理" class="headerlink" title="模块渲染加载策略不合理"></a>模块渲染加载策略不合理</h4><p>由于VR 开发初期考虑不周全，我们的异步渲染加载策略设计并不合理，优先级策略划分错乱。</p>
-<p>分析原因后，优化策略就很明确了。针对密集的HTTP请求我们先添加更多CDN域名支持，保障同时刻的请求限制在五个以内并增加HTTP2协议支持。实时计算带来的耗时采取的策略是充分利用缓存（离线计算缓存、浏览器缓存以及服务端计算缓存等）；同时，我们对模块渲染加载策略进行了重新设计，每个模块都规划好权重，按照权重来加载。此外，部分非核心交互则由用户触发后再加载渲染。由于历史包袱过重，真个过程持续了近一年，最终有了7.6s到2.55s的首屏加载的性能提升，过程如图二十（左）所示。</p>
+<h4 id="密集的-HTTP-请求"><a href="#密集的-HTTP-请求" class="headerlink" title="密集的 HTTP 请求"></a>密集的 HTTP 请求</h4><p>前文提到 VR 3D 模型依赖大量的模型 UV 贴图和全景图片；除此之外，还有大量的地图、讲房音视频等资源。在浏览器的限制下同个域下的 CDN 请求限制在 3~6 个（不同浏览器会有差异）。大量的网络请求只能排队等待。</p>
+<h4 id="实时计算"><a href="#实时计算" class="headerlink" title="实时计算"></a>实时计算</h4><p>前端存在大量的实时计算，比如 3D 模型文件的解压缩、户型图数据解析、三维空间分析及碰撞监测等。由于 JavaScript 的单进程，这些计算依赖也阻塞一些核心逻辑。</p>
+<h4 id="模块渲染加载策略不合理"><a href="#模块渲染加载策略不合理" class="headerlink" title="模块渲染加载策略不合理"></a>模块渲染加载策略不合理</h4><p>由于 VR 开发初期考虑不周全，我们的异步渲染加载策略设计并不合理，优先级策略划分错乱。</p>
+<p>分析原因后，优化策略就很明确了。针对密集的 HTTP 请求我们先添加更多 CDN 域名支持，保障同时刻的请求限制在五个以内并增加 HTTP2 协议支持。实时计算带来的耗时采取的策略是充分利用缓存（离线计算缓存、浏览器缓存以及服务端计算缓存等）；同时，我们对模块渲染加载策略进行了重新设计，每个模块都规划好权重，按照权重来加载。此外，部分非核心交互则由用户触发后再加载渲染。由于历史包袱过重，真个过程持续了近一年，最终有了 7.6s 到 2.55s 的首屏加载的性能提升，过程如图二十（左）所示。</p>
 <figure>
   <div style="display:flex;">
     <div style="flex: 3;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic20left.png" alt="耗时变化" /></div>
@@ -543,7 +546,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <figcaption>图二十：VR 首屏性能提升过程</figcaption>
 </figure>
 
-<p>除上文提到的优化之外，我们还充分挖掘了部分客户端的能力。第一个能力是<strong>客户端HTTP请求拦截代理和缓存</strong>，通常情况下WebView缓存池&quot;阈值&quot;很低，而客户端缓存池则大得多；此外，分析对比来看客户端的HTTP请求效率要比WebView的HTTP请求高很多。支持HTTP请求代理和缓存之后，整个加载耗时降低了近500ms。</p>
+<p>除上文提到的优化之外，我们还充分挖掘了部分客户端的能力。第一个能力是<strong>客户端 HTTP 请求拦截代理和缓存</strong>，通常情况下 WebView 缓存池&quot;阈值&quot;很低，而客户端缓存池则大得多；此外，分析对比来看客户端的 HTTP 请求效率要比 WebView 的 HTTP 请求高很多。支持 HTTP 请求代理和缓存之后，整个加载耗时降低了近 500ms。</p>
 <p>另外一个核心能力则是增加了<strong>客户端首屏渲染</strong>：即进入 VR 页面前客户端提前预载好首屏内容，在加载阶段展示客户端内容，等前端完成首屏渲染之后再换成前端的渲染效果。整个过程是无缝的，用户甚至感知不到加载过程，最终的效果如图二十（右）所示。</p>
 <h3 id="内存溢出"><a href="#内存溢出" class="headerlink" title="内存溢出"></a>内存溢出</h3><p>加载耗时现阶段已经取得比较好的效果，我们目前遭遇的最大的瓶颈是内存溢出。</p>
 <figure>
@@ -551,38 +554,44 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <figcaption>图二十一：VR 内存占用</figcaption>
 </figure>
 
-<p>在前文首屏优化中提到我们耗费大量的时间完善了模块加载渲染策略，因此在 VR 交互过程中，随着各个模块不断完成渲染，内存占用是逐步递增的，如图二十一（左）所示。在图二十一（右）扇形图中也列举了不同模块的内存占用情况。目前，iOS设备的WebView内存崩溃的阈值大约在1.5G左右，Android设备则不同机型阈值不完全一致，高端Android设备普遍比iOS设备高很多，但低端机阈值远低于1.5G内存。</p>
+<p>在前文首屏优化中提到我们耗费大量的时间完善了模块加载渲染策略，因此在 VR 交互过程中，随着各个模块不断完成渲染，内存占用是逐步递增的，如图二十一（左）所示。在图二十一（右）扇形图中也列举了不同模块的内存占用情况。目前，iOS 设备的 WebView 内存崩溃的阈值大约在 1.5G 左右，Android 设备则不同机型阈值不完全一致，高端 Android 设备普遍比 iOS 设备高很多，但低端机阈值远低于 1.5G 内存。</p>
 <p>规避内存溢出问题我们从两个方向入手：</p>
-<h4 id="增加内存池"><a href="#增加内存池" class="headerlink" title="增加内存池"></a>增加内存池</h4><p>目前我们测试过iOS/Android 设备各类WebView控件，除了实现WebView独立进程之外并没有找到突破WebView内存限制的方式。这个属于WebView容器瓶颈。</p>
+<h4 id="增加内存池"><a href="#增加内存池" class="headerlink" title="增加内存池"></a>增加内存池</h4><p>目前我们测试过 iOS/Android 设备各类 WebView 控件，除了实现 WebView 独立进程之外并没有找到突破 WebView 内存限制的方式。这个属于 WebView 容器瓶颈。</p>
 <h4 id="降低内存占用"><a href="#降低内存占用" class="headerlink" title="降低内存占用"></a>降低内存占用</h4><p>我们做了些突破，比如按需渲染，非可视区域销毁模块等等，但仅仅降低了崩溃率，成效并不明显。</p>
-<p>而且，随着业务的不断迭代，VR 能力愈来愈丰富，内存占用还在不断提升。依赖WebView+WebGL+jsBridge技术栈落地的VR体验现阶段有很明显的局限性，虽然纯原生技术栈已经提上日程但短期来看还是很难落地的。为了弱化内存溢出带来的影响，我们目前采取的策略是根据用户的使用场景以动态降级的方式给予用户最合适的交互体验。</p>
+<p>而且，随着业务的不断迭代，VR 能力愈来愈丰富，内存占用还在不断提升。依赖 WebView+WebGL+jsBridge 技术栈落地的 VR 体验现阶段有很明显的局限性，虽然纯原生技术栈已经提上日程但短期来看还是很难落地的。为了弱化内存溢出带来的影响，我们目前采取的策略是根据用户的使用场景以动态降级的方式给予用户最合适的交互体验。</p>
 <figure>
   <img src="/blog/gmtc-vr3d/pic22.png"  alt="VR 性能瓶颈影响因素鱼骨图" />
   <figcaption>图二十二：VR 性能瓶颈影响因素鱼骨图</figcaption>
 </figure>
 
 <p>性能优化的本质是渐进增强和优雅降级，把握每个细节把自己该做的部分做好一般都会有比较好的性能表现。我们系统分析了造成性能瓶颈各个因素，如图二十二所示。事实上，我们很难做些突破然后彻底解决内存问题，只能降级保障体验。</p>
-<p>如何做到更&quot;智能&quot;地渐进增强和优雅降级？首先需要的是前端支持模块的&quot;热插拔&quot;能力，即能动态的销毁某个模块以将内存空间给其他模块使用。此外，我们维护一个关于内存瓶颈的数据仓库，依托WebSocket的双工能力，VR 交互时会收集用户的终端设备信息及部分VR用户行为，并在实时分析该用户的终端的最大承受能力，推送给前端再动态地加载或卸载前端模块，从而达到加强体验或降级的效果。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>前面给大家讲述了贝壳如视前端团队如何基于 VR 及 3D 技术在Web领域架构设计，并分享了在这个领域上的一些业务探索、实践及应对性能瓶颈的具体措施。本次的演讲的专题是&quot;移动技术新趋势&quot;，最后站在技术的角度上做如下四个方面的经验（或趋势）总结来结束本次的演讲内容吧。</p>
-<h3 id="可玩性"><a href="#可玩性" class="headerlink" title="可玩性"></a>可玩性</h3><p>三维领域研发比传统基于DOM前端研发有趣得多，比如团队就有产品说过三维空间二次加工装修设计是更高阶的&quot;乐高&quot;式游戏，欢迎大家加入这个领域。</p>
+<p>如何做到更&quot;智能&quot;地渐进增强和优雅降级？首先需要的是前端支持模块的&quot;热插拔&quot;能力，即能动态的销毁某个模块以将内存空间给其他模块使用。此外，我们维护一个关于内存瓶颈的数据仓库，依托 WebSocket 的双工能力，VR 交互时会收集用户的终端设备信息及部分 VR 用户行为，并在实时分析该用户的终端的最大承受能力，推送给前端再动态地加载或卸载前端模块，从而达到加强体验或降级的效果。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>前面给大家讲述了贝壳如视前端团队如何基于 VR 及 3D 技术在 Web 领域架构设计，并分享了在这个领域上的一些业务探索、实践及应对性能瓶颈的具体措施。本次的演讲的专题是&quot;移动技术新趋势&quot;，最后站在技术的角度上做如下四个方面的经验（或趋势）总结来结束本次的演讲内容吧。</p>
+<h3 id="可玩性"><a href="#可玩性" class="headerlink" title="可玩性"></a>可玩性</h3><p>三维领域研发比传统基于 DOM 前端研发有趣得多，比如团队就有产品说过三维空间二次加工装修设计是更高阶的&quot;乐高&quot;式游戏，欢迎大家加入这个领域。</p>
 <h3 id="序列帧抽象及数据驱动"><a href="#序列帧抽象及数据驱动" class="headerlink" title="序列帧抽象及数据驱动"></a>序列帧抽象及数据驱动</h3><p>过往的前端交互都是用户主动触发的，但是在 3D 方向的交互模型更需要自动播放，提高信息获取的方式。前端数据层序列帧抽象，支持数据驱动、序列化和反序列化将是不可或缺的一环。</p>
-<h3 id="quot-热插拔-quot"><a href="#quot-热插拔-quot" class="headerlink" title="&quot;热插拔&quot;"></a>&quot;热插拔&quot;</h3><p>3D 领域开发内存占用是远大于传统前端页面的，尤其在终端设备WebView容器下内存限制更明显。模块、组件及插件等封装都需要支持&quot;热插拔&quot;，从而做到动态加强体验或降级的效果。</p>
-<h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>我们已经逐步在抛弃主动式Ajax，数据的实时性和智能化都依赖WebSocket的双工能力。目前，WebSocket服务已经是核心基础建设。</p>
-
-      
+<h3 id="quot-热插拔-quot"><a href="#quot-热插拔-quot" class="headerlink" title="&quot;热插拔&quot;"></a>&quot;热插拔&quot;</h3><p>3D 领域开发内存占用是远大于传统前端页面的，尤其在终端设备 WebView 容器下内存限制更明显。模块、组件及插件等封装都需要支持&quot;热插拔&quot;，从而做到动态加强体验或降级的效果。</p>
+<h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>我们已经逐步在抛弃主动式 Ajax，数据的实时性和智能化都依赖 WebSocket 的双工能力。目前，WebSocket 服务已经是核心基础建设。</p>
+ 
     </div>
     <footer class="article-footer">
       <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="cks6vzn1h000a1yln3s0k71tz" class="article-share-link">Share</a>
       
-      
+      <a href="http://solome.js.org/blog/gmtc-vr3d/#disqus_thread" class="article-comment-link">Comments</a>
+       
     </footer>
   </div>
   
 </article>
 
 
+
   
-    <article id="layout/post-those-years-nba-player" class="article article-type-layout/post" itemscope itemprop="blogPost">
+    <article
+  id="layout/post-those-years-nba-player"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
   <!-- <div class="article-meta">
     <div class="article-date">
   首次编辑于 Sat Nov 16 2019 03:00:00 GMT+0800 (China Standard Time)
@@ -594,41 +603,37 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 
   </div> -->
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 itemprop="name">
       <a class="article-title" href="/blog/those-years-nba-player/">那些年我关注过的NBA球星</a>
     </h1>
   
-
-        <div class="article-dateref">
+ <div class="article-dateref">
   首次编辑于 Sat Nov 16 2019 03:00:00 GMT+0800 (China Standard Time)
 </div>
-
-      </header>
+    </header>
     
     <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>我不喜欢用&quot;那些年&quot;这类很直白缅怀过去的字眼做标题，但是折腾许久才慢慢意识到现在的我已经找不着更好一点儿的词汇了。其实这就是一篇缅怀过去的一篇文章，并且是关于NBA球星的。因为我意识到自己已经很难和过去一样关注NBA赛事的输赢，NBA于我渐行渐远。</p>
+       <blockquote>
+<p>我不喜欢用&quot;那些年&quot;这类很直白缅怀过去的字眼做标题，但是折腾许久才慢慢意识到现在的我已经找不着更好一点儿的词汇了。其实这就是一篇缅怀过去的一篇文章，并且是关于 NBA 球星的。因为我意识到自己已经很难和过去一样关注 NBA 赛事的输赢，NBA 于我渐行渐远。</p>
 </blockquote>
-<h2 id="第一次接触"><a href="#第一次接触" class="headerlink" title="第一次接触"></a>第一次接触</h2><p>首次接触NBA是在2007年，同学的一份体育类报纸被我当作隔离水泥的墙纸贴在宿舍的墙上。</p>
+<h2 id="第一次接触"><a href="#第一次接触" class="headerlink" title="第一次接触"></a>第一次接触</h2><p>首次接触 NBA 是在 2007 年，同学的一份体育类报纸被我当作隔离水泥的墙纸贴在宿舍的墙上。</p>
 <p>因为家距离学校不足一公里，我成为班级里极少数的&quot;走读生&quot;。但是学校还是给我预留了一个床位，或许嫌弃家附近的塑料工厂太吵，也可能是觉得晚自习十点后的夜太黑，亦或是思索着换种方式能与同学走得更近些，毕竟居住在一室共同的话题才多。总之，我在学校宿舍待了一段时间，每夜入睡前都会不经意间瞧见墙上的那图、那文字。</p>
 <figure>
   <img style="width: 60%" src="//i.loli.net/2019/11/17/C13eRcgW4HnS8t9.jpg" alt="科比・布莱恩特 vs. 拉沙德・刘易斯" />
   <figcaption>科比・布莱恩特 vs. 拉沙德・刘易斯</figcaption>
 </figure>
 
-<p>报纸封面的新闻是关于拉沙德・刘易斯跟魔术队签了一份价值超亿的转会合同。虽然玩篮球有很长一段时间了，体验过扔进框的喜悦，享受过拼抢的激动；但那时我不知道世界上有NBA这类东西、这个联盟。我很好奇这个人有多厉害，一个运动员能值这么大价值？</p>
-<p>刚刚步入高中的我后来也发现，了解NBA资讯越多就能与同学有更多的共同话题，特别是体魄强壮的男生。往后周六日，我也愈来愈关注CCTV5频道、慢慢准时追着NBA球赛。</p>
+<p>报纸封面的新闻是关于拉沙德・刘易斯跟魔术队签了一份价值超亿的转会合同。虽然玩篮球有很长一段时间了，体验过扔进框的喜悦，享受过拼抢的激动；但那时我不知道世界上有 NBA 这类东西、这个联盟。我很好奇这个人有多厉害，一个运动员能值这么大价值？</p>
+<p>刚刚步入高中的我后来也发现，了解 NBA 资讯越多就能与同学有更多的共同话题，特别是体魄强壮的男生。往后周六日，我也愈来愈关注 CCTV5 频道、慢慢准时追着 NBA 球赛。</p>
 <p>球赛是无聊的，远没有自己在球场扔球来得好玩。追比赛的动力只为了上学第一天的周一能与同学有更多的谈资：谁赢了？哪个球星得了多少分？哪只队伍还有进季后赛的机会。</p>
-<p>球赛是无聊的，我坚持了一段时间就再也没接触NBA球赛了。因为懂得少，因为自己打篮球只是扔个球，因为比赛的输赢好像跟我无关。大家都喜欢科比、麦迪、詹姆斯、加内特，可是他们距离我好远。但是了解到身边存在着许多热衷篮球的同学，不论高矮、性别、成绩，喜欢的球队赢了关注的球员表现亮眼了都会很开心。</p>
+<p>球赛是无聊的，我坚持了一段时间就再也没接触 NBA 球赛了。因为懂得少，因为自己打篮球只是扔个球，因为比赛的输赢好像跟我无关。大家都喜欢科比、麦迪、詹姆斯、加内特，可是他们距离我好远。但是了解到身边存在着许多热衷篮球的同学，不论高矮、性别、成绩，喜欢的球队赢了关注的球员表现亮眼了都会很开心。</p>
 <p>球赛是无聊的，某个周六上午最后一节课刚刚结束，同桌迫不及待地悄悄跟我说&quot;阳儿，下午打篮球不？我借到了一个篮球下午可以来&quot;。果然，我居然没有注意到在他课桌的死角内放置着一个起着毛刺的篮球，我们课堂上时常喊着饥饿其实就是为了能够在操场上流汗。</p>
 <p>这种邀请我是不会拒绝的，从下午两点玩到六点，要不是快到饭点我们是不会离开的。<br>同桌是真心爱篮球的，一直嫌弃自己一米七八的身高还不够高，因为喜欢加内特能够在一个夏天把自己晒得黝黑黝黑的。<br>于我而言，这比看篮球比赛有意思多了，挣着球一群人流着汗...</p>
-<h2 id="中国队"><a href="#中国队" class="headerlink" title="中国队"></a>中国队</h2><p>08年是中国多灾多难的一年，也是我存储许多记忆的一年。<br>年初的南方大雪，寒假在家的我担心父亲还能不能回家过年，给我准备新衣裳、发压岁钱。<br>刚开学不久，新闻里播着西藏拉萨打砸抢烧暴力事件，文科老师偶尔也在课堂上义愤填膺。  </p>
+<h2 id="中国队"><a href="#中国队" class="headerlink" title="中国队"></a>中国队</h2><p>08 年是中国多灾多难的一年，也是我存储许多记忆的一年。<br>年初的南方大雪，寒假在家的我担心父亲还能不能回家过年，给我准备新衣裳、发压岁钱。<br>刚开学不久，新闻里播着西藏拉萨打砸抢烧暴力事件，文科老师偶尔也在课堂上义愤填膺。</p>
 <p>当我紧张忙着午间休憩时，又听闻四川汶川地震。幸好在四川的外婆没啥事。趁着暑假，和妹妹二人勇敢地去了一趟四川德阳。经历过几次余震，却无意识畏惧，日常就是和妹妹在德阳街道图书馆看书，在家追着动漫，对川式水煮五花肉也终身难忘，刺激味蕾的记忆是挥之不去的。</p>
 <figure>
   <img style="width: 80%" src="//i.loli.net/2019/11/17/RcA9CdtbB7igSVO.jpg" alt="北京奥运" />
@@ -636,15 +641,14 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 </figure>
 
 <p>最重要的还是北京奥运啦，&quot;北京欢迎你&quot;的调调随处都存在着。</p>
-<p>那个阶段我关注的是刘翔的110米栏、中国足球、中国篮球。等待了一上午，刘翔没有完成比赛，心中难以释怀——或许<strong>1356</strong>就不应该押付到一个人的身上。<br>足球是对阵美丽遥远的新西兰，拿下奥运首个进球的中国队没有拿下比赛；中国队的实力怎么这么不济，这是我难以接受的事实。还好，篮球比赛是很精彩的。</p>
+<p>那个阶段我关注的是刘翔的 110 米栏、中国足球、中国篮球。等待了一上午，刘翔没有完成比赛，心中难以释怀——或许<strong>1356</strong>就不应该押付到一个人的身上。<br>足球是对阵美丽遥远的新西兰，拿下奥运首个进球的中国队没有拿下比赛；中国队的实力怎么这么不济，这是我难以接受的事实。还好，篮球比赛是很精彩的。</p>
 <p>印象最深刻的是中国对战美国和中国对战西班牙——对战世界第一、第二。<br>第一例进球是姚明的三分，赛前我构思了第一个球的各种场景，却没猜测到居然会是姚明的三分。<br>朱芳雨、王仕鹏的手感好好，各种进；看着矮矮的刘炜，运起球来各种潇洒；易建联、王治郅、孙悦与美国全明星对位起来一点儿也不虚。<br>双方有来有回不可开交，虽然半场之后中国队慢慢落入下风。<br>缺失我们都知道这是一场结果赤裸裸的比赛，但还是为中国队的球员骄傲，发自内心的。更何况，对阵西班牙的比赛中国队差点还赢了。</p>
 <p>原来篮球这么好看，哦不原来打篮球的那一群人是如此优秀。</p>
-<h2 id="季后赛"><a href="#季后赛" class="headerlink" title="季后赛"></a>季后赛</h2><p>学业的压力徒增，生活中面临的诱惑也多了许多，流汗的疯狂却越来越少；不过，看NBA球赛却成为学习之外的日常。</p>
+<h2 id="季后赛"><a href="#季后赛" class="headerlink" title="季后赛"></a>季后赛</h2><p>学业的压力徒增，生活中面临的诱惑也多了许多，流汗的疯狂却越来越少；不过，看 NBA 球赛却成为学习之外的日常。</p>
 <figure>
   <img style="width: 60%" src="//i.loli.net/2019/11/17/PyYmGBsi982LE6v.jpg" alt="季后赛姚明迎接湖人队防守" />
   <figcaption>季后赛姚明迎接湖人队防守</figcaption>
 </figure>
-
 
 <p>〇九上半年，班级中最具人气的球员麦迪被交易走了，没有麦迪的火箭队其实更强大。季后赛与湖人挣抢七让我见识到竞技体育的韧性，记忆最深刻的是那一场比赛好多同学凌晨就逃离校园去看比赛了，期待奇迹却没有奇迹。</p>
 <figure>
@@ -661,31 +665,30 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <p>〇九总决赛的主角是科比，第一场科比求胜的眼神告诉我&quot;第二名才是真正的输家&quot;不是简单说说而已。熬过巴蒂尔和阿泰斯特防守，那个时期的联盟还有什么组合能够阻止科比夺冠的心。第二年依旧是科比与凯尔特人大战七场，科比上演了自己曼巴式复仇，不过看着他们这群球员比赛真的好可爱。</p>
 <p>一一年是是神奇的逆转，当小牛夺冠诺维茨基第一时间离开球场；拉起球衣捂住脸掩盖自己失控的情绪。〇六年总决赛被翻盘，〇七年被勇士&quot;黑八&quot;，一〇年又被马刺&quot;黑七&quot;，没有被打入谷底的耻辱，怎会有攀上顶峰的泪水。</p>
 <p>一二年在热火的詹姆斯终于拿到自己想要的荣誉，虽然我不认同&quot;无冠之王不是王&quot;的价值观。</p>
-<p>一三年，雷・阿伦的神奇三分与吉诺比利神一般的表现以及邓肯最后一场最后一刻不甘地捶地板。马刺太老了、GDP时代结束了 …</p>
+<p>一三年，雷・阿伦的神奇三分与吉诺比利神一般的表现以及邓肯最后一场最后一刻不甘地捶地板。马刺太老了、GDP 时代结束了 …</p>
 <p>一四年，去年马刺的失利让我耿耿于怀了许久，想不到今年能够卷土重来，我好害怕马刺再输。但总决赛阵容与去年一般，我告诉我自己这个系列赛我一场都不愿意错过。<br>可惜，最后一次比赛却发生在我毕业答辩时刻...</p>
 <figure>
   <img src="//i.loli.net/2019/11/17/cbgDJx8uoqjPK7i.jpg" alt="马刺夺冠" />
   <figcaption>马刺夺冠："每一次的失败都是下一次的卷土重来"</figcaption>
 </figure>
 
-
-
-<p>马刺夺冠时刻就是我毕业答辩的时刻。总决赛的最后一场，我在答辩室盯着3G网络手机中的文字直播，可是答辩的次序被安排在了上午。我的内心是紊乱的，毕业设计做得不够好，害怕被老师刁难，又担心马刺不能赢。想不到大学的最后时刻是如此纠结的体验，庆幸结局都是美好的。</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>未来很长的一段时间我可能会很难再关注NBA联赛，吸引我的是某些球员，让我不舍的是那碎片一样的岁月，而非NBA联赛，无关篮球。追求自己想要、喜欢的路途感觉真好，虽然会一路波折、忐忑、耻辱。</p>
+<p>马刺夺冠时刻就是我毕业答辩的时刻。总决赛的最后一场，我在答辩室盯着 3G 网络手机中的文字直播，可是答辩的次序被安排在了上午。我的内心是紊乱的，毕业设计做得不够好，害怕被老师刁难，又担心马刺不能赢。想不到大学的最后时刻是如此纠结的体验，庆幸结局都是美好的。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>未来很长的一段时间我可能会很难再关注 NBA 联赛，吸引我的是某些球员，让我不舍的是那碎片一样的岁月，而非 NBA 联赛，无关篮球。追求自己想要、喜欢的路途感觉真好，虽然会一路波折、忐忑、耻辱。</p>
 <blockquote>
 <p>版权声明：文中涉及图片素材均来源于<a target="_blank" rel="noopener" href="//www.zimbio.com">Zimbio</a>，版权归属于<a target="_blank" rel="noopener" href="//www.zimbio.com">Zimbio</a>。</p>
 </blockquote>
-
-      
+ 
     </div>
     <footer class="article-footer">
       <a data-url="http://solome.js.org/blog/those-years-nba-player/" data-id="cks6vzn1g00081yln6kco33gv" class="article-share-link">Share</a>
       
-      
+      <a href="http://solome.js.org/blog/those-years-nba-player/#disqus_thread" class="article-comment-link">Comments</a>
+       
     </footer>
   </div>
   
 </article>
+
 
 
   
@@ -791,6 +794,18 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a>
 </nav>
     
+<script>
+  var disqus_shortname = 'juyipeng';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->

@@ -7,16 +7,16 @@
   
   <title>JavaScript 異步編程小結 | 掬一捧清水窺明月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JavaScript是單線程的，除了你的JS代码，其它操作都是并行执行的(everything runs in parallel except your code)。 在JS執行線程中進行的行為被稱作同步(Synchronous)操作，非JS執行線程執行的行為則被稱呼為異步(Asynchronous)操作。諸如Ajax&#x2F;HTTP請求、I&#x2F;O操作等行為均與JS執行線程無關（由自己獨立的線程進行運作）">
+  <meta name="description" content="JavaScript 是單線程的，除了你的 JS 代码，其它操作都是并行执行的(everything runs in parallel except your code)。 在 JS 執行線程中進行的行為被稱作同步(Synchronous)操作，非 JS 執行線程執行的行為則被稱呼為異步(Asynchronous)操作。諸如 Ajax&#x2F;HTTP 請求、I&#x2F;O 操作等行為均與 JS 執行線程無關（由">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 異步編程小結">
 <meta property="og:url" content="http://solome.js.org/blog/javascript-async/index.html">
 <meta property="og:site_name" content="掬一捧清水窺明月">
-<meta property="og:description" content="JavaScript是單線程的，除了你的JS代码，其它操作都是并行执行的(everything runs in parallel except your code)。 在JS執行線程中進行的行為被稱作同步(Synchronous)操作，非JS執行線程執行的行為則被稱呼為異步(Asynchronous)操作。諸如Ajax&#x2F;HTTP請求、I&#x2F;O操作等行為均與JS執行線程無關（由自己獨立的線程進行運作）">
+<meta property="og:description" content="JavaScript 是單線程的，除了你的 JS 代码，其它操作都是并行执行的(everything runs in parallel except your code)。 在 JS 執行線程中進行的行為被稱作同步(Synchronous)操作，非 JS 執行線程執行的行為則被稱呼為異步(Asynchronous)操作。諸如 Ajax&#x2F;HTTP 請求、I&#x2F;O 操作等行為均與 JS 執行線程無關（由">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://solome.js.org/blog/javascript-async/pingpong.gif">
 <meta property="article:published_time" content="2016-12-16T07:18:22.000Z">
-<meta property="article:modified_time" content="2021-08-10T16:18:49.927Z">
+<meta property="article:modified_time" content="2022-05-16T14:21:56.476Z">
 <meta property="article:author" content="掬一捧">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://solome.js.org/blog/javascript-async/pingpong.gif">
@@ -70,7 +70,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-javascript-async" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article
+  id="post-javascript-async"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+>
   <!-- <div class="article-meta">
     <div class="article-date">
   首次编辑于 Fri Dec 16 2016 15:18:22 GMT+0800 (China Standard Time)
@@ -82,27 +87,23 @@
 
   </div> -->
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="article-title" itemprop="name">
       JavaScript 異步編程小結
     </h1>
   
-
-        <div class="article-dateref">
+ <div class="article-dateref">
   首次编辑于 Fri Dec 16 2016 15:18:22 GMT+0800 (China Standard Time)
 </div>
-
-      </header>
+    </header>
     
     <div class="article-entry" itemprop="articleBody">
-      
-        <p>JavaScript是單線程的，除了你的JS代码，其它操作都是并行执行的(everything runs in parallel except your code)。</p>
-<p>在JS執行線程中進行的行為被稱作同步(Synchronous)操作，非JS執行線程執行的行為則被稱呼為異步(Asynchronous)操作。<br>諸如Ajax/HTTP請求、I/O操作等行為均與JS執行線程無關（由自己獨立的線程進行運作），這些行為在執行完成之後會將結果通知到JS執行線程；<br>因此，JS執行線程中會有個類似<code>while(true)</code>的循環，以觀察者的姿態<code>監聽</code>（轮询）是否有其它線程傳遞消息過來，一旦捕獲到則執行本JS執行線程中相應的函數塊（回調）。</p>
-<p>JavaScript事件循環不是本文的重點（<a target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/1-UC3cwd0KZtdSRAd6edLD-CvrOeM-IOpJYcb8rhElBY/edit?usp=sharing">JavaScript Event Loop</a>），本文僅對前端異步編程進行些許總結。個人的理解是JavaScript異步編程方式只有兩種方式：回調和觀察者模式。需要注意的是：</p>
+       <p>JavaScript 是單線程的，除了你的 JS 代码，其它操作都是并行执行的(everything runs in parallel except your code)。</p>
+<p>在 JS 執行線程中進行的行為被稱作同步(Synchronous)操作，非 JS 執行線程執行的行為則被稱呼為異步(Asynchronous)操作。<br>諸如 Ajax/HTTP 請求、I/O 操作等行為均與 JS 執行線程無關（由自己獨立的線程進行運作），這些行為在執行完成之後會將結果通知到 JS 執行線程；<br>因此，JS 執行線程中會有個類似<code>while(true)</code>的循環，以觀察者的姿態<code>監聽</code>（轮询）是否有其它線程傳遞消息過來，一旦捕獲到則執行本 JS 執行線程中相應的函數塊（回調）。</p>
+<p>JavaScript 事件循環不是本文的重點（<a target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/1-UC3cwd0KZtdSRAd6edLD-CvrOeM-IOpJYcb8rhElBY/edit?usp=sharing">JavaScript Event Loop</a>），本文僅對前端異步編程進行些許總結。個人的理解是 JavaScript 異步編程方式只有兩種方式：回調和觀察者模式。需要注意的是：</p>
 <ul>
 <li>Promises/A+ 是如何優雅地使用回調而設計的一種編程規範，本質依舊是回調</li>
 <li>事件監聽和觀察者模式（發佈/訂閱模式）完全可以理解成是“一個孩子的不同暱稱”</li>
@@ -110,59 +111,58 @@
 <li>Generators+Promises 可以搭配漂亮的語法糖，將異步源碼寫得像同步源碼</li>
 </ul>
 <h3 id="Callback-Functions"><a href="#Callback-Functions" class="headerlink" title="Callback Functions"></a>Callback Functions</h3><p>函數式編程中有個概念叫做高階函數(Higher-order Functions)，其有個特性是一個函數可以作為另外一個函數的參數。通常我們將那個作為另外一個函數參數的函數稱呼為回調函數。</p>
-<p>為方便描述和解釋，此處模擬一個具體的業務場景：通過Ajax方式請求<code>**/api/v1.0/user/&#123;id&#125;</code>接口獲取某個用戶的信息(Asynchronous behavior)，然後針對拿到的用戶信息進行後續的處理。<br>典型的做法是將<code>Ajax</code>異步請求之後進行的操作封裝成<code>callback()</code>函數，在接口訪問成功得到用戶信息之後再執行該函數：</p>
+<p>為方便描述和解釋，此處模擬一個具體的業務場景：通過 Ajax 方式請求<code>**/api/v1.0/user/&#123;id&#125;</code>接口獲取某個用戶的信息(Asynchronous behavior)，然後針對拿到的用戶信息進行後續的處理。<br>典型的做法是將<code>Ajax</code>異步請求之後進行的操作封裝成<code>callback()</code>函數，在接口訪問成功得到用戶信息之後再執行該函數：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserInfoCallback</span>(<span class="hljs-params">id, callback</span>) </span>&#123;<br>  $.ajax(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>    <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> callback(<span class="hljs-literal">null</span>, data),<br>    <span class="hljs-attr">error</span>: <span class="hljs-function">(<span class="hljs-params">xhr, textStatus, errorThrown</span>)</span><br><span class="hljs-function">      =&gt;</span> callback(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(textStatus), errorThrown),<br>  &#125;)<br>&#125;<br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, handleUserInfo)<br></code></pre></td></tr></table></figure>
 
 <h3 id="Promises-A"><a href="#Promises-A" class="headerlink" title="Promises/A+"></a>Promises/A+</h3><blockquote>
 <p>An open standard for sound, interoperable JavaScript promises—by implementers, for implementers.</p>
 </blockquote>
 <p>濫用回調帶來的問題是代碼邏輯耦合度很高，面臨回調災難。Promises/A+是種合理使用回調的<strong>規範</strong>，避免回調的濫用。</p>
-<h4 id="特點一：提供好看的API，由嵌套回調-callback-hell-轉向鏈式語法"><a href="#特點一：提供好看的API，由嵌套回調-callback-hell-轉向鏈式語法" class="headerlink" title="特點一：提供好看的API，由嵌套回調(callback hell)轉向鏈式語法"></a>特點一：提供好看的API，由嵌套回調(<a target="_blank" rel="noopener" href="http://callbackhell.com/">callback hell</a>)轉向鏈式語法</h4><p>首先將請求用戶信息的Ajax異步操作包裝成一個Promise實例，後續的同步行為通過該實例對象的<code>then()</code>方法調用。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserInfoPromise</span>(<span class="hljs-params">id</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> &#123;<br>    $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill,<br>      <span class="hljs-attr">error</span>: reject,<br>    &#125;) <span class="hljs-comment">// end $.ajax</span><br>  &#125;) <span class="hljs-comment">// end return</span><br>&#125; <span class="hljs-comment">// end getUserInfoPromise</span><br><br>getUserInfoPromise(<span class="hljs-string">&#x27;10086&#x27;</span>)<br>  .then(<span class="hljs-function"><span class="hljs-params">userInfo</span> =&gt;</span> handleUserInfo)<br>  .catch(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+<h4 id="特點一：提供好看的-API，由嵌套回調-callback-hell-轉向鏈式語法"><a href="#特點一：提供好看的-API，由嵌套回調-callback-hell-轉向鏈式語法" class="headerlink" title="特點一：提供好看的 API，由嵌套回調(callback hell)轉向鏈式語法"></a>特點一：提供好看的 API，由嵌套回調(<a target="_blank" rel="noopener" href="http://callbackhell.com/">callback hell</a>)轉向鏈式語法</h4><p>首先將請求用戶信息的 Ajax 異步操作包裝成一個 Promise 實例，後續的同步行為通過該實例對象的<code>then()</code>方法調用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserInfoPromise</span>(<span class="hljs-params">id</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> &#123;<br>    $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill,<br>      <span class="hljs-attr">error</span>: reject,<br>    &#125;) <span class="hljs-comment">// end $.ajax</span><br>  &#125;) <span class="hljs-comment">// end return</span><br>&#125; <span class="hljs-comment">// end getUserInfoPromise</span><br><br>getUserInfoPromise(<span class="hljs-string">&#x27;10086&#x27;</span>)<br>  .then(<span class="hljs-function">(<span class="hljs-params">userInfo</span>) =&gt;</span> handleUserInfo)<br>  .catch(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
 
-<h4 id="特點二：Promises-不會與回調綁定耦合，可緩存異步操作結果"><a href="#特點二：Promises-不會與回調綁定耦合，可緩存異步操作結果" class="headerlink" title="特點二：Promises 不會與回調綁定耦合，可緩存異步操作結果"></a>特點二：Promises 不會與回調綁定耦合，可緩存異步操作結果</h4><p>假設存在這樣的一個業務場景：獲取用戶id為<code>10086</code>的用戶信息，然後在不同的兩個階段對其異步操作獲取的用戶信息進行兩種不同的操作（分別為<code>handleUserInfo()</code>和<code>console.log()</code>）。<br>在兩個階段中，都需要異步操作獲取得到的<code>userInfo</code>數據，如果採用傳統回調方式，一般採用閉包的方式緩存<code>userInfo</code>或者暴力點重複進行一次Ajax異步請求。</p>
-<p>但是採用Promise方式，則無需這些很<strong>複雜</strong>的實現方式，因為可以重複使用Promise對象。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 閉包緩存</span><br><span class="hljs-keyword">let</span> globUserInfo = <span class="hljs-literal">null</span><br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-function"><span class="hljs-params">userInfo</span> =&gt;</span> globUserInfo = userInfo)<br><span class="hljs-comment">// 難以保證 globUserInfo 已經更新</span><br>handleUserInfo(globUserInfo)<br><span class="hljs-built_in">console</span>.log(globUserInfo)<br><br><span class="hljs-comment">// 進行了兩次異步操作</span><br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, handleUserInfo)<br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-built_in">console</span>.log)<br><br><span class="hljs-comment">// 保存Promise對象</span><br><span class="hljs-keyword">const</span> userInfoPromise = getUserInfoPromise(<span class="hljs-string">&#x27;10086&#x27;</span>)<br>userInfoPromise.then(handleUserInfo)<br><span class="hljs-comment">// 可以再次使用`userInfoPromise`對象</span><br>userInfoPromise.then(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+<h4 id="特點二：Promises-不會與回調綁定耦合，可緩存異步操作結果"><a href="#特點二：Promises-不會與回調綁定耦合，可緩存異步操作結果" class="headerlink" title="特點二：Promises 不會與回調綁定耦合，可緩存異步操作結果"></a>特點二：Promises 不會與回調綁定耦合，可緩存異步操作結果</h4><p>假設存在這樣的一個業務場景：獲取用戶 id 為<code>10086</code>的用戶信息，然後在不同的兩個階段對其異步操作獲取的用戶信息進行兩種不同的操作（分別為<code>handleUserInfo()</code>和<code>console.log()</code>）。<br>在兩個階段中，都需要異步操作獲取得到的<code>userInfo</code>數據，如果採用傳統回調方式，一般採用閉包的方式緩存<code>userInfo</code>或者暴力點重複進行一次 Ajax 異步請求。</p>
+<p>但是採用 Promise 方式，則無需這些很<strong>複雜</strong>的實現方式，因為可以重複使用 Promise 對象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 閉包緩存</span><br><span class="hljs-keyword">let</span> globUserInfo = <span class="hljs-literal">null</span><br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">userInfo</span>) =&gt;</span> (globUserInfo = userInfo))<br><span class="hljs-comment">// 難以保證 globUserInfo 已經更新</span><br>handleUserInfo(globUserInfo)<br><span class="hljs-built_in">console</span>.log(globUserInfo)<br><br><span class="hljs-comment">// 進行了兩次異步操作</span><br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, handleUserInfo)<br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-built_in">console</span>.log)<br><br><span class="hljs-comment">// 保存Promise對象</span><br><span class="hljs-keyword">const</span> userInfoPromise = getUserInfoPromise(<span class="hljs-string">&#x27;10086&#x27;</span>)<br>userInfoPromise.then(handleUserInfo)<br><span class="hljs-comment">// 可以再次使用`userInfoPromise`對象</span><br>userInfoPromise.then(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>這種策略和函數式編程中<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lazy_evaluation">lazy evaluation</a>概念是類似的，強調<code>call-by-need</code>。</li>
-<li>也可以對異步操作進行柯裡化(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Currying">Curring</a>)暫存異步操作的結果（類似的概念還有thunk，參考<a target="_blank" rel="noopener" href="https://github.com/tj/node-thunkify">node-thunkify</a>）。</li>
+<li>也可以對異步操作進行柯裡化(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Currying">Curring</a>)暫存異步操作的結果（類似的概念還有 thunk，參考<a target="_blank" rel="noopener" href="https://github.com/tj/node-thunkify">node-thunkify</a>）。</li>
 </ul>
-<h4 id="特點三：可組合，復用"><a href="#特點三：可組合，復用" class="headerlink" title="特點三：可組合，復用"></a>特點三：可組合，復用</h4><p>類似於函數式編程中推廣的從已有的函數中創建新函數，也可以通過已有的Promise對象生成新的Promise對象。<br>比如獲取多個用戶信息，可使用<code>Promise.all()</code>方法實現異步操作的組合：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> promises = [<span class="hljs-string">&#x27;10010&#x27;</span>, <span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-string">&#x27;10000&#x27;</span>].map(<br>  <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<br>    <span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill, <span class="hljs-attr">error</span>: reject,<br>    &#125;)<br>))<br><span class="hljs-keyword">const</span> userInfosPromise = <span class="hljs-built_in">Promise</span>.all(promises)<br>  .then(<span class="hljs-built_in">console</span>.log)<br>  .catch(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+<h4 id="特點三：可組合，復用"><a href="#特點三：可組合，復用" class="headerlink" title="特點三：可組合，復用"></a>特點三：可組合，復用</h4><p>類似於函數式編程中推廣的從已有的函數中創建新函數，也可以通過已有的 Promise 對象生成新的 Promise 對象。<br>比如獲取多個用戶信息，可使用<code>Promise.all()</code>方法實現異步操作的組合：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> promises = [<span class="hljs-string">&#x27;10010&#x27;</span>, <span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-string">&#x27;10000&#x27;</span>].map(<br>  <span class="hljs-function">(<span class="hljs-params">id</span>) =&gt;</span><br>    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span><br>      $.ajax(&#123;<br>        <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>        <span class="hljs-attr">success</span>: fulfill,<br>        <span class="hljs-attr">error</span>: reject,<br>      &#125;)<br>    )<br>)<br><span class="hljs-keyword">const</span> userInfosPromise = <span class="hljs-built_in">Promise</span>.all(promises).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
 
 <blockquote>
-<p>感覺上Promise/A+規範是函數式編程概念在前端領域的一次最佳實踐（回調的語法糖）。更多詳細的內容待補充。</p>
+<p>感覺上 Promise/A+規範是函數式編程概念在前端領域的一次最佳實踐（回調的語法糖）。更多詳細的內容待補充。</p>
 </blockquote>
 <h3 id="Event-Emitters"><a href="#Event-Emitters" class="headerlink" title="Event Emitters"></a>Event Emitters</h3><p>事件監聽式異步編程本質上還是依賴於回調函數實現的，區別在於回調函數並不執行異步行為完成後需要的操作，而是發佈一個通知去觸發執行相應的函數。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> EventEmitter <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;events&#x27;</span><br><span class="hljs-keyword">const</span> emitter = <span class="hljs-keyword">new</span> EventEmitter()<br><span class="hljs-comment">// 註冊</span><br>emitter.on(<span class="hljs-string">&#x27;event&#x27;</span>, handleUserInfo)<br>$.ajax(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;event&#x27;</span>, data), <span class="hljs-comment">// 觸發：異步操作這個行為帶來的影響</span><br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> EventEmitter <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;events&#x27;</span><br><span class="hljs-keyword">const</span> emitter = <span class="hljs-keyword">new</span> EventEmitter()<br><span class="hljs-comment">// 註冊</span><br>emitter.on(<span class="hljs-string">&#x27;event&#x27;</span>, handleUserInfo)<br>$.ajax(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;event&#x27;</span>, data), <span class="hljs-comment">// 觸發：異步操作這個行為帶來的影響</span><br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
 
-<p>事件監聽其實是觀察者模式的一種實現：當一個對象發生變化時，所有依賴他的相關操作都會得到通知，只不過事件監聽弱化了對象的變化而強調行為（對象數據變更也是一種行為）。<br>比如上面的代碼段強調的是Ajax操作這個行為，一旦完成就<strong>通知</strong>到<code>handleUserInfo()</code>函數的調用，並攜帶參數變更對象數據。</p>
+<p>事件監聽其實是觀察者模式的一種實現：當一個對象發生變化時，所有依賴他的相關操作都會得到通知，只不過事件監聽弱化了對象的變化而強調行為（對象數據變更也是一種行為）。<br>比如上面的代碼段強調的是 Ajax 操作這個行為，一旦完成就<strong>通知</strong>到<code>handleUserInfo()</code>函數的調用，並攜帶參數變更對象數據。</p>
 <p>如果採用觀察者模式的話，一般這樣直接處理數據（強調數據變化帶來的影響，造成數據變化的場景可能存在多處），然後觸發數據變動後的行為：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> userInfo = <span class="hljs-literal">null</span><br>emitter.on(<span class="hljs-string">&#x27;event&#x27;</span>, <span class="hljs-function">() =&gt;</span> handleUserInfo(userInfo))<br><span class="hljs-keyword">const</span> updateUserInfo = <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>  userInfo = data       <span class="hljs-comment">// userInfo對象方式變更</span><br>  emitter.emit(<span class="hljs-string">&#x27;event&#x27;</span>) <span class="hljs-comment">// 通知相關依賴的操作：數據變更帶來的影響</span><br>&#125;<br>$.ajax(<br>  url: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: updateUserInfo, <span class="hljs-comment">// 觸發</span><br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
 <p>很明顯，觀察者模式要比事件監聽方式擴充性更強（雖然本質一致，但是強調側重點不同）。</p>
 <figure style="padding-top: 0;margin-top: .5em;">
   <img src="/blog/javascript-async/pingpong.gif" />
   <figcaption>陷入`emit`死循環</figcaption>
 </figure>
-事件監聽式異步編程無異於`goto`語句，稍有不慎形如`on()`、`emit()`、`subscribe()`、`publish()`等方法摻雜在各處，“剪不清，理還亂”；
-如果不是“約定”化編程不建議採用。比如下面這段源碼，稍不慎就陷入如圖1所示場景。
 
-<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> emitter = <span class="hljs-keyword">new</span> EventEmitter()<br><span class="hljs-keyword">const</span> foo = <span class="hljs-function">() =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;bar&#x27;</span>)<br><span class="hljs-keyword">const</span> bar = <span class="hljs-function">() =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;foo&#x27;</span>)<br>emitter.on(<span class="hljs-string">&#x27;foo&#x27;</span>, foo)<br>emitter.on(<span class="hljs-string">&#x27;bar&#x27;</span>, bar)<br>foo()    <span class="hljs-comment">// 陷入死循環</span><br></code></pre></td></tr></table></figure>
+<p>事件監聽式異步編程無異於<code>goto</code>語句，稍有不慎形如<code>on()</code>、<code>emit()</code>、<code>subscribe()</code>、<code>publish()</code>等方法摻雜在各處，“剪不清，理還亂”；如果不是“約定”化編程不建議採用。比如下面這段源碼，稍不慎就陷入如圖 1 所示場景。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> emitter = <span class="hljs-keyword">new</span> EventEmitter()<br><span class="hljs-keyword">const</span> foo = <span class="hljs-function">() =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;bar&#x27;</span>)<br><span class="hljs-keyword">const</span> bar = <span class="hljs-function">() =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;foo&#x27;</span>)<br>emitter.on(<span class="hljs-string">&#x27;foo&#x27;</span>, foo)<br>emitter.on(<span class="hljs-string">&#x27;bar&#x27;</span>, bar)<br>foo() <span class="hljs-comment">// 陷入死循環</span><br></code></pre></td></tr></table></figure>
 
-
-<p>和回調式異步編程（包括Promises/A+規範）相比，事件監聽式異步編程的軟肋在於需要手動註冊(Manual)。<br>原本可以通過數據綁定(Data binding)<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe()</a>方法來實現觀察者模式，很可惜該方法已被<code>deprecated</code>掉；目前推薦的是<code>get</code>和<code>set</code>+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a>方式實現（相關討論：<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/36258502/why-object-observe-has-been-deprecated">36258502</a>）。</p>
+<p>和回調式異步編程（包括 Promises/A+規範）相比，事件監聽式異步編程的軟肋在於需要手動註冊(Manual)。<br>原本可以通過數據綁定(Data binding)<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe()</a>方法來實現觀察者模式，很可惜該方法已被<code>deprecated</code>掉；目前推薦的是<code>get</code>和<code>set</code>+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a>方式實現（相關討論：<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/36258502/why-object-observe-has-been-deprecated">36258502</a>）。</p>
 <p>但是手動維護這些<code>on()</code>、<code>emit()</code>、<code>get()</code>、<code>set()</code>等方法在項目是很折騰的，通過一些第三方工具包可以實現由<code>Manual</code>到<code>Automatic</code>轉變。<br>比如採用<a target="_blank" rel="noopener" href="http://mobxjs.github.io/mobx/index.html">MobX</a>可以實現得更加優雅：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; observable, autorun &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mobx&#x27;</span><br><span class="hljs-keyword">const</span> store = observable(&#123;<span class="hljs-attr">userInfo</span>: <span class="hljs-literal">null</span>&#125;)<br><span class="hljs-comment">// 只要變動`store`對象，就會自動觸發`handleUserInfo()`函數</span><br>autorun(<span class="hljs-function">() =&gt;</span> handleUserInfo(store.userInfo))<br>$.ajax(<br>  url: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> store.userInfo = data,<br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
 
-<h3 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h3><h4 id="Coroutine-協程-a-k-a-co-operative-routines"><a href="#Coroutine-協程-a-k-a-co-operative-routines" class="headerlink" title="Coroutine 協程 (a.k.a. co-operative routines)"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Coroutine">Coroutine</a> 協程 (a.k.a. co-operative routines)</h4><p>一般程序中，函數調用一定是從頭到尾執行直到遇到<code>return</code>或執行完；<br>而coroutine 則容許函數執行到一半時就中斷(yield)，中斷時函數內部上下文環境(context)會被緩存下來。<br>程序主體可以隨時恢復(resume)這個被緩存的coroutine，繼續從剛才被中斷處執行後續內容。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> *<span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>)<br>  <span class="hljs-keyword">yield</span> <span class="hljs-number">10086</span>           <span class="hljs-comment">// 在此處中斷 coroutine</span><br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>)<br>&#125;<br><br><span class="hljs-keyword">const</span> bar = foo()                   <span class="hljs-comment">// 保存 coroutine 內部狀態的變量</span><br>bar.next()                          <span class="hljs-comment">// 調用`foo()`函數，遇到 yield 中斷程序調用</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;main, not in `foo()`&#x27;</span>) <span class="hljs-comment">// 已經從`foo()`函數中跳出來了，可以幹些其它事情</span><br>bar.next()                          <span class="hljs-comment">// 恢復`foo()`的調用，從 yield 中斷處繼續執行</span><br></code></pre></td></tr></table></figure>
+<h3 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h3><h4 id="Coroutine-協程-a-k-a-co-operative-routines"><a href="#Coroutine-協程-a-k-a-co-operative-routines" class="headerlink" title="Coroutine 協程 (a.k.a. co-operative routines)"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Coroutine">Coroutine</a> 協程 (a.k.a. co-operative routines)</h4><p>一般程序中，函數調用一定是從頭到尾執行直到遇到<code>return</code>或執行完；<br>而 coroutine 則容許函數執行到一半時就中斷(yield)，中斷時函數內部上下文環境(context)會被緩存下來。<br>程序主體可以隨時恢復(resume)這個被緩存的 coroutine，繼續從剛才被中斷處執行後續內容。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>)<br>  <span class="hljs-keyword">yield</span> <span class="hljs-number">10086</span> <span class="hljs-comment">// 在此處中斷 coroutine</span><br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>)<br>&#125;<br><br><span class="hljs-keyword">const</span> bar = foo() <span class="hljs-comment">// 保存 coroutine 內部狀態的變量</span><br>bar.next() <span class="hljs-comment">// 調用`foo()`函數，遇到 yield 中斷程序調用</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;main, not in `foo()`&#x27;</span>) <span class="hljs-comment">// 已經從`foo()`函數中跳出來了，可以幹些其它事情</span><br>bar.next() <span class="hljs-comment">// 恢復`foo()`的調用，從 yield 中斷處繼續執行</span><br></code></pre></td></tr></table></figure>
 
 <h4 id="Thread-VS-Coroutine"><a href="#Thread-VS-Coroutine" class="headerlink" title="Thread VS Coroutine"></a>Thread VS Coroutine</h4><blockquote>
 <p>With threads, the operating system switches running threads preemptively according to its scheduler,<br>which is an algorithm in the operating system kernel.<br>With coroutines, the programmer and programming language determine when to switch coroutines;<br>in other words, tasks are cooperatively multitasked by pausing and resuming functions at set points,<br>typically (but not necessarily) within a single thread.<br /><br>—— <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1934715/difference-between-a-coroutine-and-a-thread">stackoverflow: difference-between-a-coroutine-and-a-thread</a></p>
 </blockquote>
-<h4 id="Generator-a-k-a-semicoroutines-VS-Coroutine"><a href="#Generator-a-k-a-semicoroutines-VS-Coroutine" class="headerlink" title="Generator (a.k.a. semicoroutines) VS Coroutine"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Generator_(computer_programming)">Generator</a> (a.k.a. semicoroutines) VS Coroutine</h4><p>Generator與Coroutine 的區別是Generator 只能從上次中斷處繼續執行，而Coroutine則沒有這樣的限制（可以指定從哪裡繼續執行）。<br>因此，Generator可以視作是Coroutine的一種特殊情況，上文涉及的源碼例子其實就是Generator的應用舉例。<br>其中，Generator涉及<code>bar.next()</code>自動流程管理的解決方案可以參考<a target="_blank" rel="noopener" href="https://github.com/tj/co">co</a>、<a target="_blank" rel="noopener" href="https://github.com/thunks/thunks">thunks</a>等。</p>
-<h4 id="async-await-“語法糖”"><a href="#async-await-“語法糖”" class="headerlink" title="async/await “語法糖”"></a>async/await “語法糖”</h4><p>聲明的<code>async</code>函數就是將Generator函數和自動執行器包裝在一個函數裡面（參考<a target="_blank" rel="noopener" href="https://gist.github.com/solome/064e48f5205943dff7d4918b3bf18e0d">async2generator()</a>），<br>以達到異步編碼編程模式與同步編碼一致。</p>
+<h4 id="Generator-a-k-a-semicoroutines-VS-Coroutine"><a href="#Generator-a-k-a-semicoroutines-VS-Coroutine" class="headerlink" title="Generator (a.k.a. semicoroutines) VS Coroutine"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Generator_(computer_programming)">Generator</a> (a.k.a. semicoroutines) VS Coroutine</h4><p>Generator 與 Coroutine 的區別是 Generator 只能從上次中斷處繼續執行，而 Coroutine 則沒有這樣的限制（可以指定從哪裡繼續執行）。<br>因此，Generator 可以視作是 Coroutine 的一種特殊情況，上文涉及的源碼例子其實就是 Generator 的應用舉例。<br>其中，Generator 涉及<code>bar.next()</code>自動流程管理的解決方案可以參考<a target="_blank" rel="noopener" href="https://github.com/tj/co">co</a>、<a target="_blank" rel="noopener" href="https://github.com/thunks/thunks">thunks</a>等。</p>
+<h4 id="async-await-“語法糖”"><a href="#async-await-“語法糖”" class="headerlink" title="async/await “語法糖”"></a>async/await “語法糖”</h4><p>聲明的<code>async</code>函數就是將 Generator 函數和自動執行器包裝在一個函數裡面（參考<a target="_blank" rel="noopener" href="https://gist.github.com/solome/064e48f5205943dff7d4918b3bf18e0d">async2generator()</a>），<br>以達到異步編碼編程模式與同步編碼一致。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> run = <span class="hljs-keyword">async</span> () =&gt; &#123;<br>  <span class="hljs-keyword">const</span> userInfo = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> &#123;<br>    $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill,<br>      <span class="hljs-attr">error</span>: reject,<br>    &#125;) <span class="hljs-comment">// end $.ajax</span><br>  &#125;) <span class="hljs-comment">// end return</span><br>  handleUserInfo(userInfo)<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="不是總結的總結"><a href="#不是總結的總結" class="headerlink" title="不是總結的總結"></a>不是總結的總結</h3><ul>
@@ -175,20 +175,19 @@
 <li><a target="_blank" rel="noopener" href="https://www.promisejs.org/">promisejs.org</a>: A website dedicated to promises in JavaScript.</li>
 <li><a target="_blank" rel="noopener" href="https://facebook.github.io/regenerator/">regenerator</a>: Source transformer enabling ECMAScript 6 generator functions in JavaScript-of-today.</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/tc39/ecmascript-asyncawait">ecmascript-asyncawait</a>: Async/await for ECMAScript.</li>
-<li><a target="_blank" rel="noopener" href="http://devsmash.com/blog/whats-the-big-deal-with-generators">whats-the-big-deal-with-generators</a> </li>
+<li><a target="_blank" rel="noopener" href="http://devsmash.com/blog/whats-the-big-deal-with-generators">whats-the-big-deal-with-generators</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4287.pdf">Threads, Fibers &amp; Coroutines</a></li>
 </ul>
-
-      
+ 
     </div>
     <footer class="article-footer">
       <a data-url="http://solome.js.org/blog/javascript-async/" data-id="cks6vzn1900011ylngoblhqgg" class="article-share-link">Share</a>
       
-      
+      <a href="http://solome.js.org/blog/javascript-async/#disqus_thread" class="article-comment-link">Comments</a>
+       
     </footer>
   </div>
-  
-    
+   
 <nav id="article-nav">
   
     <a href="/blog/tech-salon-13-app-proto/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -207,9 +206,18 @@
     </a>
   
 </nav>
-
-  
+ 
 </article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript
+      >Please enable JavaScript to view the
+      <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript
+    >
+  </div>
+</section>
 
 </section>
         
@@ -306,6 +314,20 @@
   <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a>
 </nav>
     
+<script>
+  var disqus_shortname = 'juyipeng';
+  
+  var disqus_url = 'http://solome.js.org/blog/javascript-async/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->

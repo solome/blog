@@ -7,18 +7,18 @@
   
   <title>前端内存分析之图片篇 | 掬一捧清水窺明月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="背景二零年年末，我所在如视的前端团队针对核心C端项目 VR 3D 看房 做了次从2.0到3.0的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过 PerfDog 性能狗 性能分析发现：我们一个 VR 3D 页面在 PC 端占用120MB左右内存，在 iPhone 12 上竟然高达360MB。 在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修">
+  <meta name="description" content="背景二零年年末，我所在如视的前端团队针对核心 C 端项目 VR 3D 看房 做了次从 2.0 到 3.0 的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过 PerfDog 性能狗 性能分析发现：我们一个 VR 3D 页面在 PC 端占用 120MB 左右内存，在 iPhone 12 上竟然高达 360MB。 在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端内存分析之图片篇">
 <meta property="og:url" content="http://solome.js.org/blog/memory-usage-pic/index.html">
 <meta property="og:site_name" content="掬一捧清水窺明月">
-<meta property="og:description" content="背景二零年年末，我所在如视的前端团队针对核心C端项目 VR 3D 看房 做了次从2.0到3.0的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过 PerfDog 性能狗 性能分析发现：我们一个 VR 3D 页面在 PC 端占用120MB左右内存，在 iPhone 12 上竟然高达360MB。 在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修">
+<meta property="og:description" content="背景二零年年末，我所在如视的前端团队针对核心 C 端项目 VR 3D 看房 做了次从 2.0 到 3.0 的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过 PerfDog 性能狗 性能分析发现：我们一个 VR 3D 页面在 PC 端占用 120MB 左右内存，在 iPhone 12 上竟然高达 360MB。 在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://solome.js.org/blog/memory-usage-pic/memo-vr.png">
 <meta property="og:image" content="http://solome.js.org/blog/memory-usage-pic/pano.png">
 <meta property="og:image" content="http://solome.js.org/blog/memory-usage-pic/model.png">
 <meta property="article:published_time" content="2022-03-11T15:30:00.000Z">
-<meta property="article:modified_time" content="2022-03-11T08:42:59.758Z">
+<meta property="article:modified_time" content="2022-05-16T14:02:16.981Z">
 <meta property="article:author" content="掬一捧">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://solome.js.org/blog/memory-usage-pic/memo-vr.png">
@@ -72,7 +72,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="layout/post-memory-usage-pic" class="article article-type-layout/post" itemscope itemprop="blogPost">
+        <section id="main"><article
+  id="layout/post-memory-usage-pic"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
   <!-- <div class="article-meta">
     <div class="article-date">
   首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (China Standard Time)
@@ -84,26 +89,22 @@
 
   </div> -->
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="article-title" itemprop="name">
       前端内存分析之图片篇
     </h1>
   
-
-        <div class="article-dateref">
+ <div class="article-dateref">
   首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (China Standard Time)
 </div>
-
-      </header>
+    </header>
     
     <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>二零年年末，我所在如视的前端团队针对核心C端项目 <strong>VR 3D 看房</strong> 做了次从2.0到3.0的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过<a target="_blank" rel="noopener" href="https://perfdog.qq.com/"> PerfDog 性能狗</a> 性能分析发现：我们一个 VR 3D 页面在 PC 端占用120MB左右内存，在 iPhone 12 上竟然高达360MB。</p>
-<p>在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修前后的效果对比，这又新增了一个 VR 实例，内存占用已超700MB。</p>
+       <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>二零年年末，我所在如视的前端团队针对核心 C 端项目 <strong>VR 3D 看房</strong> 做了次从 2.0 到 3.0 的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过<a target="_blank" rel="noopener" href="https://perfdog.qq.com/"> PerfDog 性能狗</a> 性能分析发现：我们一个 VR 3D 页面在 PC 端占用 120MB 左右内存，在 iPhone 12 上竟然高达 360MB。</p>
+<p>在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修前后的效果对比，这又新增了一个 VR 实例，内存占用已超 700MB。</p>
 <figure>
   <div style="display:flex;" class="fancyboxflex">
     <div style="flex: 1"><img style="width:100%;" src="/blog/memory-usage-pic/memo-vr.png" /></div>
@@ -111,10 +112,10 @@
   <figcaption>图一：2.0和3.0 内存占用情况</figcaption>
 </figure>
 
-<p>此外，随着用户的交互（开启地图、逐帧动画等），内存还在不断递增，高峰期已经超过1G。而 iOS 系统 WebView 内存溢出的阈值最高也才1.5G，VR 页面已经濒临崩溃。</p>
+<p>此外，随着用户的交互（开启地图、逐帧动画等），内存还在不断递增，高峰期已经超过 1G。而 iOS 系统 WebView 内存溢出的阈值最高也才 1.5G，VR 页面已经濒临崩溃。</p>
 <p>很好奇为啥会占用了那么多的内存？让我们来简单探究一下吧。</p>
 <h2 id="图片内存占用"><a href="#图片内存占用" class="headerlink" title="图片内存占用"></a>图片内存占用</h2><p>三维模型一般由面片数据（顶点、线）和贴图组成，内存占用的大头是图片。那一张图片渲染至浏览器占用的内存该怎么计算呢？</p>
-<p>一般浏览器渲染图片<strong>BitMap</strong>选用的是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RGBA_color_model#RGBA8888">ARGB_8888</a>：颜色信息由透明度A（Alpha）与R（Red），G（Green），B（Blue）四部分组成，每个部分都占8位，总共占32位。即一个像素：</p>
+<p>一般浏览器渲染图片<strong>BitMap</strong>选用的是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RGBA_color_model#RGBA8888">ARGB_8888</a>：颜色信息由透明度 A（Alpha）与 R（Red），G（Green），B（Blue）四部分组成，每个部分都占 8 位，总共占 32 位。即一个像素：</p>
 <blockquote>
 <ul>
 <li><strong>A</strong> - alpha 透明 8bit(位)</li>
@@ -123,12 +124,12 @@
 <li><strong>B</strong> - Blue 8bit(位)</li>
 </ul>
 </blockquote>
-<p>&quot;1Byte(字节)=8bit(位)&quot; 因此，<strong>一个像素会占用四个字节</strong>。<br>所以一张 <code>2048*2048</code> 的图片占用的内存有：<code>2048*2048*4 Byte</code>，换算成MB单位 <code>2048*2048*4/ (1024*1024) Byte = 16MB</code>。</p>
+<p>&quot;1Byte(字节)=8bit(位)&quot; 因此，<strong>一个像素会占用四个字节</strong>。<br>所以一张 <code>2048*2048</code> 的图片占用的内存有：<code>2048*2048*4 Byte</code>，换算成 MB 单位 <code>2048*2048*4/ (1024*1024) Byte = 16MB</code>。</p>
 <blockquote>
 <p>图片占用的内存跟图片文件体积大小无关，仅跟其分辨率相关。压缩图片目的是为了 CDN 下载速度更快、节省存储空间，但无法节省浏览器占用内存。</p>
 </blockquote>
-<p><strong>&quot;一个像素会占用四个字节&quot;</strong> 这个结论适用于绝大部分PC、macOS等终端设备，但在移动端并不完全适用，详细内容请往下看。</p>
-<h2 id="终端设备"><a href="#终端设备" class="headerlink" title="终端设备"></a>终端设备</h2><p>以iPhone为例，先统计下历代iPhone屏幕信息：</p>
+<p><strong>&quot;一个像素会占用四个字节&quot;</strong> 这个结论适用于绝大部分 PC、macOS 等终端设备，但在移动端并不完全适用，详细内容请往下看。</p>
+<h2 id="终端设备"><a href="#终端设备" class="headerlink" title="终端设备"></a>终端设备</h2><p>以 iPhone 为例，先统计下历代 iPhone 屏幕信息：</p>
 <table>
 <thead>
 <tr>
@@ -136,7 +137,7 @@
 <th align="center">逻辑像素</th>
 <th align="center">渲染像素</th>
 <th align="center">物理像素</th>
-<th align="center">设备像素比DPR</th>
+<th align="center">设备像素比 DPR</th>
 <th align="center">一个像素用几个字节</th>
 </tr>
 </thead>
@@ -146,7 +147,7 @@
 <td align="center">320*480</td>
 <td align="center">320*480</td>
 <td align="center">1</td>
-<td align="center">4个字节</td>
+<td align="center">4 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 4/4s</td>
@@ -154,7 +155,7 @@
 <td align="center">640*960</td>
 <td align="center">640*960</td>
 <td align="center">2</td>
-<td align="center">4 * 2个字节</td>
+<td align="center">4 * 2 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 5/5C/5s/SE</td>
@@ -162,7 +163,7 @@
 <td align="center">640*1136</td>
 <td align="center">640*1136</td>
 <td align="center">2</td>
-<td align="center">4 * 2个字节</td>
+<td align="center">4 * 2 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 6/6s/7/8/SE2</td>
@@ -170,7 +171,7 @@
 <td align="center">750*1334</td>
 <td align="center">750*1334</td>
 <td align="center">2</td>
-<td align="center">4 * 2个字节</td>
+<td align="center">4 * 2 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone XR/11</td>
@@ -178,7 +179,7 @@
 <td align="center">828*1792</td>
 <td align="center">828*1792</td>
 <td align="center">2</td>
-<td align="center">4 * 2个字节</td>
+<td align="center">4 * 2 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone X/Xs/11 Pro</td>
@@ -186,7 +187,7 @@
 <td align="center">1125*2436</td>
 <td align="center">1125*2436</td>
 <td align="center">3</td>
-<td align="center">4 * 3个字节</td>
+<td align="center">4 * 3 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 12 mini</td>
@@ -202,7 +203,7 @@
 <td align="center">1170*2532</td>
 <td align="center">1170*2532</td>
 <td align="center">3</td>
-<td align="center">4 * 3个字节</td>
+<td align="center">4 * 3 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 6/6s/7/8/ Plus</td>
@@ -218,7 +219,7 @@
 <td align="center">1242*2688</td>
 <td align="center">1242*2688</td>
 <td align="center">3</td>
-<td align="center">4 * 3个字节</td>
+<td align="center">4 * 3 个字节</td>
 </tr>
 <tr>
 <td align="center">iPhone 12 Pro Max</td>
@@ -226,7 +227,7 @@
 <td align="center">1284*2778</td>
 <td align="center">1284*2778</td>
 <td align="center">3</td>
-<td align="center">4 * 3个字节</td>
+<td align="center">4 * 3 个字节</td>
 </tr>
 </tbody></table>
 <blockquote>
@@ -236,9 +237,9 @@
 <li><strong>渲染像素</strong>：操作系统抽象的像素。</li>
 </ul>
 </blockquote>
-<p>从 iPhone 4 代开始，iPhone 屏幕的物理分辨率是很高的，除了 &quot;iPhone 6/6s/7/8/ Plus&quot; 和 &quot;iPhone 12 mini&quot; 设备之外，iOS 系统基本是把2个或3个物理像素当作1个逻辑像素来使用的（放大倍数了）。</p>
-<p>Android 系统则比较凌乱，但本质还是<strong>将多个物理像素当作一个逻辑像素来渲染使用</strong>。因此，一张<code>2048*2048</code>图片内存占用换算公式是:  <code>(物理分辨率/逻辑像素)*2048*2048*4/ (1024*1024) MB</code>。</p>
-<p>这基本解释了移动端设备图片占用的内存要比 PC 上统计的要多出2倍、3倍甚至4倍以上。这也解释了明明是旗舰机型崩溃率反而增加了，比如 iOS 系统 WebView 内存崩溃的阈值固定在 1.5G 以下，旗舰机型 iPhone 12 Pro Max 更加容易达到这个阈值。</p>
+<p>从 iPhone 4 代开始，iPhone 屏幕的物理分辨率是很高的，除了 &quot;iPhone 6/6s/7/8/ Plus&quot; 和 &quot;iPhone 12 mini&quot; 设备之外，iOS 系统基本是把 2 个或 3 个物理像素当作 1 个逻辑像素来使用的（放大倍数了）。</p>
+<p>Android 系统则比较凌乱，但本质还是<strong>将多个物理像素当作一个逻辑像素来渲染使用</strong>。因此，一张<code>2048*2048</code>图片内存占用换算公式是: <code>(物理分辨率/逻辑像素)*2048*2048*4/ (1024*1024) MB</code>。</p>
+<p>这基本解释了移动端设备图片占用的内存要比 PC 上统计的要多出 2 倍、3 倍甚至 4 倍以上。这也解释了明明是旗舰机型崩溃率反而增加了，比如 iOS 系统 WebView 内存崩溃的阈值固定在 1.5G 以下，旗舰机型 iPhone 12 Pro Max 更加容易达到这个阈值。</p>
 <blockquote>
 <p>介于设备屏幕 LCD、OLED 等材质差异，实际统计会有些许偏差，但是数量级不会有太多出入。</p>
 </blockquote>
@@ -258,15 +259,15 @@
   <figcaption>图三：UV 贴图及网格数据组成模型（512*512）</figcaption>
 </figure>
 
-<p>因此，我们以<a target="_blank" rel="noopener" href="https://open.realsee.com/ke/6gyq3v1verxD7JO1/qeNadDJvp5oSPhzhbTo7mVEC3LM4rOA2/?v3=1">贝壳·VR看房 | 常楹公元 2室1厅</a> 房源为例，其实景 VR 的 UV 贴图有12张。</p>
-<p>所以，此看房VR 图片所占用的内存有：</p>
+<p>因此，我们以<a target="_blank" rel="noopener" href="https://open.realsee.com/ke/6gyq3v1verxD7JO1/qeNadDJvp5oSPhzhbTo7mVEC3LM4rOA2/?v3=1">贝壳·VR 看房 | 常楹公元 2 室 1 厅</a> 房源为例，其实景 VR 的 UV 贴图有 12 张。</p>
+<p>所以，此看房 VR 图片所占用的内存有：</p>
 <h3 id="①-常态情况"><a href="#①-常态情况" class="headerlink" title="① 常态情况"></a>① 常态情况</h3><ul>
 <li>PC 端：<code>2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12= 108MB</code></li>
 <li>iPhone 8：<code>(2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12) * 2= 216MB</code></li>
 <li>iPhone 12：<code>(2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12) * 3= 324MB</code></li>
 </ul>
 <p>此处分析的这还仅仅是一个实景 VR 依赖图片占用的内存。</p>
-<h3 id="②-走点-moveToPano"><a href="#②-走点-moveToPano" class="headerlink" title="② 走点 moveToPano"></a>② 走点 moveToPano</h3><p>由于走点为了过渡动画效果，一般会出现两个立方体全景，所以全景图片由6张图片变成12张。</p>
+<h3 id="②-走点-moveToPano"><a href="#②-走点-moveToPano" class="headerlink" title="② 走点 moveToPano"></a>② 走点 moveToPano</h3><p>由于走点为了过渡动画效果，一般会出现两个立方体全景，所以全景图片由 6 张图片变成 12 张。</p>
 <ul>
 <li>PC 端：<code>2048*2048*4/(1024*1024)*6*2 + 512*512*4/ (1024*1024)*12= 204MB</code></li>
 <li>iPhone 8：<code>(2048*2048*4/(1024*1024)*6*2 + 512*512*4/ (1024*1024)*12)*2= 408MB</code></li>
@@ -274,7 +275,7 @@
 </ul>
 <p>看此数据，基本解释：</p>
 <ul>
-<li>高端 iOS 设备比低端 iOS 设备更容易出现黑白屏内存溢出问题。（iOS端 WebView 内存崩溃的阈值在1.5G以下）。</li>
+<li>高端 iOS 设备比低端 iOS 设备更容易出现黑白屏内存溢出问题。（iOS 端 WebView 内存崩溃的阈值在 1.5G 以下）。</li>
 <li>全景走点时<strong>更加容易</strong>内存溢出。</li>
 <li>除了图片占用内存之外，<code>Five</code> 涉及的其他部分其实并没有占用过多内存。（也就意味着图片之外的优化空间不多）。</li>
 </ul>
@@ -294,7 +295,7 @@
 <li>iPhone 12：<code>14065*265*4/(1024*1024)*3=42.65470504760742MB</code></li>
 </ul>
 <p>将这张雪碧图放在<code>&lt;image&gt;</code>标签中确实是这样的内存占用。但是，一旦套用 CSS 帧动画实现之后：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> logo-sprites-animation &#123;<br>  <span class="hljs-number">0%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span>;<br>  &#125;<br>  <span class="hljs-number">100%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">13800px</span> <span class="hljs-number">0</span>;<br>  &#125;<br>&#125;<br> <br><span class="hljs-attribute">animation</span>: logo-sprites-animation <span class="hljs-number">2.208s</span> <span class="hljs-number">0s</span> <span class="hljs-built_in">steps</span>(<span class="hljs-number">53</span>) infinite normal;<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> logo-sprites-animation &#123;<br>  <span class="hljs-number">0%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span>;<br>  &#125;<br>  <span class="hljs-number">100%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">13800px</span> <span class="hljs-number">0</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-attribute">animation</span>: logo-sprites-animation <span class="hljs-number">2.208s</span> <span class="hljs-number">0s</span> <span class="hljs-built_in">steps</span>(<span class="hljs-number">53</span>) infinite normal;<br></code></pre></td></tr></table></figure>
 
 <p>通过 PerfDog 统计的内存占用却是图片内存的三倍：</p>
 <ul>
@@ -303,19 +304,18 @@
 <li>iPhone 12 端：<code>14065*265*4/(1024*1024)*3*3=127.96411514282227MB</code></li>
 </ul>
 <p>这个三倍是怎么来的，目前尚未找到相关资料，个人猜测的逻辑是：<br>此处的逐帧动画本质上是个补间动画，用在帧动画中，需要上一帧、当前帧、下一帧 来计算补间动画，同时需要三张图片，所以可能会同时存在三张图片实例。</p>
-<p>这个目前尚属猜测逻辑。但需要关注的经验是：<strong>逐帧动画慎用，帧数最好限制在24帧以内，且占用内存不要超过20MB。</strong></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>有兴趣的同学，可以安装 <a target="_blank" rel="noopener" href="https://perfdog.qq.com/"><strong>PerfDog性能狗</strong></a> 工具自己实践一下本文的数据是否存在偏差。</p>
-
-      
+<p>这个目前尚属猜测逻辑。但需要关注的经验是：<strong>逐帧动画慎用，帧数最好限制在 24 帧以内，且占用内存不要超过 20MB。</strong></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>有兴趣的同学，可以安装 <a target="_blank" rel="noopener" href="https://perfdog.qq.com/"><strong>PerfDog 性能狗</strong></a> 工具自己实践一下本文的数据是否存在偏差。</p>
+ 
     </div>
     <footer class="article-footer">
       <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="cl0lvwarn00006zfy5l5saet0" class="article-share-link">Share</a>
       
-      
+      <a href="http://solome.js.org/blog/memory-usage-pic/#disqus_thread" class="article-comment-link">Comments</a>
+       
     </footer>
   </div>
-  
-    
+   
 <nav id="article-nav">
   
   
@@ -325,9 +325,18 @@
     </a>
   
 </nav>
-
-  
+ 
 </article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript
+      >Please enable JavaScript to view the
+      <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript
+    >
+  </div>
+</section>
 
 </section>
         
@@ -424,6 +433,20 @@
   <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a>
 </nav>
     
+<script>
+  var disqus_shortname = 'juyipeng';
+  
+  var disqus_url = 'http://solome.js.org/blog/memory-usage-pic/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
