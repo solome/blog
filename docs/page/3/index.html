@@ -5,17 +5,17 @@
   
 
   
-  <title>掬一捧清水窺明月</title>
+  <title>掬一捧清水窺月落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="掬一捧清水窺明月">
+<meta property="og:title" content="掬一捧清水窺月落">
 <meta property="og:url" content="http://solome.js.org/blog/page/3/index.html">
-<meta property="og:site_name" content="掬一捧清水窺明月">
+<meta property="og:site_name" content="掬一捧清水窺月落">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="掬一捧">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺明月" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
   
   
     <link rel="icon" href="/blog/images/favicon.ico">
@@ -33,7 +33,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">掬一捧清水窺明月</a>
+        <a href="/blog/" id="logo">掬一捧清水窺月落</a>
       </h1>
       
     </div>
@@ -67,6 +67,107 @@
         <section id="main">
   
     <article
+  id="layout/post-pure-functions-in-fp"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Wed Sep 07 2016 15:18:22 GMT+0800 (中国标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/pure-functions-in-fp/">函数式编程之纯函数</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Wed Sep 07 2016 15:18:22 GMT+0800 (中国标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <p>数学上的函数指的是两个集合间的一种特殊的映射关系。这个特殊体现在什么地方呢？</p>
+<p>我们将集合<code>A</code>的元素称呼为输入值，集合<code>B</code>的元素称呼为输出值，且集合<code>A</code>、<code>B</code>存在这样的映射关系：<strong>每个输入值只会映射一个输出值，不同的输入值可以映射相同的输出值，不会出现同一个输入值映射不同的输出值</strong>。</p>
+<p>比如，下图集合<code>A</code>和集合<code>B</code>的映射关系即符合数学函数的定义。</p>
+<figure>
+  <img style="width: auto;" src="/blog/pure-functions-in-fp/set_map.svg" alt="containing block" />
+  <figcaption>fn：除以5的余数</figcaption>
+</figure>
+
+<blockquote>
+<p>在函数式编程语言中，满足这种数学意义上的函数即为纯函数(Pure Function)：相同的输入（参数），永远得到的是相同的输出（返回值），并且没有任何可观察的&quot;副作用&quot;。<br>自然，与纯函数的概念相反的函数（即相同参数的函数在不同环境或时机调用得到的返回值不一致）叫做非纯函数(Impure Function)。</p>
+</blockquote>
+<h3 id="关于函数副作用-side-effect"><a href="#关于函数副作用-side-effect" class="headerlink" title="关于函数副作用(side-effect)"></a>关于<strong>函数副作用</strong>(side-effect)</h3><p><strong>函数副作用</strong>指当调用函数时，在计算返回值数值的过程中，对主调用函数产生附加的影响。</p>
+<h4 id="更高作用域的变量-quot-悄悄-quot-发生变更"><a href="#更高作用域的变量-quot-悄悄-quot-发生变更" class="headerlink" title="更高作用域的变量&quot;悄悄&quot;发生变更"></a>更高作用域的变量&quot;悄悄&quot;发生变更</h4><figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> glob = <span class="hljs-number">1</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> ++glob + x<br>&#125;<br><span class="hljs-built_in">console</span>.log(foo(<span class="hljs-number">1</span>)) <span class="hljs-comment">// =&gt; 3</span><br></code></pre></td></tr></table></figure>
+
+<p>变量<code>glob</code>的值随着<code>foo()</code>的调用发生变化，表现得很不明显。</p>
+<h4 id="quot-隐晦-quot-地修改了引用参数"><a href="#quot-隐晦-quot-地修改了引用参数" class="headerlink" title="&quot;隐晦&quot;地修改了引用参数"></a>&quot;隐晦&quot;地修改了引用参数</h4><figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> glob = <span class="hljs-number">1</span><br><span class="hljs-keyword">const</span> obj = &#123; glob &#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> ++x.glob<br>&#125;<br>foo(obj)<br><span class="hljs-built_in">console</span>.log(glob) <span class="hljs-comment">// =&gt; 2</span><br></code></pre></td></tr></table></figure>
+
+<p>虽然对象<code>obj</code>定义为<code>const</code>，但是修改了间接引用的变量<code>glob</code>；这种场景引发的 bug 其实是很难捕获的（尤其是具备指针概念的 C/C++语言）。</p>
+<p>函数副作用确实是滋生 Bug 的&quot;温床&quot;，造成的问题一般都很&quot;隐晦&quot;；有些开发场景中，我们其实也无法避免函数的副作用（典型的例子是读写数据库操作的函数）。最好的做法是，要将这些副作用限制在可控的范围内。</p>
+<h3 id="纯函数带来的好处"><a href="#纯函数带来的好处" class="headerlink" title="纯函数带来的好处"></a>纯函数带来的好处</h3><h4 id="函数调用结果可缓存"><a href="#函数调用结果可缓存" class="headerlink" title="函数调用结果可缓存"></a>函数调用结果可缓存</h4><p>相同参数得到的返回值是相同的。如果通过参数获取返回值的过程计算量过大，我们可以缓存函数调用的结果，避免相同参数为了获取返回值进行重复计算。典型的实践是对递归函数做性能优化的<code>memoize</code>技术。<br>以<code>fibonacci(n)</code>递归函数为例，传统的实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fibonacci</span>(<span class="hljs-params">n</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (n === <span class="hljs-number">0</span> || n === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> n<br>  <span class="hljs-keyword">return</span> fibonacci(n - <span class="hljs-number">1</span>) + fibonacci(n - <span class="hljs-number">2</span>)<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(fibonacci(<span class="hljs-number">10</span>))<br></code></pre></td></tr></table></figure>
+
+<p>计算的复杂度以参数<code>n</code>呈指数级增长：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">f</span>(<span class="hljs-number">0</span>) = <span class="hljs-number">0</span><br><span class="hljs-title">f</span>(<span class="hljs-number">1</span>) = <span class="hljs-number">1</span><br><span class="hljs-title">f</span>(<span class="hljs-number">2</span>) = f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">0</span>) = <span class="hljs-number">1</span><br><span class="hljs-title">f</span>(<span class="hljs-number">3</span>) = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) = <span class="hljs-number">2</span><br><span class="hljs-title">f</span>(<span class="hljs-number">4</span>) = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) = <span class="hljs-number">3</span><br><span class="hljs-title">f</span>(<span class="hljs-number">5</span>) = f(<span class="hljs-number">4</span>) + f(<span class="hljs-number">3</span>)<br>     = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) = <span class="hljs-number">5</span><br><span class="hljs-title">f</span>(<span class="hljs-number">6</span>) = f(<span class="hljs-number">5</span>) + f(<span class="hljs-number">4</span>)<br>     = f(<span class="hljs-number">4</span>) + f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) = <span class="hljs-number">8</span><br>... ...<br></code></pre></td></tr></table></figure>
+
+<p>为了获取<code>fibonacci(n)</code>的结果，我们不得不将<code>fibonacci(n-1)</code>和<code>fibonacci(n-2)</code>都得计算一遍；如果我们在调用一次<code>fibonacci(n)</code>之后，就将其缓存起来，下次再调用时就无需重新再计算。稍加改造，添加对计算结果的缓存：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> fibonacci = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> cache = &#123;&#125;<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (n <span class="hljs-keyword">in</span> cache) <span class="hljs-keyword">return</span> cache[n]<br>    <span class="hljs-keyword">return</span> (cache[n] = n === <span class="hljs-number">0</span> || n === <span class="hljs-number">1</span> ? n : fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>))<br>  &#125;<br>&#125;)()<br><span class="hljs-built_in">console</span>.log(fibonacci(<span class="hljs-number">10</span>))<br></code></pre></td></tr></table></figure>
+
+<p>这是典型的以空间换效率的优化思路，避免了额外计算的浪费。<br>这样实现的前提就是，该递归函数是纯函数，相同参数得到的返回值一定是相同的；如果不能保证相同，我们无法做缓存。</p>
+<p>当然，我们可以实现一个<code>memoize()</code>函数来统一做缓存这样的工作。<br>JavaScript 函数式编程支持库如均提供<code>memoize()</code>函数，这里提供一种不太健壮（内存溢出）的实现方案。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">memoize</span>(<span class="hljs-params">func</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> memo = &#123;&#125;<br>  <span class="hljs-keyword">const</span> slice = <span class="hljs-built_in">Array</span>.prototype.slice<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> args = slice.call(<span class="hljs-built_in">arguments</span>)<br><br>    <span class="hljs-keyword">if</span> (args <span class="hljs-keyword">in</span> memo) <span class="hljs-keyword">return</span> memo[args]<br>    <span class="hljs-keyword">return</span> (memo[args] = func.apply(<span class="hljs-built_in">this</span>, args))<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这样函数调用的次数愈多效率会慢慢变得愈高。</p>
+</blockquote>
+<h4 id="便于移植和测试"><a href="#便于移植和测试" class="headerlink" title="便于移植和测试"></a>便于移植和测试</h4><p>纯函数是&quot;自给自足&quot;的，所有的函数依赖均由函数自身提供（或参数）；因此，我们将一个函数移植到另外一个系统时，是无需考虑成本的<br>——当然，如果一个函数依赖一个全局变量，在移植该函数时必须&quot;慎重&quot;，要将这个全局变量的逻辑一起迁移过去。</p>
+<p>相同参数得到的函数返回值是固定的，这一特性也使纯函数更易测试——你无需模拟出一些特殊的测试环境，只要明确定义好函数参数的范围即可。</p>
+<h4 id="引用透明（Referential-Transparent）"><a href="#引用透明（Referential-Transparent）" class="headerlink" title="引用透明（Referential Transparent）"></a>引用透明（Referential Transparent）</h4><blockquote>
+<p>An expression is said to be referentially transparent if it can be replaced with its corresponding value without changing the program&#39;s behavior. As a result, evaluating a referentially transparent function gives the same value for same arguments. Such functions are called pure functions.<br>—— <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Referential_transparency">https://en.wikipedia.org/wiki/Referential_transparency</a></p>
+</blockquote>
+<p>该如何理解呢？可以拿上文提到的<code>fibonacci()</code>函数举例，比如存在这样一个函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">n, fun</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> fun(n) + fun(n)<br>&#125;<br><br>foo(<span class="hljs-number">10</span>, fibonacci)<br></code></pre></td></tr></table></figure>
+
+<p>调用<code>foo(10, fibonacci)</code>会发现<code>fibonacci(10)</code>被执行了两遍。因为纯函数具备引用透明性，某些表达式被<strong>替换</strong>并不会改变函数的行为；因此，对<code>foo()</code>进行些许变动会使其性能得到质的提升。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">n, fun</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> fun(n) * <span class="hljs-number">2</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>毕竟在此场景中，一次乘法运算成本远比一次<code>fibonacci(10)</code>递归运算的成本来得低。</p>
+<p>这里的由<code>fibonacci(n) + fibonacci(n) =&gt; 2*fibonacci(n)</code>转变完全跟数学概念中的<code>f(x) = x + x = 2 *x</code>函数推导一致。</p>
+<p>因为纯函数的引用透明的特性，我们完全可以将多个函数构成的复杂程序（函数）<strong>推导</strong>成更加简单的方式。</p>
+<h4 id="并行代码"><a href="#并行代码" class="headerlink" title="并行代码"></a>并行代码</h4><p>纯函数无副作用，同时调用两个函数或同个函数被同时调用两次都不会抢占外部公共资源的情况。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>程序设计中的大部分 Bug 都是有函数副作用引入的，实际开发中必须鼓励纯函数的编写。</li>
+<li>在函数式编程范畴中，欲想以函数为基础生成新的函数，那纯函数是这些新函数的基石。</li>
+<li>多尝试使用<code>memoize</code>技术对递归函数进行性能优化。</li>
+</ul>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/pure-functions-in-fp/" data-id="clo8m8tdj0007451xcy9jemqm" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/pure-functions-in-fp/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article
   id="post-show-icon-in-web"
   class="article article-type-post"
   itemscope
@@ -74,7 +175,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Tue Feb 10 2015 15:26:12 GMT+0800 (China Standard Time)
+  首次编辑于 Tue Feb 10 2015 15:26:12 GMT+0800 (中国标准时间)
 </div>
     
   <div class="article-category">
@@ -92,7 +193,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Tue Feb 10 2015 15:26:12 GMT+0800 (China Standard Time)
+  首次编辑于 Tue Feb 10 2015 15:26:12 GMT+0800 (中国标准时间)
 </div>
     </header>
     
@@ -144,7 +245,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/show-icon-in-web/" data-id="cks6vzn1f00071ylndto81cn0" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/show-icon-in-web/" data-id="clo8m8tdp000j451x0fzr8f94" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/show-icon-in-web/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -164,7 +265,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Wed Mar 12 2014 23:30:00 GMT+0800 (China Standard Time)
+  首次编辑于 Wed Mar 12 2014 23:30:00 GMT+0800 (中国标准时间)
 </div>
     
   <div class="article-category">
@@ -182,7 +283,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Wed Mar 12 2014 23:30:00 GMT+0800 (China Standard Time)
+  首次编辑于 Wed Mar 12 2014 23:30:00 GMT+0800 (中国标准时间)
 </div>
     </header>
     
@@ -209,7 +310,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/feeling-of-writing/" data-id="cks6vzn1300001yln90be1907" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/feeling-of-writing/" data-id="clo8m8tdg0003451x8h6idz5a" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/feeling-of-writing/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -251,7 +352,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
     </div>
   </div>
 
@@ -262,6 +363,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+          </li>
         
           <li>
             <a href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
@@ -307,7 +412,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2014 - 2022 掬一捧<br>
+      &copy; 2014 - 2023 掬一捧<br>
       版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
     </div>
   </div>

@@ -5,13 +5,13 @@
   
 
   
-  <title>前端工程化开发方案 app-proto | 掬一捧清水窺明月</title>
+  <title>前端工程化开发方案 app-proto | 掬一捧清水窺月落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本文是针对去年（2016 年 10 月）美团点评技术沙龙第 13 期分享的《前端工程化开发方案 app-proto 介绍》整理而来的技术博客。年初的时候又针对 Koa2.0 做了些许语法适配和完整的 SSR 支持（app-proto-2.0）。  什么是前端工程化？根据具体的业务特点，将前端的开发流程、技术、工具、经验等规范化、标准化就是前端工程化。它的目的是让前端开发能够&quot;自成体系&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端工程化开发方案 app-proto">
 <meta property="og:url" content="http://solome.js.org/blog/tech-salon-13-app-proto/index.html">
-<meta property="og:site_name" content="掬一捧清水窺明月">
+<meta property="og:site_name" content="掬一捧清水窺月落">
 <meta property="og:description" content="本文是针对去年（2016 年 10 月）美团点评技术沙龙第 13 期分享的《前端工程化开发方案 app-proto 介绍》整理而来的技术博客。年初的时候又针对 Koa2.0 做了些许语法适配和完整的 SSR 支持（app-proto-2.0）。  什么是前端工程化？根据具体的业务特点，将前端的开发流程、技术、工具、经验等规范化、标准化就是前端工程化。它的目的是让前端开发能够&quot;自成体系&amp;">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/structural-design.svg">
@@ -19,12 +19,12 @@
 <meta property="og:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/pages-recipes.svg">
 <meta property="og:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/static-file-map.svg">
 <meta property="article:published_time" content="2017-01-05T12:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-16T14:02:46.995Z">
+<meta property="article:modified_time" content="2023-10-27T10:40:10.182Z">
 <meta property="article:author" content="掬一捧">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/structural-design.svg">
   
-    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺明月" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
   
   
     <link rel="icon" href="/blog/images/favicon.ico">
@@ -42,7 +42,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">掬一捧清水窺明月</a>
+        <a href="/blog/" id="logo">掬一捧清水窺月落</a>
       </h1>
       
     </div>
@@ -81,7 +81,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (China Standard Time)
+  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (中国标准时间)
 </div>
     
   <div class="article-category">
@@ -99,7 +99,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (China Standard Time)
+  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (中国标准时间)
 </div>
     </header>
     
@@ -235,7 +235,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/tech-salon-13-app-proto/" data-id="cks6vzn1j000g1yln93h7dw38" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/tech-salon-13-app-proto/" data-id="clo8m8tdi0005451x3fmpg0ov" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/tech-salon-13-app-proto/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -296,7 +296,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
     </div>
   </div>
 
@@ -307,6 +307,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+          </li>
         
           <li>
             <a href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
@@ -352,7 +356,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2014 - 2022 掬一捧<br>
+      &copy; 2014 - 2023 掬一捧<br>
       版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
     </div>
   </div>

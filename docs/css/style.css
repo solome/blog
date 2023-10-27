@@ -123,7 +123,7 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 body {
-  font: 16px 'Heiti SC', tahoma, arial, 'Hiragino Sans GB', sans-serif;
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-text-size-adjust: 100%;
 }
 body:before {
@@ -281,8 +281,8 @@ body:after {
 .widget ol,
 .article-entry dl,
 .widget dl {
-  margin: 0 20px;
-  line-height: 1.6em;
+  margin: 0 10px;
+  line-height: 1.25em;
 }
 .article-entry ul ul,
 .widget ul ul,
@@ -368,8 +368,9 @@ body:after {
   font-size: 32px;
   line-height: 40px;
   letter-spacing: 2px;
-  font-family: 'hiragino mincho pron', 'source han serif', "Lato", "Helvetica Neue", Helvetica, sans-serif;
+  font-family: 'source han serif', "Lato", "Helvetica Neue", Helvetica, sans-serif;
   color: #258fb8;
+  font-weight: 800;
 }
 #subtitle {
   font-size: 16px;
@@ -406,9 +407,9 @@ body:after {
 .nav-icon {
   font-family: FontAwesome;
   text-align: center;
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
   padding: 20px 15px;
   position: relative;
   cursor: pointer;
@@ -576,8 +577,8 @@ a.article-title:hover {
 }
 .article-entry p,
 .article-entry table {
-  line-height: 1.6em;
-  margin: 1.6em 0;
+  line-height: 1.25em;
+  margin: 1.25em 0;
 }
 .article-entry h1,
 .article-entry h2,
@@ -669,8 +670,8 @@ a.article-title:hover {
   margin: 0;
 }
 .article-entry blockquote footer {
-  font-size: 16px;
-  margin: 1.6em 0;
+  font-size: 14px;
+  margin: 1.25em 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 .article-entry blockquote footer cite:before {
@@ -732,9 +733,9 @@ a.article-title:hover {
 }
 .article-footer {
   font-size: 0.85em;
-  line-height: 1.6em;
+  line-height: 1.25em;
   border-top: 1px solid #ddd;
-  padding-top: 1.6em;
+  padding-top: 1.25em;
   margin: 0 20px 20px;
 }
 .article-footer:before,
@@ -853,7 +854,7 @@ a.article-title:hover {
 }
 .article-nav-title {
   color: #258fb8;
-  line-height: 1.6em;
+  line-height: 1.25em;
   margin-top: 0.5em;
 }
 .article-nav-title:hover {
@@ -1057,7 +1058,7 @@ a.article-title:hover {
   -moz-transition: color 0.2s;
   -ms-transition: color 0.2s;
   transition: color 0.2s;
-  line-height: 1.6em;
+  line-height: 1.25em;
   color: #258fb8;
 }
 .archive-article-title:hover {
@@ -1144,7 +1145,7 @@ a.article-title:hover {
   color: #8b0000;
 }
 #footer-info {
-  line-height: 1.6em;
+  line-height: 1.25em;
   font-size: 0.85em;
 }
 .hljs {
@@ -1336,7 +1337,7 @@ a.article-title:hover {
   font-size: 14px;
 }
 .widget {
-  line-height: 1.6em;
+  line-height: 1.25em;
   word-wrap: break-word;
 }
 .widget ul,

@@ -5,17 +5,17 @@
   
 
   
-  <title>掬一捧清水窺明月</title>
+  <title>掬一捧清水窺月落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="掬一捧清水窺明月">
+<meta property="og:title" content="掬一捧清水窺月落">
 <meta property="og:url" content="http://solome.js.org/blog/index.html">
-<meta property="og:site_name" content="掬一捧清水窺明月">
+<meta property="og:site_name" content="掬一捧清水窺月落">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="掬一捧">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺明月" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
   
   
     <link rel="icon" href="/blog/images/favicon.ico">
@@ -33,7 +33,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">掬一捧清水窺明月</a>
+        <a href="/blog/" id="logo">掬一捧清水窺月落</a>
       </h1>
       
     </div>
@@ -67,6 +67,210 @@
         <section id="main">
   
     <article
+  id="layout/post-realsee-vr-performance"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (中国标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (中国标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <style type="text/css">
+  .article-entry .rvp-video, .article-entry .rvp-image {
+    max-width: 540px;
+  }
+</style>
+
+<h2 id="壹、背景"><a href="#壹、背景" class="headerlink" title="壹、背景"></a>壹、背景</h2><p>贝壳 VR 看房是贝壳找房如视事业部（现已独立，<a target="_blank" rel="noopener" href="https://www.realsee.com/">如你所视科技有限公司</a>）做的一款在线 VR 3D 看房服务。通过专业的三维空间扫描设备采集房源户型三维数据，经过算法加工之后，可以通过 WebGL/Three.js 等工具将房源以1:1复刻至浏览器上，并支持720°空间自由行走和模型、全景等多种模态间的自由切换。</p>
+<p>尤其是在新冠疫情的影响下，用户可以直接在线上进行 VR 3D 看房，降低筛选、沟通成本。此外，在后续的业务迭代中又引入 VR 带看、VR 经纪人/ AI 讲房、“一键换装”看装修等新业务模式。随着业务复杂度的提升、用户使用群体的覆盖面越来越广，性能问题已经成为项目瓶颈，亟待解决。</p>
+<h3 id="1-现状分析"><a href="#1-现状分析" class="headerlink" title="1. 现状分析"></a>1. 现状分析</h3><p><strong>业务分析</strong></p>
+<p>如视 VR 团队是2017年开始成立的，2018年4月份贝壳找房App 首次对外发版，VR 看房属于新品牌的核心亮点。于是从2017年开始近一年的时间内从0-1搭建贝壳VR看房，团队节奏是很紧的——倒排、抢时间。</p>
+<p>2018年后半程在贝壳 VR 看房的基础上，又新增 VR 经纪人讲房和 VR 线上实时同步带看业务。</p>
+<p>2019年初，引入早期版本的 AI 讲房业务。内部项目“未来家”——即 VR 装修（渲染）技术突破，支持“一键看装修”功能，并支持与实景 VR 同屏对比。</p>
+<p>由于2019年末、2020初新冠疫情的影响，VR 线上实时同步带看业务转变为公司级别核心业务。实现 VR 带看二手房、新房、租赁等业务全场景的覆盖，并支持微信小程序（高流量）。</p>
+<p>2021年初，则重点投入 AI 讲房业务新的探索——添加算法权重，实现 AR 数字人，往更智能（基于用户画像和性能条件实现“千人千面”体验）、更具空间表达的方向发展。<br>2021年末至今（2022年7月），团队方向调整，从贝壳找房剥离并成立如你所视科技有限公司。由支撑贝壳找房VR看房转向 SaaS、PaaS 数字空间综合解决方案创业公司。</p>
+<p><strong>技术分析</strong></p>
+<p>早期为了<em><strong>快</strong></em>，架构上基于 jQuery +发布/订阅者模式实现的模块化开发，后期（2020年中）转向分层+基于 React 技术栈实现的动态模块化架构形式，见下图。</p>
+<figure>
+  <img class="rvp-image" src="/blog/realsee-vr-performance/image_01.png"  alt="前端架构图" />
+  <figcaption>图一：前端架构图</figcaption>
+</figure>
+
+<h3 id="2-优化目标"><a href="#2-优化目标" class="headerlink" title="2. 优化目标"></a>2. 优化目标</h3><p>优化目标很多，本文仅抽取两点（围绕内存、FPS、TTI、进VR带看耗时这四点）进行详细说明：</p>
+<p>① 性能满足更多用户诉求，贝壳VR 看房覆盖面更广，不能局限于某些高端设备——<strong>提高用户覆盖面</strong>。<br>② <strong>几个关键路径体验</strong> 亟待解决，已经阻塞业务发展——比如启动Loading耗时长、VR 带看链路上流失率高等等。</p>
+<h2 id="贰、优化经验"><a href="#贰、优化经验" class="headerlink" title="贰、优化经验"></a>贰、优化经验</h2><blockquote>
+<p>前期实际落地时并没有按照 <a href="https://solome.js.org/docs/methodology/performance">性能优化方法论</a> 来执行（当初也没经验），实际上也因此踩了很多坑，浪费了很多时间、资源——特别是在旧架构体系上和产品策略上做的工作 ROI 极低。</p>
+</blockquote>
+<h3 id="1-指标体系"><a href="#1-指标体系" class="headerlink" title="1. 指标体系"></a>1. 指标体系</h3><h4 id="1-1-系统指标"><a href="#1-1-系统指标" class="headerlink" title="1.1 系统指标"></a>1.1 系统指标</h4><p>房源的VR 3D模型是通过WebView基于前端WebGL能力渲染出的，核心指标有两个：</p>
+<ul>
+<li>内存占用（iOS 端直接上报；线上 Android 端无法上报、黑盒，只能通过 <a target="_blank" rel="noopener" href="https://perfdog.qq.com/">PerfDog</a> 线下统计）。</li>
+<li>体现流畅度的 FPS 值。</li>
+</ul>
+<p>分析分布大致的结论如下：</p>
+<ul>
+<li><strong>内存（高崩溃率）</strong>：一个 VR 占用内存大概300MB，正常情况两个 VR 实例大概700MB内存（最低值区间700MB），但线上平均指标实际是 1.2G——而 iOS 系统崩溃阈值是1.5G左右；Android 系统差异大，无明确阈值。</li>
+<li><strong>FPS</strong>：前11s平均50fps以内，正常55fps以上。是合格值，但是进入 VR 7s 阶段，FPS 降至 40fps 以下，拉低平均值。</li>
+</ul>
+<h4 id="1-2-关键路径指标"><a href="#1-2-关键路径指标" class="headerlink" title="1.2 关键路径指标"></a>1.2 关键路径指标</h4><p>关键路径指标有很多，这里抽取两个做详细说明：</p>
+<ul>
+<li><strong>TTI</strong>：可交互时间，即从房源详情页点击进入 VR 到 VR 页面渲染完成可交换的耗时。这个过程有 Loading 过程，内部又称为 Loading 耗时长，优化前平均值在7s左右，优化后2s。</li>
+<li><strong>点击 VR 带看入口到带看就绪耗时</strong>：优化前21s，优化后用户发起端1s内，经纪人端2.5s。</li>
+</ul>
+<blockquote>
+<p>此外，还有跟渲染引擎相关模型渲染、模态切换等指标，由于偏三维领域，本文不展开。本文分别去两个系统指标和关键路径指标进行分析、经验介绍。</p>
+</blockquote>
+<h3 id="2-摸底分析"><a href="#2-摸底分析" class="headerlink" title="2. 摸底分析"></a>2. 摸底分析</h3><h4 id="2-1-内存"><a href="#2-1-内存" class="headerlink" title="2.1 内存"></a>2.1 内存</h4><p>前文提到，一个 VR 占用内存大概300MB，正常情况两个 VR 实例大概700MB 内存，但线上平均指标实际是 1.2G。分析定位后发现：</p>
+<ul>
+<li><strong>非 VR 渲染模块</strong>：除了 VR 耗资源之外，还有地图（百度/腾讯）、多媒体（小区图集/小区视频/讲房音频等）等模块亦占用内存。</li>
+<li><strong>RTC 功能</strong>：除了渲染模块之外，VR 带看依赖的 RTC 功能（实时语音）也会占用 WebView 进程资源。</li>
+<li><strong>UI 资源</strong>：首面板逐帧动画以及其他过渡动画等。</li>
+</ul>
+<p>这些占用内存的模块短期内都是无法省去的，因此性能指标的瓶颈在 1.2G。而且，功能越用越多，内存占用越高，崩溃的概率越高。</p>
+<h4 id="2-2-FPS"><a href="#2-2-FPS" class="headerlink" title="2.2 FPS"></a>2.2 FPS</h4><p>除了在7s左右 FPS 急剧下降之外，整体 FPS 处在合理值范畴。为啥 7s 左右 FPS 会明显下降呢？主要是这里有个 <strong>用计算换降低存储空间成本</strong> 的优化——将三角面片数据及 uv 贴图数据压缩后存储，端上使用再解压使用。</p>
+<h4 id="2-3-TTI"><a href="#2-3-TTI" class="headerlink" title="2.3 TTI"></a>2.3 TTI</h4><p>可交互时间，即从房源详情页点击进入 VR 到 VR 页面渲染完成可交换的耗时。分析后，关键流程如下：</p>
+<figure>
+  <img class="rvp-image" src="/blog/realsee-vr-performance/image_02.svg"  alt="启动 Loading 耗时关键阶段流程图" />
+  <figcaption>图二：启动 Loading 耗时关键阶段流程图</figcaption>
+</figure>
+
+<p>从关键流程图来看，到能交互阶段（虽然是部分交互），需要大概7s时间。</p>
+<p><strong>Node 计算</strong></p>
+<ul>
+<li>WHY：户型图敏感数据，不适合暴露在端上计算（比如两点间最短路径）。或无理由，就是写在 Node 层。</li>
+<li>调整：计算结果缓存，离线化支持。</li>
+</ul>
+<p><strong>浏览器端渲染</strong></p>
+<ul>
+<li>WHY：全模块渲染，无动态加载。造成 js 臃肿（依赖的 Three.js 库本身就巨）。</li>
+<li>调整：需 <strong>架构升级</strong>、先分层、非首屏内容异步加载或用户触发渲染。</li>
+</ul>
+<p><strong>六张图居然要花4s去下载？</strong></p>
+<ul>
+<li>WHY：由于 JS/CSS/图标等静态资源（前4s大概200多个 HTTP 请求）都在同个CDN域上，浏览器或 WebView 同时只能执行3-5个 HTTP 请求，无法并行请求六张全景图片。</li>
+<li>调整：多 CDN 域名 + HTTP2 多路复用支持。</li>
+</ul>
+<h4 id="2-4-点击-VR-带看入口到带看就绪耗时"><a href="#2-4-点击-VR-带看入口到带看就绪耗时" class="headerlink" title="2.4 点击 VR 带看入口到带看就绪耗时"></a>2.4 点击 VR 带看入口到带看就绪耗时</h4><p>何为VR带看？VR带看是指用户和经纪人（可以多个用户、多个经纪人）打开同个VR 页面，可以实时语音并且交互画面同步，视频效果如下：</p>
+<figure>
+  <video class="rvp-video" src="/blog/realsee-vr-performance/live_sync.7b9ea663.mp4" controls  alt="VR 同屏" autoPlay="true" />
+</figure>
+
+<p><strong>VR 带看启动流程</strong></p>
+<figure>
+  <img class="rvp-image" src="/blog/realsee-vr-performance/image_03.svg"  alt="VR 带看启动流程耗时节点流程图" />
+  <figcaption>图三：VR 带看启动流程耗时节点流程图</figcaption>
+</figure>
+
+<p>线下分析15s耗时进入带看就绪状态，但线上真实情况却是21s左右。</p>
+<p>VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面同屏。可想而之，从触发到就绪需要21s，这是用户不可接受的，这个业务推广面临极大的困难。</p>
+<h3 id="3-策略调整"><a href="#3-策略调整" class="headerlink" title="3. 策略调整"></a>3. 策略调整</h3><h4 id="3-1-产品策略调整"><a href="#3-1-产品策略调整" class="headerlink" title="3.1 产品策略调整"></a>3.1 产品策略调整</h4><ul>
+<li>内存：产品经理将页面拆分为 <strong>首屏模块</strong> 和 <strong>非首屏模块</strong>，首屏模块强制渲染，非首屏模块延迟渲染或用户触发加载——旧的前端架构不支持。</li>
+<li>点击VR带看入口到带看就绪耗时：<ul>
+<li>不需要新开启 WebView，直接在原有的 WebView 上执行带看流程——<em>旧的前端架构不支持</em>。</li>
+<li>就绪重新定义：不需要等 RTC 联通、三维模型渲染就绪才能进入带看；只要 WebSocket 联通就行。</li>
+<li>新产品模式：抢单模式，一个用户对应多个线上经纪人/职业顾问，谁先响应客户资源归谁。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-技术架构升级"><a href="#3-2-技术架构升级" class="headerlink" title="3.2 技术架构升级"></a>3.2 技术架构升级</h4><p>从产品策略的调整来看，基于 jQuery +发布/订阅者模式实现的增量式模块化开发前端架构已经不满足现有的业务和性能诉求。原有的设计是典型的SPA应用，但是新的架构诉求则更像是一个平台，即架构上分层：数据层、View 层，View 层又细分 DOM 层、Canvas 层、协议层及基础插件层。数据层和 View 层组成基础的首屏内容，非首屏内容则基于这两层以动态模块的形式进行开发——<strong>需要时挂载</strong>（占内存），<strong>不需要时卸载</strong>（会延迟清部分内存）。</p>
+<figure>
+  <img class="rvp-image" src="/blog/realsee-vr-performance/image_04.svg"  alt="前端架构分层设计" />
+  <figcaption>图四：前端架构分层设计</figcaption>
+</figure>
+
+<p>图四是图一的简化版本，以首屏内容（产品定义）为核心，非首屏内容以动态模块“热插拔”式支持：</p>
+<ul>
+<li>数据层：基于 <a target="_blank" rel="noopener" href="https://mobx.js.org/README.html">MobX</a> 二次抽象，以React Context <code>&lt;StoreProvider&gt;</code> 形式驱动UI。</li>
+<li>协议层：类 jsBridge，实现与客户端通信，保障业务层逻辑通用——App(iOS/Android) 即jsBridge，小程序依托 WebSocket 实现。</li>
+<li>DOM 层：HTML 标签二维交互。</li>
+<li>Canvas 层：基于 WebGL 三维模型建模抽象——Three.js 生态及自研渲染引擎。</li>
+<li>插件层：以插件的形式进行抽象，实现二维 DOM 和三维 Canvas 混合编程。</li>
+<li>动态模块：经纪人/AI 讲房、VR 带看、地图、多媒体资源等——以主副面板等形式集成。</li>
+</ul>
+<h4 id="3-3-产品策略和技术架构带来的提升"><a href="#3-3-产品策略和技术架构带来的提升" class="headerlink" title="3.3 产品策略和技术架构带来的提升"></a>3.3 产品策略和技术架构带来的提升</h4><ul>
+<li>内存：浅用户（功能使用少的用户，停留时长50s内）崩溃率降低明显；深度用户崩溃率有降低，但是未发生质变。</li>
+<li>FPS：无直接影响。</li>
+<li>TTI-Loading 耗时：由于基于首屏渲染，渲染依赖极大减少，平均值降低至3.3s；再加上摸底分析提到的优化，最后能降到到2s左右。</li>
+<li>点击VR带看入口到带看就绪耗时：<ul>
+<li>用户端1s内——得益于不需要新开启 WebView，直接动态载入 VR 带看模块即可。不强依赖 RTC，瓶颈在 WebSocket 连接速度。</li>
+<li>经纪人/置业顾问端 3.5s 内，基本跟 TTI-Loading 耗时保持一致。</li>
+</ul>
+</li>
+</ul>
+<p>优化后数值基本都达到预期性能指标，但TTI-Loading耗时和内存溢出问题还是严重影响业务，可以成立专项再深度去治理。</p>
+<h3 id="4-专项治理"><a href="#4-专项治理" class="headerlink" title="4. 专项治理"></a>4. 专项治理</h3><p>经过前面三个阶段之后，基本能做到 <em><strong>①整体指标大盘稳定</strong></em>、<em><strong>②产品策略合理</strong></em> 且 <em><strong>③技术架构无缺陷</strong></em> ——能考八十分的高分水准。而专项治理则是将八十分往九十分继续提高。</p>
+<h4 id="4-1-TTI-指标：Loading-耗时长"><a href="#4-1-TTI-指标：Loading-耗时长" class="headerlink" title="4.1 TTI 指标：Loading 耗时长"></a>4.1 TTI 指标：Loading 耗时长</h4><p>虽然已经将Loading 耗时缩减到 3.3s以内了，但是这个过程本身很“膈应”，对业务还是有影响的。更进一步地我们开始思考怎么能把这个过程给去掉，但仅仅局限在 Web 前端的角度我们很难再有所突破。</p>
+<p>本着 <strong>渐进增强</strong> 的原则，由于我们大部分用户是在贝壳/链家App上使用VR看房服务，我们可以重复利用客户端渲染能力。</p>
+<p>分析3.3s的瓶颈：</p>
+<ul>
+<li>1s HTTP请求至浏览器端渲染（HTML「壳子」/CSS/JS等）。</li>
+<li>2s 左右的全景图片请求（六张）。</li>
+</ul>
+<p>至此，我们可以基于 WebView 拦截HTTP请求，让客户端提供HTTP请求预载、代理、缓存等能力。静态资源、全景贴图等在房源详情页提前请求，到 WebView 层拦截使用，终于整个流程平均值降到2s内（高端设备已经到1s内）——已经达到一个很好的效果。</p>
+<p>都是，Loading 这个过程依旧存在。我们继续深度挖掘客户端能力：客户端浅渲染三维模型——即客户端最小程度渲染三维模型（全景效果），由于资源已经提前预载，客户端渲染速度在300ms内（视终端设备性能来定），然后等 WebView 渲染就绪后再替换成前端渲染。所要做的工作是客户端渲染和前端渲染效果对齐即可。</p>
+<p>最终，300ms的延迟肉眼近乎无法感知，无缝衔接——效果如下视频。这个加载效果也步入业内第一梯队。</p>
+<figure>
+  <video style="max-width: 240px;" src="/blog/realsee-vr-performance/1657609527484.mp4" controls  alt="VR 同屏" autoPlay="true" />
+</figure>
+
+<h4 id="4-2-内存溢出"><a href="#4-2-内存溢出" class="headerlink" title="4.2 内存溢出"></a>4.2 内存溢出</h4><p>由于动态载入\卸载的加成由于内存瓶颈造成的崩溃率已经有较明显下降。但是针对深度用户，崩溃依旧无法避免，但这部分用户又尤其重要。</p>
+<p>同样的，遵循 <strong>渐进增强，优雅降级</strong> 的原则，我们先系统地整理了影响内存情况的所有因素——见内存溢出影响因素鱼骨图。</p>
+<figure>
+  <img src="/blog/realsee-vr-performance/image_04.png"  alt="内存溢出影响因素鱼骨图" />
+  <figcaption>图五：内存溢出影响因素鱼骨图</figcaption>
+</figure>
+
+<p>同时按照线上内存性能分布情况、算法用户画像分析和测试团队线下测试情况建立了一份数据库。基于这份数据库和算法的用户画像数据来给用户提供不同的功能——即“千人千面”的用户体验，大体逻辑如下：</p>
+<ul>
+<li>针对低端环境用户（终端设备性能弱，电池影响等）：仅提供基本功能，高端功能（高分辨率、装修对比等）禁用（不会加载渲染）。</li>
+<li>针对高端环境用户（高性能设备）：渲染质量高，功能丰富。</li>
+<li>针对用户画像提供功能：比如，用户对装修感兴趣，则推荐装修模块；比如，用户购买意向高，则渐进推荐 VR 带看、AI 讲房等功能</li>
+</ul>
+<p>至此，将原本前端性能优化工作转换成算法团队根据用户画像来推荐功能的工作。性能状况是用户画像的一部分，在性能条件容许的情况下给用户最好的体验和功能，而非之前一股脑儿全给——不管你是什么样的用户，都能得到合适的 VR 3D 看房服务体验。</p>
+<p>而前端的工作重点则开始转变解析 WebSocket 推送的指令——在首屏模块的基础上，该渲染哪些异步模块，该何时卸载哪些异步模块，卸载的同时内存的清理情况。</p>
+<blockquote>
+<p><em><strong>很可惜这部分并没有很务实地落地</strong></em>——<em>可能对于家长而言，孩子考八十就足够了，不强求九十分或更高~</em></p>
+</blockquote>
+<h2 id="叁、表格形式-简化"><a href="#叁、表格形式-简化" class="headerlink" title="叁、表格形式-简化"></a>叁、表格形式-简化</h2><figure>
+  <img src="/blog/realsee-vr-performance/image_05.png"  alt="表格形式-简化" />
+</figure>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="clo8m8tdk0008451x24x7hpqy" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/realsee-vr-performance/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article
   id="layout/post-memory-usage-pic"
   class="article article-type-layout/post"
   itemscope
@@ -74,7 +278,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (China Standard Time)
+  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (中国标准时间)
 </div>
     
   <div class="article-category">
@@ -92,7 +296,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (China Standard Time)
+  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (中国标准时间)
 </div>
     </header>
     
@@ -303,7 +507,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="cl0lvwarn00006zfy5l5saet0" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="clo8m8tdd0001451xbbjo303l" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/memory-usage-pic/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -323,7 +527,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (China Standard Time)
+  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (中国标准时间)
 </div>
     
   <div class="article-category">
@@ -341,7 +545,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (China Standard Time)
+  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (中国标准时间)
 </div>
     </header>
     
@@ -574,115 +778,9 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="cks6vzn1h000a1yln3s0k71tz" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="clo8m8td80000451x23c2bby4" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/gmtc-vr3d/#disqus_thread" class="article-comment-link">Comments</a>
-       
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article
-  id="layout/post-those-years-nba-player"
-  class="article article-type-layout/post"
-  itemscope
-  itemprop="blogPost"
->
-  <!-- <div class="article-meta">
-    <div class="article-date">
-  首次编辑于 Sat Nov 16 2019 03:00:00 GMT+0800 (China Standard Time)
-</div>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a>
-  </div>
-
-  </div> -->
-  <div class="article-inner">
-     
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/those-years-nba-player/">那些年我关注过的NBA球星</a>
-    </h1>
-  
- <div class="article-dateref">
-  首次编辑于 Sat Nov 16 2019 03:00:00 GMT+0800 (China Standard Time)
-</div>
-    </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-       <blockquote>
-<p>我不喜欢用&quot;那些年&quot;这类很直白缅怀过去的字眼做标题，但是折腾许久才慢慢意识到现在的我已经找不着更好一点儿的词汇了。其实这就是一篇缅怀过去的一篇文章，并且是关于 NBA 球星的。因为我意识到自己已经很难和过去一样关注 NBA 赛事的输赢，NBA 于我渐行渐远。</p>
-</blockquote>
-<h2 id="第一次接触"><a href="#第一次接触" class="headerlink" title="第一次接触"></a>第一次接触</h2><p>首次接触 NBA 是在 2007 年，同学的一份体育类报纸被我当作隔离水泥的墙纸贴在宿舍的墙上。</p>
-<p>因为家距离学校不足一公里，我成为班级里极少数的&quot;走读生&quot;。但是学校还是给我预留了一个床位，或许嫌弃家附近的塑料工厂太吵，也可能是觉得晚自习十点后的夜太黑，亦或是思索着换种方式能与同学走得更近些，毕竟居住在一室共同的话题才多。总之，我在学校宿舍待了一段时间，每夜入睡前都会不经意间瞧见墙上的那图、那文字。</p>
-<figure>
-  <img style="width: 60%" src="//i.loli.net/2019/11/17/C13eRcgW4HnS8t9.jpg" alt="科比・布莱恩特 vs. 拉沙德・刘易斯" />
-  <figcaption>科比・布莱恩特 vs. 拉沙德・刘易斯</figcaption>
-</figure>
-
-<p>报纸封面的新闻是关于拉沙德・刘易斯跟魔术队签了一份价值超亿的转会合同。虽然玩篮球有很长一段时间了，体验过扔进框的喜悦，享受过拼抢的激动；但那时我不知道世界上有 NBA 这类东西、这个联盟。我很好奇这个人有多厉害，一个运动员能值这么大价值？</p>
-<p>刚刚步入高中的我后来也发现，了解 NBA 资讯越多就能与同学有更多的共同话题，特别是体魄强壮的男生。往后周六日，我也愈来愈关注 CCTV5 频道、慢慢准时追着 NBA 球赛。</p>
-<p>球赛是无聊的，远没有自己在球场扔球来得好玩。追比赛的动力只为了上学第一天的周一能与同学有更多的谈资：谁赢了？哪个球星得了多少分？哪只队伍还有进季后赛的机会。</p>
-<p>球赛是无聊的，我坚持了一段时间就再也没接触 NBA 球赛了。因为懂得少，因为自己打篮球只是扔个球，因为比赛的输赢好像跟我无关。大家都喜欢科比、麦迪、詹姆斯、加内特，可是他们距离我好远。但是了解到身边存在着许多热衷篮球的同学，不论高矮、性别、成绩，喜欢的球队赢了关注的球员表现亮眼了都会很开心。</p>
-<p>球赛是无聊的，某个周六上午最后一节课刚刚结束，同桌迫不及待地悄悄跟我说&quot;阳儿，下午打篮球不？我借到了一个篮球下午可以来&quot;。果然，我居然没有注意到在他课桌的死角内放置着一个起着毛刺的篮球，我们课堂上时常喊着饥饿其实就是为了能够在操场上流汗。</p>
-<p>这种邀请我是不会拒绝的，从下午两点玩到六点，要不是快到饭点我们是不会离开的。<br>同桌是真心爱篮球的，一直嫌弃自己一米七八的身高还不够高，因为喜欢加内特能够在一个夏天把自己晒得黝黑黝黑的。<br>于我而言，这比看篮球比赛有意思多了，挣着球一群人流着汗...</p>
-<h2 id="中国队"><a href="#中国队" class="headerlink" title="中国队"></a>中国队</h2><p>08 年是中国多灾多难的一年，也是我存储许多记忆的一年。<br>年初的南方大雪，寒假在家的我担心父亲还能不能回家过年，给我准备新衣裳、发压岁钱。<br>刚开学不久，新闻里播着西藏拉萨打砸抢烧暴力事件，文科老师偶尔也在课堂上义愤填膺。</p>
-<p>当我紧张忙着午间休憩时，又听闻四川汶川地震。幸好在四川的外婆没啥事。趁着暑假，和妹妹二人勇敢地去了一趟四川德阳。经历过几次余震，却无意识畏惧，日常就是和妹妹在德阳街道图书馆看书，在家追着动漫，对川式水煮五花肉也终身难忘，刺激味蕾的记忆是挥之不去的。</p>
-<figure>
-  <img style="width: 80%" src="//i.loli.net/2019/11/17/RcA9CdtbB7igSVO.jpg" alt="北京奥运" />
-  <figcaption>2008・北京奥运</figcaption>
-</figure>
-
-<p>最重要的还是北京奥运啦，&quot;北京欢迎你&quot;的调调随处都存在着。</p>
-<p>那个阶段我关注的是刘翔的 110 米栏、中国足球、中国篮球。等待了一上午，刘翔没有完成比赛，心中难以释怀——或许<strong>1356</strong>就不应该押付到一个人的身上。<br>足球是对阵美丽遥远的新西兰，拿下奥运首个进球的中国队没有拿下比赛；中国队的实力怎么这么不济，这是我难以接受的事实。还好，篮球比赛是很精彩的。</p>
-<p>印象最深刻的是中国对战美国和中国对战西班牙——对战世界第一、第二。<br>第一例进球是姚明的三分，赛前我构思了第一个球的各种场景，却没猜测到居然会是姚明的三分。<br>朱芳雨、王仕鹏的手感好好，各种进；看着矮矮的刘炜，运起球来各种潇洒；易建联、王治郅、孙悦与美国全明星对位起来一点儿也不虚。<br>双方有来有回不可开交，虽然半场之后中国队慢慢落入下风。<br>缺失我们都知道这是一场结果赤裸裸的比赛，但还是为中国队的球员骄傲，发自内心的。更何况，对阵西班牙的比赛中国队差点还赢了。</p>
-<p>原来篮球这么好看，哦不原来打篮球的那一群人是如此优秀。</p>
-<h2 id="季后赛"><a href="#季后赛" class="headerlink" title="季后赛"></a>季后赛</h2><p>学业的压力徒增，生活中面临的诱惑也多了许多，流汗的疯狂却越来越少；不过，看 NBA 球赛却成为学习之外的日常。</p>
-<figure>
-  <img style="width: 60%" src="//i.loli.net/2019/11/17/PyYmGBsi982LE6v.jpg" alt="季后赛姚明迎接湖人队防守" />
-  <figcaption>季后赛姚明迎接湖人队防守</figcaption>
-</figure>
-
-<p>〇九上半年，班级中最具人气的球员麦迪被交易走了，没有麦迪的火箭队其实更强大。季后赛与湖人挣抢七让我见识到竞技体育的韧性，记忆最深刻的是那一场比赛好多同学凌晨就逃离校园去看比赛了，期待奇迹却没有奇迹。</p>
-<figure>
-  <img style="width: 50%;" src="//i.loli.net/2019/11/17/58xRCczaVfjXKJg.jpg" alt="勒布朗・詹姆斯 vs. 拉沙德・刘易斯" />
-  <figcaption>勒布朗・詹姆斯 vs. 拉沙德・刘易斯</figcaption>
-</figure>
-
-<p>另外一边则是詹姆斯的骑士和魔术鏖战着，我知道有许多人不喜欢詹姆斯，但是看过那一轮系列赛的我对他的评价始终是无与伦比的优秀。有第二场绝杀转身举指的怒吼，也有第六场的黯然离去，上演着我以为只有电影里面才有的剧情。</p>
-<figure>
-  <img style="width: 60%" src="//i.loli.net/2019/11/17/y4HSirBYb6J5xmw.jpg" alt="季后赛科比：湖人 vs. 魔术" />
-  <figcaption>季后赛科比：湖人 vs. 魔术</figcaption>
-</figure>
-
-<p>〇九总决赛的主角是科比，第一场科比求胜的眼神告诉我&quot;第二名才是真正的输家&quot;不是简单说说而已。熬过巴蒂尔和阿泰斯特防守，那个时期的联盟还有什么组合能够阻止科比夺冠的心。第二年依旧是科比与凯尔特人大战七场，科比上演了自己曼巴式复仇，不过看着他们这群球员比赛真的好可爱。</p>
-<p>一一年是是神奇的逆转，当小牛夺冠诺维茨基第一时间离开球场；拉起球衣捂住脸掩盖自己失控的情绪。〇六年总决赛被翻盘，〇七年被勇士&quot;黑八&quot;，一〇年又被马刺&quot;黑七&quot;，没有被打入谷底的耻辱，怎会有攀上顶峰的泪水。</p>
-<p>一二年在热火的詹姆斯终于拿到自己想要的荣誉，虽然我不认同&quot;无冠之王不是王&quot;的价值观。</p>
-<p>一三年，雷・阿伦的神奇三分与吉诺比利神一般的表现以及邓肯最后一场最后一刻不甘地捶地板。马刺太老了、GDP 时代结束了 …</p>
-<p>一四年，去年马刺的失利让我耿耿于怀了许久，想不到今年能够卷土重来，我好害怕马刺再输。但总决赛阵容与去年一般，我告诉我自己这个系列赛我一场都不愿意错过。<br>可惜，最后一次比赛却发生在我毕业答辩时刻...</p>
-<figure>
-  <img src="//i.loli.net/2019/11/17/cbgDJx8uoqjPK7i.jpg" alt="马刺夺冠" />
-  <figcaption>马刺夺冠："每一次的失败都是下一次的卷土重来"</figcaption>
-</figure>
-
-<p>马刺夺冠时刻就是我毕业答辩的时刻。总决赛的最后一场，我在答辩室盯着 3G 网络手机中的文字直播，可是答辩的次序被安排在了上午。我的内心是紊乱的，毕业设计做得不够好，害怕被老师刁难，又担心马刺不能赢。想不到大学的最后时刻是如此纠结的体验，庆幸结局都是美好的。</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>未来很长的一段时间我可能会很难再关注 NBA 联赛，吸引我的是某些球员，让我不舍的是那碎片一样的岁月，而非 NBA 联赛，无关篮球。追求自己想要、喜欢的路途感觉真好，虽然会一路波折、忐忑、耻辱。</p>
-<blockquote>
-<p>版权声明：文中涉及图片素材均来源于<a target="_blank" rel="noopener" href="//www.zimbio.com">Zimbio</a>，版权归属于<a target="_blank" rel="noopener" href="//www.zimbio.com">Zimbio</a>。</p>
-</blockquote>
- 
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/those-years-nba-player/" data-id="cks6vzn1g00081yln6kco33gv" class="article-share-link">Share</a>
-      
-      <a href="http://solome.js.org/blog/those-years-nba-player/#disqus_thread" class="article-comment-link">Comments</a>
        
     </footer>
   </div>
@@ -722,7 +820,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
     </div>
   </div>
 
@@ -733,6 +831,10 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+          </li>
         
           <li>
             <a href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
@@ -778,7 +880,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2014 - 2022 掬一捧<br>
+      &copy; 2014 - 2023 掬一捧<br>
       版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
     </div>
   </div>

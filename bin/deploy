@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-rm -rf public
+rm -rf docs
 
 yarn run deploy
 
-cd public
+cd docs
 
 git config user.name solome
 git config user.email solome@outlook.com
@@ -13,5 +13,5 @@ git config user.email solome@outlook.com
 git init
 git add --all
 git commit -m "deploy"
-git push --force --quiet "git@github.com:solome/blog.git" master:gh-pages
+git push --force --quiet "git@github.com:solome/blog.git" main:gh-pages
 
