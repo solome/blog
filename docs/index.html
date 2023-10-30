@@ -98,9 +98,12 @@
     
     <div class="article-entry" itemprop="articleBody">
        <style type="text/css">
+@media screen and (min-width: 960px) {
+
   .article-entry .rvp-video, .article-entry .rvp-image {
     max-width: 540px;
   }
+}
 </style>
 
 <h2 id="壹、背景"><a href="#壹、背景" class="headerlink" title="壹、背景"></a>壹、背景</h2><p>贝壳 VR 看房是贝壳找房如视事业部（现已独立，<a target="_blank" rel="noopener" href="https://www.realsee.com/">如你所视科技有限公司</a>）做的一款在线 VR 3D 看房服务。通过专业的三维空间扫描设备采集房源户型三维数据，经过算法加工之后，可以通过 WebGL/Three.js 等工具将房源以1:1复刻至浏览器上，并支持720°空间自由行走和模型、全景等多种模态间的自由切换。</p>
@@ -195,7 +198,7 @@
 </ul>
 <h4 id="3-2-技术架构升级"><a href="#3-2-技术架构升级" class="headerlink" title="3.2 技术架构升级"></a>3.2 技术架构升级</h4><p>从产品策略的调整来看，基于 jQuery +发布/订阅者模式实现的增量式模块化开发前端架构已经不满足现有的业务和性能诉求。原有的设计是典型的SPA应用，但是新的架构诉求则更像是一个平台，即架构上分层：数据层、View 层，View 层又细分 DOM 层、Canvas 层、协议层及基础插件层。数据层和 View 层组成基础的首屏内容，非首屏内容则基于这两层以动态模块的形式进行开发——<strong>需要时挂载</strong>（占内存），<strong>不需要时卸载</strong>（会延迟清部分内存）。</p>
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_04.svg"  alt="前端架构分层设计" />
+  <img class="rvp-image" src="/blog/realsee-vr-performance/image_04.png"  alt="前端架构分层设计" />
   <figcaption>图四：前端架构分层设计</figcaption>
 </figure>
 
@@ -258,7 +261,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="clo8m8tdk0008451x24x7hpqy" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="cloc8y1kd00075o1xbz9wfgid" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/realsee-vr-performance/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -507,7 +510,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="clo8m8tdd0001451xbbjo303l" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="cloc8y1kb00055o1xfsinb81c" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/memory-usage-pic/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -778,7 +781,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="clo8m8td80000451x23c2bby4" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="cloc8y1jx00005o1xhqr42ius" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/gmtc-vr3d/#disqus_thread" class="article-comment-link">Comments</a>
        

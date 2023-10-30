@@ -7,9 +7,12 @@ categories:  技术总结
 ---
 
 <style type="text/css">
+@media screen and (min-width: 960px) {
+
   .article-entry .rvp-video, .article-entry .rvp-image {
     max-width: 540px;
   }
+}
 </style>
 
 ## 壹、背景
@@ -152,7 +155,7 @@ VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面�
 从产品策略的调整来看，基于 jQuery +发布/订阅者模式实现的增量式模块化开发前端架构已经不满足现有的业务和性能诉求。原有的设计是典型的SPA应用，但是新的架构诉求则更像是一个平台，即架构上分层：数据层、View 层，View 层又细分 DOM 层、Canvas 层、协议层及基础插件层。数据层和 View 层组成基础的首屏内容，非首屏内容则基于这两层以动态模块的形式进行开发——**需要时挂载**（占内存），**不需要时卸载**（会延迟清部分内存）。
 
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_04.svg"  alt="前端架构分层设计" />
+  <img class="rvp-image" src="/blog/realsee-vr-performance/image_04.png"  alt="前端架构分层设计" />
   <figcaption>图四：前端架构分层设计</figcaption>
 </figure>
 

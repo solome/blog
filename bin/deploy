@@ -13,5 +13,5 @@ git config user.email solome@outlook.com
 git init
 git add --all
 git commit -m "deploy"
-git push --force --quiet "git@github.com:solome/blog.git" main:gh-pages
+git push --force --quiet "git@github.com:solome/blog.git" main:gh-pages --progress
 
