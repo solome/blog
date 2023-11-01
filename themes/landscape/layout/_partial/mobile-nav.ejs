@@ -1,7 +1,9 @@
 <nav id="mobile-nav">
+  <a class="mobile-nav-link" href="//solome.js.org/">首页</a>
+
   <% for (var i in theme.menu){ %>
     <a href="<%- url_for(theme.menu[i]) %>" class="mobile-nav-link"><%= i %></a>
   <% } %>
   <a class="mobile-nav-link" href="//solome.js.org/slides">Slides</a>
-  <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a>
+  <!-- <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
 </nav>

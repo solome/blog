@@ -48,12 +48,12 @@
           <a class="main-nav-link" href="/blog/archives">Archives</a>
         
         <a class="main-nav-link" href="//solome.js.org/slides">Slides</a>
-        <a class="main-nav-link" href="//solome.js.org/storybook">Storybook</a>
+        <!-- <a class="main-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
 
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+          <!-- <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a> -->
         
         <!-- <a id="nav-search-btn" class="nav-icon" title="Search"></a> -->
       </nav>
@@ -176,7 +176,7 @@
 </ul>
 <h4 id="2-4-点击-VR-带看入口到带看就绪耗时"><a href="#2-4-点击-VR-带看入口到带看就绪耗时" class="headerlink" title="2.4 点击 VR 带看入口到带看就绪耗时"></a>2.4 点击 VR 带看入口到带看就绪耗时</h4><p>何为VR带看？VR带看是指用户和经纪人（可以多个用户、多个经纪人）打开同个VR 页面，可以实时语音并且交互画面同步，视频效果如下：</p>
 <figure>
-  <video class="rvp-video" src="/blog/realsee-vr-performance/live_sync.7b9ea663.mp4" controls  alt="VR 同屏" autoPlay="true" />
+  <video class="rvp-video" src="/blog/realsee-vr-performance/live_sync.7b9ea663.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
 </figure>
 
 <p><strong>VR 带看启动流程</strong></p>
@@ -234,7 +234,7 @@
 <p>都是，Loading 这个过程依旧存在。我们继续深度挖掘客户端能力：客户端浅渲染三维模型——即客户端最小程度渲染三维模型（全景效果），由于资源已经提前预载，客户端渲染速度在300ms内（视终端设备性能来定），然后等 WebView 渲染就绪后再替换成前端渲染。所要做的工作是客户端渲染和前端渲染效果对齐即可。</p>
 <p>最终，300ms的延迟肉眼近乎无法感知，无缝衔接——效果如下视频。这个加载效果也步入业内第一梯队。</p>
 <figure>
-  <video style="max-width: 240px;" src="/blog/realsee-vr-performance/1657609527484.mp4" controls  alt="VR 同屏" autoPlay="true" />
+  <video style="max-width: 240px;" src="/blog/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
 </figure>
 
 <h4 id="4-2-内存溢出"><a href="#4-2-内存溢出" class="headerlink" title="4.2 内存溢出"></a>4.2 内存溢出</h4><p>由于动态载入\卸载的加成由于内存瓶颈造成的崩溃率已经有较明显下降。但是针对深度用户，崩溃依旧无法避免，但这部分用户又尤其重要。</p>
@@ -261,7 +261,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="cloc8y1kd00075o1xbz9wfgid" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="clofp0fvq0007ao1xccgaaqzk" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/realsee-vr-performance/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -510,7 +510,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="cloc8y1kb00055o1xfsinb81c" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="clofp0fvo0004ao1x5wgh7obw" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/memory-usage-pic/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -781,7 +781,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="cloc8y1jx00005o1xhqr42ius" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="clofp0fvl0001ao1x2hzk61rn" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/gmtc-vr3d/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -890,13 +890,15 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 </footer>
     </div>
     <nav id="mobile-nav">
+  <a class="mobile-nav-link" href="//solome.js.org/">首页</a>
+
   
     <a href="/blog/" class="mobile-nav-link">博客</a>
   
     <a href="/blog/archives" class="mobile-nav-link">Archives</a>
   
   <a class="mobile-nav-link" href="//solome.js.org/slides">Slides</a>
-  <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a>
+  <!-- <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
 </nav>
     
 <script>

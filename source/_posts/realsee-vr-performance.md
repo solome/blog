@@ -126,7 +126,7 @@ categories:  技术总结
 何为VR带看？VR带看是指用户和经纪人（可以多个用户、多个经纪人）打开同个VR 页面，可以实时语音并且交互画面同步，视频效果如下：
 
 <figure>
-  <video class="rvp-video" src="/blog/realsee-vr-performance/live_sync.7b9ea663.mp4" controls  alt="VR 同屏" autoPlay="true" />
+  <video class="rvp-video" src="/blog/realsee-vr-performance/live_sync.7b9ea663.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
 </figure>
 
 **VR 带看启动流程**
@@ -201,7 +201,7 @@ VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面�
 最终，300ms的延迟肉眼近乎无法感知，无缝衔接——效果如下视频。这个加载效果也步入业内第一梯队。
 
 <figure>
-  <video style="max-width: 240px;" src="/blog/realsee-vr-performance/1657609527484.mp4" controls  alt="VR 同屏" autoPlay="true" />
+  <video style="max-width: 240px;" src="/blog/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
 </figure>
 
 #### 4.2 内存溢出
