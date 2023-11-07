@@ -41,7 +41,7 @@ categories: 技术分享
 目前，app-proto 将前端工程化项目拆分成三大模块：Node 服务（负责数据代理、url 路由和服务端渲染）、Web 应用开发（专注 Web 交互体验）以及前端运维（构建、测试、部署及监控等）。整体的结构设计如图 1 所示。
 
 <figure>
-  <img src="/blog/tech-salon-13-app-proto/structural-design.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="Structural Design" />
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/structural-design.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="Structural Design" />
   <figcaption>app-proto 结构设计图</figcaption>
 </figure>
 
@@ -129,7 +129,7 @@ export default async function (params) {
 那该如何快捷地调用`datasources`目录下的`async`函数呢？这里我们做了简单封装，将该目录下的所有`**.js`文件解析到 Koa 的上下文环境中以`this.ds`对象进行存储，并按照目录结构进行驼峰式（[Camel-Case](https://en.wikipedia.org/wiki/Camel_case)）命名，转换过程见图 2。
 
 <figure>
-  <img src="/blog/tech-salon-13-app-proto/datasources-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="datasources-recipes" />
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/datasources-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="datasources-recipes" />
   <figcaption>datasources 目录解析转换过程</figcaption>
 </figure>
 
@@ -194,7 +194,7 @@ export default {
 由于`urls`支持多种正则，原则上每个根 url 映射`server/pages/`目录下一个`**.js`文件，映射关系如图 3 所示。
 
 <figure>
-  <img src="/blog/tech-salon-13-app-proto/pages-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/pages-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
   <figcaption>pages目录文件与url映射关系</figcaption>
 </figure>
 
@@ -246,7 +246,7 @@ Node 服务端最后一个核心功能是渲染：输出 HTML Shell 和 JSON。�
 那 Web 端构建的静态资源是如何 Node 服务端做衔接的呢？前端静态资源构建工作与 Node 服务相互分离，Node 服务在开启的过程中会读取前端构建生成的静态资源映射表。前端的构建过程如图 4 所示，在构建工作完成之后会生成`assets.json`静态资源映射表。
 
 <figure>
-  <img src="/blog/tech-salon-13-app-proto/static-file-map.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/static-file-map.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
   <figcaption>静态资源映射文件assets.json构建</figcaption>
 </figure>
 

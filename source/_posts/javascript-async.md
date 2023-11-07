@@ -151,7 +151,7 @@ $.ajax(
 很明顯，觀察者模式要比事件監聽方式擴充性更強（雖然本質一致，但是強調側重點不同）。
 
 <figure style="padding-top: 0;margin-top: .5em;">
-  <img src="/blog/javascript-async/pingpong.gif" />
+  <img src="//solome.js.org/static/javascript-async/pingpong.gif" />
   <figcaption>陷入`emit`死循環</figcaption>
 </figure>
 

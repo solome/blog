@@ -13,7 +13,7 @@ categories: 学习札記
 比如，下图集合`A`和集合`B`的映射关系即符合数学函数的定义。
 
 <figure>
-  <img style="width: auto;" src="/blog/pure-functions-in-fp/set_map.svg" alt="containing block" />
+  <img style="width: auto;" src="//solome.js.org/static/pure-functions-in-fp/set_map.svg" alt="containing block" />
   <figcaption>fn：除以5的余数</figcaption>
 </figure>
 

@@ -14,14 +14,14 @@
 <meta property="og:site_name" content="掬一捧清水窺月落">
 <meta property="og:description" content="背景二零年年末，我所在如视的前端团队针对核心 C 端项目 VR 3D 看房 做了次从 2.0 到 3.0 的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过 PerfDog 性能狗 性能分析发现：我们一个 VR 3D 页面在 PC 端占用 120MB 左右内存，在 iPhone 12 上竟然高达 360MB。 在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://solome.js.org/blog/memory-usage-pic/memo-vr.png">
-<meta property="og:image" content="http://solome.js.org/blog/memory-usage-pic/pano.png">
-<meta property="og:image" content="http://solome.js.org/blog/memory-usage-pic/model.png">
+<meta property="og:image" content="http://solome.js.org/static/memory-usage-pic/memo-vr.png">
+<meta property="og:image" content="http://solome.js.org/static/memory-usage-pic/pano.png">
+<meta property="og:image" content="http://solome.js.org/static/memory-usage-pic/model.png">
 <meta property="article:published_time" content="2022-03-11T15:30:00.000Z">
-<meta property="article:modified_time" content="2023-10-27T10:40:10.160Z">
+<meta property="article:modified_time" content="2023-11-07T16:00:23.760Z">
 <meta property="article:author" content="掬一捧">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://solome.js.org/blog/memory-usage-pic/memo-vr.png">
+<meta name="twitter:image" content="http://solome.js.org/static/memory-usage-pic/memo-vr.png">
   
     <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
   
@@ -80,7 +80,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (中国标准时间)
+  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (北美中部标准时间)
 </div>
     
   <div class="article-category">
@@ -98,7 +98,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (中国标准时间)
+  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (北美中部标准时间)
 </div>
     </header>
     
@@ -107,7 +107,7 @@
 <p>在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修前后的效果对比，这又新增了一个 VR 实例，内存占用已超 700MB。</p>
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:100%;" src="/blog/memory-usage-pic/memo-vr.png" /></div>
+    <div style="flex: 1"><img style="width:100%;" src="//solome.js.org/static/memory-usage-pic/memo-vr.png" /></div>
   </div>
   <figcaption>图一：2.0和3.0 内存占用情况</figcaption>
 </figure>
@@ -247,14 +247,14 @@
 <p>常态情况下，<code>Five</code> 渲染依赖的图片是三维模型的 UV 贴图和一个立方体全景贴图（立方体六个面六张图），如图二、三所示。</p>
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:60%;" src="/blog/memory-usage-pic/pano.png" /></div>
+    <div style="flex: 1"><img style="width:60%;" src="//solome.js.org/static/memory-usage-pic/pano.png" /></div>
   </div>
   <figcaption>图二：立方体全景贴图（2048*2048）</figcaption>
 </figure>
 
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:80%;" src="/blog/memory-usage-pic/model.png" /></div>
+    <div style="flex: 1"><img style="width:80%;" src="//solome.js.org/static/memory-usage-pic/model.png" /></div>
   </div>
   <figcaption>图三：UV 贴图及网格数据组成模型（512*512）</figcaption>
 </figure>
@@ -282,8 +282,8 @@
 <h2 id="序列帧动画"><a href="#序列帧动画" class="headerlink" title="序列帧动画"></a>序列帧动画</h2><p>如图五所示，这是一个如视 Logo 组成的循环关键帧动画：</p>
 <figure>
   <div style="display:flex;flex-direction: column;" class="fancyboxflex">
-    <div style="flex: 1"><image style="width:100%;;" src="/blog/memory-usage-pic/animation.13cc0efb.png" /></div>
-    <div style="flex: 1"><image style="width:100%;max-width: 140px;" src="/blog/memory-usage-pic/realseelogo.gif" /></div>
+    <div style="flex: 1"><image style="width:100%;;" src="//solome.js.org/static/memory-usage-pic/animation.13cc0efb.png" /></div>
+    <div style="flex: 1"><image style="width:100%;max-width: 140px;" src="//solome.js.org/static/memory-usage-pic/realseelogo.gif" /></div>
   </div>
   <figcaption>图四：关键帧Sprite图和逐帧动画</figcaption>
 </figure>
@@ -309,7 +309,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="clofp0fvo0004ao1x5wgh7obw" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="clooia2ly0004ln3yfrsg5p40" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/memory-usage-pic/#disqus_thread" class="article-comment-link">Comments</a>
        

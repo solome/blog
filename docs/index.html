@@ -74,7 +74,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (中国标准时间)
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (北美中部标准时间)
 </div>
     
   <div class="article-category">
@@ -92,7 +92,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (中国标准时间)
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (北美中部标准时间)
 </div>
     </header>
     
@@ -117,7 +117,7 @@
 <p><strong>技术分析</strong></p>
 <p>早期为了<em><strong>快</strong></em>，架构上基于 jQuery +发布/订阅者模式实现的模块化开发，后期（2020年中）转向分层+基于 React 技术栈实现的动态模块化架构形式，见下图。</p>
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_01.png"  alt="前端架构图" />
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_01.png"  alt="前端架构图" />
   <figcaption>图一：前端架构图</figcaption>
 </figure>
 
@@ -154,7 +154,7 @@
 <h4 id="2-2-FPS"><a href="#2-2-FPS" class="headerlink" title="2.2 FPS"></a>2.2 FPS</h4><p>除了在7s左右 FPS 急剧下降之外，整体 FPS 处在合理值范畴。为啥 7s 左右 FPS 会明显下降呢？主要是这里有个 <strong>用计算换降低存储空间成本</strong> 的优化——将三角面片数据及 uv 贴图数据压缩后存储，端上使用再解压使用。</p>
 <h4 id="2-3-TTI"><a href="#2-3-TTI" class="headerlink" title="2.3 TTI"></a>2.3 TTI</h4><p>可交互时间，即从房源详情页点击进入 VR 到 VR 页面渲染完成可交换的耗时。分析后，关键流程如下：</p>
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_02.svg"  alt="启动 Loading 耗时关键阶段流程图" />
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_02.svg"  alt="启动 Loading 耗时关键阶段流程图" />
   <figcaption>图二：启动 Loading 耗时关键阶段流程图</figcaption>
 </figure>
 
@@ -176,12 +176,12 @@
 </ul>
 <h4 id="2-4-点击-VR-带看入口到带看就绪耗时"><a href="#2-4-点击-VR-带看入口到带看就绪耗时" class="headerlink" title="2.4 点击 VR 带看入口到带看就绪耗时"></a>2.4 点击 VR 带看入口到带看就绪耗时</h4><p>何为VR带看？VR带看是指用户和经纪人（可以多个用户、多个经纪人）打开同个VR 页面，可以实时语音并且交互画面同步，视频效果如下：</p>
 <figure>
-  <video class="rvp-video" src="/blog/realsee-vr-performance/live_sync.7b9ea663.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
+  <video class="rvp-video" src="//solome.js.org/static/realsee-vr-performance/live_sync.7b9ea663.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
 </figure>
 
 <p><strong>VR 带看启动流程</strong></p>
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_03.svg"  alt="VR 带看启动流程耗时节点流程图" />
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_03.svg"  alt="VR 带看启动流程耗时节点流程图" />
   <figcaption>图三：VR 带看启动流程耗时节点流程图</figcaption>
 </figure>
 
@@ -198,7 +198,7 @@
 </ul>
 <h4 id="3-2-技术架构升级"><a href="#3-2-技术架构升级" class="headerlink" title="3.2 技术架构升级"></a>3.2 技术架构升级</h4><p>从产品策略的调整来看，基于 jQuery +发布/订阅者模式实现的增量式模块化开发前端架构已经不满足现有的业务和性能诉求。原有的设计是典型的SPA应用，但是新的架构诉求则更像是一个平台，即架构上分层：数据层、View 层，View 层又细分 DOM 层、Canvas 层、协议层及基础插件层。数据层和 View 层组成基础的首屏内容，非首屏内容则基于这两层以动态模块的形式进行开发——<strong>需要时挂载</strong>（占内存），<strong>不需要时卸载</strong>（会延迟清部分内存）。</p>
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_06.svg"  alt="前端架构分层设计" />
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_06.svg"  alt="前端架构分层设计" />
   <figcaption>图四：前端架构分层设计</figcaption>
 </figure>
 
@@ -234,13 +234,13 @@
 <p>都是，Loading 这个过程依旧存在。我们继续深度挖掘客户端能力：客户端浅渲染三维模型——即客户端最小程度渲染三维模型（全景效果），由于资源已经提前预载，客户端渲染速度在300ms内（视终端设备性能来定），然后等 WebView 渲染就绪后再替换成前端渲染。所要做的工作是客户端渲染和前端渲染效果对齐即可。</p>
 <p>最终，300ms的延迟肉眼近乎无法感知，无缝衔接——效果如下视频。这个加载效果也步入业内第一梯队。</p>
 <figure>
-  <video style="max-width: 240px;" src="/blog/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
+  <video style="max-width: 240px;" src="//solome.js.org/static/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
 </figure>
 
 <h4 id="4-2-内存溢出"><a href="#4-2-内存溢出" class="headerlink" title="4.2 内存溢出"></a>4.2 内存溢出</h4><p>由于动态载入\卸载的加成由于内存瓶颈造成的崩溃率已经有较明显下降。但是针对深度用户，崩溃依旧无法避免，但这部分用户又尤其重要。</p>
 <p>同样的，遵循 <strong>渐进增强，优雅降级</strong> 的原则，我们先系统地整理了影响内存情况的所有因素——见内存溢出影响因素鱼骨图。</p>
 <figure>
-  <img src="/blog/realsee-vr-performance/image_04.png"  alt="内存溢出影响因素鱼骨图" />
+  <img src="//solome.js.org/static/realsee-vr-performance/image_04.png"  alt="内存溢出影响因素鱼骨图" />
   <figcaption>图五：内存溢出影响因素鱼骨图</figcaption>
 </figure>
 
@@ -256,12 +256,12 @@
 <p><em><strong>很可惜这部分并没有很务实地落地</strong></em>——<em>可能对于家长而言，孩子考八十就足够了，不强求九十分或更高~</em></p>
 </blockquote>
 <h2 id="叁、表格形式-简化"><a href="#叁、表格形式-简化" class="headerlink" title="叁、表格形式-简化"></a>叁、表格形式-简化</h2><figure>
-  <img src="/blog/realsee-vr-performance/image_05.png"  alt="表格形式-简化" />
+  <img src="//solome.js.org/static/realsee-vr-performance/image_05.png"  alt="表格形式-简化" />
 </figure>
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="clofp0fvq0007ao1xccgaaqzk" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="clooia2m00007ln3yd0rkctvb" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/realsee-vr-performance/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -281,7 +281,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (中国标准时间)
+  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (北美中部标准时间)
 </div>
     
   <div class="article-category">
@@ -299,7 +299,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (中国标准时间)
+  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (北美中部标准时间)
 </div>
     </header>
     
@@ -308,7 +308,7 @@
 <p>在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修前后的效果对比，这又新增了一个 VR 实例，内存占用已超 700MB。</p>
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:100%;" src="/blog/memory-usage-pic/memo-vr.png" /></div>
+    <div style="flex: 1"><img style="width:100%;" src="//solome.js.org/static/memory-usage-pic/memo-vr.png" /></div>
   </div>
   <figcaption>图一：2.0和3.0 内存占用情况</figcaption>
 </figure>
@@ -448,14 +448,14 @@
 <p>常态情况下，<code>Five</code> 渲染依赖的图片是三维模型的 UV 贴图和一个立方体全景贴图（立方体六个面六张图），如图二、三所示。</p>
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:60%;" src="/blog/memory-usage-pic/pano.png" /></div>
+    <div style="flex: 1"><img style="width:60%;" src="//solome.js.org/static/memory-usage-pic/pano.png" /></div>
   </div>
   <figcaption>图二：立方体全景贴图（2048*2048）</figcaption>
 </figure>
 
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:80%;" src="/blog/memory-usage-pic/model.png" /></div>
+    <div style="flex: 1"><img style="width:80%;" src="//solome.js.org/static/memory-usage-pic/model.png" /></div>
   </div>
   <figcaption>图三：UV 贴图及网格数据组成模型（512*512）</figcaption>
 </figure>
@@ -483,8 +483,8 @@
 <h2 id="序列帧动画"><a href="#序列帧动画" class="headerlink" title="序列帧动画"></a>序列帧动画</h2><p>如图五所示，这是一个如视 Logo 组成的循环关键帧动画：</p>
 <figure>
   <div style="display:flex;flex-direction: column;" class="fancyboxflex">
-    <div style="flex: 1"><image style="width:100%;;" src="/blog/memory-usage-pic/animation.13cc0efb.png" /></div>
-    <div style="flex: 1"><image style="width:100%;max-width: 140px;" src="/blog/memory-usage-pic/realseelogo.gif" /></div>
+    <div style="flex: 1"><image style="width:100%;;" src="//solome.js.org/static/memory-usage-pic/animation.13cc0efb.png" /></div>
+    <div style="flex: 1"><image style="width:100%;max-width: 140px;" src="//solome.js.org/static/memory-usage-pic/realseelogo.gif" /></div>
   </div>
   <figcaption>图四：关键帧Sprite图和逐帧动画</figcaption>
 </figure>
@@ -510,7 +510,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="clofp0fvo0004ao1x5wgh7obw" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="clooia2ly0004ln3yfrsg5p40" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/memory-usage-pic/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -530,7 +530,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (中国标准时间)
+  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (北美中部标准时间)
 </div>
     
   <div class="article-category">
@@ -548,7 +548,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (中国标准时间)
+  首次编辑于 Sun Jul 18 2021 23:30:00 GMT+0800 (北美中部标准时间)
 </div>
     </header>
     
@@ -561,7 +561,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 .fancyboxflex .fancybox {flex: 1;}
 </style>
 <a class="ref" href="//gmtc.infoq.cn/2021/beijing/presentation/3531" target="_blank">
-  <img class="ref-img" src="/blog/gmtc-vr3d/5c7caa3b1c540.jpeg">
+  <img class="ref-img" src="//solome.js.org/static/gmtc-vr3d/5c7caa3b1c540.jpeg">
   <div class="ref-content">
     <div class="ref-title">GMTC_全球大前端技术大会-InfoQ</div>
     <div class="ref-subTitle">"GMTC是由极客邦科技和InfoQ中国主办的顶级技术盛会，关注移动、前端、AI应用等多个技术领域，促进全球技术交流，推动国内技术升级。GMTC为期4天，包括两天的会议和两天的培训课，主要面向各行业对移动开发、前端、AI技术感兴趣的中高端技术人员，大会聚焦前沿技术及实践经验，旨在帮助参会者了解移动开发&前端领域最新的技术趋势与最佳实践。"</div>
@@ -574,22 +574,22 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <h3 id="看房-VR-3D-模型的组成及形态"><a href="#看房-VR-3D-模型的组成及形态" class="headerlink" title="看房 VR 3D 模型的组成及形态"></a>看房 VR 3D 模型的组成及形态</h3><p>房源的 VR 3D 模型的形态有多种，但在用户层面直观感受到的主要有三个形态：3D 模型形态、点位全景形态及 VR 眼镜视角形态。下面对这三个形态做详细介绍。</p>
 <h4 id="3D-模型"><a href="#3D-模型" class="headerlink" title="3D 模型"></a>3D 模型</h4><p>首先，我们简单思考一下三维模型是如何在二维平面抽象建模的？目前主流的三维模型抽象建模是基于多边形网格（Polygon Mesh），如图一所示。整体感知就是多边形面片愈多（面片密度）还原的三维立体效果愈真实。最精简的多边形自然是三角形（大部分场景下说的面片即三角面片），三维物体的每个细节可以通过三角面片的顶点、边及面等几何数学概念来描述。微观上来看，基于面片建模的三维模型本质上都是密度及其复杂的几何体。</p>
 <figure>
-  <img src="/blog/gmtc-vr3d/pic1.png"  alt="多边形网格模拟立体效果" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic1.png"  alt="多边形网格模拟立体效果" />
   <figcaption>图一：多边形网格模拟立体效果</figcaption>
 </figure>
 
 <p>因此，依赖一些专业 3D 扫描仪（比如如视自研的黎曼、伽罗华等扫描仪）或全景相机等设备采集数据后，再通过算法加工可以获取这些描述三维立体结构的三角面片数据。前端再利用 WebGL/Three.js 等技术将其渲染至浏览器上，此时我们能得到房源的三维立体轮廓，效果如图二（左）所示的网格模型。当然，图二（右）才是我们期望的效果，仅仅有三维&quot;骨架&quot;轮廓是不够的，我们需要在此基础上贴一层&quot;皮肤&quot;，而这层&quot;皮肤&quot;则是通过 UV 纹理贴图添加上的。</p>
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:100%;" src="/blog/gmtc-vr3d/pic2left.gif" /></div>
-    <div style="flex: 1"><img style="width:100%;" src="/blog/gmtc-vr3d/pic2right.gif" /></div>
+    <div style="flex: 1"><img style="width:100%;" src="//solome.js.org/static/gmtc-vr3d/pic2left.gif" /></div>
+    <div style="flex: 1"><img style="width:100%;" src="//solome.js.org/static/gmtc-vr3d/pic2right.gif" /></div>
   </div>
   <figcaption>图二：三角面片描述的三维效果</figcaption>
 </figure>
 
 <p>对于三维模型有两个比较重要的坐标系统，一个是顶点的位置<code>(x,y,z)</code>坐标，另一个则是 UV 坐标。什么是 UV 呢？简言之，就是二维平面贴图映射到三维模型表面的依据。比如典型的 UV 贴图效果如图三所示，刚刚前文提到三维结构是通过顶点、边及面组成的三角面片组成的，这个三角面是二维的，通过一些数据依赖映射关系从 UV 贴图中抠出一个相同边、面的三角形贴到三角面片上。所以，此处的 UV 即指定义了二维平面图片每个点的位置与三维结构三角面片位置的映射关系信息。作为前端工程师，这个跟前端雪碧图（Sprite）概念将多个图标合并成一张图的原理是一致的。</p>
 <figure>
-  <img style="width: 35%" src="/blog/gmtc-vr3d/pic3.png"  alt="房源UV贴图" />
+  <img style="width: 35%" src="//solome.js.org/static/gmtc-vr3d/pic3.png"  alt="房源UV贴图" />
   <figcaption>图三：房源UV贴图</figcaption>
 </figure>
 
@@ -597,8 +597,8 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <h4 id="点位全景"><a href="#点位全景" class="headerlink" title="点位全景"></a>点位全景</h4><p>前文提到房源的整体结构通过 3D 模型体现，至于细节则通过全景的形式来表现。我们会在房源选择多个合适的点位拍摄全景图片，然后以立方体全景的方式渲染以实现 720 º 环顾的效果，如图四（左）所示。</p>
 <figure>
   <div style="display:flex;">
-    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic4left.gif"  alt="全景效果" /></div>
-    <div style="flex: 14;padding: 0 0 0 40px; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic4right.png"  alt="全景贴图展开" /></div>
+    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic4left.gif"  alt="全景效果" /></div>
+    <div style="flex: 14;padding: 0 0 0 40px; display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic4right.png"  alt="全景贴图展开" /></div>
   </div>
   <figcaption>图四：立方体全景效果及其展开</figcaption>
 </figure>
@@ -607,7 +607,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <p>全景的效果完全依赖贴图的清晰度，所以我们可以拍摄高清 2048 分辨率的全景图片去体现房源某个位置的细节信息。这也是看房 VR 3D 模型的第二个核心形态点位全景形态。</p>
 <h4 id="VR-眼镜全景"><a href="#VR-眼镜全景" class="headerlink" title="VR 眼镜全景"></a>VR 眼镜全景</h4><p>前文提到的 3D 模型和点位全景形态都是基于二维显示屏展现的（裸眼体验），如果想让用户具备身临其境的感觉往往需要依赖 VR 眼镜设备。针对这类设备我们需要适配<a target="_blank" rel="noopener" href="//www.w3.org/TR/webxr/">WebXR Device API</a>，我们现阶段的适配策略是渲染两个相同的点位立方体全景，分别供左右眼感知。最终适配的效果如图五所示。</p>
 <figure>
-  <div style="flex: 1;"><img src="/blog/gmtc-vr3d/pic5left.gif"  alt="眼镜全景" /></div>
+  <div style="flex: 1;"><img src="//solome.js.org/static/gmtc-vr3d/pic5left.gif"  alt="眼镜全景" /></div>
   <figcaption>图五：VR 眼镜全景</figcaption>
 </figure>
 
@@ -618,14 +618,14 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <p>演讲问答环节及后续的反馈情况来看，大家对分享提到的形态间切换的 Tween 动画实现比较感兴趣，且部分同行表示自己实现的效果达不到如视的移动真实感。此处细节较多，准备后续单独出文章分享，本文暂不花费篇幅详细介绍。</p>
 </blockquote>
 <h3 id="前端架构分层设计"><a href="#前端架构分层设计" class="headerlink" title="前端架构分层设计"></a>前端架构分层设计</h3><figure>
-  <img src="/blog/gmtc-vr3d/pic6.png"  alt="前端架构分层设计" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic6.png"  alt="前端架构分层设计" />
   <figcaption>图六：前端架构分层设计</figcaption>
 </figure>
 
 <p>前文提到房源的 VR 3D 模型的组成及三个核心形态，我们实现了通过 3D 技术真实还原房源信息。经过多轮的产品需求迭代，我们在 VR 3D 模型的基础上不断地完善整个前端的架构分层设计。现阶段，整个 VR 用户端前端设计中我们抽象了三层：Web 服务层、前端数据层和 View 层。</p>
 <p>我们将 View 层划分成四个方向进行抽象，第一个方向是纯 DOM 层的，比如首屏内容、控制面板、信息面板等，这层我们通常以 React/Vue 组件进行抽象服用。第二个方向是基于 Canvas/WebGL 渲染的三维视图，其功能即前文提到的房源 VR 3D 模型交互。第三个方向是我们维护的 3D 插件生态，以 VR 3D 模型为基础且以插件的形式派生出新的交互、能力（比如，模型中的指南针、电视视频等均以插件的形式集成）。最后一个方向是协议层抽象，我们 VR 是通过 Web 前端技术渲染实现的，以 WebView 作为容器集成在终端 App 里面，通过 jsBridge 的方式实现双向通信。为了保障业务代码的统一性，我们将第三方依赖（jsBridge/RTC/WebSocket 等）进行一层协议抽象，以达到面向协议开发以抹平不同终端差异性的目的。</p>
 <figure>
-  <img src="/blog/gmtc-vr3d/pic7.png"  alt="数据序列帧抽象" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic7.png"  alt="数据序列帧抽象" />
   <figcaption>图七：数据序列帧抽象</figcaption>
 </figure>
 
@@ -635,7 +635,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <h3 id="基于-3D-模型与传统-DOM-开发的差异性对比"><a href="#基于-3D-模型与传统-DOM-开发的差异性对比" class="headerlink" title="基于 3D 模型与传统 DOM 开发的差异性对比"></a>基于 3D 模型与传统 DOM 开发的差异性对比</h3><p>作为一名工作频繁接触 3D 相关技术的研发工程师，经常被咨询基于 3D 模型研发与传统 DOM 开发的区别。与传统前端开发差异性是存在的，但是适应如下三点基本就迈入前端 3D 开发的门槛。</p>
 <h4 id="三维坐标系-vs-DOM-树"><a href="#三维坐标系-vs-DOM-树" class="headerlink" title="三维坐标系 vs DOM 树"></a>三维坐标系 vs DOM 树</h4><p>前端 DOM 树布局是基于 CSS 盒子模型和 Flex 布局，页面大部分布局都是基于此实现的，此外还有圣杯、双飞翼等经典布局体系。在二维层面依托强大的 CSS，前端布局是随心所欲的。但是放在三维空间，我们大部分时间都在跟坐标系及坐标系间切换打交道。</p>
 <figure>
-  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic8.png"  alt="三维建模坐标体系" />
+  <img style="width: 50%;" src="//solome.js.org/static/gmtc-vr3d/pic8.png"  alt="三维建模坐标体系" />
   <figcaption>图八：三维建模坐标体系</figcaption>
 </figure>
 
@@ -643,8 +643,8 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <h4 id="面向异步-Hooks-事件"><a href="#面向异步-Hooks-事件" class="headerlink" title="面向异步 Hooks 事件"></a>面向异步 Hooks 事件</h4><p>在处理三维模型行为交互体验时与传统前端还有个很明显的差异就是面临的异步细节要多得多。在 DOM 层面前端开发时，我们接触的异步事件主要集中在点击、触摸、滚动和 Ajax 异步请求等。但是在三维交互中，除此之外我们还频繁接触放大缩小、拖拽位移、模式切换等各类异步行为。</p>
 <figure>
   <div style="display:flex;">
-    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic9left.gif"  alt="全景走点效果" /></div>
-    <div style="flex: 3;padding: 0 0 0 10px; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic9right.png"  alt="涉及异步hooks事件" /></div>
+    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic9left.gif"  alt="全景走点效果" /></div>
+    <div style="flex: 3;padding: 0 0 0 10px; display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic9right.png"  alt="涉及异步hooks事件" /></div>
   </div>
   <figcaption>图九：点位全景切换走点</figcaption>
 </figure>
@@ -652,23 +652,23 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <p>在如视内部的底层渲染引擎中，我们维护了比较完善的异步 Hooks 事件集来应对各种场景的交互行为。比如，如图九（左）效果是我们常见的 VR 房源点位全景交互走点移动，整个过程触发了九个异步事件回调，如图九（右）所列。这些回调将整个过程的细节全部暴露出来，方便研发人员更精准地把控体验。一般的终端工程师很难体验这种交互层面细维度精准把控的开发体验，初次接触需要适应。</p>
 <h4 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h4><p>最后一个比较明显的差异性是三维空间里面的碰撞监测。</p>
 <figure>
-  <img style="width: 50%;min-width: 200px;" src="/blog/gmtc-vr3d/pic10.gif"  alt="物体间遮挡与重叠" />
+  <img style="width: 50%;min-width: 200px;" src="//solome.js.org/static/gmtc-vr3d/pic10.gif"  alt="物体间遮挡与重叠" />
   <figcaption>图十：物体间遮挡与重叠</figcaption>
 </figure>
 
 <p>如图十所示，在三维空间中摆置新物体难免会涉及遮盖、重叠的情况。在实际开发中，我们尽量规避这种现象的发生。碰撞监测常规的做法是针对物体创建一个规则的立体几何外形将其包围然后分析是否有重叠的部分；还有种思路是建立一条射线，获取此射线与两个物体间的焦点然后分析是否重合。<br>碰撞监测在不同的场景一般会采用合适的方式，对于移动的物体，有时候我们还需要在建模体系中添加物理引擎的支持。碰撞检测在不同的业务场景下，检测的策略是不同的，这个比较考验研发对整个三维空间的理解能力，本文就不展开更细节的内容了。</p>
 <h2 id="新型业务场景探索与实践"><a href="#新型业务场景探索与实践" class="headerlink" title="新型业务场景探索与实践"></a>新型业务场景探索与实践</h2><p>前文涉及的都是偏技术领域的，下面向大家分享下在已有的技术储备下，如视是如何在业务上做的一些探索与实践的。</p>
 <h3 id="三维空间分析计算与二次加工"><a href="#三维空间分析计算与二次加工" class="headerlink" title="三维空间分析计算与二次加工"></a>三维空间分析计算与二次加工</h3><figure>
-  <img src="/blog/gmtc-vr3d/pic11.gif"  alt="物体（家具）识别" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic11.gif"  alt="物体（家具）识别" />
   <figcaption>图十一：物体（家具）识别</figcaption>
 </figure>
 
 <p>三维模型是来源于现实真实的房源（通过专业设备拍摄及算法分析获取），我们可以对三维模型进行分析并将里面的家具物体识别出来（如图十一所示）。识别出这些物体后我们就能做些有趣的事情了，比如识别出显示器或电视，可以在此处添加一个视频播放广告或节目来营造更加真实的 3D 场景，效果如图十二（左）。识别平滑地面，我们可以放置一个扫地机器人或 3D 宝箱来做些营销活动等等，效果如图十二（中）、（右）。</p>
 <figure>
   <div style="display:flex;">
-    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic12left.gif" alt="电视视频" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic12center.gif"  alt="扫地机器人" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;transform: scale(0.9153225806451613);transform-origin: left;"><img src="/blog/gmtc-vr3d/pic12right.gif"  alt="宝箱营销" /></div>
+    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic12left.gif" alt="电视视频" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic12center.gif"  alt="扫地机器人" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;transform: scale(0.9153225806451613);transform-origin: left;"><img src="//solome.js.org/static/gmtc-vr3d/pic12right.gif"  alt="宝箱营销" /></div>
   </div>
   <figcaption>图十二：根据物体识别添加动态内容</figcaption>
 </figure>
@@ -677,8 +677,8 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <p>整个过程，如图十三（左）所示，经历了从真实复杂的普通房源到简洁的白模再到复杂的新装修家居风格过程，给潜在的购房用户提前示例这套房源的改造空间。</p>
 <figure>
   <div style="display:flex;">
-    <div style="flex: 7;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic13left.png" alt="加工过程" /></div>
-    <div style="flex: 2; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic13right.gif"  alt="一键切换" /></div>
+    <div style="flex: 7;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic13left.png" alt="加工过程" /></div>
+    <div style="flex: 2; display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic13right.gif"  alt="一键切换" /></div>
   </div>
   <figcaption>图十三：真实房源的二次加工</figcaption>
 </figure>
@@ -687,9 +687,9 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <h3 id="VR-实时带看：同屏连线，高效看房"><a href="#VR-实时带看：同屏连线，高效看房" class="headerlink" title="VR 实时带看：同屏连线，高效看房"></a>VR 实时带看：同屏连线，高效看房</h3><p>另外一个业务场景探索则是线上 VR 实时带看能力的落地。首先，解释下为什么要往这个方向探索？大家有过买房或租房体验的都知道，大部分场景都是经纪人开车载着你去实地看房，一天下来也就看几套房源可能还要爬楼梯、等红绿灯或被太阳曝晒等意外情况。</p>
 <figure>
   <div style="display:flex;">
-    <div style="flex: 4;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic14left.png" alt="3D 交互与二维交互对比" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="/blog/gmtc-vr3d/pic14right1.gif"  alt="VR 同屏1" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="/blog/gmtc-vr3d/pic14right2.gif"  alt="VR 同屏2" /></div>
+    <div style="flex: 4;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic14left.png" alt="3D 交互与二维交互对比" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="//solome.js.org/static/gmtc-vr3d/pic14right1.gif"  alt="VR 同屏1" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="//solome.js.org/static/gmtc-vr3d/pic14right2.gif"  alt="VR 同屏2" /></div>
   </div>
   <figcaption>图十四：3D 交互与二维交互对比及 VR 同屏</figcaption>
 </figure>
@@ -698,7 +698,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <p>但是三维空间交互就没有这么明确了，全景只能查看当前点位且全景游走大部分用户并不知晓。此外，诸如房源的小区信息和附近学校、医院等信息也无法在 VR 3D 模型中明确体现。因此，我们实现了由用户无目的的在 VR 3D 模型中漫游、探索信息转向专业由经纪人带领画面同步、实时语言讲解。</p>
 <p>前文提到我们将前端所有的交互以序列帧数据的形式进行了抽象，用户交互会产生帧数据然后通过 WebSocket 将生成的帧数据同步给另外一个用户来驱动另外一个用户画面的更新。语音的话目前 RTC 技术比较成熟，我们落地即可，效果如图十四（右）所示。</p>
 <figure>
-  <img src="/blog/gmtc-vr3d/pic15.png"  alt="终端App与微信小程序VR 实时带看通道链路" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic15.png"  alt="终端App与微信小程序VR 实时带看通道链路" />
   <figcaption>图十五：终端App与微信小程序VR 实时带看通道链路</figcaption>
 </figure>
 
@@ -710,7 +710,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <li>专业水平：不能保障经纪人对所有的房源都了解，又诸如方言等沟通效率。</li>
 </ul>
 <figure>
-  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic16.gif"  alt="社交恐惧症" />
+  <img style="width: 50%;" src="//solome.js.org/static/gmtc-vr3d/pic16.gif"  alt="社交恐惧症" />
   <figcaption>图十六：“社交恐惧症”：客户不愿跟陌生人沟通</figcaption>
 </figure>
 
@@ -719,21 +719,21 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 </ul>
 <p>鉴于此，我们尝试把 VR 3D 交互做得更智能些。怎么做才更智能呢？首先，我们得不完全依赖真实的经纪人。我们将真实的经纪人形象和音色采集出来然后通过视频拼接和语言 TTS 服务来抽象出一个虚拟经纪人，并将此虚拟经纪人形象搬到用户的终端屏幕上，如图十七所示。</p>
 <figure>
-  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic17.gif"  alt="虚拟数字经纪人" />
+  <img style="width: 50%;" src="//solome.js.org/static/gmtc-vr3d/pic17.gif"  alt="虚拟数字经纪人" />
   <figcaption>图十七：虚拟数字经纪人</figcaption>
 </figure>
 
 <p>有了虚拟的经纪人，那么该讲解什么样的内容呢？VR 带看语音来自于经纪人，画面行为帧数据也来源于经纪人行为。此时，就需要通过算法层面去合成讲稿并生产对应的音频和序列帧数据。整体的架构如图十八所示，前端所需要支持的就是定义画面行为的序列帧数据格式规范，由 AI 团队的剧本服务和 NLG 服务去计算 LRC 文本讲稿和行为序列。然后，通过主控服务生成带讲稿音频虚拟经纪人视频并附带行为序列帧数据给前端&quot;翻译&quot;。</p>
 <figure>
-  <img src="/blog/gmtc-vr3d/pic18.png"  alt="AR 讲房架构" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic18.png"  alt="AR 讲房架构" />
   <figcaption>图十八：AR 讲房架构</figcaption>
 </figure>
 
 <p>因为涉及的点过多，更多的细节本文就不再详细讲解了。大家可以扫描图十九的二维码或访问 <a target="_blank" rel="noopener" href="//open.realsee.com/ke/15XKMYpVwOw3R7j8/BoZqQK8KmaAtncxhvTYre9ztvW9D50zg/?v3=1">珠江罗马嘉园东区 2 室 1 厅</a> 这套房源进行体验。总之，由于 WebSocket 双工实时性和前端序列帧数据抽象，VR 的整体体验变得更加智能化。</p>
 <figure>
   <div style="display:flex;">
-    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic19left.png" alt="体验二维码" /></div>
-    <div style="flex: 2; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="/blog/gmtc-vr3d/pic19right.png"  alt="入口位置" /></div>
+    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic19left.png" alt="体验二维码" /></div>
+    <div style="flex: 2; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="//solome.js.org/static/gmtc-vr3d/pic19right.png"  alt="入口位置" /></div>
   </div>
   <figcaption>图十九：AR 讲房体验二维码</figcaption>
 </figure>
@@ -747,8 +747,8 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <p>分析原因后，优化策略就很明确了。针对密集的 HTTP 请求我们先添加更多 CDN 域名支持，保障同时刻的请求限制在五个以内并增加 HTTP2 协议支持。实时计算带来的耗时采取的策略是充分利用缓存（离线计算缓存、浏览器缓存以及服务端计算缓存等）；同时，我们对模块渲染加载策略进行了重新设计，每个模块都规划好权重，按照权重来加载。此外，部分非核心交互则由用户触发后再加载渲染。由于历史包袱过重，真个过程持续了近一年，最终有了 7.6s 到 2.55s 的首屏加载的性能提升，过程如图二十（左）所示。</p>
 <figure>
   <div style="display:flex;">
-    <div style="flex: 3;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic20left.png" alt="耗时变化" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="/blog/gmtc-vr3d/pic20right.gif"  alt="加载效果" /></div>
+    <div style="flex: 3;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic20left.png" alt="耗时变化" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="//solome.js.org/static/gmtc-vr3d/pic20right.gif"  alt="加载效果" /></div>
   </div>
   <figcaption>图二十：VR 首屏性能提升过程</figcaption>
 </figure>
@@ -757,7 +757,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <p>另外一个核心能力则是增加了<strong>客户端首屏渲染</strong>：即进入 VR 页面前客户端提前预载好首屏内容，在加载阶段展示客户端内容，等前端完成首屏渲染之后再换成前端的渲染效果。整个过程是无缝的，用户甚至感知不到加载过程，最终的效果如图二十（右）所示。</p>
 <h3 id="内存溢出"><a href="#内存溢出" class="headerlink" title="内存溢出"></a>内存溢出</h3><p>加载耗时现阶段已经取得比较好的效果，我们目前遭遇的最大的瓶颈是内存溢出。</p>
 <figure>
-  <img src="/blog/gmtc-vr3d/pic21.png"  alt="VR 内存占用" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic21.png"  alt="VR 内存占用" />
   <figcaption>图二十一：VR 内存占用</figcaption>
 </figure>
 
@@ -767,7 +767,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 <h4 id="降低内存占用"><a href="#降低内存占用" class="headerlink" title="降低内存占用"></a>降低内存占用</h4><p>我们做了些突破，比如按需渲染，非可视区域销毁模块等等，但仅仅降低了崩溃率，成效并不明显。</p>
 <p>而且，随着业务的不断迭代，VR 能力愈来愈丰富，内存占用还在不断提升。依赖 WebView+WebGL+jsBridge 技术栈落地的 VR 体验现阶段有很明显的局限性，虽然纯原生技术栈已经提上日程但短期来看还是很难落地的。为了弱化内存溢出带来的影响，我们目前采取的策略是根据用户的使用场景以动态降级的方式给予用户最合适的交互体验。</p>
 <figure>
-  <img src="/blog/gmtc-vr3d/pic22.png"  alt="VR 性能瓶颈影响因素鱼骨图" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic22.png"  alt="VR 性能瓶颈影响因素鱼骨图" />
   <figcaption>图二十二：VR 性能瓶颈影响因素鱼骨图</figcaption>
 </figure>
 
@@ -781,7 +781,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="clofp0fvl0001ao1x2hzk61rn" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/gmtc-vr3d/" data-id="clooia2lv0001ln3ycg4b3ff3" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/gmtc-vr3d/#disqus_thread" class="article-comment-link">Comments</a>
        

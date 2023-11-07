@@ -41,7 +41,7 @@ categories:  技术总结
 早期为了***快***，架构上基于 jQuery +发布/订阅者模式实现的模块化开发，后期（2020年中）转向分层+基于 React 技术栈实现的动态模块化架构形式，见下图。
 
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_01.png"  alt="前端架构图" />
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_01.png"  alt="前端架构图" />
   <figcaption>图一：前端架构图</figcaption>
 </figure>
 
@@ -100,7 +100,7 @@ categories:  技术总结
 可交互时间，即从房源详情页点击进入 VR 到 VR 页面渲染完成可交换的耗时。分析后，关键流程如下：
 
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_02.svg"  alt="启动 Loading 耗时关键阶段流程图" />
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_02.svg"  alt="启动 Loading 耗时关键阶段流程图" />
   <figcaption>图二：启动 Loading 耗时关键阶段流程图</figcaption>
 </figure>
 
@@ -126,13 +126,13 @@ categories:  技术总结
 何为VR带看？VR带看是指用户和经纪人（可以多个用户、多个经纪人）打开同个VR 页面，可以实时语音并且交互画面同步，视频效果如下：
 
 <figure>
-  <video class="rvp-video" src="/blog/realsee-vr-performance/live_sync.7b9ea663.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
+  <video class="rvp-video" src="//solome.js.org/static/realsee-vr-performance/live_sync.7b9ea663.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
 </figure>
 
 **VR 带看启动流程**
 
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_03.svg"  alt="VR 带看启动流程耗时节点流程图" />
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_03.svg"  alt="VR 带看启动流程耗时节点流程图" />
   <figcaption>图三：VR 带看启动流程耗时节点流程图</figcaption>
 </figure>
 
@@ -155,7 +155,7 @@ VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面�
 从产品策略的调整来看，基于 jQuery +发布/订阅者模式实现的增量式模块化开发前端架构已经不满足现有的业务和性能诉求。原有的设计是典型的SPA应用，但是新的架构诉求则更像是一个平台，即架构上分层：数据层、View 层，View 层又细分 DOM 层、Canvas 层、协议层及基础插件层。数据层和 View 层组成基础的首屏内容，非首屏内容则基于这两层以动态模块的形式进行开发——**需要时挂载**（占内存），**不需要时卸载**（会延迟清部分内存）。
 
 <figure>
-  <img class="rvp-image" src="/blog/realsee-vr-performance/image_06.svg"  alt="前端架构分层设计" />
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_06.svg"  alt="前端架构分层设计" />
   <figcaption>图四：前端架构分层设计</figcaption>
 </figure>
 
@@ -201,7 +201,7 @@ VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面�
 最终，300ms的延迟肉眼近乎无法感知，无缝衔接——效果如下视频。这个加载效果也步入业内第一梯队。
 
 <figure>
-  <video style="max-width: 240px;" src="/blog/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
+  <video style="max-width: 240px;" src="//solome.js.org/static/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
 </figure>
 
 #### 4.2 内存溢出
@@ -211,7 +211,7 @@ VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面�
 同样的，遵循 **渐进增强，优雅降级** 的原则，我们先系统地整理了影响内存情况的所有因素——见内存溢出影响因素鱼骨图。
 
 <figure>
-  <img src="/blog/realsee-vr-performance/image_04.png"  alt="内存溢出影响因素鱼骨图" />
+  <img src="//solome.js.org/static/realsee-vr-performance/image_04.png"  alt="内存溢出影响因素鱼骨图" />
   <figcaption>图五：内存溢出影响因素鱼骨图</figcaption>
 </figure>
 
@@ -230,5 +230,5 @@ VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面�
 ## 叁、表格形式-简化
 
 <figure>
-  <img src="/blog/realsee-vr-performance/image_05.png"  alt="表格形式-简化" />
+  <img src="//solome.js.org/static/realsee-vr-performance/image_05.png"  alt="表格形式-简化" />
 </figure>

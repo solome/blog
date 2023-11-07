@@ -13,7 +13,7 @@ article .ref {display: flex;line-height: 1;border: none;border-radius: 4px;paddi
 .fancyboxflex .fancybox {flex: 1;}
 </style>
 <a class="ref" href="//gmtc.infoq.cn/2021/beijing/presentation/3531" target="_blank">
-  <img class="ref-img" src="/blog/gmtc-vr3d/5c7caa3b1c540.jpeg">
+  <img class="ref-img" src="//solome.js.org/static/gmtc-vr3d/5c7caa3b1c540.jpeg">
   <div class="ref-content">
     <div class="ref-title">GMTC_全球大前端技术大会-InfoQ</div>
     <div class="ref-subTitle">"GMTC是由极客邦科技和InfoQ中国主办的顶级技术盛会，关注移动、前端、AI应用等多个技术领域，促进全球技术交流，推动国内技术升级。GMTC为期4天，包括两天的会议和两天的培训课，主要面向各行业对移动开发、前端、AI技术感兴趣的中高端技术人员，大会聚焦前沿技术及实践经验，旨在帮助参会者了解移动开发&前端领域最新的技术趋势与最佳实践。"</div>
@@ -36,7 +36,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 首先，我们简单思考一下三维模型是如何在二维平面抽象建模的？目前主流的三维模型抽象建模是基于多边形网格（Polygon Mesh），如图一所示。整体感知就是多边形面片愈多（面片密度）还原的三维立体效果愈真实。最精简的多边形自然是三角形（大部分场景下说的面片即三角面片），三维物体的每个细节可以通过三角面片的顶点、边及面等几何数学概念来描述。微观上来看，基于面片建模的三维模型本质上都是密度及其复杂的几何体。
 
 <figure>
-  <img src="/blog/gmtc-vr3d/pic1.png"  alt="多边形网格模拟立体效果" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic1.png"  alt="多边形网格模拟立体效果" />
   <figcaption>图一：多边形网格模拟立体效果</figcaption>
 </figure>
 
@@ -44,8 +44,8 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:100%;" src="/blog/gmtc-vr3d/pic2left.gif" /></div>
-    <div style="flex: 1"><img style="width:100%;" src="/blog/gmtc-vr3d/pic2right.gif" /></div>
+    <div style="flex: 1"><img style="width:100%;" src="//solome.js.org/static/gmtc-vr3d/pic2left.gif" /></div>
+    <div style="flex: 1"><img style="width:100%;" src="//solome.js.org/static/gmtc-vr3d/pic2right.gif" /></div>
   </div>
   <figcaption>图二：三角面片描述的三维效果</figcaption>
 </figure>
@@ -53,7 +53,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 对于三维模型有两个比较重要的坐标系统，一个是顶点的位置`(x,y,z)`坐标，另一个则是 UV 坐标。什么是 UV 呢？简言之，就是二维平面贴图映射到三维模型表面的依据。比如典型的 UV 贴图效果如图三所示，刚刚前文提到三维结构是通过顶点、边及面组成的三角面片组成的，这个三角面是二维的，通过一些数据依赖映射关系从 UV 贴图中抠出一个相同边、面的三角形贴到三角面片上。所以，此处的 UV 即指定义了二维平面图片每个点的位置与三维结构三角面片位置的映射关系信息。作为前端工程师，这个跟前端雪碧图（Sprite）概念将多个图标合并成一张图的原理是一致的。
 
 <figure>
-  <img style="width: 35%" src="/blog/gmtc-vr3d/pic3.png"  alt="房源UV贴图" />
+  <img style="width: 35%" src="//solome.js.org/static/gmtc-vr3d/pic3.png"  alt="房源UV贴图" />
   <figcaption>图三：房源UV贴图</figcaption>
 </figure>
 
@@ -65,8 +65,8 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;">
-    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic4left.gif"  alt="全景效果" /></div>
-    <div style="flex: 14;padding: 0 0 0 40px; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic4right.png"  alt="全景贴图展开" /></div>
+    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic4left.gif"  alt="全景效果" /></div>
+    <div style="flex: 14;padding: 0 0 0 40px; display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic4right.png"  alt="全景贴图展开" /></div>
   </div>
   <figcaption>图四：立方体全景效果及其展开</figcaption>
 </figure>
@@ -80,7 +80,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 前文提到的 3D 模型和点位全景形态都是基于二维显示屏展现的（裸眼体验），如果想让用户具备身临其境的感觉往往需要依赖 VR 眼镜设备。针对这类设备我们需要适配[WebXR Device API](//www.w3.org/TR/webxr/)，我们现阶段的适配策略是渲染两个相同的点位立方体全景，分别供左右眼感知。最终适配的效果如图五所示。
 
 <figure>
-  <div style="flex: 1;"><img src="/blog/gmtc-vr3d/pic5left.gif"  alt="眼镜全景" /></div>
+  <div style="flex: 1;"><img src="//solome.js.org/static/gmtc-vr3d/pic5left.gif"  alt="眼镜全景" /></div>
   <figcaption>图五：VR 眼镜全景</figcaption>
 </figure>
 
@@ -95,7 +95,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 ### 前端架构分层设计
 
 <figure>
-  <img src="/blog/gmtc-vr3d/pic6.png"  alt="前端架构分层设计" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic6.png"  alt="前端架构分层设计" />
   <figcaption>图六：前端架构分层设计</figcaption>
 </figure>
 
@@ -104,7 +104,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 我们将 View 层划分成四个方向进行抽象，第一个方向是纯 DOM 层的，比如首屏内容、控制面板、信息面板等，这层我们通常以 React/Vue 组件进行抽象服用。第二个方向是基于 Canvas/WebGL 渲染的三维视图，其功能即前文提到的房源 VR 3D 模型交互。第三个方向是我们维护的 3D 插件生态，以 VR 3D 模型为基础且以插件的形式派生出新的交互、能力（比如，模型中的指南针、电视视频等均以插件的形式集成）。最后一个方向是协议层抽象，我们 VR 是通过 Web 前端技术渲染实现的，以 WebView 作为容器集成在终端 App 里面，通过 jsBridge 的方式实现双向通信。为了保障业务代码的统一性，我们将第三方依赖（jsBridge/RTC/WebSocket 等）进行一层协议抽象，以达到面向协议开发以抹平不同终端差异性的目的。
 
 <figure>
-  <img src="/blog/gmtc-vr3d/pic7.png"  alt="数据序列帧抽象" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic7.png"  alt="数据序列帧抽象" />
   <figcaption>图七：数据序列帧抽象</figcaption>
 </figure>
 
@@ -123,7 +123,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 前端 DOM 树布局是基于 CSS 盒子模型和 Flex 布局，页面大部分布局都是基于此实现的，此外还有圣杯、双飞翼等经典布局体系。在二维层面依托强大的 CSS，前端布局是随心所欲的。但是放在三维空间，我们大部分时间都在跟坐标系及坐标系间切换打交道。
 
 <figure>
-  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic8.png"  alt="三维建模坐标体系" />
+  <img style="width: 50%;" src="//solome.js.org/static/gmtc-vr3d/pic8.png"  alt="三维建模坐标体系" />
   <figcaption>图八：三维建模坐标体系</figcaption>
 </figure>
 
@@ -135,8 +135,8 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;">
-    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic9left.gif"  alt="全景走点效果" /></div>
-    <div style="flex: 3;padding: 0 0 0 10px; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic9right.png"  alt="涉及异步hooks事件" /></div>
+    <div style="flex: 5;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic9left.gif"  alt="全景走点效果" /></div>
+    <div style="flex: 3;padding: 0 0 0 10px; display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic9right.png"  alt="涉及异步hooks事件" /></div>
   </div>
   <figcaption>图九：点位全景切换走点</figcaption>
 </figure>
@@ -148,7 +148,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 最后一个比较明显的差异性是三维空间里面的碰撞监测。
 
 <figure>
-  <img style="width: 50%;min-width: 200px;" src="/blog/gmtc-vr3d/pic10.gif"  alt="物体间遮挡与重叠" />
+  <img style="width: 50%;min-width: 200px;" src="//solome.js.org/static/gmtc-vr3d/pic10.gif"  alt="物体间遮挡与重叠" />
   <figcaption>图十：物体间遮挡与重叠</figcaption>
 </figure>
 
@@ -162,7 +162,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 ### 三维空间分析计算与二次加工
 
 <figure>
-  <img src="/blog/gmtc-vr3d/pic11.gif"  alt="物体（家具）识别" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic11.gif"  alt="物体（家具）识别" />
   <figcaption>图十一：物体（家具）识别</figcaption>
 </figure>
 
@@ -170,9 +170,9 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;">
-    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic12left.gif" alt="电视视频" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic12center.gif"  alt="扫地机器人" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;transform: scale(0.9153225806451613);transform-origin: left;"><img src="/blog/gmtc-vr3d/pic12right.gif"  alt="宝箱营销" /></div>
+    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic12left.gif" alt="电视视频" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic12center.gif"  alt="扫地机器人" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;transform: scale(0.9153225806451613);transform-origin: left;"><img src="//solome.js.org/static/gmtc-vr3d/pic12right.gif"  alt="宝箱营销" /></div>
   </div>
   <figcaption>图十二：根据物体识别添加动态内容</figcaption>
 </figure>
@@ -183,8 +183,8 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;">
-    <div style="flex: 7;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic13left.png" alt="加工过程" /></div>
-    <div style="flex: 2; display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic13right.gif"  alt="一键切换" /></div>
+    <div style="flex: 7;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic13left.png" alt="加工过程" /></div>
+    <div style="flex: 2; display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic13right.gif"  alt="一键切换" /></div>
   </div>
   <figcaption>图十三：真实房源的二次加工</figcaption>
 </figure>
@@ -197,9 +197,9 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;">
-    <div style="flex: 4;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic14left.png" alt="3D 交互与二维交互对比" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="/blog/gmtc-vr3d/pic14right1.gif"  alt="VR 同屏1" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="/blog/gmtc-vr3d/pic14right2.gif"  alt="VR 同屏2" /></div>
+    <div style="flex: 4;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic14left.png" alt="3D 交互与二维交互对比" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="//solome.js.org/static/gmtc-vr3d/pic14right1.gif"  alt="VR 同屏1" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 10px;"><img src="//solome.js.org/static/gmtc-vr3d/pic14right2.gif"  alt="VR 同屏2" /></div>
   </div>
   <figcaption>图十四：3D 交互与二维交互对比及 VR 同屏</figcaption>
 </figure>
@@ -211,7 +211,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 前文提到我们将前端所有的交互以序列帧数据的形式进行了抽象，用户交互会产生帧数据然后通过 WebSocket 将生成的帧数据同步给另外一个用户来驱动另外一个用户画面的更新。语音的话目前 RTC 技术比较成熟，我们落地即可，效果如图十四（右）所示。
 
 <figure>
-  <img src="/blog/gmtc-vr3d/pic15.png"  alt="终端App与微信小程序VR 实时带看通道链路" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic15.png"  alt="终端App与微信小程序VR 实时带看通道链路" />
   <figcaption>图十五：终端App与微信小程序VR 实时带看通道链路</figcaption>
 </figure>
 
@@ -227,7 +227,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 - 专业水平：不能保障经纪人对所有的房源都了解，又诸如方言等沟通效率。
 
 <figure>
-  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic16.gif"  alt="社交恐惧症" />
+  <img style="width: 50%;" src="//solome.js.org/static/gmtc-vr3d/pic16.gif"  alt="社交恐惧症" />
   <figcaption>图十六：“社交恐惧症”：客户不愿跟陌生人沟通</figcaption>
 </figure>
 
@@ -236,14 +236,14 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 鉴于此，我们尝试把 VR 3D 交互做得更智能些。怎么做才更智能呢？首先，我们得不完全依赖真实的经纪人。我们将真实的经纪人形象和音色采集出来然后通过视频拼接和语言 TTS 服务来抽象出一个虚拟经纪人，并将此虚拟经纪人形象搬到用户的终端屏幕上，如图十七所示。
 
 <figure>
-  <img style="width: 50%;" src="/blog/gmtc-vr3d/pic17.gif"  alt="虚拟数字经纪人" />
+  <img style="width: 50%;" src="//solome.js.org/static/gmtc-vr3d/pic17.gif"  alt="虚拟数字经纪人" />
   <figcaption>图十七：虚拟数字经纪人</figcaption>
 </figure>
 
 有了虚拟的经纪人，那么该讲解什么样的内容呢？VR 带看语音来自于经纪人，画面行为帧数据也来源于经纪人行为。此时，就需要通过算法层面去合成讲稿并生产对应的音频和序列帧数据。整体的架构如图十八所示，前端所需要支持的就是定义画面行为的序列帧数据格式规范，由 AI 团队的剧本服务和 NLG 服务去计算 LRC 文本讲稿和行为序列。然后，通过主控服务生成带讲稿音频虚拟经纪人视频并附带行为序列帧数据给前端"翻译"。
 
 <figure>
-  <img src="/blog/gmtc-vr3d/pic18.png"  alt="AR 讲房架构" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic18.png"  alt="AR 讲房架构" />
   <figcaption>图十八：AR 讲房架构</figcaption>
 </figure>
 
@@ -251,8 +251,8 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;">
-    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic19left.png" alt="体验二维码" /></div>
-    <div style="flex: 2; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="/blog/gmtc-vr3d/pic19right.png"  alt="入口位置" /></div>
+    <div style="flex: 1;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic19left.png" alt="体验二维码" /></div>
+    <div style="flex: 2; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="//solome.js.org/static/gmtc-vr3d/pic19right.png"  alt="入口位置" /></div>
   </div>
   <figcaption>图十九：AR 讲房体验二维码</figcaption>
 </figure>
@@ -283,8 +283,8 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 
 <figure>
   <div style="display:flex;">
-    <div style="flex: 3;display:flex;justify-content: center;align-items: center;"><img src="/blog/gmtc-vr3d/pic20left.png" alt="耗时变化" /></div>
-    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="/blog/gmtc-vr3d/pic20right.gif"  alt="加载效果" /></div>
+    <div style="flex: 3;display:flex;justify-content: center;align-items: center;"><img src="//solome.js.org/static/gmtc-vr3d/pic20left.png" alt="耗时变化" /></div>
+    <div style="flex: 1; display:flex;justify-content: center;align-items: center;padding-left: 60px;padding-right: 40px;"><img src="//solome.js.org/static/gmtc-vr3d/pic20right.gif"  alt="加载效果" /></div>
   </div>
   <figcaption>图二十：VR 首屏性能提升过程</figcaption>
 </figure>
@@ -298,7 +298,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 加载耗时现阶段已经取得比较好的效果，我们目前遭遇的最大的瓶颈是内存溢出。
 
 <figure>
-  <img src="/blog/gmtc-vr3d/pic21.png"  alt="VR 内存占用" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic21.png"  alt="VR 内存占用" />
   <figcaption>图二十一：VR 内存占用</figcaption>
 </figure>
 
@@ -317,7 +317,7 @@ VR 看房是 VR 及 3D 技术落地的场景之一，其特点是通过手机终
 而且，随着业务的不断迭代，VR 能力愈来愈丰富，内存占用还在不断提升。依赖 WebView+WebGL+jsBridge 技术栈落地的 VR 体验现阶段有很明显的局限性，虽然纯原生技术栈已经提上日程但短期来看还是很难落地的。为了弱化内存溢出带来的影响，我们目前采取的策略是根据用户的使用场景以动态降级的方式给予用户最合适的交互体验。
 
 <figure>
-  <img src="/blog/gmtc-vr3d/pic22.png"  alt="VR 性能瓶颈影响因素鱼骨图" />
+  <img src="//solome.js.org/static/gmtc-vr3d/pic22.png"  alt="VR 性能瓶颈影响因素鱼骨图" />
   <figcaption>图二十二：VR 性能瓶颈影响因素鱼骨图</figcaption>
 </figure>
 

@@ -14,15 +14,15 @@
 <meta property="og:site_name" content="掬一捧清水窺月落">
 <meta property="og:description" content="本文是针对去年（2016 年 10 月）美团点评技术沙龙第 13 期分享的《前端工程化开发方案 app-proto 介绍》整理而来的技术博客。年初的时候又针对 Koa2.0 做了些许语法适配和完整的 SSR 支持（app-proto-2.0）。  什么是前端工程化？根据具体的业务特点，将前端的开发流程、技术、工具、经验等规范化、标准化就是前端工程化。它的目的是让前端开发能够&quot;自成体系&amp;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/structural-design.svg">
-<meta property="og:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/datasources-recipes.svg">
-<meta property="og:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/pages-recipes.svg">
-<meta property="og:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/static-file-map.svg">
+<meta property="og:image" content="http://solome.js.org/static/tech-salon-13-app-proto/structural-design.svg">
+<meta property="og:image" content="http://solome.js.org/static/tech-salon-13-app-proto/datasources-recipes.svg">
+<meta property="og:image" content="http://solome.js.org/static/tech-salon-13-app-proto/pages-recipes.svg">
+<meta property="og:image" content="http://solome.js.org/static/tech-salon-13-app-proto/static-file-map.svg">
 <meta property="article:published_time" content="2017-01-05T12:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-27T10:40:10.182Z">
+<meta property="article:modified_time" content="2023-11-07T16:02:42.778Z">
 <meta property="article:author" content="掬一捧">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://solome.js.org/blog/tech-salon-13-app-proto/structural-design.svg">
+<meta name="twitter:image" content="http://solome.js.org/static/tech-salon-13-app-proto/structural-design.svg">
   
     <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
   
@@ -81,7 +81,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (中国标准时间)
+  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (北美中部标准时间)
 </div>
     
   <div class="article-category">
@@ -99,7 +99,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (中国标准时间)
+  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (北美中部标准时间)
 </div>
     </header>
     
@@ -126,7 +126,7 @@
 </ul>
 <h4 id="设计概览"><a href="#设计概览" class="headerlink" title="设计概览"></a>设计概览</h4><p>目前，app-proto 将前端工程化项目拆分成三大模块：Node 服务（负责数据代理、url 路由和服务端渲染）、Web 应用开发（专注 Web 交互体验）以及前端运维（构建、测试、部署及监控等）。整体的结构设计如图 1 所示。</p>
 <figure>
-  <img src="/blog/tech-salon-13-app-proto/structural-design.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="Structural Design" />
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/structural-design.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="Structural Design" />
   <figcaption>app-proto 结构设计图</figcaption>
 </figure>
 
@@ -160,7 +160,7 @@
 <p>这些场景下都建议使用<code>datasources</code>模块进行数据中转，将原本需由前后端沟通协调才能实现的功能全部交给前端自行处理，给予前端工程师处理数据提供自由度的同时也降低了后端 API 的开发维度。</p>
 <p>那该如何快捷地调用<code>datasources</code>目录下的<code>async</code>函数呢？这里我们做了简单封装，将该目录下的所有<code>**.js</code>文件解析到 Koa 的上下文环境中以<code>this.ds</code>对象进行存储，并按照目录结构进行驼峰式（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Camel_case">Camel-Case</a>）命名，转换过程见图 2。</p>
 <figure>
-  <img src="/blog/tech-salon-13-app-proto/datasources-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="datasources-recipes" />
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/datasources-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="datasources-recipes" />
   <figcaption>datasources 目录解析转换过程</figcaption>
 </figure>
 
@@ -183,7 +183,7 @@
 
 <p>由于<code>urls</code>支持多种正则，原则上每个根 url 映射<code>server/pages/</code>目录下一个<code>**.js</code>文件，映射关系如图 3 所示。</p>
 <figure>
-  <img src="/blog/tech-salon-13-app-proto/pages-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/pages-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
   <figcaption>pages目录文件与url映射关系</figcaption>
 </figure>
 
@@ -202,7 +202,7 @@
 <p>提供简单的服务端数据<code>window.serveData</code>供客户端使用，更多渲染则由<code>//cdn/file-5917b08e4c7569d461b1.js</code>进行增量控制。</p>
 <h6 id="静态资源与-Node-端衔接"><a href="#静态资源与-Node-端衔接" class="headerlink" title="静态资源与 Node 端衔接"></a>静态资源与 Node 端衔接</h6><p>那 Web 端构建的静态资源是如何 Node 服务端做衔接的呢？前端静态资源构建工作与 Node 服务相互分离，Node 服务在开启的过程中会读取前端构建生成的静态资源映射表。前端的构建过程如图 4 所示，在构建工作完成之后会生成<code>assets.json</code>静态资源映射表。</p>
 <figure>
-  <img src="/blog/tech-salon-13-app-proto/static-file-map.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/static-file-map.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
   <figcaption>静态资源映射文件assets.json构建</figcaption>
 </figure>
 
@@ -235,7 +235,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/tech-salon-13-app-proto/" data-id="clofp0fvs000bao1x6eho2qoe" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/tech-salon-13-app-proto/" data-id="clooia2m1000bln3y0n7khjqs" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/tech-salon-13-app-proto/#disqus_thread" class="article-comment-link">Comments</a>
        

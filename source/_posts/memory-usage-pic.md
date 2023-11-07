@@ -14,7 +14,7 @@ categories: 技术总结
 
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:100%;" src="/blog/memory-usage-pic/memo-vr.png" /></div>
+    <div style="flex: 1"><img style="width:100%;" src="//solome.js.org/static/memory-usage-pic/memo-vr.png" /></div>
   </div>
   <figcaption>图一：2.0和3.0 内存占用情况</figcaption>
 </figure>
@@ -79,14 +79,14 @@ Android 系统则比较凌乱，但本质还是**将多个物理像素当作一�
 
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:60%;" src="/blog/memory-usage-pic/pano.png" /></div>
+    <div style="flex: 1"><img style="width:60%;" src="//solome.js.org/static/memory-usage-pic/pano.png" /></div>
   </div>
   <figcaption>图二：立方体全景贴图（2048*2048）</figcaption>
 </figure>
 
 <figure>
   <div style="display:flex;" class="fancyboxflex">
-    <div style="flex: 1"><img style="width:80%;" src="/blog/memory-usage-pic/model.png" /></div>
+    <div style="flex: 1"><img style="width:80%;" src="//solome.js.org/static/memory-usage-pic/model.png" /></div>
   </div>
   <figcaption>图三：UV 贴图及网格数据组成模型（512*512）</figcaption>
 </figure>
@@ -123,8 +123,8 @@ Android 系统则比较凌乱，但本质还是**将多个物理像素当作一�
 
 <figure>
   <div style="display:flex;flex-direction: column;" class="fancyboxflex">
-    <div style="flex: 1"><image style="width:100%;;" src="/blog/memory-usage-pic/animation.13cc0efb.png" /></div>
-    <div style="flex: 1"><image style="width:100%;max-width: 140px;" src="/blog/memory-usage-pic/realseelogo.gif" /></div>
+    <div style="flex: 1"><image style="width:100%;;" src="//solome.js.org/static/memory-usage-pic/animation.13cc0efb.png" /></div>
+    <div style="flex: 1"><image style="width:100%;max-width: 140px;" src="//solome.js.org/static/memory-usage-pic/realseelogo.gif" /></div>
   </div>
   <figcaption>图四：关键帧Sprite图和逐帧动画</figcaption>
 </figure>
