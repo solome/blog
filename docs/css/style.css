@@ -1398,3 +1398,14 @@ code {
   color: #5a842b;
   font-family: monospace, "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier;
 }
+@media screen and (max-width: 479px) {
+  .outer {
+    padding-top: 0;
+  }
+  .article-entry figure {
+    margin: 0 0 10px 0;
+  }
+  #logo-wrap {
+    padding: 38px 0 0 20px;
+  }
+}
