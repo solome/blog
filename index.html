@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>掬一捧清水窺月落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="掬一捧清水窺月落">
+<meta property="og:url" content="http://solome.js.org/blog/index.html">
+<meta property="og:site_name" content="掬一捧清水窺月落">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="掬一捧">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  <link href="//solome.js.org/static/fonts/style.css" rel="stylesheet" />
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">掬一捧清水窺月落</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a class="main-nav-link" href="//solome.js.org/">首页</a>
+
+        
+          <a class="main-nav-link" href="/blog/">博客</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+        <a class="main-nav-link" href="//solome.js.org/slides">Slides</a>
+        <!-- <a class="main-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
+
+      </nav>
+      <nav id="sub-nav">
+        
+          <!-- <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a> -->
+        
+        <!-- <a id="nav-search-btn" class="nav-icon" title="Search"></a> -->
+      </nav>
+      <!-- <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://solome.js.org/blog"></form>
+      </div> -->
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article
+  id="layout/post-realsee-vr-performance"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (北美中部标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (北美中部标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <style type="text/css">
+@media screen and (min-width: 960px) {
+
+  .article-entry .rvp-video, .article-entry .rvp-image {
+    max-width: 540px;
+  }
+}
+</style>
+
+<h2 id="壹、背景"><a href="#壹、背景" class="headerlink" title="壹、背景"></a>壹、背景</h2><p>贝壳 VR 看房是贝壳找房如视事业部（现已独立，<a target="_blank" rel="noopener" href="https://www.realsee.com/">如你所视科技有限公司</a>）做的一款在线 VR 3D 看房服务。通过专业的三维空间扫描设备采集房源户型三维数据，经过算法加工之后，可以通过 WebGL/Three.js 等工具将房源以1:1复刻至浏览器上，并支持720°空间自由行走和模型、全景等多种模态间的自由切换。</p>
+<p>尤其是在新冠疫情的影响下，用户可以直接在线上进行 VR 3D 看房，降低筛选、沟通成本。此外，在后续的业务迭代中又引入 VR 带看、VR 经纪人/ AI 讲房、“一键换装”看装修等新业务模式。随着业务复杂度的提升、用户使用群体的覆盖面越来越广，性能问题已经成为项目瓶颈，亟待解决。</p>
+<h3 id="1-现状分析"><a href="#1-现状分析" class="headerlink" title="1. 现状分析"></a>1. 现状分析</h3><p><strong>业务分析</strong></p>
+<p>如视 VR 团队是2017年开始成立的，2018年4月份贝壳找房App 首次对外发版，VR 看房属于新品牌的核心亮点。于是从2017年开始近一年的时间内从0-1搭建贝壳VR看房，团队节奏是很紧的——倒排、抢时间。</p>
+<p>2018年后半程在贝壳 VR 看房的基础上，又新增 VR 经纪人讲房和 VR 线上实时同步带看业务。</p>
+<p>2019年初，引入早期版本的 AI 讲房业务。内部项目“未来家”——即 VR 装修（渲染）技术突破，支持“一键看装修”功能，并支持与实景 VR 同屏对比。</p>
+<p>由于2019年末、2020初新冠疫情的影响，VR 线上实时同步带看业务转变为公司级别核心业务。实现 VR 带看二手房、新房、租赁等业务全场景的覆盖，并支持微信小程序（高流量）。</p>
+<p>2021年初，则重点投入 AI 讲房业务新的探索——添加算法权重，实现 AR 数字人，往更智能（基于用户画像和性能条件实现“千人千面”体验）、更具空间表达的方向发展。<br>2021年末至今（2022年7月），团队方向调整，从贝壳找房剥离并成立如你所视科技有限公司。由支撑贝壳找房VR看房转向 SaaS、PaaS 数字空间综合解决方案创业公司。</p>
+<p><strong>技术分析</strong></p>
+<p>早期为了<em><strong>快</strong></em>，架构上基于 jQuery +发布/订阅者模式实现的模块化开发，后期（2020年中）转向分层+基于 React 技术栈实现的动态模块化架构形式，见下图。</p>
+<figure>
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_01.png"  alt="前端架构图" />
+  <figcaption>图一：前端架构图</figcaption>
+</figure>
+
+<h3 id="2-优化目标"><a href="#2-优化目标" class="headerlink" title="2. 优化目标"></a>2. 优化目标</h3><p>优化目标很多，本文仅抽取两点（围绕内存、FPS、TTI、进VR带看耗时这四点）进行详细说明：</p>
+<p>① 性能满足更多用户诉求，贝壳VR 看房覆盖面更广，不能局限于某些高端设备——<strong>提高用户覆盖面</strong>。<br>② <strong>几个关键路径体验</strong> 亟待解决，已经阻塞业务发展——比如启动Loading耗时长、VR 带看链路上流失率高等等。</p>
+<h2 id="贰、优化经验"><a href="#贰、优化经验" class="headerlink" title="贰、优化经验"></a>贰、优化经验</h2><blockquote>
+<p>前期实际落地时并没有按照 <a href="https://solome.js.org/docs/methodology/performance">性能优化方法论</a> 来执行（当初也没经验），实际上也因此踩了很多坑，浪费了很多时间、资源——特别是在旧架构体系上和产品策略上做的工作 ROI 极低。</p>
+</blockquote>
+<h3 id="1-指标体系"><a href="#1-指标体系" class="headerlink" title="1. 指标体系"></a>1. 指标体系</h3><h4 id="1-1-系统指标"><a href="#1-1-系统指标" class="headerlink" title="1.1 系统指标"></a>1.1 系统指标</h4><p>房源的VR 3D模型是通过WebView基于前端WebGL能力渲染出的，核心指标有两个：</p>
+<ul>
+<li>内存占用（iOS 端直接上报；线上 Android 端无法上报、黑盒，只能通过 <a target="_blank" rel="noopener" href="https://perfdog.qq.com/">PerfDog</a> 线下统计）。</li>
+<li>体现流畅度的 FPS 值。</li>
+</ul>
+<p>分析分布大致的结论如下：</p>
+<ul>
+<li><strong>内存（高崩溃率）</strong>：一个 VR 占用内存大概300MB，正常情况两个 VR 实例大概700MB内存（最低值区间700MB），但线上平均指标实际是 1.2G——而 iOS 系统崩溃阈值是1.5G左右；Android 系统差异大，无明确阈值。</li>
+<li><strong>FPS</strong>：前11s平均50fps以内，正常55fps以上。是合格值，但是进入 VR 7s 阶段，FPS 降至 40fps 以下，拉低平均值。</li>
+</ul>
+<h4 id="1-2-关键路径指标"><a href="#1-2-关键路径指标" class="headerlink" title="1.2 关键路径指标"></a>1.2 关键路径指标</h4><p>关键路径指标有很多，这里抽取两个做详细说明：</p>
+<ul>
+<li><strong>TTI</strong>：可交互时间，即从房源详情页点击进入 VR 到 VR 页面渲染完成可交换的耗时。这个过程有 Loading 过程，内部又称为 Loading 耗时长，优化前平均值在7s左右，优化后2s。</li>
+<li><strong>点击 VR 带看入口到带看就绪耗时</strong>：优化前21s，优化后用户发起端1s内，经纪人端2.5s。</li>
+</ul>
+<blockquote>
+<p>此外，还有跟渲染引擎相关模型渲染、模态切换等指标，由于偏三维领域，本文不展开。本文分别去两个系统指标和关键路径指标进行分析、经验介绍。</p>
+</blockquote>
+<h3 id="2-摸底分析"><a href="#2-摸底分析" class="headerlink" title="2. 摸底分析"></a>2. 摸底分析</h3><h4 id="2-1-内存"><a href="#2-1-内存" class="headerlink" title="2.1 内存"></a>2.1 内存</h4><p>前文提到，一个 VR 占用内存大概300MB，正常情况两个 VR 实例大概700MB 内存，但线上平均指标实际是 1.2G。分析定位后发现：</p>
+<ul>
+<li><strong>非 VR 渲染模块</strong>：除了 VR 耗资源之外，还有地图（百度/腾讯）、多媒体（小区图集/小区视频/讲房音频等）等模块亦占用内存。</li>
+<li><strong>RTC 功能</strong>：除了渲染模块之外，VR 带看依赖的 RTC 功能（实时语音）也会占用 WebView 进程资源。</li>
+<li><strong>UI 资源</strong>：首面板逐帧动画以及其他过渡动画等。</li>
+</ul>
+<p>这些占用内存的模块短期内都是无法省去的，因此性能指标的瓶颈在 1.2G。而且，功能越用越多，内存占用越高，崩溃的概率越高。</p>
+<h4 id="2-2-FPS"><a href="#2-2-FPS" class="headerlink" title="2.2 FPS"></a>2.2 FPS</h4><p>除了在7s左右 FPS 急剧下降之外，整体 FPS 处在合理值范畴。为啥 7s 左右 FPS 会明显下降呢？主要是这里有个 <strong>用计算换降低存储空间成本</strong> 的优化——将三角面片数据及 uv 贴图数据压缩后存储，端上使用再解压使用。</p>
+<h4 id="2-3-TTI"><a href="#2-3-TTI" class="headerlink" title="2.3 TTI"></a>2.3 TTI</h4><p>可交互时间，即从房源详情页点击进入 VR 到 VR 页面渲染完成可交换的耗时。分析后，关键流程如下：</p>
+<figure>
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_02.svg"  alt="启动 Loading 耗时关键阶段流程图" />
+  <figcaption>图二：启动 Loading 耗时关键阶段流程图</figcaption>
+</figure>
+
+<p>从关键流程图来看，到能交互阶段（虽然是部分交互），需要大概7s时间。</p>
+<p><strong>Node 计算</strong></p>
+<ul>
+<li>WHY：户型图敏感数据，不适合暴露在端上计算（比如两点间最短路径）。或无理由，就是写在 Node 层。</li>
+<li>调整：计算结果缓存，离线化支持。</li>
+</ul>
+<p><strong>浏览器端渲染</strong></p>
+<ul>
+<li>WHY：全模块渲染，无动态加载。造成 js 臃肿（依赖的 Three.js 库本身就巨）。</li>
+<li>调整：需 <strong>架构升级</strong>、先分层、非首屏内容异步加载或用户触发渲染。</li>
+</ul>
+<p><strong>六张图居然要花4s去下载？</strong></p>
+<ul>
+<li>WHY：由于 JS/CSS/图标等静态资源（前4s大概200多个 HTTP 请求）都在同个CDN域上，浏览器或 WebView 同时只能执行3-5个 HTTP 请求，无法并行请求六张全景图片。</li>
+<li>调整：多 CDN 域名 + HTTP2 多路复用支持。</li>
+</ul>
+<h4 id="2-4-点击-VR-带看入口到带看就绪耗时"><a href="#2-4-点击-VR-带看入口到带看就绪耗时" class="headerlink" title="2.4 点击 VR 带看入口到带看就绪耗时"></a>2.4 点击 VR 带看入口到带看就绪耗时</h4><p>何为VR带看？VR带看是指用户和经纪人（可以多个用户、多个经纪人）打开同个VR 页面，可以实时语音并且交互画面同步，视频效果如下：</p>
+<figure>
+  <video class="rvp-video" src="//solome.js.org/static/realsee-vr-performance/live_sync.7b9ea663.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
+</figure>
+
+<p><strong>VR 带看启动流程</strong></p>
+<figure>
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_03.svg"  alt="VR 带看启动流程耗时节点流程图" />
+  <figcaption>图三：VR 带看启动流程耗时节点流程图</figcaption>
+</figure>
+
+<p>线下分析15s耗时进入带看就绪状态，但线上真实情况却是21s左右。</p>
+<p>VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面同屏。可想而之，从触发到就绪需要21s，这是用户不可接受的，这个业务推广面临极大的困难。</p>
+<h3 id="3-策略调整"><a href="#3-策略调整" class="headerlink" title="3. 策略调整"></a>3. 策略调整</h3><h4 id="3-1-产品策略调整"><a href="#3-1-产品策略调整" class="headerlink" title="3.1 产品策略调整"></a>3.1 产品策略调整</h4><ul>
+<li>内存：产品经理将页面拆分为 <strong>首屏模块</strong> 和 <strong>非首屏模块</strong>，首屏模块强制渲染，非首屏模块延迟渲染或用户触发加载——旧的前端架构不支持。</li>
+<li>点击VR带看入口到带看就绪耗时：<ul>
+<li>不需要新开启 WebView，直接在原有的 WebView 上执行带看流程——<em>旧的前端架构不支持</em>。</li>
+<li>就绪重新定义：不需要等 RTC 联通、三维模型渲染就绪才能进入带看；只要 WebSocket 联通就行。</li>
+<li>新产品模式：抢单模式，一个用户对应多个线上经纪人/职业顾问，谁先响应客户资源归谁。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-技术架构升级"><a href="#3-2-技术架构升级" class="headerlink" title="3.2 技术架构升级"></a>3.2 技术架构升级</h4><p>从产品策略的调整来看，基于 jQuery +发布/订阅者模式实现的增量式模块化开发前端架构已经不满足现有的业务和性能诉求。原有的设计是典型的SPA应用，但是新的架构诉求则更像是一个平台，即架构上分层：数据层、View 层，View 层又细分 DOM 层、Canvas 层、协议层及基础插件层。数据层和 View 层组成基础的首屏内容，非首屏内容则基于这两层以动态模块的形式进行开发——<strong>需要时挂载</strong>（占内存），<strong>不需要时卸载</strong>（会延迟清部分内存）。</p>
+<figure>
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_06.svg"  alt="前端架构分层设计" />
+  <figcaption>图四：前端架构分层设计</figcaption>
+</figure>
+
+<p>图四是图一的简化版本，以首屏内容（产品定义）为核心，非首屏内容以动态模块“热插拔”式支持：</p>
+<ul>
+<li>数据层：基于 <a target="_blank" rel="noopener" href="https://mobx.js.org/README.html">MobX</a> 二次抽象，以React Context <code>&lt;StoreProvider&gt;</code> 形式驱动UI。</li>
+<li>协议层：类 jsBridge，实现与客户端通信，保障业务层逻辑通用——App(iOS/Android) 即jsBridge，小程序依托 WebSocket 实现。</li>
+<li>DOM 层：HTML 标签二维交互。</li>
+<li>Canvas 层：基于 WebGL 三维模型建模抽象——Three.js 生态及自研渲染引擎。</li>
+<li>插件层：以插件的形式进行抽象，实现二维 DOM 和三维 Canvas 混合编程。</li>
+<li>动态模块：经纪人/AI 讲房、VR 带看、地图、多媒体资源等——以主副面板等形式集成。</li>
+</ul>
+<h4 id="3-3-产品策略和技术架构带来的提升"><a href="#3-3-产品策略和技术架构带来的提升" class="headerlink" title="3.3 产品策略和技术架构带来的提升"></a>3.3 产品策略和技术架构带来的提升</h4><ul>
+<li>内存：浅用户（功能使用少的用户，停留时长50s内）崩溃率降低明显；深度用户崩溃率有降低，但是未发生质变。</li>
+<li>FPS：无直接影响。</li>
+<li>TTI-Loading 耗时：由于基于首屏渲染，渲染依赖极大减少，平均值降低至3.3s；再加上摸底分析提到的优化，最后能降到到2s左右。</li>
+<li>点击VR带看入口到带看就绪耗时：<ul>
+<li>用户端1s内——得益于不需要新开启 WebView，直接动态载入 VR 带看模块即可。不强依赖 RTC，瓶颈在 WebSocket 连接速度。</li>
+<li>经纪人/置业顾问端 3.5s 内，基本跟 TTI-Loading 耗时保持一致。</li>
+</ul>
+</li>
+</ul>
+<p>优化后数值基本都达到预期性能指标，但TTI-Loading耗时和内存溢出问题还是严重影响业务，可以成立专项再深度去治理。</p>
+<h3 id="4-专项治理"><a href="#4-专项治理" class="headerlink" title="4. 专项治理"></a>4. 专项治理</h3><p>经过前面三个阶段之后，基本能做到 <em><strong>①整体指标大盘稳定</strong></em>、<em><strong>②产品策略合理</strong></em> 且 <em><strong>③技术架构无缺陷</strong></em> ——能考八十分的高分水准。而专项治理则是将八十分往九十分继续提高。</p>
+<h4 id="4-1-TTI-指标：Loading-耗时长"><a href="#4-1-TTI-指标：Loading-耗时长" class="headerlink" title="4.1 TTI 指标：Loading 耗时长"></a>4.1 TTI 指标：Loading 耗时长</h4><p>虽然已经将Loading 耗时缩减到 3.3s以内了，但是这个过程本身很“膈应”，对业务还是有影响的。更进一步地我们开始思考怎么能把这个过程给去掉，但仅仅局限在 Web 前端的角度我们很难再有所突破。</p>
+<p>本着 <strong>渐进增强</strong> 的原则，由于我们大部分用户是在贝壳/链家App上使用VR看房服务，我们可以重复利用客户端渲染能力。</p>
+<p>分析3.3s的瓶颈：</p>
+<ul>
+<li>1s HTTP请求至浏览器端渲染（HTML「壳子」/CSS/JS等）。</li>
+<li>2s 左右的全景图片请求（六张）。</li>
+</ul>
+<p>至此，我们可以基于 WebView 拦截HTTP请求，让客户端提供HTTP请求预载、代理、缓存等能力。静态资源、全景贴图等在房源详情页提前请求，到 WebView 层拦截使用，终于整个流程平均值降到2s内（高端设备已经到1s内）——已经达到一个很好的效果。</p>
+<p>都是，Loading 这个过程依旧存在。我们继续深度挖掘客户端能力：客户端浅渲染三维模型——即客户端最小程度渲染三维模型（全景效果），由于资源已经提前预载，客户端渲染速度在300ms内（视终端设备性能来定），然后等 WebView 渲染就绪后再替换成前端渲染。所要做的工作是客户端渲染和前端渲染效果对齐即可。</p>
+<p>最终，300ms的延迟肉眼近乎无法感知，无缝衔接——效果如下视频。这个加载效果也步入业内第一梯队。</p>
+<figure>
+  <video style="max-width: 240px;" src="//solome.js.org/static/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
+</figure>
+
+<h4 id="4-2-内存溢出"><a href="#4-2-内存溢出" class="headerlink" title="4.2 内存溢出"></a>4.2 内存溢出</h4><p>由于动态载入\卸载的加成由于内存瓶颈造成的崩溃率已经有较明显下降。但是针对深度用户，崩溃依旧无法避免，但这部分用户又尤其重要。</p>
+<p>同样的，遵循 <strong>渐进增强，优雅降级</strong> 的原则，我们先系统地整理了影响内存情况的所有因素——见内存溢出影响因素鱼骨图。</p>
+<figure>
+  <img src="//solome.js.org/static/realsee-vr-performance/image_04.png"  alt="内存溢出影响因素鱼骨图" />
+  <figcaption>图五：内存溢出影响因素鱼骨图</figcaption>
+</figure>
+
+<p>同时按照线上内存性能分布情况、算法用户画像分析和测试团队线下测试情况建立了一份数据库。基于这份数据库和算法的用户画像数据来给用户提供不同的功能——即“千人千面”的用户体验，大体逻辑如下：</p>
+<ul>
+<li>针对低端环境用户（终端设备性能弱，电池影响等）：仅提供基本功能，高端功能（高分辨率、装修对比等）禁用（不会加载渲染）。</li>
+<li>针对高端环境用户（高性能设备）：渲染质量高，功能丰富。</li>
+<li>针对用户画像提供功能：比如，用户对装修感兴趣，则推荐装修模块；比如，用户购买意向高，则渐进推荐 VR 带看、AI 讲房等功能</li>
+</ul>
+<p>至此，将原本前端性能优化工作转换成算法团队根据用户画像来推荐功能的工作。性能状况是用户画像的一部分，在性能条件容许的情况下给用户最好的体验和功能，而非之前一股脑儿全给——不管你是什么样的用户，都能得到合适的 VR 3D 看房服务体验。</p>
+<p>而前端的工作重点则开始转变解析 WebSocket 推送的指令——在首屏模块的基础上，该渲染哪些异步模块，该何时卸载哪些异步模块，卸载的同时内存的清理情况。</p>
+<blockquote>
+<p><em><strong>很可惜这部分并没有很务实地落地</strong></em>——<em>可能对于家长而言，孩子考八十就足够了，不强求九十分或更高~</em></p>
+</blockquote>
+<h2 id="叁、表格形式-简化"><a href="#叁、表格形式-简化" class="headerlink" title="叁、表格形式-简化"></a>叁、表格形式-简化</h2><figure>
+  <img src="//solome.js.org/static/realsee-vr-performance/image_05.png"  alt="表格形式-简化" />
+</figure>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="clooia2m00007ln3yd0rkctvb" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/realsee-vr-performance/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article
+  id="post-beijing-wildlife-park-play"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Sun Mar 19 2023 23:30:00 GMT+0800 (北美中部标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/beijing-wildlife-park-play/">北京漫游：大兴野生动物园</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Sun Mar 19 2023 23:30:00 GMT+0800 (北美中部标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近恋上<a target="_blank" rel="noopener" href="https://www.xiaohongshu.com/explore">小红书</a>（很难想象我会成为<strong>小红书</strong>的重度用户）——也就是在某天晚上在小红书上刷到了大兴野生动物园里面关于小熊猫的内容——天啊~为什么地球上有这么可爱的小动物！</p>
+<p>我想去现场瞧一瞧。但曾经逛西安海洋馆的悲伤记忆还在，我实在接受不了关在笼子里面的动物——没有自由、眼神永远无助。犹豫了好一阵子，又觉得新冠疫情结束，可以将去北京大兴野生动物园看小熊猫当作二〇二三年看看大大世界的第一站——怀着期待和忐忑的情绪，小熊猫我们来了。</p>
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/85sLrEIf6AWzC34.jpg" alt="休憩的小熊猫" />
+  <figcaption>休憩的小熊猫</figcaption>
+</figure>
+
+<h3 id="规划"><a href="#规划" class="headerlink" title="规划"></a>规划</h3><p>下定决心，忽悠好好友，开始研究攻略、做规划。</p>
+<p><strong>时间线</strong><br>从小红书的关于大兴野生动物园的视频来看，排除掉周六日——北京人太多人太多。然后周一猛兽区不营业，最终选择3月28日周二请假一天去看小熊猫。出发时间是早上 6:00，意味着 5:30 前就要起床——青春坟墓依赖症同学面临者极大挑战。</p>
+<figure>
+  <img style="width: 100%;max-width:320px;" src="//solome.js.org/static/beijing-wildlife-park-play/timing.svg" alt="时间线安排" />
+  <figcaption>时间线安排</figcaption>
+</figure>
+
+<p><strong>交通</strong><br>我们两波人都选择最实惠的交通工具（地铁和公交），一波回龙观到大兴野生动物园（13元/2小时9分钟），另一波望京到大兴野生动物园（12元/2小时5分钟）。感叹北京人多地广之外，交通还贼便携。</p>
+<p><strong>蔬菜、水果</strong><br>筹备了苹果、胡萝卜和白菜。进园是不让带的，奈何周二人少，门禁管理阿姨也是睁一只眼放我们大背包进去了。</p>
+<h3 id="心满意足"><a href="#心满意足" class="headerlink" title="心满意足"></a>心满意足</h3><p><strong>春天</strong></p>
+<p>星期二请假一天入野生动物园确实是一个无比正确的选择。我们入园时已经九点多了（晚于预期时间近一个小时），但人真的很少——类似于在逛一个普普通通的小区公园。按照攻略，搭着园区代步车直奔猛兽区，到达目的地后却被告知「猛兽区十一点之后才开放」。</p>
+<p>好吧，攻略往往是无效的，计划永远滞后于变化。突然间只能开始漫无目的的乱逛，期间遇到不少初春盛开的樱花、杏花特别吸引眼球，色泽浓厚。喜欢看花，就像看过一段人生，开花前的煎熬、绽放时的耀眼、香断凋谢后的无情——好像都刻骨铭心般经历过一番，却又如流星稍纵即逝。</p>
+<p>这时携带的重量超两斤的佳能相机派上用途，花儿背景虚化的效果手机怎么拍都达不到——新冠疫情三年，这台佳能一直在吃灰，她也一定在等待着重见天日、被重用的时刻吧。</p>
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/lnsU7M4cSLvypzb.jpg" alt="春天盛开的杏花" />
+  <figcaption>春天盛开的杏花</figcaption>
+</figure>
+
+<p><strong>鹦鹉</strong></p>
+<p>第一站有趣的是鹦鹉——未进禽区就已经听到鸟儿叽叽喳喳声不绝于耳。进去后，这些鸟儿种类还真不少（反而显得空间过于压抑），也不是特别怕人。其中一只体型比较大的鸟儿（可能是鹦鹉的一个种类）看上我衣服上纽扣——可能是被当作坚果了吧，一直尝试用自己的啄尝试抠下来——阵势挺吓人的，但是第一次这么近距离接触这种鸟类也是特别有喜感。</p>
+<p>唯一遗憾的时，这次来动物园是冲着小熊猫来的，我并没有准备瓜子、花生这类坚果，没有达到更有趣的互动。还有，禽区内我一直在想「我家里养的那两只猫甩到这里，他俩一定认为这里就是游戏的天堂」，不知道是他俩乐呵还是受群鸟欺负。</p>
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/QYdOzVbJx1lB7qK.jpg" alt="谈情说爱的鹦鹉" />
+  <figcaption>谈情说爱的鹦鹉</figcaption>
+</figure>
+
+<p><strong>长尾猴</strong></p>
+<p>给我感觉 <strong>快乐就应该是这个样子，但是自我小学毕业之后就再也没体验过这种快乐</strong>，我知道那种快乐是什么样子的，但是我知道我往后人生很难再会体验到。</p>
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/kStKQ5uT8MfUyNz.jpg" alt="乐呵的长尾猴" />
+  <figcaption>乐呵的长尾猴</figcaption>
+</figure>
+
+<p><strong>小熊猫</strong></p>
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/1CubiN6DwyzhaMU.jpg" alt="乞食的小熊猫" />
+  <figcaption>乞食的小熊猫</figcaption>
+</figure>
+
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/cnNBUu46jpYalWq.jpg" alt="卖萌的小熊猫" />
+  <figcaption>卖萌的小熊猫</figcaption>
+</figure>
+
+<p><strong>猛禽区</strong></p>
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/HKJnwB7zEOcNC69.jpg" alt="睡午觉的母狮" />
+  <figcaption>睡午觉的母狮</figcaption>
+</figure>
+
+<p><strong>羊驼</strong></p>
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/xGRQfrYodbKAIvs.jpg" alt="奇奇怪怪的羊驼" />
+  <figcaption>奇奇怪怪的羊驼</figcaption>
+</figure>
+
+<p><strong>归途</strong></p>
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/xNaAXFOjoi1byR7.jpg" alt="一路疲倦" />
+  <figcaption>一路疲倦</figcaption>
+</figure>
+
+<figure>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/HfUlDCrjZsea1Xo.jpg" alt="归途背影" />
+  <figcaption>归途背影</figcaption>
+</figure>
+
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p><strong><a target="_blank" rel="noopener" href="https://www.xiaohongshu.com/explore">小红书</a>为啥吸引我？</strong></p>
+<p>主要有两点：① 发现页推荐逻辑清晰、干净；② 搜索结果价值高。其中 ① 体现在首屏给四个（iPhone 版）推荐项，分别是近期访问相关（科技资讯）、猫、Switch 相关和一个手机壳赞助（广告）——无论刷新几次，这四类大方向不会存在过多变化——而淘宝、京东等的推荐，信息量太大，巴不得吸引我掏出口袋里那几个子。而 ② 是吸引我持续使用的最主要原因——我把小红书当百度来用，有兴趣的同学可以用「猫粮」、「感冒药」分别用小红书、百度搜索对比下，看看谁的结果是搜索者真正想要的——又得吐槽百度这家公司产品有多「废」。</p>
+<p><strong>动物园是罪恶的？</strong></p>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/beijing-wildlife-park-play/" data-id="clookn3rp0000ku3yds6l96mo" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/beijing-wildlife-park-play/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article
+  id="layout/post-memory-usage-pic"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (北美中部标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Fri Mar 11 2022 23:30:00 GMT+0800 (北美中部标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>二零年年末，我所在如视的前端团队针对核心 C 端项目 <strong>VR 3D 看房</strong> 做了次从 2.0 到 3.0 的系统重构——交互风格、前端架构等等都重新整了遍。灰度阶段前，通过<a target="_blank" rel="noopener" href="https://perfdog.qq.com/"> PerfDog 性能狗</a> 性能分析发现：我们一个 VR 3D 页面在 PC 端占用 120MB 左右内存，在 iPhone 12 上竟然高达 360MB。</p>
+<p>在加上业务能力的升级——除了传统实景 VR 之外，我们还新增了虚拟 VR 用以展示房源装修前后的效果对比，这又新增了一个 VR 实例，内存占用已超 700MB。</p>
+<figure>
+  <div style="display:flex;" class="fancyboxflex">
+    <div style="flex: 1"><img style="width:100%;" src="//solome.js.org/static/memory-usage-pic/memo-vr.png" /></div>
+  </div>
+  <figcaption>图一：2.0和3.0 内存占用情况</figcaption>
+</figure>
+
+<p>此外，随着用户的交互（开启地图、逐帧动画等），内存还在不断递增，高峰期已经超过 1G。而 iOS 系统 WebView 内存溢出的阈值最高也才 1.5G，VR 页面已经濒临崩溃。</p>
+<p>很好奇为啥会占用了那么多的内存？让我们来简单探究一下吧。</p>
+<h2 id="图片内存占用"><a href="#图片内存占用" class="headerlink" title="图片内存占用"></a>图片内存占用</h2><p>三维模型一般由面片数据（顶点、线）和贴图组成，内存占用的大头是图片。那一张图片渲染至浏览器占用的内存该怎么计算呢？</p>
+<p>一般浏览器渲染图片<strong>BitMap</strong>选用的是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RGBA_color_model#RGBA8888">ARGB_8888</a>：颜色信息由透明度 A（Alpha）与 R（Red），G（Green），B（Blue）四部分组成，每个部分都占 8 位，总共占 32 位。即一个像素：</p>
+<blockquote>
+<ul>
+<li><strong>A</strong> - alpha 透明 8bit(位)</li>
+<li><strong>R</strong> - Red 8bit(位)</li>
+<li><strong>G</strong> - Green 8bit(位)</li>
+<li><strong>B</strong> - Blue 8bit(位)</li>
+</ul>
+</blockquote>
+<p>&quot;1Byte(字节)=8bit(位)&quot; 因此，<strong>一个像素会占用四个字节</strong>。<br>所以一张 <code>2048*2048</code> 的图片占用的内存有：<code>2048*2048*4 Byte</code>，换算成 MB 单位 <code>2048*2048*4/ (1024*1024) Byte = 16MB</code>。</p>
+<blockquote>
+<p>图片占用的内存跟图片文件体积大小无关，仅跟其分辨率相关。压缩图片目的是为了 CDN 下载速度更快、节省存储空间，但无法节省浏览器占用内存。</p>
+</blockquote>
+<p><strong>&quot;一个像素会占用四个字节&quot;</strong> 这个结论适用于绝大部分 PC、macOS 等终端设备，但在移动端并不完全适用，详细内容请往下看。</p>
+<h2 id="终端设备"><a href="#终端设备" class="headerlink" title="终端设备"></a>终端设备</h2><p>以 iPhone 为例，先统计下历代 iPhone 屏幕信息：</p>
+<table>
+<thead>
+<tr>
+<th align="center">机型</th>
+<th align="center">逻辑像素</th>
+<th align="center">渲染像素</th>
+<th align="center">物理像素</th>
+<th align="center">设备像素比 DPR</th>
+<th align="center">一个像素用几个字节</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">iPhone 3G/3Gs</td>
+<td align="center">320*480</td>
+<td align="center">320*480</td>
+<td align="center">320*480</td>
+<td align="center">1</td>
+<td align="center">4 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone 4/4s</td>
+<td align="center">320*480</td>
+<td align="center">640*960</td>
+<td align="center">640*960</td>
+<td align="center">2</td>
+<td align="center">4 * 2 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone 5/5C/5s/SE</td>
+<td align="center">320*568</td>
+<td align="center">640*1136</td>
+<td align="center">640*1136</td>
+<td align="center">2</td>
+<td align="center">4 * 2 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone 6/6s/7/8/SE2</td>
+<td align="center">375*667</td>
+<td align="center">750*1334</td>
+<td align="center">750*1334</td>
+<td align="center">2</td>
+<td align="center">4 * 2 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone XR/11</td>
+<td align="center">414*896</td>
+<td align="center">828*1792</td>
+<td align="center">828*1792</td>
+<td align="center">2</td>
+<td align="center">4 * 2 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone X/Xs/11 Pro</td>
+<td align="center">375*812</td>
+<td align="center">1125*2436</td>
+<td align="center">1125*2436</td>
+<td align="center">3</td>
+<td align="center">4 * 3 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone 12 mini</td>
+<td align="center">375*812</td>
+<td align="center">1125*2436</td>
+<td align="center">1080*2340</td>
+<td align="center">3</td>
+<td align="center">约 4 * 2.88 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone 12/12 Pro</td>
+<td align="center">390*844</td>
+<td align="center">1170*2532</td>
+<td align="center">1170*2532</td>
+<td align="center">3</td>
+<td align="center">4 * 3 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone 6/6s/7/8/ Plus</td>
+<td align="center">414*736</td>
+<td align="center">1242*2208</td>
+<td align="center">1080*1920</td>
+<td align="center">3</td>
+<td align="center">约 4 * 2.61 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone Xs Max / 11 Pro Max</td>
+<td align="center">414*896</td>
+<td align="center">1242*2688</td>
+<td align="center">1242*2688</td>
+<td align="center">3</td>
+<td align="center">4 * 3 个字节</td>
+</tr>
+<tr>
+<td align="center">iPhone 12 Pro Max</td>
+<td align="center">428*926</td>
+<td align="center">1284*2778</td>
+<td align="center">1284*2778</td>
+<td align="center">3</td>
+<td align="center">4 * 3 个字节</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ul>
+<li><strong>物理像素</strong>：硬件真实的像素，即屏幕分辨率。</li>
+<li><strong>逻辑像素</strong>：前端使用的像素，即 <code>px</code>。</li>
+<li><strong>渲染像素</strong>：操作系统抽象的像素。</li>
+</ul>
+</blockquote>
+<p>从 iPhone 4 代开始，iPhone 屏幕的物理分辨率是很高的，除了 &quot;iPhone 6/6s/7/8/ Plus&quot; 和 &quot;iPhone 12 mini&quot; 设备之外，iOS 系统基本是把 2 个或 3 个物理像素当作 1 个逻辑像素来使用的（放大倍数了）。</p>
+<p>Android 系统则比较凌乱，但本质还是<strong>将多个物理像素当作一个逻辑像素来渲染使用</strong>。因此，一张<code>2048*2048</code>图片内存占用换算公式是: <code>(物理分辨率/逻辑像素)*2048*2048*4/ (1024*1024) MB</code>。</p>
+<p>这基本解释了移动端设备图片占用的内存要比 PC 上统计的要多出 2 倍、3 倍甚至 4 倍以上。这也解释了明明是旗舰机型崩溃率反而增加了，比如 iOS 系统 WebView 内存崩溃的阈值固定在 1.5G 以下，旗舰机型 iPhone 12 Pro Max 更加容易达到这个阈值。</p>
+<blockquote>
+<p>介于设备屏幕 LCD、OLED 等材质差异，实际统计会有些许偏差，但是数量级不会有太多出入。</p>
+</blockquote>
+<h2 id="Five-实例内存占用"><a href="#Five-实例内存占用" class="headerlink" title="Five 实例内存占用"></a>Five 实例内存占用</h2><p><a target="_blank" rel="noopener" href="https://realsee.js.org/docs/front/3d-space/get-started/rendering-engine"><code>@realsee/five</code></a> 是如视基于 Three.js 实现的在浏览器环境中运行的<strong>三维空间渲染引擎</strong>。创建 <code>Five</code> 实例并渲染一个三维空间需要耗费多少内存呢？</p>
+<p>常态情况下，<code>Five</code> 渲染依赖的图片是三维模型的 UV 贴图和一个立方体全景贴图（立方体六个面六张图），如图二、三所示。</p>
+<figure>
+  <div style="display:flex;" class="fancyboxflex">
+    <div style="flex: 1"><img style="width:60%;" src="//solome.js.org/static/memory-usage-pic/pano.png" /></div>
+  </div>
+  <figcaption>图二：立方体全景贴图（2048*2048）</figcaption>
+</figure>
+
+<figure>
+  <div style="display:flex;" class="fancyboxflex">
+    <div style="flex: 1"><img style="width:80%;" src="//solome.js.org/static/memory-usage-pic/model.png" /></div>
+  </div>
+  <figcaption>图三：UV 贴图及网格数据组成模型（512*512）</figcaption>
+</figure>
+
+<p>因此，我们以<a target="_blank" rel="noopener" href="https://open.realsee.com/ke/6gyq3v1verxD7JO1/qeNadDJvp5oSPhzhbTo7mVEC3LM4rOA2/?v3=1">贝壳·VR 看房 | 常楹公元 2 室 1 厅</a> 房源为例，其实景 VR 的 UV 贴图有 12 张。</p>
+<p>所以，此看房 VR 图片所占用的内存有：</p>
+<h3 id="①-常态情况"><a href="#①-常态情况" class="headerlink" title="① 常态情况"></a>① 常态情况</h3><ul>
+<li>PC 端：<code>2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12= 108MB</code></li>
+<li>iPhone 8：<code>(2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12) * 2= 216MB</code></li>
+<li>iPhone 12：<code>(2048*2048*4/ (1024*1024) *6 + 512*512*4/ (1024*1024)*12) * 3= 324MB</code></li>
+</ul>
+<p>此处分析的这还仅仅是一个实景 VR 依赖图片占用的内存。</p>
+<h3 id="②-走点-moveToPano"><a href="#②-走点-moveToPano" class="headerlink" title="② 走点 moveToPano"></a>② 走点 moveToPano</h3><p>由于走点为了过渡动画效果，一般会出现两个立方体全景，所以全景图片由 6 张图片变成 12 张。</p>
+<ul>
+<li>PC 端：<code>2048*2048*4/(1024*1024)*6*2 + 512*512*4/ (1024*1024)*12= 204MB</code></li>
+<li>iPhone 8：<code>(2048*2048*4/(1024*1024)*6*2 + 512*512*4/ (1024*1024)*12)*2= 408MB</code></li>
+<li>iPhone 12：<code>(2048*2048*4/(1024*1024)*6*2 + 512*512*4/ (1024*1024)*12)*3= 612MB</code></li>
+</ul>
+<p>看此数据，基本解释：</p>
+<ul>
+<li>高端 iOS 设备比低端 iOS 设备更容易出现黑白屏内存溢出问题。（iOS 端 WebView 内存崩溃的阈值在 1.5G 以下）。</li>
+<li>全景走点时<strong>更加容易</strong>内存溢出。</li>
+<li>除了图片占用内存之外，<code>Five</code> 涉及的其他部分其实并没有占用过多内存。（也就意味着图片之外的优化空间不多）。</li>
+</ul>
+<h2 id="序列帧动画"><a href="#序列帧动画" class="headerlink" title="序列帧动画"></a>序列帧动画</h2><p>如图五所示，这是一个如视 Logo 组成的循环关键帧动画：</p>
+<figure>
+  <div style="display:flex;flex-direction: column;" class="fancyboxflex">
+    <div style="flex: 1"><image style="width:100%;;" src="//solome.js.org/static/memory-usage-pic/animation.13cc0efb.png" /></div>
+    <div style="flex: 1"><image style="width:100%;max-width: 140px;" src="//solome.js.org/static/memory-usage-pic/realseelogo.gif" /></div>
+  </div>
+  <figcaption>图四：关键帧Sprite图和逐帧动画</figcaption>
+</figure>
+
+<p>这张帧动画雪碧图分辨率是<code>14065*265</code>，占用内存：</p>
+<ul>
+<li>PC 端：<code>14065*265*4/(1024*1024)=14.21823501586914MB</code></li>
+<li>iPhone 8：<code>14065*265*4/(1024*1024)*2= 28.43647003173828MB</code></li>
+<li>iPhone 12：<code>14065*265*4/(1024*1024)*3=42.65470504760742MB</code></li>
+</ul>
+<p>将这张雪碧图放在<code>&lt;image&gt;</code>标签中确实是这样的内存占用。但是，一旦套用 CSS 帧动画实现之后：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> logo-sprites-animation &#123;<br>  <span class="hljs-number">0%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span>;<br>  &#125;<br>  <span class="hljs-number">100%</span> &#123;<br>    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">13800px</span> <span class="hljs-number">0</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-attribute">animation</span>: logo-sprites-animation <span class="hljs-number">2.208s</span> <span class="hljs-number">0s</span> <span class="hljs-built_in">steps</span>(<span class="hljs-number">53</span>) infinite normal;<br></code></pre></td></tr></table></figure>
+
+<p>通过 PerfDog 统计的内存占用却是图片内存的三倍：</p>
+<ul>
+<li>PC 端：<code>14065*265*4/(1024*1024)*3=42.65470504760742MB</code></li>
+<li>iPhone 8 端：<code>14065*265*4/(1024*1024)*2*3= 85.30941009521484MB</code></li>
+<li>iPhone 12 端：<code>14065*265*4/(1024*1024)*3*3=127.96411514282227MB</code></li>
+</ul>
+<p>这个三倍是怎么来的，目前尚未找到相关资料，个人猜测的逻辑是：<br>此处的逐帧动画本质上是个补间动画，用在帧动画中，需要上一帧、当前帧、下一帧 来计算补间动画，同时需要三张图片，所以可能会同时存在三张图片实例。</p>
+<p>这个目前尚属猜测逻辑。但需要关注的经验是：<strong>逐帧动画慎用，帧数最好限制在 24 帧以内，且占用内存不要超过 20MB。</strong></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>有兴趣的同学，可以安装 <a target="_blank" rel="noopener" href="https://perfdog.qq.com/"><strong>PerfDog 性能狗</strong></a> 工具自己实践一下本文的数据是否存在偏差。</p>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/memory-usage-pic/" data-id="clooia2ly0004ln3yfrsg5p40" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/memory-usage-pic/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/2/">Next ⥤</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+          </li>
+        
+          <li>
+            <a href="/blog/beijing-wildlife-park-play/">北京漫游：大兴野生动物园</a>
+          </li>
+        
+          <li>
+            <a href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
+          </li>
+        
+          <li>
+            <a href="/blog/gmtc-vr3d/">VR 及 3D 技术在 Web 端架构设计与实践</a>
+          </li>
+        
+          <li>
+            <a href="/blog/those-years-nba-player/">那些年我关注过的NBA球星</a>
+          </li>
+        
+          <li>
+            <a href="/blog/tech-salon-13-app-proto/">前端工程化开发方案 app-proto</a>
+          </li>
+        
+          <li>
+            <a href="/blog/javascript-async/">JavaScript 異步編程小結</a>
+          </li>
+        
+          <li>
+            <a href="/blog/pure-functions-in-fp/">函数式编程之纯函数</a>
+          </li>
+        
+          <li>
+            <a href="/blog/show-icon-in-web/">Web 頁面上的那些圖標</a>
+          </li>
+        
+          <li>
+            <a href="/blog/feeling-of-writing/">写字的感觉</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 - 2023 掬一捧<br>
+      版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  <a class="mobile-nav-link" href="//solome.js.org/">首页</a>
+
+  
+    <a href="/blog/" class="mobile-nav-link">博客</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+  <a class="mobile-nav-link" href="//solome.js.org/slides">Slides</a>
+  <!-- <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
+</nav>
+    
+<script>
+  var disqus_shortname = 'juyipeng';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+
+<script src="/blog/js/jquery.2.0.3..min.js"></script>
+
+
+
+  
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+
+  
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

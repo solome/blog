@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>前端工程化开发方案 app-proto | 掬一捧清水窺月落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文是针对去年（2016 年 10 月）美团点评技术沙龙第 13 期分享的《前端工程化开发方案 app-proto 介绍》整理而来的技术博客。年初的时候又针对 Koa2.0 做了些许语法适配和完整的 SSR 支持（app-proto-2.0）。  什么是前端工程化？根据具体的业务特点，将前端的开发流程、技术、工具、经验等规范化、标准化就是前端工程化。它的目的是让前端开发能够&quot;自成体系&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端工程化开发方案 app-proto">
+<meta property="og:url" content="http://solome.js.org/blog/tech-salon-13-app-proto/index.html">
+<meta property="og:site_name" content="掬一捧清水窺月落">
+<meta property="og:description" content="本文是针对去年（2016 年 10 月）美团点评技术沙龙第 13 期分享的《前端工程化开发方案 app-proto 介绍》整理而来的技术博客。年初的时候又针对 Koa2.0 做了些许语法适配和完整的 SSR 支持（app-proto-2.0）。  什么是前端工程化？根据具体的业务特点，将前端的开发流程、技术、工具、经验等规范化、标准化就是前端工程化。它的目的是让前端开发能够&quot;自成体系&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://solome.js.org/static/tech-salon-13-app-proto/structural-design.svg">
+<meta property="og:image" content="http://solome.js.org/static/tech-salon-13-app-proto/datasources-recipes.svg">
+<meta property="og:image" content="http://solome.js.org/static/tech-salon-13-app-proto/pages-recipes.svg">
+<meta property="og:image" content="http://solome.js.org/static/tech-salon-13-app-proto/static-file-map.svg">
+<meta property="article:published_time" content="2017-01-05T12:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-07T16:02:42.778Z">
+<meta property="article:author" content="掬一捧">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://solome.js.org/static/tech-salon-13-app-proto/structural-design.svg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  <link href="//solome.js.org/static/fonts/style.css" rel="stylesheet" />
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">掬一捧清水窺月落</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a class="main-nav-link" href="//solome.js.org/">首页</a>
+
+        
+          <a class="main-nav-link" href="/blog/">博客</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+        <a class="main-nav-link" href="//solome.js.org/slides">Slides</a>
+        <!-- <a class="main-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
+
+      </nav>
+      <nav id="sub-nav">
+        
+          <!-- <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a> -->
+        
+        <!-- <a id="nav-search-btn" class="nav-icon" title="Search"></a> -->
+      </nav>
+      <!-- <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://solome.js.org/blog"></form>
+      </div> -->
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article
+  id="post-tech-salon-13-app-proto"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (北美中部标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      前端工程化开发方案 app-proto
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Thu Jan 05 2017 20:00:00 GMT+0800 (北美中部标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <blockquote>
+<p>本文是针对去年（2016 年 10 月）美团点评技术沙龙第 13 期分享的<a target="_blank" rel="noopener" href="https://www.slideshare.net/meituan/13appproto">《前端工程化开发方案 app-proto 介绍》</a>整理而来的技术博客。<br>年初的时候又针对 Koa2.0 做了些许语法适配和完整的 SSR 支持（<a href="https://solome.js.org/slides/app-proto-2.0/">app-proto-2.0</a>）。</p>
+</blockquote>
+<p>什么是前端工程化？根据具体的业务特点，将前端的开发流程、技术、工具、经验等规范化、标准化就是前端工程化。<br>它的目的是让前端开发能够&quot;自成体系&quot;，最大程度地提高前端工程师的开发效率，降低技术选型、前后端联调等带来的协调沟通成本。</p>
+<p>美团点评厦门智能住宿前端研发团队通过多个前端项目开发的探索和实践，基于&quot;约定优于配置&quot;（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Convention_over_configuration">Convention Over Configuration</a>）的原则制定了一套前端工程化开发方案 app-proto。本文将简要介绍其中的一些设计细节和约定。</p>
+<h4 id="面临的业务特点"><a href="#面临的业务特点" class="headerlink" title="面临的业务特点"></a>面临的业务特点</h4><p>智能住宿前端团队承担的前端业务主要面向 B 端项目，用户主要是商家、销售、运营、产品经理以及研发人员。</p>
+<p>诸如工单管理、信息管理、门锁运营、PMS（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Property_management_system">Property management system</a>）、CRM（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Customer_relationship_management">Customer relationship management</a>）及 AMS（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Asset_management">Asset management system</a>）等项目都是单页面工具类应用，特点是功能交互繁多、复杂表单，非展示类、无 SEO（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Search_engine_optimization">Search engine optimization</a>）需求。</p>
+<p>如果这些项目脱离浏览器这个&quot;外壳&quot;，与传统的原生桌面 GUI 软件无异。换言之，这些项目就是一种运行于浏览器的工具软件。</p>
+<blockquote>
+<p>实际上，部分项目我们也确实利用 CEF（<a target="_blank" rel="noopener" href="https://bitbucket.org/chromiumembedded/cef">Chromium Embedded Framework</a>）等技术给其套个&quot;外壳&quot;，当作传统的桌面 GUI 应用提供给用户使用。</p>
+</blockquote>
+<p>同时，部分服务需要从智能门锁、控制盒 Wifi 等硬件设备收录状态数据，限于硬件环境测试的不稳定性，后端的开发测试周期远比前端开发周期长。大部分场景下，前后端需并行开发，后端工程师并不能在第一时间兼顾到前端所需的 API 接口等服务，给前端开发造成没有必要的&quot;等待期&quot;，影响开发进度。</p>
+<p>此外，项目多、敏捷需求多、开发周期短以及面向多后端服务（多个后端团队）等也是我们前端研发团队面临的挑战。</p>
+<h4 id="一些前端经验总结"><a href="#一些前端经验总结" class="headerlink" title="一些前端经验总结"></a>一些前端经验总结</h4><p>针对多个项目的开发实践和探索，我们在对前端工程化设计中得到如下一些经验总结：</p>
+<ul>
+<li>前端开发应该&quot;自成体系&quot;（包括构建、部署及前端运维），不应该和后端项目耦合在一起。</li>
+<li>避免&quot;大而全&quot;的重量级框架，一个框架真的满足不了所有的业务场景。项目多了，我们又不想为每个新项目重新造一遍技术&quot;轮子&quot;。</li>
+<li>新的前端技术（<a target="_blank" rel="noopener" href="https://facebook.github.io/react/">React</a>、<a target="_blank" rel="noopener" href="https://vuejs.org/">Vue</a>、<a target="_blank" rel="noopener" href="https://angular.io/">Angular2</a>等）和工具（<a target="_blank" rel="noopener" href="http://gruntjs.com/">Grunt</a>/<a target="_blank" rel="noopener" href="http://gulpjs.com/">gulp</a>、<a target="_blank" rel="noopener" href="https://webpack.github.io/">webpack</a>、<a target="_blank" rel="noopener" href="https://babeljs.io/">Babel</a>等）不断涌现、迭代，新技术选型应避免&quot;改头换面&quot;式重构。</li>
+<li>工程化设计要合理分层且相互独立，随时应对新需求和技术的变化，任何一层能够低成本被替换、淘汰。</li>
+</ul>
+<h4 id="设计概览"><a href="#设计概览" class="headerlink" title="设计概览"></a>设计概览</h4><p>目前，app-proto 将前端工程化项目拆分成三大模块：Node 服务（负责数据代理、url 路由和服务端渲染）、Web 应用开发（专注 Web 交互体验）以及前端运维（构建、测试、部署及监控等）。整体的结构设计如图 1 所示。</p>
+<figure>
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/structural-design.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="Structural Design" />
+  <figcaption>app-proto 结构设计图</figcaption>
+</figure>
+
+<ul>
+<li>Node 服务：用于实现前后端分离，核心功能是实现数据代理中转，附带 url 路由分发和服务端渲染功能。</li>
+<li>Web 应用开发：纯粹的前端模块，给予前端工程师极大的自由度进行技术选型，专注于 Web 交互体验的开发。</li>
+<li>前端运维：主要指前端项目构建和部署、工程质量（源码质量检查和测试等）及监控服务（日志、性能等）等工作。</li>
+</ul>
+<h4 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a>前后端分离</h4><p>正如前文所强调的，前端模块开发应该&quot;自成体系&quot;，而不是后端项目的一部分（Controller 或 View 层）。比如说，前端工程师要在本地跑通完整的项目，就必须配置好后端所需开发环境和各种服务，如果后端涉及的服务多、变化频繁，配置开发联调环境工作往往是耗时耗力的。为了实现彻底的前后端分离，我们在前端开发体系中引入了 Node 服务层。</p>
+<p>在最初的开发中，为了降低 Node 端的开发和运营成本，我们极力避免在 Node 服务中&quot;掺合&quot;过多的业务逻辑。经过几个项目的实践，最后&quot;约定&quot;在 Node 服务中我们仅仅做三件事：数据代理、路由分发和服务端渲染。</p>
+<h5 id="数据代理"><a href="#数据代理" class="headerlink" title="数据代理"></a>数据代理</h5><p>首先，前端数据从何而来？通过 Ajax 的形式直接从后端服务中获取数据是传统的方式，但是在应对多后端服务时，还是面临着诸如请求认证、CORS(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">Cross-origin resource sharing</a>)等困扰。常见的解决方案是通过<a target="_blank" rel="noopener" href="https://github.com/nodejitsu/node-http-proxy">http-proxy</a>，即在 Node 端通过 HTTP 请求得到数据后，Web 端再通过 Ajax 的方式从 Node 端间接获取后端数据，Node 服务起到&quot;桥梁&quot;的作用。</p>
+<p>方案<code>http-proxy</code>对已经成熟的后端服务是具备实用价值的，但是在后端服务并没有完成开发（或前后端并行开发）的场景下时，开发阶段前端的数据来源依旧是个问题。同时，前端还面临诸多请求合并、缓存等需求，解决这些困扰，前端工程师需要和后端技术人员做大量的沟通、约定。</p>
+<p>在这里，我们基于原有的<code>http-proxy</code>基础上在 Node 服务中添加<code>datasources</code>模块，尝试在数据的处理上给予前端工程师很大的自由度，并实现&quot;按照约定写代码&quot;。</p>
+<p>举例说明，开发某一前端业务时涉及到<code>pms</code>和<code>upm</code>两个后端服务，且提供的 API 内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># pms API</span><br>pms/api/v2.01/login<br>pms/api/v2.01/inn/create<br>pms/api/v2.01/inn/get<br><br><span class="hljs-comment"># upm API</span><br>upm/api/v3.15/menu<br></code></pre></td></tr></table></figure>
+
+<p>面对这些接口，理想情况下前端直接通过<code>ajax.post(&#39;pms/api/v2.01/login&#39;, params)</code>方式获取即可。但是，<code>pms</code>接口服务尚处在开发阶段，面临跨域或不可用问题。<code>upm</code>接口服务虽稳定，但是该服务由第三方团队维护，请求需要权限认证。传统的 Ajax 方式在这类场景下并不适用。而<code>datasources</code>模块是通过怎样的设计来优化这些问题的呢？首先，我们将前端需要的 API 映射到前端源码仓库，映射的目录结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># server/datasources/&#123;后端系统&#125;/&#123;接口目录&#125;</span><br>── datasources<br>    ├── pms<br>    │   ├── login.js<br>    │   ├── login.json<br>    │   └── inn<br>    │       ├── create.js<br>    │       └── get.js<br>    └── upm<br>        ├── menu.js<br>        └── menu.json<br></code></pre></td></tr></table></figure>
+
+<p>其中，每个<code>**.js</code>后缀的文件的内容是将原本 Web 端 Ajax 操作转移到 Node 端的 HTTP 请求，以<code>pms/login.js</code>为例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/* async 函数 */</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">params</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> http = <span class="hljs-built_in">this</span>.http<br>  <span class="hljs-keyword">const</span> pms = <span class="hljs-built_in">this</span>.config.api.pms<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> apiUri = <span class="hljs-string">`<span class="hljs-subst">$&#123;pms.prefix&#125;</span>/login`</span><br>    <span class="hljs-comment">// http 请求：http.post() 方法封装了权限认证</span><br>    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> http.post(apiUri, params)<br><br>    <span class="hljs-comment">// 简单的数据格式校验</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Number</span>(result.status) === <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-string">&#x27;data&#x27;</span> <span class="hljs-keyword">in</span> result &amp;&amp; <span class="hljs-string">&#x27;bid&#x27;</span> <span class="hljs-keyword">in</span> result.data) &#123;<br>      <span class="hljs-comment">// 将bid值记录至session</span><br>      <span class="hljs-built_in">this</span>.session.bid = result.data.bid<br>    &#125;<br>    <span class="hljs-keyword">return</span> result<br>  &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>    <span class="hljs-comment">// 后端API出现异常 (实时通知 or 记录日志)</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当然，对于那些已经成熟稳定的 API 服务直接通过<code>http-proxy</code>方式实现数据中转即可。但由于需求变更频繁，后端 API 服务始终处在不断迭代中，前端在进行数据处理过程中总会面临如下的几种情况：</p>
+<ul>
+<li>接口校验或数据二次加工：面临多后端服务，API 的格式可能不一致；或者对数据列表排序加工等。</li>
+<li>合并请求：可以发多个 http 请求，避免 Web 端同时发送多个 Ajax 请求。</li>
+<li>前端运维的数据：比如城市字典、阴阳历转换表等固定数据。</li>
+<li>缓存数据：如请求的用户信息，短期内不会有大变动，可以采用<a target="_blank" rel="noopener" href="https://github.com/th507/node-hl-cache">Half-life cache</a>等算法实现简单缓存。</li>
+<li>需权限认证的接口：<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2617">HTTP Authentication</a>。</li>
+</ul>
+<p>这些场景下都建议使用<code>datasources</code>模块进行数据中转，将原本需由前后端沟通协调才能实现的功能全部交给前端自行处理，给予前端工程师处理数据提供自由度的同时也降低了后端 API 的开发维度。</p>
+<p>那该如何快捷地调用<code>datasources</code>目录下的<code>async</code>函数呢？这里我们做了简单封装，将该目录下的所有<code>**.js</code>文件解析到 Koa 的上下文环境中以<code>this.ds</code>对象进行存储，并按照目录结构进行驼峰式（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Camel_case">Camel-Case</a>）命名，转换过程见图 2。</p>
+<figure>
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/datasources-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="datasources-recipes" />
+  <figcaption>datasources 目录解析转换过程</figcaption>
+</figure>
+
+<p>在 Koa 中间件中通过<code>this.ds</code>对象调用，比如<code>src/datasources/pms/login.js</code>函数映射至<code>this.ds.PmsLogin()</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Koa Middlewares</span><br>app.use(<span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>  <span class="hljs-comment">// ..`.</span><br>  <span class="hljs-comment">// 最后一个参数为是否使用mock</span><br>  <span class="hljs-keyword">const</span> loginData = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.ds.PmsLogin(params, <span class="hljs-literal">false</span>)<br>  <span class="hljs-comment">// ...</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>在 Web 端可以统一封装<code>ds()</code>方法，无需关注 Ajax 请求<code>Headers</code>、是否跨域等问题：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Web (Browser)</span><br>ds(<span class="hljs-string">&#x27;PmsLogin&#x27;</span>, &#123; username, password &#125;, <span class="hljs-literal">true</span>).then(success).catch(error)<br></code></pre></td></tr></table></figure>
+
+<h5 id="Mock-支持"><a href="#Mock-支持" class="headerlink" title="Mock 支持"></a>Mock 支持</h5><p>正如前文所提到的，后端研发进度一般滞后于前端，在后端 API 服务可用之前，前端仅有一份 API 文档供参考。在规范中，<code>**.json</code>后缀的文件就起到 Mock 作用，同样以<code>pms/login.json</code>举例：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">0</span>,<br>  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;成功&quot;</span>,<br>  <span class="hljs-attr">&quot;data&quot;</span>: &#123; <span class="hljs-attr">&quot;bid&quot;</span>: <span class="hljs-string">&quot;@string(32)&quot;</span>, <span class="hljs-attr">&quot;innCount&quot;</span>: <span class="hljs-number">1</span> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>具体的<code>json</code>格式写法请参考<a target="_blank" rel="noopener" href="http://mockjs.com/">mockjs</a>、<a target="_blank" rel="noopener" href="https://github.com/nuysoft/Mock/wiki/Syntax-Specification">Syntax Specification</a>。</p>
+</blockquote>
+<p>简言之，当 API 服务可用时则执行<code>**.js</code>后缀文件中的<code>async</code>函数来获取数据，不可用时则解析<code>**.json</code>后缀 Mock 文件，并不需要单独开启一个 Mock 服务。</p>
+<h4 id="路由分发"><a href="#路由分发" class="headerlink" title="路由分发"></a>路由分发</h4><p>对 url 路由的处理和数据代理的做法类似，按照目录结构来管理。url 路由配置在<code>server/pages</code>目录下，目录下的文件会自动映射成为路由。</p>
+<p>比如 url 为<code>http://example.com/pms</code>页面，映射到<code>server/pages/pms.js</code>文件的写法如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">urls</span>: [<span class="hljs-string">&#x27;/pms&#x27;</span>, <span class="hljs-string">&#x27;/pms/error&#x27;</span>], <span class="hljs-comment">// 多种正则如：[&#x27;/pms&#x27;, [&#x27;/pms/v1&#x27;], [&#x27;/pms/v**&#x27;]]</span><br>  <span class="hljs-attr">methods</span>: [<span class="hljs-string">&#x27;GET&#x27;</span>], <span class="hljs-comment">// 多种method：[&#x27;GET&#x27;, &#x27;POST&#x27;]</span><br>  <span class="hljs-attr">js</span>: [<span class="hljs-string">&#x27;http://code.jquery.com/jquery-1.12.0.min.js&#x27;</span>],<br>  <span class="hljs-attr">css</span>: [<span class="hljs-string">&#x27;http://yui.yahooapis.com/pure/0.6.0/pure-min.css&#x27;</span>],<br>  <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;default&#x27;</span>, <span class="hljs-comment">// 服务端渲染模板</span><br>  <span class="hljs-attr">middlewares</span>: [], <span class="hljs-comment">// 针对本页面的中间件</span><br>  <span class="hljs-attr">controller</span>: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) </span>&#123;<br>    <span class="hljs-comment">// Koa中间件最后一环</span><br>    <span class="hljs-comment">// 可以从this.ds对象中拿数据</span><br>    <span class="hljs-keyword">const</span> loginData = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.ds.PmsLogin(params)<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;来自服务端数据&#x27;</span>, loginData &#125;<br>  &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>由于<code>urls</code>支持多种正则，原则上每个根 url 映射<code>server/pages/</code>目录下一个<code>**.js</code>文件，映射关系如图 3 所示。</p>
+<figure>
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/pages-recipes.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
+  <figcaption>pages目录文件与url映射关系</figcaption>
+</figure>
+
+<p>如果对<code>js</code>、<code>css</code>、<code>template</code>没有特殊设置（采用默认设置）的情况下，可精简如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">urls</span>: [<span class="hljs-string">&#x27;/pms&#x27;</span>, <span class="hljs-string">&#x27;/pms/error&#x27;</span>],<br>  <span class="hljs-attr">controller</span>: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> loginData = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.ds.PmsLogin(params)<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;来自服务端数据&#x27;</span>, loginData &#125;<br>  &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，<code>controller</code>项是 Koa 中间件的最后一环，要求其返回值是可序列化的对象用于模板渲染的服务端参数，在此处也可以进行权限校验、从<code>this.ds</code>对象中拿数据等操作。</p>
+<h5 id="服务端渲染"><a href="#服务端渲染" class="headerlink" title="服务端渲染"></a>服务端渲染</h5><p>Node 服务端最后一个核心功能是渲染：输出 HTML Shell 和 JSON。输出 JSON 字符串的用途是为了浏览器端能以 Ajax 形式动态获取数据，而输出的 HTML 内容则是我们 Web 应用的所需的 HTML&quot;壳子&quot;。</p>
+<p>正如前文提到我们的业务特点是&quot;一种运行于浏览器的工具软件&quot;，重操作交互、无 SEO 需求。因此，同构（<a target="_blank" rel="noopener" href="http://isomorphic.net/">Isomorphic JavaScript</a>）不是强需求，不是每次都要依赖服务器来重复处理逻辑和数据。服务端只需要渲染简单完善的 HTML 结构即可，具体的页面内容则由客户端 JavaScript 实现。简言之，不鼓励将前端 JavaScript 脚本再在 Node 服务端重复执行一遍。</p>
+<blockquote>
+<p>如果了解过 Google 推崇的 <a target="_blank" rel="noopener" href="https://developers.google.com/web/progressive-web-apps/">Progressive Web App</a>，你可以参考《<a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/architecture/app-shell">The App Shell Model</a>》一文来理解 HTML&quot;壳子&quot;更多的用途。</p>
+</blockquote>
+<p>渲染最简单的 HTML&quot;壳子&quot;如下:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>app-proto<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">      <span class="hljs-built_in">window</span>.serveData = &#123; <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;来自服务端数据&#x27;</span> &#125;</span><br><span class="javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;//cdn/file-5917b08e4c7569d461b1.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>提供简单的服务端数据<code>window.serveData</code>供客户端使用，更多渲染则由<code>//cdn/file-5917b08e4c7569d461b1.js</code>进行增量控制。</p>
+<h6 id="静态资源与-Node-端衔接"><a href="#静态资源与-Node-端衔接" class="headerlink" title="静态资源与 Node 端衔接"></a>静态资源与 Node 端衔接</h6><p>那 Web 端构建的静态资源是如何 Node 服务端做衔接的呢？前端静态资源构建工作与 Node 服务相互分离，Node 服务在开启的过程中会读取前端构建生成的静态资源映射表。前端的构建过程如图 4 所示，在构建工作完成之后会生成<code>assets.json</code>静态资源映射表。</p>
+<figure>
+  <img src="//solome.js.org/static/tech-salon-13-app-proto/static-file-map.svg" onerror="if (!this.failed) {this.failed=1;this.src=this.src.replace(/\.svg$/, '.png');}" alt="pages-recipes" />
+  <figcaption>静态资源映射文件assets.json构建</figcaption>
+</figure>
+
+<blockquote>
+<p>前端构建工具基本都提供静态资源映射表生成插件，比如构建工具 Webpack 就存在插件<a target="_blank" rel="noopener" href="https://github.com/kossnocorp/assets-webpack-plugin">assets-webpack-plugin</a>来实现该功能。</p>
+</blockquote>
+<p>生成的<code>assets.json</code>映射表内容参考如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-string">&quot;index&quot;</span>:        <span class="hljs-comment">// 对应的页面（url: example.com/index）</span><br>    &#123; <span class="hljs-string">&quot;js&quot;</span>:<span class="hljs-string">&quot;//s0.example.net/pms/index-2abb99.js&quot;</span> &#125;,  <span class="hljs-comment">// 涉及到的静态资源列表（带版本号）</span><br>  <span class="hljs-string">&quot;login&quot;</span>:<br>    &#123; <span class="hljs-string">&quot;js&quot;</span>:<span class="hljs-string">&quot;//s0.example.net/pms/login-5917b0.js&quot;</span> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>比如在渲染页面<code>example.com/index</code>时，Node 服务会以<code>index</code>作为键值，读取<code>assets.json</code>中带版本号的静态资源 CDN 地址列表，用于在&quot;壳子&quot;中与前端资源的衔接工作。</p>
+<h3 id="Web-端的一些-quot-约定-quot"><a href="#Web-端的一些-quot-约定-quot" class="headerlink" title="Web 端的一些&quot;约定&quot;"></a>Web 端的一些&quot;约定&quot;</h3><p>Web 端的技术选项是没有强制性限制的，无论你采用何种构建工具、前端库，只要生成符合约定供 Node 端使用的<code>assets.json</code>文件即可。</p>
+<p>前端工程师可以根据具体的业务特点、团队技术喜好来选取合理的开发方案，无论是 React、Vue 还是 Angular2 并不做强限制。尽管给予 Web 前端开发很大的自由度，但是鼓励遵循下面几条&quot;约定&quot;：</p>
+<ul>
+<li>Ajax 请求从 Node 端代理，而非具体后端服务。</li>
+<li>鼓励将 JavaScript、CSS、HTML 视为前端领域的&quot;汇编&quot;。</li>
+<li>重视前端页面状态管理，推荐的方案有<a target="_blank" rel="noopener" href="https://github.com/reactjs/redux">Redux</a>、<a target="_blank" rel="noopener" href="https://github.com/vuejs/vuex">vuex</a>及<a target="_blank" rel="noopener" href="https://github.com/mobxjs/mobx">MobX</a>等。</li>
+<li>强调组件化，面向组件集开发。</li>
+</ul>
+<p>这里重点强调下面向组件集的前端开发。在项目初期我们一般不会马上投入到业务开发，而是针对设计师和产品经理提供的设计稿、产品原型图实现一套组件集或选择合适的开源组件集，积累好基础组件集后再投入到具体业务开发。</p>
+<p>在进行前端技术调研时，该技术是否有配套的开源组件集往往是我们考虑的重点。比如基于 React 实现的开源组件集<a target="_blank" rel="noopener" href="http://ant.design/">ant.design</a>、<a target="_blank" rel="noopener" href="http://www.material-ui.com/">Material-UI</a>等，我们部分前端项目都直接或间接的使用到了，极大地减少了研发成本。</p>
+<p>当然，美团点评内部也提供一个组件中心平台（可参考<a target="_blank" rel="noopener" href="https://slides.com/solome/mt-components-hub/live#/">美团点评前端组件中心介绍 Slide</a>），鼓励大家将各自项目中的有价值组件分享出来，实现组件跨项目复用。</p>
+<h4 id="工程化支持"><a href="#工程化支持" class="headerlink" title="工程化支持"></a>工程化支持</h4><h5 id="项目脚手架"><a href="#项目脚手架" class="headerlink" title="项目脚手架"></a>项目脚手架</h5><p>项目脚手架的作用是在启动一个新项目时，通过几个简单命令就能快速搭建好项目的开发环境。我们基于<a target="_blank" rel="noopener" href="http://yeoman.io/">Yeoman</a>构建了一个完整的项目脚手架。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装脚手架</span><br>$ npm install -g yo<br>$ npm install -g @ia/generator-app-proto@latest<br><span class="hljs-comment"># 初始化新项目（进行简单选择）</span><br>$ yo @ia/app-proto<br></code></pre></td></tr></table></figure>
+
+<h5 id="工程质量保障"><a href="#工程质量保障" class="headerlink" title="工程质量保障"></a>工程质量保障</h5><p>我们重视项目的每次<code>commit</code>，同个项目要求遵循同一套编码规范，并采用<a target="_blank" rel="noopener" href="http://eslint.org/">ESLint</a>等工具进行约束，对于一些复用性高的核心组件也强制要求写测试。<br>为保障项目质量，每个项目都要求接入美团点评基于<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Stash_(software">Stash</a>实现的Castle CI 系统，每次的源码提交都会自动执行一遍 ESLint、测试和构建，并生成构建日志通过公司内部沟通工具大象进行实时消息推送。</p>
+<h5 id="标准化测试环境管理"><a href="#标准化测试环境管理" class="headerlink" title="标准化测试环境管理"></a>标准化测试环境管理</h5><p>美团点评内部提供了基于 Docker 实现的测试环境管理服务 Cargo，用于提升测试和联调测试效率，促进 DevOps 开发模式。将项目接入到 Cargo 服务后，只需在仓库中提供简单的配置文件<code>cargo.yml</code>（配置参考如下），就会自动生成一套测试环境。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 依赖的镜像</span><br>image: registry.cargo.example.com/node:v4.2.1<br><span class="hljs-comment"># 容器占用的端口</span><br>ports:<br>  - <span class="hljs-string">&#x27;8998&#x27;</span><br><span class="hljs-comment"># 环境变量</span><br>env:<br>  -  COMMON_VARIABLE = <span class="hljs-string">&#x27;true&#x27;</span><br>  -  NODE_ENV = <span class="hljs-string">&#x27;cargo&#x27;</span><br>  -  DEBUG = <span class="hljs-string">&#x27;app-proto,datasource.*&#x27;</span><br><span class="hljs-comment"># 收集的日志文件</span><br>logs:<br>  -  error = /var/path/logs/app-proto/error.log<br>  -  out = /var/path/logs/app-proto/out.log<br><span class="hljs-comment"># 构建脚本</span><br>build_script: bin/pre-deploy-staging<br><span class="hljs-comment"># 运行脚本</span><br>run_script: bin/cargo-start<br></code></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>前端工程化体系的引入，让前端开发能和原生 App 应用项目开发一样&quot;自成体系&quot;，脱离了对后端项目的依赖。基于&quot;约定优于配置&quot;、&quot;按照约定写代码&quot;的原则对 Node 层功能的设定能够降低沟通协调成本，构建、部署等工作的规范化，使前端技术人员的开发重点回归到 Web 应用的交互体验本身，回归到&quot;纯粹&quot;的前端研发。</p>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/tech-salon-13-app-proto/" data-id="clooia2m1000bln3y0n7khjqs" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/tech-salon-13-app-proto/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+   
+<nav id="article-nav">
+  
+    <a href="/blog/those-years-nba-player/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          那些年我关注过的NBA球星
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/javascript-async/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">JavaScript 異步編程小結</div>
+    </a>
+  
+</nav>
+ 
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript
+      >Please enable JavaScript to view the
+      <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript
+    >
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+          </li>
+        
+          <li>
+            <a href="/blog/beijing-wildlife-park-play/">北京漫游：大兴野生动物园</a>
+          </li>
+        
+          <li>
+            <a href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
+          </li>
+        
+          <li>
+            <a href="/blog/gmtc-vr3d/">VR 及 3D 技术在 Web 端架构设计与实践</a>
+          </li>
+        
+          <li>
+            <a href="/blog/those-years-nba-player/">那些年我关注过的NBA球星</a>
+          </li>
+        
+          <li>
+            <a href="/blog/tech-salon-13-app-proto/">前端工程化开发方案 app-proto</a>
+          </li>
+        
+          <li>
+            <a href="/blog/javascript-async/">JavaScript 異步編程小結</a>
+          </li>
+        
+          <li>
+            <a href="/blog/pure-functions-in-fp/">函数式编程之纯函数</a>
+          </li>
+        
+          <li>
+            <a href="/blog/show-icon-in-web/">Web 頁面上的那些圖標</a>
+          </li>
+        
+          <li>
+            <a href="/blog/feeling-of-writing/">写字的感觉</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 - 2023 掬一捧<br>
+      版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  <a class="mobile-nav-link" href="//solome.js.org/">首页</a>
+
+  
+    <a href="/blog/" class="mobile-nav-link">博客</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+  <a class="mobile-nav-link" href="//solome.js.org/slides">Slides</a>
+  <!-- <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
+</nav>
+    
+<script>
+  var disqus_shortname = 'juyipeng';
+  
+  var disqus_url = 'http://solome.js.org/blog/tech-salon-13-app-proto/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+
+<script src="/blog/js/jquery.2.0.3..min.js"></script>
+
+
+
+  
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+
+  
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

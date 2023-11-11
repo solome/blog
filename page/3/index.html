@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>掬一捧清水窺月落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="掬一捧清水窺月落">
+<meta property="og:url" content="http://solome.js.org/blog/page/3/index.html">
+<meta property="og:site_name" content="掬一捧清水窺月落">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="掬一捧">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  <link href="//solome.js.org/static/fonts/style.css" rel="stylesheet" />
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">掬一捧清水窺月落</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a class="main-nav-link" href="//solome.js.org/">首页</a>
+
+        
+          <a class="main-nav-link" href="/blog/">博客</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+        <a class="main-nav-link" href="//solome.js.org/slides">Slides</a>
+        <!-- <a class="main-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
+
+      </nav>
+      <nav id="sub-nav">
+        
+          <!-- <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a> -->
+        
+        <!-- <a id="nav-search-btn" class="nav-icon" title="Search"></a> -->
+      </nav>
+      <!-- <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://solome.js.org/blog"></form>
+      </div> -->
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article
+  id="post-javascript-async"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Fri Dec 16 2016 15:18:22 GMT+0800 (北美中部标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/javascript-async/">JavaScript 異步編程小結</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Fri Dec 16 2016 15:18:22 GMT+0800 (北美中部标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <p>JavaScript 是單線程的，除了你的 JS 代码，其它操作都是并行执行的(everything runs in parallel except your code)。</p>
+<p>在 JS 執行線程中進行的行為被稱作同步(Synchronous)操作，非 JS 執行線程執行的行為則被稱呼為異步(Asynchronous)操作。<br>諸如 Ajax/HTTP 請求、I/O 操作等行為均與 JS 執行線程無關（由自己獨立的線程進行運作），這些行為在執行完成之後會將結果通知到 JS 執行線程；<br>因此，JS 執行線程中會有個類似<code>while(true)</code>的循環，以觀察者的姿態<code>監聽</code>（轮询）是否有其它線程傳遞消息過來，一旦捕獲到則執行本 JS 執行線程中相應的函數塊（回調）。</p>
+<p>JavaScript 事件循環不是本文的重點（<a target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/1-UC3cwd0KZtdSRAd6edLD-CvrOeM-IOpJYcb8rhElBY/edit?usp=sharing">JavaScript Event Loop</a>），本文僅對前端異步編程進行些許總結。個人的理解是 JavaScript 異步編程方式只有兩種方式：回調和觀察者模式。需要注意的是：</p>
+<ul>
+<li>Promises/A+ 是如何優雅地使用回調而設計的一種編程規範，本質依舊是回調</li>
+<li>事件監聽和觀察者模式（發佈/訂閱模式）完全可以理解成是“一個孩子的不同暱稱”</li>
+<li>Generators 是一種特性，實現函數在執行過程中暫停、並在將來的某個時刻恢復執行的功能</li>
+<li>Generators+Promises 可以搭配漂亮的語法糖，將異步源碼寫得像同步源碼</li>
+</ul>
+<h3 id="Callback-Functions"><a href="#Callback-Functions" class="headerlink" title="Callback Functions"></a>Callback Functions</h3><p>函數式編程中有個概念叫做高階函數(Higher-order Functions)，其有個特性是一個函數可以作為另外一個函數的參數。通常我們將那個作為另外一個函數參數的函數稱呼為回調函數。</p>
+<p>為方便描述和解釋，此處模擬一個具體的業務場景：通過 Ajax 方式請求<code>**/api/v1.0/user/&#123;id&#125;</code>接口獲取某個用戶的信息(Asynchronous behavior)，然後針對拿到的用戶信息進行後續的處理。<br>典型的做法是將<code>Ajax</code>異步請求之後進行的操作封裝成<code>callback()</code>函數，在接口訪問成功得到用戶信息之後再執行該函數：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserInfoCallback</span>(<span class="hljs-params">id, callback</span>) </span>&#123;<br>  $.ajax(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>    <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> callback(<span class="hljs-literal">null</span>, data),<br>    <span class="hljs-attr">error</span>: <span class="hljs-function">(<span class="hljs-params">xhr, textStatus, errorThrown</span>)</span><br><span class="hljs-function">      =&gt;</span> callback(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(textStatus), errorThrown),<br>  &#125;)<br>&#125;<br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, handleUserInfo)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Promises-A"><a href="#Promises-A" class="headerlink" title="Promises/A+"></a>Promises/A+</h3><blockquote>
+<p>An open standard for sound, interoperable JavaScript promises—by implementers, for implementers.</p>
+</blockquote>
+<p>濫用回調帶來的問題是代碼邏輯耦合度很高，面臨回調災難。Promises/A+是種合理使用回調的<strong>規範</strong>，避免回調的濫用。</p>
+<h4 id="特點一：提供好看的-API，由嵌套回調-callback-hell-轉向鏈式語法"><a href="#特點一：提供好看的-API，由嵌套回調-callback-hell-轉向鏈式語法" class="headerlink" title="特點一：提供好看的 API，由嵌套回調(callback hell)轉向鏈式語法"></a>特點一：提供好看的 API，由嵌套回調(<a target="_blank" rel="noopener" href="http://callbackhell.com/">callback hell</a>)轉向鏈式語法</h4><p>首先將請求用戶信息的 Ajax 異步操作包裝成一個 Promise 實例，後續的同步行為通過該實例對象的<code>then()</code>方法調用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserInfoPromise</span>(<span class="hljs-params">id</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> &#123;<br>    $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill,<br>      <span class="hljs-attr">error</span>: reject,<br>    &#125;) <span class="hljs-comment">// end $.ajax</span><br>  &#125;) <span class="hljs-comment">// end return</span><br>&#125; <span class="hljs-comment">// end getUserInfoPromise</span><br><br>getUserInfoPromise(<span class="hljs-string">&#x27;10086&#x27;</span>)<br>  .then(<span class="hljs-function">(<span class="hljs-params">userInfo</span>) =&gt;</span> handleUserInfo)<br>  .catch(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+
+<h4 id="特點二：Promises-不會與回調綁定耦合，可緩存異步操作結果"><a href="#特點二：Promises-不會與回調綁定耦合，可緩存異步操作結果" class="headerlink" title="特點二：Promises 不會與回調綁定耦合，可緩存異步操作結果"></a>特點二：Promises 不會與回調綁定耦合，可緩存異步操作結果</h4><p>假設存在這樣的一個業務場景：獲取用戶 id 為<code>10086</code>的用戶信息，然後在不同的兩個階段對其異步操作獲取的用戶信息進行兩種不同的操作（分別為<code>handleUserInfo()</code>和<code>console.log()</code>）。<br>在兩個階段中，都需要異步操作獲取得到的<code>userInfo</code>數據，如果採用傳統回調方式，一般採用閉包的方式緩存<code>userInfo</code>或者暴力點重複進行一次 Ajax 異步請求。</p>
+<p>但是採用 Promise 方式，則無需這些很<strong>複雜</strong>的實現方式，因為可以重複使用 Promise 對象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 閉包緩存</span><br><span class="hljs-keyword">let</span> globUserInfo = <span class="hljs-literal">null</span><br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">userInfo</span>) =&gt;</span> (globUserInfo = userInfo))<br><span class="hljs-comment">// 難以保證 globUserInfo 已經更新</span><br>handleUserInfo(globUserInfo)<br><span class="hljs-built_in">console</span>.log(globUserInfo)<br><br><span class="hljs-comment">// 進行了兩次異步操作</span><br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, handleUserInfo)<br>getUserInfoCallback(<span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-built_in">console</span>.log)<br><br><span class="hljs-comment">// 保存Promise對象</span><br><span class="hljs-keyword">const</span> userInfoPromise = getUserInfoPromise(<span class="hljs-string">&#x27;10086&#x27;</span>)<br>userInfoPromise.then(handleUserInfo)<br><span class="hljs-comment">// 可以再次使用`userInfoPromise`對象</span><br>userInfoPromise.then(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>這種策略和函數式編程中<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lazy_evaluation">lazy evaluation</a>概念是類似的，強調<code>call-by-need</code>。</li>
+<li>也可以對異步操作進行柯裡化(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Currying">Curring</a>)暫存異步操作的結果（類似的概念還有 thunk，參考<a target="_blank" rel="noopener" href="https://github.com/tj/node-thunkify">node-thunkify</a>）。</li>
+</ul>
+<h4 id="特點三：可組合，復用"><a href="#特點三：可組合，復用" class="headerlink" title="特點三：可組合，復用"></a>特點三：可組合，復用</h4><p>類似於函數式編程中推廣的從已有的函數中創建新函數，也可以通過已有的 Promise 對象生成新的 Promise 對象。<br>比如獲取多個用戶信息，可使用<code>Promise.all()</code>方法實現異步操作的組合：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> promises = [<span class="hljs-string">&#x27;10010&#x27;</span>, <span class="hljs-string">&#x27;10086&#x27;</span>, <span class="hljs-string">&#x27;10000&#x27;</span>].map(<br>  <span class="hljs-function">(<span class="hljs-params">id</span>) =&gt;</span><br>    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span><br>      $.ajax(&#123;<br>        <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>        <span class="hljs-attr">success</span>: fulfill,<br>        <span class="hljs-attr">error</span>: reject,<br>      &#125;)<br>    )<br>)<br><span class="hljs-keyword">const</span> userInfosPromise = <span class="hljs-built_in">Promise</span>.all(promises).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>感覺上 Promise/A+規範是函數式編程概念在前端領域的一次最佳實踐（回調的語法糖）。更多詳細的內容待補充。</p>
+</blockquote>
+<h3 id="Event-Emitters"><a href="#Event-Emitters" class="headerlink" title="Event Emitters"></a>Event Emitters</h3><p>事件監聽式異步編程本質上還是依賴於回調函數實現的，區別在於回調函數並不執行異步行為完成後需要的操作，而是發佈一個通知去觸發執行相應的函數。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> EventEmitter <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;events&#x27;</span><br><span class="hljs-keyword">const</span> emitter = <span class="hljs-keyword">new</span> EventEmitter()<br><span class="hljs-comment">// 註冊</span><br>emitter.on(<span class="hljs-string">&#x27;event&#x27;</span>, handleUserInfo)<br>$.ajax(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;event&#x27;</span>, data), <span class="hljs-comment">// 觸發：異步操作這個行為帶來的影響</span><br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>事件監聽其實是觀察者模式的一種實現：當一個對象發生變化時，所有依賴他的相關操作都會得到通知，只不過事件監聽弱化了對象的變化而強調行為（對象數據變更也是一種行為）。<br>比如上面的代碼段強調的是 Ajax 操作這個行為，一旦完成就<strong>通知</strong>到<code>handleUserInfo()</code>函數的調用，並攜帶參數變更對象數據。</p>
+<p>如果採用觀察者模式的話，一般這樣直接處理數據（強調數據變化帶來的影響，造成數據變化的場景可能存在多處），然後觸發數據變動後的行為：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> userInfo = <span class="hljs-literal">null</span><br>emitter.on(<span class="hljs-string">&#x27;event&#x27;</span>, <span class="hljs-function">() =&gt;</span> handleUserInfo(userInfo))<br><span class="hljs-keyword">const</span> updateUserInfo = <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>  userInfo = data       <span class="hljs-comment">// userInfo對象方式變更</span><br>  emitter.emit(<span class="hljs-string">&#x27;event&#x27;</span>) <span class="hljs-comment">// 通知相關依賴的操作：數據變更帶來的影響</span><br>&#125;<br>$.ajax(<br>  url: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: updateUserInfo, <span class="hljs-comment">// 觸發</span><br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>很明顯，觀察者模式要比事件監聽方式擴充性更強（雖然本質一致，但是強調側重點不同）。</p>
+<figure style="padding-top: 0;margin-top: .5em;">
+  <img src="//solome.js.org/static/javascript-async/pingpong.gif" />
+  <figcaption>陷入`emit`死循環</figcaption>
+</figure>
+
+<p>事件監聽式異步編程無異於<code>goto</code>語句，稍有不慎形如<code>on()</code>、<code>emit()</code>、<code>subscribe()</code>、<code>publish()</code>等方法摻雜在各處，“剪不清，理還亂”；如果不是“約定”化編程不建議採用。比如下面這段源碼，稍不慎就陷入如圖 1 所示場景。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> emitter = <span class="hljs-keyword">new</span> EventEmitter()<br><span class="hljs-keyword">const</span> foo = <span class="hljs-function">() =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;bar&#x27;</span>)<br><span class="hljs-keyword">const</span> bar = <span class="hljs-function">() =&gt;</span> emitter.emit(<span class="hljs-string">&#x27;foo&#x27;</span>)<br>emitter.on(<span class="hljs-string">&#x27;foo&#x27;</span>, foo)<br>emitter.on(<span class="hljs-string">&#x27;bar&#x27;</span>, bar)<br>foo() <span class="hljs-comment">// 陷入死循環</span><br></code></pre></td></tr></table></figure>
+
+<p>和回調式異步編程（包括 Promises/A+規範）相比，事件監聽式異步編程的軟肋在於需要手動註冊(Manual)。<br>原本可以通過數據綁定(Data binding)<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe()</a>方法來實現觀察者模式，很可惜該方法已被<code>deprecated</code>掉；目前推薦的是<code>get</code>和<code>set</code>+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a>方式實現（相關討論：<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/36258502/why-object-observe-has-been-deprecated">36258502</a>）。</p>
+<p>但是手動維護這些<code>on()</code>、<code>emit()</code>、<code>get()</code>、<code>set()</code>等方法在項目是很折騰的，通過一些第三方工具包可以實現由<code>Manual</code>到<code>Automatic</code>轉變。<br>比如採用<a target="_blank" rel="noopener" href="http://mobxjs.github.io/mobx/index.html">MobX</a>可以實現得更加優雅：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; observable, autorun &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mobx&#x27;</span><br><span class="hljs-keyword">const</span> store = observable(&#123;<span class="hljs-attr">userInfo</span>: <span class="hljs-literal">null</span>&#125;)<br><span class="hljs-comment">// 只要變動`store`對象，就會自動觸發`handleUserInfo()`函數</span><br>autorun(<span class="hljs-function">() =&gt;</span> handleUserInfo(store.userInfo))<br>$.ajax(<br>  url: <span class="hljs-string">`**/api/v1.0/user/10086`</span>,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> store.userInfo = data,<br>  <span class="hljs-attr">error</span>: <span class="hljs-built_in">console</span>.log,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h3><h4 id="Coroutine-協程-a-k-a-co-operative-routines"><a href="#Coroutine-協程-a-k-a-co-operative-routines" class="headerlink" title="Coroutine 協程 (a.k.a. co-operative routines)"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Coroutine">Coroutine</a> 協程 (a.k.a. co-operative routines)</h4><p>一般程序中，函數調用一定是從頭到尾執行直到遇到<code>return</code>或執行完；<br>而 coroutine 則容許函數執行到一半時就中斷(yield)，中斷時函數內部上下文環境(context)會被緩存下來。<br>程序主體可以隨時恢復(resume)這個被緩存的 coroutine，繼續從剛才被中斷處執行後續內容。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>)<br>  <span class="hljs-keyword">yield</span> <span class="hljs-number">10086</span> <span class="hljs-comment">// 在此處中斷 coroutine</span><br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;world&#x27;</span>)<br>&#125;<br><br><span class="hljs-keyword">const</span> bar = foo() <span class="hljs-comment">// 保存 coroutine 內部狀態的變量</span><br>bar.next() <span class="hljs-comment">// 調用`foo()`函數，遇到 yield 中斷程序調用</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;main, not in `foo()`&#x27;</span>) <span class="hljs-comment">// 已經從`foo()`函數中跳出來了，可以幹些其它事情</span><br>bar.next() <span class="hljs-comment">// 恢復`foo()`的調用，從 yield 中斷處繼續執行</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Thread-VS-Coroutine"><a href="#Thread-VS-Coroutine" class="headerlink" title="Thread VS Coroutine"></a>Thread VS Coroutine</h4><blockquote>
+<p>With threads, the operating system switches running threads preemptively according to its scheduler,<br>which is an algorithm in the operating system kernel.<br>With coroutines, the programmer and programming language determine when to switch coroutines;<br>in other words, tasks are cooperatively multitasked by pausing and resuming functions at set points,<br>typically (but not necessarily) within a single thread.<br /><br>—— <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1934715/difference-between-a-coroutine-and-a-thread">stackoverflow: difference-between-a-coroutine-and-a-thread</a></p>
+</blockquote>
+<h4 id="Generator-a-k-a-semicoroutines-VS-Coroutine"><a href="#Generator-a-k-a-semicoroutines-VS-Coroutine" class="headerlink" title="Generator (a.k.a. semicoroutines) VS Coroutine"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Generator_(computer_programming)">Generator</a> (a.k.a. semicoroutines) VS Coroutine</h4><p>Generator 與 Coroutine 的區別是 Generator 只能從上次中斷處繼續執行，而 Coroutine 則沒有這樣的限制（可以指定從哪裡繼續執行）。<br>因此，Generator 可以視作是 Coroutine 的一種特殊情況，上文涉及的源碼例子其實就是 Generator 的應用舉例。<br>其中，Generator 涉及<code>bar.next()</code>自動流程管理的解決方案可以參考<a target="_blank" rel="noopener" href="https://github.com/tj/co">co</a>、<a target="_blank" rel="noopener" href="https://github.com/thunks/thunks">thunks</a>等。</p>
+<h4 id="async-await-“語法糖”"><a href="#async-await-“語法糖”" class="headerlink" title="async/await “語法糖”"></a>async/await “語法糖”</h4><p>聲明的<code>async</code>函數就是將 Generator 函數和自動執行器包裝在一個函數裡面（參考<a target="_blank" rel="noopener" href="https://gist.github.com/solome/064e48f5205943dff7d4918b3bf18e0d">async2generator()</a>），<br>以達到異步編碼編程模式與同步編碼一致。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> run = <span class="hljs-keyword">async</span> () =&gt; &#123;<br>  <span class="hljs-keyword">const</span> userInfo = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">fulfill, reject</span>) =&gt;</span> &#123;<br>    $.ajax(&#123;<br>      <span class="hljs-attr">url</span>: <span class="hljs-string">`**/api/v1.0/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>      <span class="hljs-attr">success</span>: fulfill,<br>      <span class="hljs-attr">error</span>: reject,<br>    &#125;) <span class="hljs-comment">// end $.ajax</span><br>  &#125;) <span class="hljs-comment">// end return</span><br>  handleUserInfo(userInfo)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="不是總結的總結"><a href="#不是總結的總結" class="headerlink" title="不是總結的總結"></a>不是總結的總結</h3><ul>
+<li>函數式編程領域的知識還是要多多接觸的。</li>
+<li>有些前端領域的新鮮事物在其他領域可能就是些習以為常的東西，擴充知識面很重要。</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://callbackhell.com/">Callback Hell</a>: A guide to writing asynchronous JavaScript programs.</li>
+<li><a target="_blank" rel="noopener" href="https://promisesaplus.com/">Promises/A+</a>: An open standard for sound, interoperable JavaScript promises—by implementers, for implementers.</li>
+<li><a target="_blank" rel="noopener" href="https://www.promisejs.org/">promisejs.org</a>: A website dedicated to promises in JavaScript.</li>
+<li><a target="_blank" rel="noopener" href="https://facebook.github.io/regenerator/">regenerator</a>: Source transformer enabling ECMAScript 6 generator functions in JavaScript-of-today.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tc39/ecmascript-asyncawait">ecmascript-asyncawait</a>: Async/await for ECMAScript.</li>
+<li><a target="_blank" rel="noopener" href="http://devsmash.com/blog/whats-the-big-deal-with-generators">whats-the-big-deal-with-generators</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4287.pdf">Threads, Fibers &amp; Coroutines</a></li>
+</ul>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/javascript-async/" data-id="clooia2lx0003ln3ybppl4cvn" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/javascript-async/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article
+  id="layout/post-pure-functions-in-fp"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Wed Sep 07 2016 15:18:22 GMT+0800 (北美中部标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/pure-functions-in-fp/">函数式编程之纯函数</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Wed Sep 07 2016 15:18:22 GMT+0800 (北美中部标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <p>数学上的函数指的是两个集合间的一种特殊的映射关系。这个特殊体现在什么地方呢？</p>
+<p>我们将集合<code>A</code>的元素称呼为输入值，集合<code>B</code>的元素称呼为输出值，且集合<code>A</code>、<code>B</code>存在这样的映射关系：<strong>每个输入值只会映射一个输出值，不同的输入值可以映射相同的输出值，不会出现同一个输入值映射不同的输出值</strong>。</p>
+<p>比如，下图集合<code>A</code>和集合<code>B</code>的映射关系即符合数学函数的定义。</p>
+<figure>
+  <img style="width: auto;" src="//solome.js.org/static/pure-functions-in-fp/set_map.svg" alt="containing block" />
+  <figcaption>fn：除以5的余数</figcaption>
+</figure>
+
+<blockquote>
+<p>在函数式编程语言中，满足这种数学意义上的函数即为纯函数(Pure Function)：相同的输入（参数），永远得到的是相同的输出（返回值），并且没有任何可观察的&quot;副作用&quot;。<br>自然，与纯函数的概念相反的函数（即相同参数的函数在不同环境或时机调用得到的返回值不一致）叫做非纯函数(Impure Function)。</p>
+</blockquote>
+<h3 id="关于函数副作用-side-effect"><a href="#关于函数副作用-side-effect" class="headerlink" title="关于函数副作用(side-effect)"></a>关于<strong>函数副作用</strong>(side-effect)</h3><p><strong>函数副作用</strong>指当调用函数时，在计算返回值数值的过程中，对主调用函数产生附加的影响。</p>
+<h4 id="更高作用域的变量-quot-悄悄-quot-发生变更"><a href="#更高作用域的变量-quot-悄悄-quot-发生变更" class="headerlink" title="更高作用域的变量&quot;悄悄&quot;发生变更"></a>更高作用域的变量&quot;悄悄&quot;发生变更</h4><figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> glob = <span class="hljs-number">1</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> ++glob + x<br>&#125;<br><span class="hljs-built_in">console</span>.log(foo(<span class="hljs-number">1</span>)) <span class="hljs-comment">// =&gt; 3</span><br></code></pre></td></tr></table></figure>
+
+<p>变量<code>glob</code>的值随着<code>foo()</code>的调用发生变化，表现得很不明显。</p>
+<h4 id="quot-隐晦-quot-地修改了引用参数"><a href="#quot-隐晦-quot-地修改了引用参数" class="headerlink" title="&quot;隐晦&quot;地修改了引用参数"></a>&quot;隐晦&quot;地修改了引用参数</h4><figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> glob = <span class="hljs-number">1</span><br><span class="hljs-keyword">const</span> obj = &#123; glob &#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">x</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> ++x.glob<br>&#125;<br>foo(obj)<br><span class="hljs-built_in">console</span>.log(glob) <span class="hljs-comment">// =&gt; 2</span><br></code></pre></td></tr></table></figure>
+
+<p>虽然对象<code>obj</code>定义为<code>const</code>，但是修改了间接引用的变量<code>glob</code>；这种场景引发的 bug 其实是很难捕获的（尤其是具备指针概念的 C/C++语言）。</p>
+<p>函数副作用确实是滋生 Bug 的&quot;温床&quot;，造成的问题一般都很&quot;隐晦&quot;；有些开发场景中，我们其实也无法避免函数的副作用（典型的例子是读写数据库操作的函数）。最好的做法是，要将这些副作用限制在可控的范围内。</p>
+<h3 id="纯函数带来的好处"><a href="#纯函数带来的好处" class="headerlink" title="纯函数带来的好处"></a>纯函数带来的好处</h3><h4 id="函数调用结果可缓存"><a href="#函数调用结果可缓存" class="headerlink" title="函数调用结果可缓存"></a>函数调用结果可缓存</h4><p>相同参数得到的返回值是相同的。如果通过参数获取返回值的过程计算量过大，我们可以缓存函数调用的结果，避免相同参数为了获取返回值进行重复计算。典型的实践是对递归函数做性能优化的<code>memoize</code>技术。<br>以<code>fibonacci(n)</code>递归函数为例，传统的实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fibonacci</span>(<span class="hljs-params">n</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (n === <span class="hljs-number">0</span> || n === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> n<br>  <span class="hljs-keyword">return</span> fibonacci(n - <span class="hljs-number">1</span>) + fibonacci(n - <span class="hljs-number">2</span>)<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(fibonacci(<span class="hljs-number">10</span>))<br></code></pre></td></tr></table></figure>
+
+<p>计算的复杂度以参数<code>n</code>呈指数级增长：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">f</span>(<span class="hljs-number">0</span>) = <span class="hljs-number">0</span><br><span class="hljs-title">f</span>(<span class="hljs-number">1</span>) = <span class="hljs-number">1</span><br><span class="hljs-title">f</span>(<span class="hljs-number">2</span>) = f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">0</span>) = <span class="hljs-number">1</span><br><span class="hljs-title">f</span>(<span class="hljs-number">3</span>) = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) = <span class="hljs-number">2</span><br><span class="hljs-title">f</span>(<span class="hljs-number">4</span>) = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) = <span class="hljs-number">3</span><br><span class="hljs-title">f</span>(<span class="hljs-number">5</span>) = f(<span class="hljs-number">4</span>) + f(<span class="hljs-number">3</span>)<br>     = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) = <span class="hljs-number">5</span><br><span class="hljs-title">f</span>(<span class="hljs-number">6</span>) = f(<span class="hljs-number">5</span>) + f(<span class="hljs-number">4</span>)<br>     = f(<span class="hljs-number">4</span>) + f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">3</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>)<br>     = f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) + f(<span class="hljs-number">1</span>) + f(<span class="hljs-number">2</span>) = <span class="hljs-number">8</span><br>... ...<br></code></pre></td></tr></table></figure>
+
+<p>为了获取<code>fibonacci(n)</code>的结果，我们不得不将<code>fibonacci(n-1)</code>和<code>fibonacci(n-2)</code>都得计算一遍；如果我们在调用一次<code>fibonacci(n)</code>之后，就将其缓存起来，下次再调用时就无需重新再计算。稍加改造，添加对计算结果的缓存：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> fibonacci = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> cache = &#123;&#125;<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (n <span class="hljs-keyword">in</span> cache) <span class="hljs-keyword">return</span> cache[n]<br>    <span class="hljs-keyword">return</span> (cache[n] = n === <span class="hljs-number">0</span> || n === <span class="hljs-number">1</span> ? n : fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>))<br>  &#125;<br>&#125;)()<br><span class="hljs-built_in">console</span>.log(fibonacci(<span class="hljs-number">10</span>))<br></code></pre></td></tr></table></figure>
+
+<p>这是典型的以空间换效率的优化思路，避免了额外计算的浪费。<br>这样实现的前提就是，该递归函数是纯函数，相同参数得到的返回值一定是相同的；如果不能保证相同，我们无法做缓存。</p>
+<p>当然，我们可以实现一个<code>memoize()</code>函数来统一做缓存这样的工作。<br>JavaScript 函数式编程支持库如均提供<code>memoize()</code>函数，这里提供一种不太健壮（内存溢出）的实现方案。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">memoize</span>(<span class="hljs-params">func</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> memo = &#123;&#125;<br>  <span class="hljs-keyword">const</span> slice = <span class="hljs-built_in">Array</span>.prototype.slice<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> args = slice.call(<span class="hljs-built_in">arguments</span>)<br><br>    <span class="hljs-keyword">if</span> (args <span class="hljs-keyword">in</span> memo) <span class="hljs-keyword">return</span> memo[args]<br>    <span class="hljs-keyword">return</span> (memo[args] = func.apply(<span class="hljs-built_in">this</span>, args))<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这样函数调用的次数愈多效率会慢慢变得愈高。</p>
+</blockquote>
+<h4 id="便于移植和测试"><a href="#便于移植和测试" class="headerlink" title="便于移植和测试"></a>便于移植和测试</h4><p>纯函数是&quot;自给自足&quot;的，所有的函数依赖均由函数自身提供（或参数）；因此，我们将一个函数移植到另外一个系统时，是无需考虑成本的<br>——当然，如果一个函数依赖一个全局变量，在移植该函数时必须&quot;慎重&quot;，要将这个全局变量的逻辑一起迁移过去。</p>
+<p>相同参数得到的函数返回值是固定的，这一特性也使纯函数更易测试——你无需模拟出一些特殊的测试环境，只要明确定义好函数参数的范围即可。</p>
+<h4 id="引用透明（Referential-Transparent）"><a href="#引用透明（Referential-Transparent）" class="headerlink" title="引用透明（Referential Transparent）"></a>引用透明（Referential Transparent）</h4><blockquote>
+<p>An expression is said to be referentially transparent if it can be replaced with its corresponding value without changing the program&#39;s behavior. As a result, evaluating a referentially transparent function gives the same value for same arguments. Such functions are called pure functions.<br>—— <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Referential_transparency">https://en.wikipedia.org/wiki/Referential_transparency</a></p>
+</blockquote>
+<p>该如何理解呢？可以拿上文提到的<code>fibonacci()</code>函数举例，比如存在这样一个函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">n, fun</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> fun(n) + fun(n)<br>&#125;<br><br>foo(<span class="hljs-number">10</span>, fibonacci)<br></code></pre></td></tr></table></figure>
+
+<p>调用<code>foo(10, fibonacci)</code>会发现<code>fibonacci(10)</code>被执行了两遍。因为纯函数具备引用透明性，某些表达式被<strong>替换</strong>并不会改变函数的行为；因此，对<code>foo()</code>进行些许变动会使其性能得到质的提升。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">n, fun</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> fun(n) * <span class="hljs-number">2</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>毕竟在此场景中，一次乘法运算成本远比一次<code>fibonacci(10)</code>递归运算的成本来得低。</p>
+<p>这里的由<code>fibonacci(n) + fibonacci(n) =&gt; 2*fibonacci(n)</code>转变完全跟数学概念中的<code>f(x) = x + x = 2 *x</code>函数推导一致。</p>
+<p>因为纯函数的引用透明的特性，我们完全可以将多个函数构成的复杂程序（函数）<strong>推导</strong>成更加简单的方式。</p>
+<h4 id="并行代码"><a href="#并行代码" class="headerlink" title="并行代码"></a>并行代码</h4><p>纯函数无副作用，同时调用两个函数或同个函数被同时调用两次都不会抢占外部公共资源的情况。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>程序设计中的大部分 Bug 都是有函数副作用引入的，实际开发中必须鼓励纯函数的编写。</li>
+<li>在函数式编程范畴中，欲想以函数为基础生成新的函数，那纯函数是这些新函数的基石。</li>
+<li>多尝试使用<code>memoize</code>技术对递归函数进行性能优化。</li>
+</ul>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/pure-functions-in-fp/" data-id="clooia2lz0005ln3yesvif8os" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/pure-functions-in-fp/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article
+  id="post-show-icon-in-web"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Tue Feb 10 2015 15:26:12 GMT+0800 (北美中部标准时间)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/show-icon-in-web/">Web 頁面上的那些圖標</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Tue Feb 10 2015 15:26:12 GMT+0800 (北美中部标准时间)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <p>一個網頁不會是由純字符組成的，需要些些訏訏的<strong>圖標</strong>去點綴；最早的前端的工作主要是多數人不屑的<strong>切圖</strong>，這與<strong>編程</strong>耦合太弱。<br>不過話說要是絕大多數的網頁沒有那些圖標的點綴會變得多麼地慘白。</p>
+<p>在一個 HTML 結構的頁面中，使用圖標最常接觸的是標籤<code>&lt;img&gt;</code>和 css 屬性<code>background-image</code>。<code>&lt;img&gt;</code>純粹是為了顯示圖片而添加的標籤，適用於尺寸大的圖片，強調圖片的信息，不屬於頁面圖標的範疇（在 web 設計中，圖標和圖片是兩種概念：圖標在某種程度可有可惡，起到修飾點綴的效果，本身沒有什麼信息量；而圖片不同，圖片也是頁面欲展示給用戶的信息）；因此，依賴<code>&lt;img&gt;</code>標籤實現的點綴圖標的作用的，都是不那麼合理的，因為<code>&lt;img&gt;</code>不是幹這種事情的，對搜索引擎亦是不友好的。</p>
+<p>下面討論下，如何給一個 web 頁面添加修飾點綴用途的圖標的方式。</p>
+<h3 id="方式一：css-屬性background-image"><a href="#方式一：css-屬性background-image" class="headerlink" title="方式一：css 屬性background-image"></a>方式一：css 屬性<code>background-image</code></h3><p><code> background-image</code>主要用來設定塊級標籤的背景圖片，一般的使用形式如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.selector</span> &#123;<br>  <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;/* 要顯示的圖片網址 */&#x27;</span>);<br>  <span class="hljs-attribute">background-repeat</span>: no-repeat;<br>  <span class="hljs-attribute">background-color</span>: /* 背景顏色 */ ;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>這種方式不會將圖片的信息放在 HTML 結構中，而是通過 css 來維護管理的；實現方式最大的缺陷是如果一個頁面中存在好多些類似的圖標，那麼用戶客戶端的每次訪問就必須為了那些點綴增加許許多多的 HTTP 請求。</p>
+<p>當然，最好的方式是將多個小圖標軿湊成一張大圖片來避免不必要的 HTTP 請求。</p>
+<h3 id="方式二：依賴background-position實現的-Sprite-圖"><a href="#方式二：依賴background-position實現的-Sprite-圖" class="headerlink" title="方式二：依賴background-position實現的 Sprite 圖"></a>方式二：依賴<code>background-position</code>實現的 Sprite 圖</h3><p>將多張小圖標合併成一張大圖片，頁面元素使用時只選擇其中的一部分顯示，這樣一堆小圖標合成的大圖片一般稱作 Sprite 圖（精靈圖，雪碧圖等）。<br>除了使用 css 屬性<code>background-image</code>之外，還要利用<code>background-position</code>來定位大圖中小圖標的坐標位置；通常情況下，還要指定小圖標的長寬信息，即<code>width</code>和<code>height</code>屬性。一般的使用形式如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.selector</span> &#123;<br>  <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">要顯示的圖片網址</span>);<br>  <span class="hljs-attribute">background-repeat</span>: no-repeat;<br>  <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> -<span class="hljs-number">63px</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Sprite 圖避免了多次 HTTP 請求問題，但是難點在於 Sprite 圖的手動生成是一件極其繁瑣的事情，每次更新圖標都需要重新繪製 Sprite 圖；<br>小圖標在 Sprite 圖中的坐標位置在寫入 css<code>background-position</code>屬性中時也要注意。</p>
+<p>Sprite 手動生成的確繁瑣，但是 Sprite 圖的自動化生成方面的技術也趨於成熟，典型的有<a target="_blank" rel="noopener" href="http://compass-style.org/help/tutorials/spriting/">Spriting with Compass</a>和<a target="_blank" rel="noopener" href="https://github.com/jorgebastida/glue">glue</a>。</p>
+<p>如果你的 css 框架是基於 Compass(sass)的話，Sprite 圖的合併並不是什麼要耗費經歷的事情；倘若不是，善用<a target="_blank" rel="noopener" href="https://github.com/jorgebastida/glue">glue</a>也會讓你從在折騰圖像處理軟件的非編程工作中解脫出來。</p>
+<p>Compass 在使用 Sprite 圖時直接通過<code>@include icon-sprite(&#39;/* 小圖標路徑 */&#39;)</code>即可，最後編譯成 css 文件時也會自動編譯生成對應的 Sprite 圖，你不必考慮坐標關係；即使要換個圖標，也只是更換圖標後重新編譯即可。</p>
+<p>使用<a target="_blank" rel="noopener" href="https://github.com/jorgebastida/glue">glue</a>則更加強大了，不僅可以生成 CSS 也可以生成 SCSS，甚至更底層地你可以生成一系列的 hash 映射數據自己動手來處理 Sprite 圖的使用邏輯；Sprite 圖中的圖標的坐標位置全部在一個 hash 表中，完全可以自由定製。</p>
+<p>最後，Sprite 圖的軿湊還有個比較費神的問題就是：那麼多的小圖標，有些頁面在用而有些頁面不用那怎麼進行軿湊 Sprite 圖呢？</p>
+<p>全部圖標都軿湊成一張大圖片？沒有必要吧，因為有些圖標在這個頁面中沒有使用到憑什麼要拼在一起呢？一般情況下 Sprite 圖的軿湊邏輯如下：</p>
+<ul>
+<li>頁面區分：軿湊的 Sprite 圖涉及的小圖只在某種類型的頁面（模塊使用）。</li>
+<li>類型區分：同種類型的圖標軿湊在一塊組成 Sprite 圖。</li>
+</ul>
+<h3 id="方式三：圖片數字化-BASE64"><a href="#方式三：圖片數字化-BASE64" class="headerlink" title="方式三：圖片數字化 BASE64"></a>方式三：圖片數字化 BASE64</h3><p>Sprite 圖是使用圖標點綴頁面最好的解決方案之一，接近完美，但還是有一個問題需要解決：<br>對圖標的重複性不友好，即不太兼容<code>background-repeat</code>屬性（通常情況下都設定為<code>no-repeat</code>）；<br>典型的如評分五角星，如果有五顆五角星來表示 100%，但要表示 80%時，就必須依賴<code>repeat</code>和<code>width:80%</code>。</p>
+<p>還有就是電商網站熱衷使用的<code>new</code>、<code>hot</code>等促銷提示小圖標。這些圖標是微型的，而且需出現的時機無規律；拼在 Sprite 圖中總是讓人覺得<strong>彆扭</strong>。</p>
+<p>此外，Sprite 圖的使用 CSS 要依賴外部的圖片，要是圖片信息直接在 CSS 文件中就好了。而 BASE64 格式的圖片可以以字符串的形式嵌入到 CSS 文件中。<br>因此，復用一個 CSS 文件直接拷貝 CSS 文件即可，無需再考慮外部依賴的圖標數據。</p>
+<p>BASE64 的解碼和編碼算法也是很容易的，如 <a target="_blank" rel="noopener" href="https://docs.python.org/2/library/base64.html">https://docs.python.org/2/library/base64.html</a> 。通過 Compass 實現 BASE 編碼直接使用<code>@include inline-image(/* 圖標路徑 */)</code>，和前面提到的生成 Sprite 圖一樣簡單。</p>
+<p>總之，前面提到的重複的評分五角星和電商網站熱衷使用的<code>new</code>、<code>hot</code>小圖標均可以採用 BASE64 的格式。可惜的，在低端瀏覽器（IE6）是不支持這種寫法的。</p>
+<h3 id="方式四：圖標也是字體-webfont"><a href="#方式四：圖標也是字體-webfont" class="headerlink" title="方式四：圖標也是字體 webfont"></a>方式四：圖標也是字體 webfont</h3><p>前面提到的圖標都是位圖，在手機屏幕動不動就是 1080 像素的瀏覽器來說位圖在高分辨率情況下容易出現<strong>鋸齒</strong>。如果使用<code>svg</code>矢量圖的話，就無法進行 Sprite 化處理。</p>
+<p><code>webfont</code>就是一種將圖標當作字體來使用（在某種程度上也可以理解成矢量圖標的 Sprite 化）；將一系列的矢量圖標轉換成矢量字體集文件（如<code>woff</code>格式）和正常字體一樣使用。</p>
+<p>不過目前讓人頭疼的地方是不是所有瀏覽器都支持<code>webfont</code>，即使支持了還只能使用純色扁平的圖標，而且瀏覽器對字體的過渡優化偶爾也會造成圖標的顯示效果失真。</p>
+<p>如果一個網站的設計風格是純色調，扁平化，那麼大氛圍的使用<code>webfont</code>是個很好的選擇。</p>
+<h3 id="方式五：css3-自己畫圖標"><a href="#方式五：css3-自己畫圖標" class="headerlink" title="方式五：css3 自己畫圖標"></a>方式五：css3 自己畫圖標</h3><p>CSS3 上有許多讓人欣喜的特性，比如<code>transorm</code>和<code>tranition</code>這連個變換和過渡的屬性值，在設計頁面元素背景圖時特別有效；再撮合些 CSS 動畫效果會得到通過圖片無法得到的交互效果。</p>
+<p>不過這樣的功能目前也只僅僅侷限與頁面元素的背景圖而已。</p>
+<p>另外一種情況是使用<code>border</code>屬性值的處理以很<code>hack</code>的方式繪製一些集合圖形。<br>如三角形<i class="fa fa-caret-up fa-fw"></i>的繪製，一般情況下兼容性最強大的 CSS 源碼如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.triangle</span> &#123;<br>  <span class="hljs-attribute">position</span>: absolute;<br>  <span class="hljs-attribute">top</span>: <span class="hljs-number">11px</span>;<br>  <span class="hljs-attribute">right</span>: <span class="hljs-number">7px</span>; <span class="hljs-comment">/* 絕對定位 */</span><br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">4px</span> dashed transparent;<br>  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">4px</span> solid <span class="hljs-number">#2bb8aa</span>;<br>  *<span class="hljs-attribute">display</span>: none;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>當然，總是有人喜歡使用 CSS 來繪製那些原本使用圖片展示的圖標；個人覺得這是耗費精力沒有必要的工作。為什麼要把那麼簡單的工作複雜化呢？CSS 畢竟是用來點綴元素的，而非用來繪圖的。</p>
+<p>最後，大部分網站圖標的使用都是上面提到的五種方式相結合進行使用的。</p>
+<p>電商網站上面的奇怪<code>三角形</code>：</p>
+<ul>
+<li>实心三角形 &quot;▲&quot;</li>
+<li>脱字号［即&quot;^&quot;］</li>
+</ul>
+<p>這兩種圖標一般跟導航相關（如頂部導航）；用戶點擊後圖標的方向會反轉（會摻雜一些反轉動畫的效果）。</p>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/show-icon-in-web/" data-id="clooia2m00008ln3y1zloau1n" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/show-icon-in-web/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/blog/page/2/">⥢ Prev</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/4/">Next ⥤</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+          </li>
+        
+          <li>
+            <a href="/blog/beijing-wildlife-park-play/">北京漫游：大兴野生动物园</a>
+          </li>
+        
+          <li>
+            <a href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
+          </li>
+        
+          <li>
+            <a href="/blog/gmtc-vr3d/">VR 及 3D 技术在 Web 端架构设计与实践</a>
+          </li>
+        
+          <li>
+            <a href="/blog/those-years-nba-player/">那些年我关注过的NBA球星</a>
+          </li>
+        
+          <li>
+            <a href="/blog/tech-salon-13-app-proto/">前端工程化开发方案 app-proto</a>
+          </li>
+        
+          <li>
+            <a href="/blog/javascript-async/">JavaScript 異步編程小結</a>
+          </li>
+        
+          <li>
+            <a href="/blog/pure-functions-in-fp/">函数式编程之纯函数</a>
+          </li>
+        
+          <li>
+            <a href="/blog/show-icon-in-web/">Web 頁面上的那些圖標</a>
+          </li>
+        
+          <li>
+            <a href="/blog/feeling-of-writing/">写字的感觉</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 - 2023 掬一捧<br>
+      版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  <a class="mobile-nav-link" href="//solome.js.org/">首页</a>
+
+  
+    <a href="/blog/" class="mobile-nav-link">博客</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+  <a class="mobile-nav-link" href="//solome.js.org/slides">Slides</a>
+  <!-- <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
+</nav>
+    
+<script>
+  var disqus_shortname = 'juyipeng';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+
+<script src="/blog/js/jquery.2.0.3..min.js"></script>
+
+
+
+  
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+
+  
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
