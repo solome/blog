@@ -38,8 +38,8 @@ categories: 日常碎碎唸
 **春天**
 
 <figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/lnsU7M4cSLvypzb.jpg" alt="春天盛开的梨花" />
-  <figcaption>春天盛开的梨花</figcaption>
+  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/lnsU7M4cSLvypzb.jpg" alt="春天盛开的杏花" />
+  <figcaption>春天盛开的杏花</figcaption>
 </figure>
 
 **鹦鹉**
