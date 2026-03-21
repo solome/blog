@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://solome.js.org/static/realsee-vr-performance/image_04.png">
 <meta property="og:image" content="http://solome.js.org/static/realsee-vr-performance/image_05.png">
 <meta property="article:published_time" content="2023-10-26T15:30:00.000Z">
-<meta property="article:modified_time" content="2023-11-07T16:01:57.845Z">
+<meta property="article:modified_time" content="2026-03-21T09:48:00.047Z">
 <meta property="article:author" content="掬一捧">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://solome.js.org/static/realsee-vr-performance/image_01.png">
@@ -84,7 +84,7 @@
 >
   <!-- <div class="article-meta">
     <div class="article-date">
-  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (北美中部标准时间)
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (China Standard Time)
 </div>
     
   <div class="article-category">
@@ -102,7 +102,7 @@
     </h1>
   
  <div class="article-dateref">
-  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (北美中部标准时间)
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (China Standard Time)
 </div>
     </header>
     
@@ -241,7 +241,7 @@
 <li>2s 左右的全景图片请求（六张）。</li>
 </ul>
 <p>至此，我们可以基于 WebView 拦截HTTP请求，让客户端提供HTTP请求预载、代理、缓存等能力。静态资源、全景贴图等在房源详情页提前请求，到 WebView 层拦截使用，终于整个流程平均值降到2s内（高端设备已经到1s内）——已经达到一个很好的效果。</p>
-<p>都是，Loading 这个过程依旧存在。我们继续深度挖掘客户端能力：客户端浅渲染三维模型——即客户端最小程度渲染三维模型（全景效果），由于资源已经提前预载，客户端渲染速度在300ms内（视终端设备性能来定），然后等 WebView 渲染就绪后再替换成前端渲染。所要做的工作是客户端渲染和前端渲染效果对齐即可。</p>
+<p>但是，Loading 这个过程依旧存在。我们继续深度挖掘客户端能力：客户端浅渲染三维模型——即客户端最小程度渲染三维模型（全景效果），由于资源已经提前预载，客户端渲染速度在300ms内（视终端设备性能来定），然后等 WebView 渲染就绪后再替换成前端渲染。所要做的工作是客户端渲染和前端渲染效果对齐即可。</p>
 <p>最终，300ms的延迟肉眼近乎无法感知，无缝衔接——效果如下视频。这个加载效果也步入业内第一梯队。</p>
 <figure>
   <video style="max-width: 240px;" src="//solome.js.org/static/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
@@ -280,6 +280,15 @@
    
 <nav id="article-nav">
   
+    <a href="/blog/d-life/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          被围起来的数字生活：从数字地主到数字佃农
+        
+      </div>
+    </a>
+  
   
     <a href="/blog/beijing-wildlife-park-play/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
@@ -308,7 +317,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%A7%91%E6%8A%80%E8%AF%84%E8%AE%BA/">科技评论</a></li></ul>
     </div>
   </div>
 
@@ -323,7 +332,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
     </div>
   </div>
 
@@ -334,6 +343,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/d-life/">被围起来的数字生活：从数字地主到数字佃农</a>
+          </li>
         
           <li>
             <a href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
@@ -387,7 +400,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2014 - 2023 掬一捧<br>
+      &copy; 2014 - 2026 掬一捧<br>
       版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
     </div>
   </div>
