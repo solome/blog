@@ -7,17 +7,21 @@
 
 .widget-title
   @extend $block-caption
+  color: var(--color-shell-text-muted)
+  text-shadow: none
 
 .widget
-  color: color-sidebar-text
-  text-shadow: 0 1px #fff
+  color: var(--color-shell-text-muted)
+  text-shadow: none
   padding: 15px
+  background: var(--color-shell-panel-background)
+  border-radius: 3px
   a
-    color: color-link
+    color: var(--color-shell-link)
     text-decoration: none
     &:hover
-      color: darkred
-      border-bottom: 1px dashed darkred
+      color: var(--color-shell-link-hover)
+      border-bottom: 1px dashed var(--color-shell-link-hover)
   ul, ol, dl
     ul, ol, dl
       margin-left: 15px

@@ -20,10 +20,24 @@
   
     <link rel="icon" href="/blog/images/favicon.ico">
   
+  <script>
+    (function(){
+      var key = 'blog-color-theme';
+      var fallback = 'lake-mist';
+      var available = {'lake-mist': true, 'sakura-gray-pink': true};
+      var selected = fallback;
+
+      try {
+        selected = localStorage.getItem(key) || fallback;
+      } catch (e) {}
+
+      if (!available[selected]) selected = fallback;
+      document.documentElement.setAttribute('data-color-theme', selected);
+    })();
+  </script>
   
 <link rel="stylesheet" href="/blog/css/style.css">
 
-  <link href="//solome.js.org/static/fonts/style.css" rel="stylesheet" />
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
@@ -53,6 +67,19 @@
 
       </nav>
       <nav id="sub-nav">
+        <div id="theme-switcher" class="theme-switcher">
+          <button class="theme-switcher-toggle" type="button" aria-label="切换主题" aria-haspopup="listbox" aria-expanded="false"></button>
+          <div class="theme-switcher-menu" role="listbox" aria-label="主题">
+            <button class="theme-option" type="button" role="option" data-theme-value="lake-mist" data-theme-label="湖岚青">
+              <span class="theme-swatch theme-swatch-lake" aria-hidden="true"></span>
+              <span>湖岚青</span>
+            </button>
+            <button class="theme-option" type="button" role="option" data-theme-value="sakura-gray-pink" data-theme-label="樱灰粉">
+              <span class="theme-swatch theme-swatch-sakura" aria-hidden="true"></span>
+              <span>樱灰粉</span>
+            </button>
+          </div>
+        </div>
         
           <!-- <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a> -->
         
@@ -64,8 +91,233 @@
     </div>
   </div>
 </header>
+
       <div class="outer">
         <section id="main">
+  
+    <article
+  id="layout/post-ai-devgroup"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Sun Jun 28 2026 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/ai-devgroup/">旧舟与新海：AI Native 如何重塑产品研发组织</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Sun Jun 28 2026 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <blockquote>
+<p>今年接触不少产品、设计同学在反馈他们老板对其有 AI Coding 的要求（“产品也要写代码了”），有转技术的职业焦虑——部分研发对这种变化也存在明显怀疑；当然，还有一部分资深研发还处在“这 AI 生成的源码不能合并至生产分支吧”的犹豫中。</p>
+</blockquote>
+<p>每一轮技术浪潮到来时，最先被冲击的往往不是能力不足的人，而是曾经太成功、太熟悉旧规则的人。</p>
+<p>诺基亚和黑莓并不是不会造手机。恰恰相反，它们曾经代表了移动时代的工业成熟度、渠道能力和工程经验。但 iPhone 出现之后，手机不再只是通信设备，而变成了软件、触控、生态和体验的综合体。旧时代最坚固的船，在新海域里反而显得沉重。</p>
+<p>AI Native 对研发团队的影响，也有类似意味。它不是在传统流程旁边多放一个 AI 工具，也不是让程序员写代码更快一点。它改变的是软件生产的基础设施。当代码生成、调研分析、设计草稿、测试补齐、文档沉淀都可以被 Agent 大规模参与时，团队真正需要重构的是人的角色、协作方式和价值定义。</p>
+<h2 id="旧舟：岗位分工的高效年代"><a href="#旧舟：岗位分工的高效年代" class="headerlink" title="旧舟：岗位分工的高效年代"></a>旧舟：岗位分工的高效年代</h2><p>传统的互联网项目团队通常由产品经理、设计师、研发（前后端、算法及运维等）、测试组成。产品定义需求，设计表达体验，研发完成实现，测试保障质量。这个模式并不落后，相反，它支撑了互联网行业很多年的高速发展。</p>
+<p>因为在过去，人的能力边界决定了组织边界。一个人很难同时理解业务、完成设计、写出生产级代码、覆盖测试和保证上线质量；当设计稿和真实系统之间距离很远，测试又只能在后期系统性介入时，组织自然会把工作切成多个岗位，再通过评审、排期、联调、提测和验收串起来。</p>
+<p>这种模式的价值在于稳定。它能让一个复杂项目被拆解，让不同专业的人在自己的深水区持续积累。很多优秀团队并不是因为分工而低效，相反，它们正是因为尊重专业分工，才得以守住质量。</p>
+<p>这套体系里沉淀了很多值得尊重的东西：工程师对质量的坚持，测试对边界的敏感，设计师对体验的细腻，产品经理对用户问题的追问。传统岗位不是没有价值，它们代表了软件工业化过程中非常重要的一段历史。</p>
+<p>但这种稳定的岗位分工，正在被 AI Agent 重新改写。</p>
+<h2 id="研发的转型"><a href="#研发的转型" class="headerlink" title="研发的转型"></a>研发的转型</h2><h3 id="“古法”阶段"><a href="#“古法”阶段" class="headerlink" title="“古法”阶段"></a>“古法”阶段</h3><p>这个阶段的自我定位是研发工程师或“程序员”，视角聚焦在工程源码——在特定领域或岗位（比如前端、iOS/Android 移动客户端、Windows/macOS 桌面客户端、Node/Java/Python 后端、算法等等）去完成编码任务。</p>
+<p>这个阶段 AI 的作用是辅助我们研发更高效率地写出更高质量的代码，比如 VSCode GitHub Copilot、Cursor 等。视角围绕在：</p>
+<ul>
+<li>阅读、修改源码文件。</li>
+<li>查找代码和问题。</li>
+<li>生成代码、补全实现。</li>
+<li>解释代码结构和修复错误。</li>
+</ul>
+<p>AI 的作用本质还是一个 AI-first IDE 或 AI-enhanced IDE——“我正在写代码，你 AI 辅助我”、“我在一个 AI 原生 IDE 里工作”——给研发工程师使用的专业工具。</p>
+<h3 id="AI-Coding-阶段"><a href="#AI-Coding-阶段" class="headerlink" title="AI Coding 阶段"></a>AI Coding 阶段</h3><p>自我定位不再只是研发工程师“程序员”，而更像“交付责任人”。视角不再聚焦在工程源码本身，而是聚焦在交付结果：用户问题是否解决、产品行为是否符合预期。</p>
+<p>这个阶段 AI 的作用也不再只是辅助我们“更快写代码”，而是可以作为一个能读仓库、改代码、跑命令、查资料、做验证、产出 PR、甚至并行处理任务的 Coding Agent。比如 Codex、Claude Code、Cursor Agent、GitHub Copilot Coding Agent 等。视角围绕在：</p>
+<ul>
+<li>描述目标、背景、约束和验收标准。</li>
+<li>让 AI 理解仓库、定位问题、提出实现方案。</li>
+<li>让 AI 执行编码、重构、测试、验证、修复。</li>
+<li>审查 AI 的计划、diff、测试结果和风险判断。</li>
+<li>将临时任务沉淀为 Spec、测试、文档、架构约束。</li>
+</ul>
+<p>这里会出现两种典型工作方式：</p>
+<p><strong>Vibe Coding</strong> 更适合探索阶段。研发不一定先写清楚完整需求，而是通过自然语言、截图、运行反馈、体验感觉持续引导 AI：“做个大概像这样”“这个交互不顺”“再简洁一点”“先跑起来看看”。它的价值是快速把想法变成可运行原型，适合 Demo、试错、灵感验证和低风险个人工具。</p>
+<p><strong>Specs Coding</strong> 更适合交付阶段。研发先把目标、边界、输入输出、异常场景、验收用例、测试要求写清楚，再让 AI 按规格实现。它的价值是降低歧义，让 AI 的输出可以被审查、验证、复用和长期维护，适合生产功能、复杂系统、多人协作和高风险改动。</p>
+<table>
+<thead>
+<tr>
+<th><strong>维度</strong></th>
+<th><strong>Vibe Coding</strong></th>
+<th><strong>Specs Coding / Spec-Driven Development</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>起点</td>
+<td>一个想法、感觉、目标。</td>
+<td>明确规格、约束、验收标准。</td>
+</tr>
+<tr>
+<td>Prompt 风格</td>
+<td>“帮我做个像 X 的页面，感觉要顺一点”。</td>
+<td>“输入/输出、状态、边界、错误、验收用例如下”。</td>
+</tr>
+<tr>
+<td>人的角色</td>
+<td>导演、试用者、即时反馈者。</td>
+<td>产品/架构/测试/审查者。</td>
+</tr>
+<tr>
+<td>AI 的角色</td>
+<td>快速生成、快速改、快速试。</td>
+<td>按合同实现、补测试、验证一致性。</td>
+</tr>
+<tr>
+<td>成功判断</td>
+<td>看起来对、跑起来行、体验顺。</td>
+<td>符合 spec、测试通过、边界明确。</td>
+</tr>
+<tr>
+<td>适合</td>
+<td>原型、Demo、个人工具、探索 UI/交互。</td>
+<td>生产功能、多人协作、长期维护、复杂系统。</td>
+</tr>
+<tr>
+<td>风险</td>
+<td>容易“能跑但不稳”，隐含需求丢失。</td>
+<td>前期慢一点，但返工少、可审查。</td>
+</tr>
+<tr>
+<td>文档沉淀</td>
+<td>通常少。</td>
+<td>Spec 本身就是长期事实源。</td>
+</tr>
+</tbody></table>
+<p>采用 Specs Coding 模式大部分研发其实已经在开始承担类似产品（需求分析）、测试（交付质量）等相关领域的事项责任了。产品、设计、研发及测试等岗位角色开始转型为 产品设计工程师 PDE(Product Design Engineer，即承担产品、设计、研发、测试等各个项目岗位职责)。</p>
+<p>本质上，AI Coding 不再是一个单纯的 AI-first IDE 或 AI-enhanced IDE，而是一个 Agent-first Engineering Workflow：</p>
+<blockquote>
+<p>不是“我正在写代码，你 AI 辅助我”，而是“我要交付一个结果，你 AI 和我一起规划、实现、验证、收口”。</p>
+</blockquote>
+<p>研发的核心能力也随之变化：从“落地每一行代码”升级为“准确描述问题、设计约束、选择路径、审查结果、控制风险、沉淀长期事实”。代码仍然重要，但它从工作的中心，变成了交付链路中的一个产物。</p>
+<h3 id="OPC-OPT-阶段"><a href="#OPC-OPT-阶段" class="headerlink" title="OPC/OPT 阶段"></a>OPC/OPT 阶段</h3><blockquote>
+<p>OPC/OPT 即 One Person Company / One Person Team 简称。</p>
+</blockquote>
+<p>自我定位进一步变化，更确定是“端到端交付责任人”。一个人不再只完成某个岗位上的工作，而是通过 Agent Team 承担原本需要一个小团队甚至一个公司的多角色协作。</p>
+<p>这个阶段的关注点不再是源码，也不只是单次交付结果，而是如何构建一套可持续运转的个人生产系统。人要设计目标、上下文、流程、约束、验收和反馈回路；Agent 则承担大量可拆解、可工具化、可验证、可并行的工作。</p>
+<p>可以类比那句“凡是能被 JavaScript 实现的，终将被 JavaScript 实现”。在 Agent 时代，大量知识工作也会经历类似迁移：</p>
+<blockquote>
+<p><strong>凡是能被清晰描述、拆解、工具化、验证和迭代的工作，终将被 Agent 化。</strong></p>
+</blockquote>
+<p>这个阶段 AI 的作用不再是一个助手，也不只是一个 Coding Agent，而是一组可编排、可协作、可复用的 Agent Team。它不一定要按岗位拆成多个独立 Agent，更像三类能力被随时调用：探索类能力负责梳理需求、竞品、用户场景和资料；交付类能力把交互、代码、脚本、自动化和文档做成可运行产物；保障类能力持续审查 diff、测试边界、安全风险、上线反馈和长期维护性。产品、设计、研发、测试这些名字会保留，但在 Agent Team 里，它们更像可组合的能力模块，而不是固定岗位。</p>
+<p>人的核心工作也随之上移：先定义目标和成功标准，再提供足够清晰的业务背景、用户画像、代码仓库、历史决策和约束条件；然后设计 Harness，让 Agent 在有工具权限、有检查入口、有质量门禁的环境里工作；最后由人来判断优先级、品味、风险和最终责任，并把一次成功经验沉淀成模板、规范、技能、Agent 配置和长期事实源。</p>
+<p>这里的关键词是 Context + Harness。</p>
+<p>Context 决定 Agent 是否知道该往哪里走。它包括需求规格、架构文档、代码地图、设计原则、历史背景、用户反馈、反例、验收标准等。上下文越清晰，Agent 越像团队成员；上下文越模糊，Agent 越像随机外包。</p>
+<p>Harness 决定 Agent 是否能安全、稳定、可验证地完成工作。它包括工具调用权限、沙箱、MCP、CI、测试命令、review 流程、日志、回滚机制、成本预算、人工确认点等。没有 Harness，Agent 能力越强，失控半径也越大。</p>
+<p>所以第三阶段的本质不是“一个人干更多活”，而是：</p>
+<blockquote>
+<p>一个人搭建一套由 Agent 参与运转的微型组织。</p>
+</blockquote>
+<p>相比前两个阶段：</p>
+<ul>
+<li>古法阶段：人写代码，AI 辅助。</li>
+<li>AI Coding 阶段：人定义交付，AI 参与实现。</li>
+<li>OPC / OPT 阶段：人设计系统，Agent Team 持续产出。</li>
+</ul>
+<p>人的能力重心也再次升级：从编码能力，升级为交付能力，再升级为组织能力。只不过这里被组织的对象，不再主要是人，而是 Agent、工具、上下文、流程和验证系统。</p>
+<blockquote>
+<p>这意味着，如果一个人的工作模式长期停留在被动接收任务、只完成局部交付、缺少主动补位和结果牵引上，会面临更大的转型压力。AI Native 更需要人具备问题定义、跨环节协同和结果闭环意识。</p>
+<p>另一方面，大量个人 Agent 能力也会逐步演变成组织 Agent，比如某个业务线、项目组的数字员工。如果已有相关 Agent 或数字员工，可以将其招募至自己的 Agent Team。</p>
+</blockquote>
+<h2 id="组织的转型"><a href="#组织的转型" class="headerlink" title="组织的转型"></a>组织的转型</h2><h3 id="绝大部分产品、设计、研发、测试会收敛成-PDE"><a href="#绝大部分产品、设计、研发、测试会收敛成-PDE" class="headerlink" title="绝大部分产品、设计、研发、测试会收敛成 PDE"></a>绝大部分产品、设计、研发、测试会收敛成 PDE</h3><p>前面已经说过，传统岗位分工不是低效的代名词。它在人的能力边界清晰、工具能力有限的时代，帮助团队把复杂项目拆开，让产品、设计、研发、测试分别在自己的深水区积累专业性。AI Native 团队组织的核心变化，也不是“人人都去写代码”，不是代码生成更快，而是许多过去被岗位门槛隔开的工作，开始可以被同一个人借助 Agent 串起来。</p>
+<p>因此，在 AI Native 团队里，产品、设计、研发、测试会逐渐聚拢为一种更综合的能力形态 PDE。PDE 负责问题定义、方案选择和结果闭环；Specialist 则是在复杂架构、性能、安全、质量建模、体验系统、领域算法等深水区继续拉高上限，本质上是更高阶的 PDE；Harness 负责让人和 Agent 都能在项目里稳定工作。传统岗位的专业能力优势不会消失，具备更扎实基本功的人反而能更好地驾驭 AI Agent，只是岗位壁垒被 Agent 打破了。</p>
+<p>针对技术深水区——产品、设计转研发面临巨大的“转型”压力，部分研发可能对这类转型存在严重怀疑。转型的关键仍然是“扬长补短”。项目的上限如果是技术瓶颈，团队的大多数人就要向技术深水区靠近；如果项目的上限是产品品味、审美和体验，团队的大多数人就要提高自己的产品判断和审美能力。所谓转型，不是放弃自己的优势，而是围绕这自身的优势发挥到项目真正需要的地方。</p>
+<blockquote>
+<p>需要注意的是大部分项目的瓶颈可能不是技术，而是产品审美——这个是很容易被忽视的。</p>
+</blockquote>
+<h3 id="Harness：打造让-Agent-可靠工作的环境"><a href="#Harness：打造让-Agent-可靠工作的环境" class="headerlink" title="Harness：打造让 Agent 可靠工作的环境"></a>Harness：打造让 Agent 可靠工作的环境</h3><p>如果 PDE 解决“谁来推动问题闭环”（负责把问题推进成结果），Harness Engineer 则解决“这个闭环如何可靠发生”（负责让这个推进过程可重复、可验证、可维护）。</p>
+<p>Agent 很强，但没有上下文、边界和检查的 Agent 只能猜。猜对时像魔法，猜错了就是技术债。Harness 要处理的正是这些失败模式。</p>
+<p>Harness Engineer 与传统 DevOps、Platform Engineer 有重叠，但关注点更偏向 AI Native 的工作环境：Agent 开工前读什么，长期事实源在哪里，任务如何表达，哪些工具可以用，哪些边界不能碰，如何验证结果，如何回滚，如何记录失败模式。</p>
+<p>可以把 Harness 拆成五部分：</p>
+<ul>
+<li><strong>Context</strong>：项目背景、架构边界、业务规则、代码地图、历史决策。</li>
+<li><strong>Rules</strong>：编码规范、目录职责、权限边界、禁止事项。</li>
+<li><strong>Tools</strong>：可调用的命令、MCP、脚本、调试入口、数据环境。</li>
+<li><strong>Checks</strong>：测试、lint、类型检查、构建、回归、验收标准。</li>
+<li><strong>Feedback</strong>：日志、报错、review、CI 结果、用户反馈、上线观察。</li>
+</ul>
+<p>没有这些，AI Native 只是个人技巧。有了这些，Agent 才可能成为团队能力。</p>
+<p>在存量项目中，Harness 尤其重要。多 Git 仓库、知识库分散、历史文档过期、接口契约不清、上下文藏在人脑里，这些都会让 Agent 的能力大幅折损。一个只有资深研发才能安全修改的项目，本质上说明它还依赖大量隐性知识。AI Native 不是把旧项目外面套一层 Agent，而是把项目改造成新人和 Agent 都能理解、修改、验证和演进的系统。</p>
+<p>因此，组织需要把分散的项目资产收拢起来，用 Harness 把上下文、约束和验证路径加固，让 Agent 能够在稳定环境里工作。</p>
+<h3 id="一个-Dumbo-案例：从问题反馈到诊断闭环"><a href="#一个-Dumbo-案例：从问题反馈到诊断闭环" class="headerlink" title="一个 Dumbo 案例：从问题反馈到诊断闭环"></a>一个 Dumbo 案例：从问题反馈到诊断闭环</h3><p>Dumbo 是一个办公协作领域的桌面项目，日常会承载沟通、协作、工具调用和本地工作台等复杂场景。这里不展开它的具体业务细节，只拿其中一个很常见的能力举例：用户遇到业务问题时，如何把“我这里不对”变成研发可以复现、定位和修复的问题。</p>
+<p>在传统流程里，这类需求通常会被拆成几段：产品先定义反馈入口和用户路径，设计补录制器交互和状态提示，研发实现窗口选择、录制、日志、网络和性能证据采集，测试再补目标窗口关闭、录制超时、打包失败、隐私边界等异常场景。这个分工并没有错，但真正困难的地方不在某一段实现，而在于这些判断能不能稳定地串成一条闭环：用户能否低成本提交有效证据，研发能否拿到足够但不过界的信息，系统能否在异常情况下仍然保留可诊断现场。</p>
+<p>如果按 AI Native 的方式推进，这个任务更像由一个 PDE Owner 牵头完成闭环。Owner 先把用户问题、非目标、隐私边界、验收标准说清楚，例如录制必须由用户主动开始，必须明确选择目标窗口，最长只保留有限时间，只生成一个本地诊断包，敏感内容不进入默认采集范围，最终仍由用户手动提交。随后，再让 Agent 参与实现悬浮录制器、目标窗口选择、证据打包、异常状态、测试补齐和文档同步。人的工作不是逐行包办每个模块，而是持续校准体验、边界和风险。</p>
+<p>这时 Harness 的作用就很明显。产品文档说明用户可见行为和隐私边界，架构文档说明代码应该落在哪些模块、哪些接口不能越界，执行计划记录阶段目标、风险和验证路径，检查命令保证文档、类型、测试和格式没有被绕过。Agent 可以写很多代码，但它要在这些边界里工作；人也不再只做口头验收，而是把判断写回文档、测试和规则，让下一次类似任务更容易被安全推进。</p>
+<p>这个案例说明，AI Native 不是把产品、设计、研发都混成同一种旧岗位，也不是让每个人都去手写底层代码。真正的变化是，不同背景的人都可以把自己的判断放进同一个可运行、可验证、可维护的系统里。一个办公场景里的问题反馈能力，最后不只是一个录制器，而是一套从用户问题、体验路径、证据边界、工程实现到研发排查的闭环。</p>
+<h3 id="组织边界从岗位边界变成业务（问题）边界"><a href="#组织边界从岗位边界变成业务（问题）边界" class="headerlink" title="组织边界从岗位边界变成业务（问题）边界"></a>组织边界从岗位边界变成业务（问题）边界</h3><p>前面已经提到传统组织通常按专业切分：产品负责“要做什么”，设计负责“怎么体验”，研发负责“怎么实现”，测试负责“是否可靠”。一个需求进入团队后，常常沿着岗位流水线移动：先被写成需求，再变成设计稿，然后进入研发排期，最后交给测试兜底。</p>
+<p>AI Native 团队更适合按问题切分。谁最理解这个用户问题，谁就牵头把需求、体验、实现、验证串起来。团队不再只以“前端组、后端组、测试组、设计组”作为组织单元，而是围绕一个业务目标临时组装小型交付单元：由 PDE Owner 定义问题和验收标准，把上下文交给一组可调用 Agent，并持续审查它们的输出。这个单元的终点也不再是“代码写完”或“提测完成”，而是从发现问题到上线验证形成一条闭环链路。</p>
+<p>这意味着，组织分类的重心会从岗位边界转向业务问题边界。</p>
+<h3 id="项目管理关注点发生变化"><a href="#项目管理关注点发生变化" class="headerlink" title="项目管理关注点发生变化"></a>项目管理关注点发生变化</h3><p>传统项目（业务）负责人更多盯资源投入和流程进度：人力是否够、排期是否合理、需求吞吐是否稳定、各岗位是否按时交付、提测质量和上线时间是否可控。到了 AI Native 阶段，这些仍然重要，但已经不足以解释一个团队的真实交付能力。</p>
+<table>
+<thead>
+<tr>
+<th>管理对象</th>
+<th>传统项目更关注</th>
+<th>AI Native 项目还要关注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>投入</td>
+<td>人力、排期、岗位进度</td>
+<td>Agent 可执行性、工具权限、成本预算</td>
+</tr>
+<tr>
+<td>需求</td>
+<td>需求吞吐、上线时间</td>
+<td>Spec 清晰度、上下文质量、验收标准</td>
+</tr>
+<tr>
+<td>质量</td>
+<td>提测质量、缺陷率</td>
+<td>自动化验证覆盖、Harness 完备度、人工审查效率</td>
+</tr>
+<tr>
+<td>资产</td>
+<td>项目经验依赖核心成员</td>
+<td>经验是否沉淀为长期事实源、模板和可复用 Agent 能力</td>
+</tr>
+</tbody></table>
+<p>所以，项目管理的关注点也会随之变化。只看千行源码缺陷率、需求吞吐和上线节奏，已经无法清晰衡量 AI Native 团队的真实交付品质。</p>
+<h3 id="回到旧舟与新海"><a href="#回到旧舟与新海" class="headerlink" title="回到旧舟与新海"></a>回到旧舟与新海</h3><p>开头说旧时代最坚固的船，在新海域里反而显得沉重。放在产品研发组织里，这艘“旧舟”不是某个岗位，也不是某类人，而是一整套按岗位流转、按工时排期、按交付节点验收的组织习惯。它在过去有效，也仍然有价值；只是当 Agent 开始承担越来越多执行工作时，真正决定速度和质量的，已经从“谁来写完”转向“谁能把问题、上下文、执行、验证和责任组织起来”。</p>
+<p>所以，AI Native 组织转型不是给每个人配一个 AI 工具，也不是要求所有人变成同一种角色。新海里的核心能力，是让问题有人负责、上下文可以被复用、执行可以被 Agent 放大、验证可以自动发生、责任仍然清晰落在人身上。人不因为 AI 变得不重要，人的判断反而更靠前、更集中，也更难被流程替代。</p>
+<p>真正值得建设的，不是一艘看起来更快的旧舟，而是一套能在新海里持续航行的组织方式：以问题为边界，以 Harness 为基础，以 Agent 为执行放大器，以人为最终判断和责任中心。能完成这个转向的团队，才会把 AI 从个人效率工具，变成组织级生产力。</p>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/ai-devgroup/" data-id="cmr0sdfxa0001v2lyhl596mnb" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/ai-devgroup/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article
   id="layout/post-d-life"
@@ -160,7 +412,7 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/d-life/" data-id="cmn05idlu000073ly9wdmexty" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/d-life/" data-id="cmr0sdfxc0004v2ly320c3map" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/d-life/#disqus_thread" class="article-comment-link">Comments</a>
        
@@ -367,132 +619,9 @@
  
     </div>
     <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="clooia2m00007ln3yd0rkctvb" class="article-share-link">Share</a>
+      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="cmr0sdfxe000cv2ly561gdjf3" class="article-share-link">Share</a>
       
       <a href="http://solome.js.org/blog/realsee-vr-performance/#disqus_thread" class="article-comment-link">Comments</a>
-       
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article
-  id="post-beijing-wildlife-park-play"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
->
-  <!-- <div class="article-meta">
-    <div class="article-date">
-  首次编辑于 Sun Mar 19 2023 23:30:00 GMT+0800 (China Standard Time)
-</div>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a>
-  </div>
-
-  </div> -->
-  <div class="article-inner">
-     
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/beijing-wildlife-park-play/">北京漫游：大兴野生动物园</a>
-    </h1>
-  
- <div class="article-dateref">
-  首次编辑于 Sun Mar 19 2023 23:30:00 GMT+0800 (China Standard Time)
-</div>
-    </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-       <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近恋上<a target="_blank" rel="noopener" href="https://www.xiaohongshu.com/explore">小红书</a>（很难想象我会成为<strong>小红书</strong>的重度用户）——也就是在某天晚上在小红书上刷到了大兴野生动物园里面关于小熊猫的内容——天啊~为什么地球上有这么可爱的小动物！</p>
-<p>我想去现场瞧一瞧。但曾经逛西安海洋馆的悲伤记忆还在，我实在接受不了关在笼子里面的动物——没有自由、眼神永远无助。犹豫了好一阵子，又觉得新冠疫情结束，可以将去北京大兴野生动物园看小熊猫当作二〇二三年看看大大世界的第一站——怀着期待和忐忑的情绪，小熊猫我们来了。</p>
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/85sLrEIf6AWzC34.jpg" alt="休憩的小熊猫" />
-  <figcaption>休憩的小熊猫</figcaption>
-</figure>
-
-<h3 id="规划"><a href="#规划" class="headerlink" title="规划"></a>规划</h3><p>下定决心，忽悠好好友，开始研究攻略、做规划。</p>
-<p><strong>时间线</strong><br>从小红书的关于大兴野生动物园的视频来看，排除掉周六日——北京人太多人太多。然后周一猛兽区不营业，最终选择3月28日周二请假一天去看小熊猫。出发时间是早上 6:00，意味着 5:30 前就要起床——青春坟墓依赖症同学面临者极大挑战。</p>
-<figure>
-  <img style="width: 100%;max-width:320px;" src="//solome.js.org/static/beijing-wildlife-park-play/timing.svg" alt="时间线安排" />
-  <figcaption>时间线安排</figcaption>
-</figure>
-
-<p><strong>交通</strong><br>我们两波人都选择最实惠的交通工具（地铁和公交），一波回龙观到大兴野生动物园（13元/2小时9分钟），另一波望京到大兴野生动物园（12元/2小时5分钟）。感叹北京人多地广之外，交通还贼便携。</p>
-<p><strong>蔬菜、水果</strong><br>筹备了苹果、胡萝卜和白菜。进园是不让带的，奈何周二人少，门禁管理阿姨也是睁一只眼放我们大背包进去了。</p>
-<h3 id="心满意足"><a href="#心满意足" class="headerlink" title="心满意足"></a>心满意足</h3><p><strong>春天</strong></p>
-<p>星期二请假一天入野生动物园确实是一个无比正确的选择。我们入园时已经九点多了（晚于预期时间近一个小时），但人真的很少——类似于在逛一个普普通通的小区公园。按照攻略，搭着园区代步车直奔猛兽区，到达目的地后却被告知「猛兽区十一点之后才开放」。</p>
-<p>好吧，攻略往往是无效的，计划永远滞后于变化。突然间只能开始漫无目的的乱逛，期间遇到不少初春盛开的樱花、杏花特别吸引眼球，色泽浓厚。喜欢看花，就像看过一段人生，开花前的煎熬、绽放时的耀眼、香断凋谢后的无情——好像都刻骨铭心般经历过一番，却又如流星稍纵即逝。</p>
-<p>这时携带的重量超两斤的佳能相机派上用途，花儿背景虚化的效果手机怎么拍都达不到——新冠疫情三年，这台佳能一直在吃灰，她也一定在等待着重见天日、被重用的时刻吧。</p>
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/lnsU7M4cSLvypzb.jpg" alt="春天盛开的杏花" />
-  <figcaption>春天盛开的杏花</figcaption>
-</figure>
-
-<p><strong>鹦鹉</strong></p>
-<p>第一站有趣的是鹦鹉——未进禽区就已经听到鸟儿叽叽喳喳声不绝于耳。进去后，这些鸟儿种类还真不少（反而显得空间过于压抑），也不是特别怕人。其中一只体型比较大的鸟儿（可能是鹦鹉的一个种类）看上我衣服上纽扣——可能是被当作坚果了吧，一直尝试用自己的啄尝试抠下来——阵势挺吓人的，但是第一次这么近距离接触这种鸟类也是特别有喜感。</p>
-<p>唯一遗憾的时，这次来动物园是冲着小熊猫来的，我并没有准备瓜子、花生这类坚果，没有达到更有趣的互动。还有，禽区内我一直在想「我家里养的那两只猫甩到这里，他俩一定认为这里就是游戏的天堂」，不知道是他俩乐呵还是受群鸟欺负。</p>
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/QYdOzVbJx1lB7qK.jpg" alt="谈情说爱的鹦鹉" />
-  <figcaption>谈情说爱的鹦鹉</figcaption>
-</figure>
-
-<p><strong>长尾猴</strong></p>
-<p>给我感觉 <strong>快乐就应该是这个样子，但是自我小学毕业之后就再也没体验过这种快乐</strong>，我知道那种快乐是什么样子的，但是我知道我往后人生很难再会体验到。</p>
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/kStKQ5uT8MfUyNz.jpg" alt="乐呵的长尾猴" />
-  <figcaption>乐呵的长尾猴</figcaption>
-</figure>
-
-<p><strong>小熊猫</strong></p>
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/1CubiN6DwyzhaMU.jpg" alt="乞食的小熊猫" />
-  <figcaption>乞食的小熊猫</figcaption>
-</figure>
-
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/cnNBUu46jpYalWq.jpg" alt="卖萌的小熊猫" />
-  <figcaption>卖萌的小熊猫</figcaption>
-</figure>
-
-<p><strong>猛禽区</strong></p>
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/HKJnwB7zEOcNC69.jpg" alt="睡午觉的母狮" />
-  <figcaption>睡午觉的母狮</figcaption>
-</figure>
-
-<p><strong>羊驼</strong></p>
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/xGRQfrYodbKAIvs.jpg" alt="奇奇怪怪的羊驼" />
-  <figcaption>奇奇怪怪的羊驼</figcaption>
-</figure>
-
-<p><strong>归途</strong></p>
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/xNaAXFOjoi1byR7.jpg" alt="一路疲倦" />
-  <figcaption>一路疲倦</figcaption>
-</figure>
-
-<figure>
-  <img style="width: 100%;" src="//s2.loli.net/2023/11/07/HfUlDCrjZsea1Xo.jpg" alt="归途背影" />
-  <figcaption>归途背影</figcaption>
-</figure>
-
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p><strong><a target="_blank" rel="noopener" href="https://www.xiaohongshu.com/explore">小红书</a>为啥吸引我？</strong></p>
-<p>主要有两点：① 发现页推荐逻辑清晰、干净；② 搜索结果价值高。其中 ① 体现在首屏给四个（iPhone 版）推荐项，分别是近期访问相关（科技资讯）、猫、Switch 相关和一个手机壳赞助（广告）——无论刷新几次，这四类大方向不会存在过多变化——而淘宝、京东等的推荐，信息量太大，巴不得吸引我掏出口袋里那几个子。而 ② 是吸引我持续使用的最主要原因——我把小红书当百度来用，有兴趣的同学可以用「猫粮」、「感冒药」分别用小红书、百度搜索对比下，看看谁的结果是搜索者真正想要的——又得吐槽百度这家公司产品有多「废」。</p>
-<p><strong>动物园是罪恶的？</strong></p>
- 
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://solome.js.org/blog/beijing-wildlife-park-play/" data-id="clookn3rp0000ku3yds6l96mo" class="article-share-link">Share</a>
-      
-      <a href="http://solome.js.org/blog/beijing-wildlife-park-play/#disqus_thread" class="article-comment-link">Comments</a>
        
     </footer>
   </div>
@@ -532,7 +661,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2026/06/">June 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
     </div>
   </div>
 
@@ -543,6 +672,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/ai-devgroup/">旧舟与新海：AI Native 如何重塑产品研发组织</a>
+          </li>
         
           <li>
             <a href="/blog/d-life/">被围起来的数字生活：从数字地主到数字佃农</a>

@@ -29,6 +29,20 @@
   <% if (theme.favicon){ %>
     <link rel="icon" href="<%- theme.favicon %>">
   <% } %>
+  <script>
+    (function(){
+      var key = 'blog-color-theme';
+      var fallback = 'lake-mist';
+      var available = {'lake-mist': true, 'sakura-gray-pink': true};
+      var selected = fallback;
+
+      try {
+        selected = localStorage.getItem(key) || fallback;
+      } catch (e) {}
+
+      if (!available[selected]) selected = fallback;
+      document.documentElement.setAttribute('data-color-theme', selected);
+    })();
+  </script>
   <%- css('css/style') %>
-  <link href="//solome.js.org/static/fonts/style.css" rel="stylesheet" />
 </head>

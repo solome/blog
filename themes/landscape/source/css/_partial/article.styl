@@ -1,13 +1,13 @@
 .article
   margin: block-margin 0
-  color: #2c3746;
+  color: var(--color-text)
 .article
   span.caption
     display: none !important;
 
 .article-inner
   @extend $block
-  background-color: white
+  background-color: var(--color-surface)
   overflow: hidden
 
 .article-meta
@@ -19,14 +19,14 @@
 .article-dateref
   font-size: .8rem;
   line-height: 2;
-  color: #6d6d6d;
+  color: var(--color-text-muted)
   padding-top: 6px;
 
 .article-category
   float: left
   line-height: 1em
-  color: #ccc
-  text-shadow: 0 1px #fff
+  color: var(--color-text-faint)
+  text-shadow: 0 1px var(--color-text-shadow)
   margin-left: 8px
   &:before
     content: "\2022"
@@ -42,16 +42,16 @@
   text-decoration: none
   font-size: 2em
   font-weight: bold
-  color: color-default
+  color: var(--color-text-strong)
   line-height: line-height-title
   transition: color 0.2s
   a&:hover
-    color: color-link
+    color: var(--color-link)
 
 .article-entry
   @extend $base-style
   clearfix()
-  color: #0d0d0d
+  color: var(--color-text)
   padding: 0 article-padding
   p, table
     line-height: line-height
@@ -61,21 +61,23 @@
   h1, h2, h3, h4, h5, h6
     line-height: line-height-title
     margin: line-height-title 0
+  h1, h2
+    color: var(--color-text-strong)
   h3
-    color: #458;
+    color: var(--color-accent)
   h4
-    color: darkcyan;
+    color: var(--color-link)
   strong
-    color: darkslategray;
+    color: var(--color-text-strong)
   a
-    background-color: rgba(187,239,253,0.3);
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-    color: #1a1a1a;
+    background-color: var(--color-link-background)
+    border-bottom: 1px solid var(--color-border)
+    color: var(--color-link)
     text-decoration: none
     &:hover
-      background-color: #bbeffd;
-      border-bottom-color: #1a1a1a;
-      color: darkred;
+      background-color: var(--color-link-background-hover)
+      border-bottom-color: var(--color-link-hover)
+      color: var(--color-link-hover)
   img, video
     max-width: 100%
     height: auto
@@ -88,7 +90,7 @@
     figcaption
       padding: 10px 0 0 0;
       font-size: 14px;
-      color: #4e4e4e;
+      color: var(--color-text-muted)
     a
       background: none;
       border: none;
@@ -101,19 +103,19 @@
     border-spacing: 0
   th
     font-weight: bold
-    border-bottom: 3px solid color-border
+    border-bottom: 3px solid var(--color-border)
     padding-bottom: 0.5em
   td
-    border-bottom: 1px solid color-border
+    border-bottom: 1px solid var(--color-border)
     padding: 10px 0
   blockquote
     margin: 12px 0 0 0;
-    background: #e6e6fa;
+    background: var(--color-quote-background)
     padding: 10px 15px;
-    color: #7f8fa4;
-    background-color: rgba(202,224,224,.3);
-    border-left-color: #97babf;
-    border-left: 8px solid #9ab7c3;
+    color: var(--color-quote-text)
+    background-color: var(--color-quote-background)
+    border-left-color: var(--color-quote-border)
+    border-left: 8px solid var(--color-quote-border)
     p
       margin 0
     footer
@@ -135,7 +137,7 @@
       margin-right: 0.5em
       margin-left: 1em
   .caption
-    color: color-grey
+    color: var(--color-text-faint)
     display: block
     font-size: 0.9em
     margin-top: 0.5em
@@ -160,28 +162,28 @@
   line-height: 1em
   padding: 6px 15px
   border-radius: 15px
-  background: color-background
-  color: color-grey
-  text-shadow: 0 1px #fff
+  background: var(--color-shell-background)
+  color: var(--color-text-faint)
+  text-shadow: 0 1px var(--color-text-shadow)
   text-decoration: none
   &:hover
-    background: color-link
-    color: #fff
+    background: var(--color-link)
+    color: var(--color-surface)
     text-decoration: none
-    text-shadow: 0 1px darken(color-link, 20%)
+    text-shadow: none
 
 .article-footer
   clearfix()
   font-size: 0.85em
   line-height: line-height
-  border-top: 1px solid color-border
+  border-top: 1px solid var(--color-border)
   padding-top: line-height
   margin: 0 article-padding article-padding
   a
-    color: color-grey
+    color: var(--color-text-faint)
     text-decoration: none
     &:hover
-      color: color-default
+      color: var(--color-text)
 
 .article-tag-list-item
   float: left
@@ -216,19 +218,19 @@
       absolute-center(8px)
       content: ""
       border-radius: 50%
-      background: #00bcd4
-      box-shadow: 0 1px 2px #fff
+      background: var(--color-accent)
+      box-shadow: 0 1px 2px var(--color-text-shadow)
 
 .article-nav-link-wrap
   text-decoration: none
-  text-shadow: 0 1px #fff
-  color: color-grey
+  text-shadow: 0 1px var(--color-text-shadow)
+  color: var(--color-text-faint)
   box-sizing: border-box
   margin-top: block-margin
   text-align: center
   display: block
   &:hover
-    color: color-default
+    color: var(--color-text)
   @media mq-normal
     width: 50%
     margin-top: 0
@@ -250,23 +252,23 @@
   letter-spacing: 2px
   line-height: 1em
   font-size: 16px
-  color: #7f8fa4
+  color: var(--color-text-muted)
   #article-nav-newer &
     margin-right: -2px
 
 .article-nav-title
-  color: #258fb8
+  color: var(--color-accent)
   line-height: line-height
   margin-top: 0.5em
   &:hover
-    color: #8b0000
+    color: var(--color-link-hover)
     text-decoration-style: dashed
     text-decoration-line: underline
 
 .article-share-box
   position: absolute
   display: none
-  background: #fff
+  background: var(--color-surface)
   margin-left: -145px
   overflow: hidden
   z-index: 1
@@ -279,16 +281,16 @@
   box-sizing: border-box
   font: 14px font-sans
   padding: 0 15px
-  color: color-default
+  color: var(--color-text)
   outline: none
-  border: 1px solid color-border
+  border: 1px solid var(--color-border)
   border-radius: 3px 3px 0 0
   height: 36px
   line-height: 36px
 
 .article-share-links
   clearfix()
-  background: color-background
+  background: var(--color-shell-background)
   display: flex;
   justify-content: space-between;
 
@@ -298,15 +300,15 @@ $article-share-link
   display: block
   float: left
   position: relative
-  color: #999
-  text-shadow: 0 1px #fff
+  color: var(--color-text-faint)
+  text-shadow: 0 1px var(--color-text-shadow)
   &:before
     font-size: 20px
     font-family: font-icon
     absolute-center(@font-size)
     text-align: center
   &:hover
-    color: #fff
+    color: var(--color-surface)
 
 .article-share-twitter
   @extend $article-share-link

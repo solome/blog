@@ -1,5 +1,6 @@
 @import "nib"
 @import "_variables"
+@import "_tokens"
 @import "_util/mixin"
 @import "_util/grid"
 
@@ -23,12 +24,13 @@ input, button
        url(font-icon-path + ".svg#fontawesomeregular?v=#" + font-icon-version) format("svg")
 
 html
-  background-color: #e5f1f8;
+  background-color: var(--color-page-background)
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
 
 body
   font: font-size font-self
+  color: var(--color-text)
   -webkit-text-size-adjust: 100%
 body:before
   content: none;
@@ -63,7 +65,7 @@ body:after
   left: 0
   transition: 0.2s ease-out
   z-index: 1
-  background: color-background
+  background: var(--color-shell-background)
   .mobile-nav-on
     left: mobile-nav-width
 
@@ -88,8 +90,8 @@ if sidebar is left
 @import "_partial/mobile"
 
 ::selection
-  background: #0074bf;
-  color: #e5f1f8;
+  background: var(--color-selection-background)
+  color: var(--color-selection-text)
   -webkit-font-smoothing: antialiased;
 
 if sidebar
@@ -100,8 +102,8 @@ td[align="center"], th[align="center"]
 
 code
   font-size: 14px
-  background-color: aliceblue;
-  color: #5a842b;
+  background-color: var(--color-code-background)
+  color: var(--color-code-text)
   font-family: monospace, "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier;
 
 @media screen and (max-width: 479px) {

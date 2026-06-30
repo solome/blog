@@ -1,4 +1,67 @@
 (function($){
+  // Theme switcher
+  var themeStorageKey = 'blog-color-theme';
+  var themeFallback = 'lake-mist';
+  var themeMap = {
+    'lake-mist': {
+      label: '湖岚青',
+      swatch: 'theme-swatch-lake'
+    },
+    'sakura-gray-pink': {
+      label: '樱灰粉',
+      swatch: 'theme-swatch-sakura'
+    }
+  };
+
+  var $themeSwitcher = $('#theme-switcher'),
+    $themeToggle = $themeSwitcher.find('.theme-switcher-toggle'),
+    $themeOptions = $themeSwitcher.find('.theme-option');
+
+  var normalizeTheme = function(value){
+    return themeMap[value] ? value : themeFallback;
+  };
+
+  var setTheme = function(value, shouldSave){
+    var theme = normalizeTheme(value);
+
+    document.documentElement.setAttribute('data-color-theme', theme);
+    $themeOptions
+      .removeClass('is-active')
+      .attr('aria-selected', 'false')
+      .filter('[data-theme-value="' + theme + '"]')
+      .addClass('is-active')
+      .attr('aria-selected', 'true');
+
+    if (shouldSave) {
+      try {
+        localStorage.setItem(themeStorageKey, theme);
+      } catch (e) {}
+    }
+  };
+
+  if ($themeSwitcher.length) {
+    setTheme(document.documentElement.getAttribute('data-color-theme'), false);
+
+    $themeToggle.on('click', function(e){
+      e.stopPropagation();
+      var isOpen = $themeSwitcher.toggleClass('is-open').hasClass('is-open');
+      $themeToggle.attr('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    $themeOptions.on('click', function(e){
+      e.stopPropagation();
+      setTheme($(this).attr('data-theme-value'), true);
+      $themeSwitcher.removeClass('is-open');
+      $themeToggle.attr('aria-expanded', 'false');
+    });
+
+    $(document).on('click keydown', function(e){
+      if (e.type === 'keydown' && e.key !== 'Escape') return;
+      $themeSwitcher.removeClass('is-open');
+      $themeToggle.attr('aria-expanded', 'false');
+    });
+  }
+
   // Search
   var $searchWrap = $('#search-form-wrap'),
     isSearchAnim = false,

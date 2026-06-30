@@ -17,7 +17,7 @@ $code-block
   margin: 0 article-padding * -1
   padding: 15px article-padding
   border-style: solid
-  border-color: color-border
+  border-color: var(--color-border)
   border-width: 1px 0
   overflow: auto
   color: highlight-foreground
@@ -31,8 +31,8 @@ $line-numbers
   pre, code
     font-family: font-mono
   code
-    background: color-background
-    text-shadow: 0 1px #fff
+    background: var(--color-code-background)
+    text-shadow: 0 1px var(--color-text-shadow)
     padding: 0 0.3em
   pre
     @extend $code-block
@@ -71,7 +71,7 @@ $line-numbers
   .gist
     margin: 0 article-padding * -1
     border-style: solid
-    border-color: color-border
+    border-color: var(--color-border)
     border-width: 1px 0
     background: highlight-background
     padding: 15px article-padding 15px 0
@@ -102,7 +102,7 @@ $line-numbers
         margin-top: 1em
         margin-left: article-padding
         a
-          color: color-link
+          color: var(--color-link)
           font-weight: normal
           &:hover
             text-decoration: underline

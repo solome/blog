@@ -24,6 +24,19 @@
 
       </nav>
       <nav id="sub-nav">
+        <div id="theme-switcher" class="theme-switcher">
+          <button class="theme-switcher-toggle" type="button" aria-label="切换主题" aria-haspopup="listbox" aria-expanded="false"></button>
+          <div class="theme-switcher-menu" role="listbox" aria-label="主题">
+            <button class="theme-option" type="button" role="option" data-theme-value="lake-mist" data-theme-label="湖岚青">
+              <span class="theme-swatch theme-swatch-lake" aria-hidden="true"></span>
+              <span>湖岚青</span>
+            </button>
+            <button class="theme-option" type="button" role="option" data-theme-value="sakura-gray-pink" data-theme-label="樱灰粉">
+              <span class="theme-swatch theme-swatch-sakura" aria-hidden="true"></span>
+              <span>樱灰粉</span>
+            </button>
+          </div>
+        </div>
         <% if (theme.rss){ %>
           <!-- <a id="nav-rss-link" class="nav-icon" href="<%- url_for(theme.rss) %>" title="<%= __('rss_feed') %>"></a> -->
         <% } %>

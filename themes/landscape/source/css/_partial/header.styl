@@ -39,9 +39,9 @@
 
 $logo-text
   text-decoration: none
-  color: #fff
+  color: var(--color-surface)
   font-weight: 300
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3)
+  text-shadow: 0 1px 4px var(--color-soft-shadow)
 
 #logo-wrap
   text-align: left;
@@ -53,7 +53,7 @@ $logo-text
   line-height: logo-size
   letter-spacing: 2px
   font-family: 'source han serif',  "Lato","Helvetica Neue", Helvetica, sans-serif;
-  color: #258fb8;
+  color: var(--color-brand)
   font-weight: 800;
 
 #subtitle
@@ -73,16 +73,16 @@ $logo-text
 
 $nav-link
   float: left
-  color: #fff
-  opacity: 0.6
+  color: var(--color-surface)
+  opacity: var(--opacity-nav)
   text-decoration: none
-  text-shadow: 0 1px rgba(0, 0, 0, 0.2)
+  text-shadow: 0 1px var(--color-soft-shadow)
   transition: opacity 0.2s
   display: block
   padding: 20px 15px
   &:hover
     opacity: 1
-    color: darkred
+    color: var(--color-nav-hover)
 
 .nav-icon
   @extend $nav-link
@@ -99,7 +99,7 @@ $nav-link
   @extend $nav-link
   font-weight: 300
   letter-spacing: 1px
-  color: #607d8b;
+  color: var(--color-nav)
   @media mq-mobile
     display: none
 
@@ -113,6 +113,96 @@ $nav-link
 #sub-nav
   float: right
   margin-right: -15px
+
+.theme-switcher
+  float: left
+  position: relative
+  padding: 17px 0
+  font-family: font-self
+  @media screen and (max-width: 760px)
+    display: none
+
+.theme-switcher-toggle
+  display: block
+  width: 22px
+  height: 22px
+  padding: 0
+  border: 0
+  border-radius: 0
+  background: transparent
+  color: var(--color-theme-control-text)
+  font: 12px font-self
+  line-height: 1
+  cursor: pointer
+  opacity: 0.48
+  transition: opacity 0.2s, border-color 0.2s, color 0.2s, background-color 0.2s
+  &:before
+    content: "\f042"
+    display: block
+    font: 16px font-icon
+    line-height: 22px
+    text-align: center
+  &:hover,
+  &:focus
+    opacity: 0.86
+    color: var(--color-nav)
+    background: transparent
+    outline: none
+
+.theme-switcher-menu
+  display: none
+  position: absolute
+  top: 45px
+  right: 0
+  z-index: 5
+  min-width: 116px
+  padding: 6px
+  border: 1px solid var(--color-theme-control-border)
+  border-radius: 8px
+  background: var(--color-theme-control-menu-background)
+  backdrop-filter: blur(10px)
+  box-shadow: 0 8px 20px var(--color-theme-menu-shadow)
+
+.theme-switcher.is-open
+  .theme-switcher-menu
+    display: block
+
+.theme-option
+  display: flex
+  align-items: center
+  gap: 8px
+  width: 100%
+  padding: 7px 8px
+  border: 0
+  border-radius: 6px
+  background: transparent
+  color: var(--color-theme-control-text)
+  font: 12px font-self
+  text-align: left
+  cursor: pointer
+  white-space: nowrap
+  &:hover,
+  &:focus
+    background: var(--color-theme-control-hover-background)
+    color: var(--color-text-strong)
+    outline: none
+  &.is-active
+    color: var(--color-text-strong)
+    font-weight: 600
+
+.theme-swatch
+  width: 13px
+  height: 13px
+  border-radius: 50%
+  border: 1px solid var(--color-theme-control-border)
+  flex: 0 0 auto
+  box-shadow: inset 0 0 0 2px var(--color-surface)
+
+.theme-swatch-lake
+  background: linear-gradient(135deg, #e5f1f8 0 49%, #258fb8 50% 100%)
+
+.theme-swatch-sakura
+  background: linear-gradient(135deg, #4A3F4B 0 49%, #F0D9E4 50% 100%)
 
 #nav-rss-link
   &:before
@@ -142,15 +232,15 @@ $nav-link
   top: 0
   left: 0
   right: 0
-  background: #fff
+  background: var(--color-surface)
   padding: 5px 15px
   border-radius: 15px
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+  box-shadow: 0 0 10px var(--color-soft-shadow)
 
 .search-form-input
   border: none
   background: none
-  color: color-default
+  color: var(--color-text)
   width: 100%
   font: 13px font-sans
   outline: none
@@ -166,7 +256,7 @@ $nav-link
   font: 13px font-icon
   border: none
   background: none
-  color: #bbb
+  color: var(--color-text-faint)
   cursor: pointer
   &:hover, &:focus
-    color: #777
+    color: var(--color-text-muted)

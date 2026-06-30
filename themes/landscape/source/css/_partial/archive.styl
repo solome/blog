@@ -9,6 +9,8 @@
 
 .archive-year
   @extend $block-caption
+  color: var(--color-shell-text-muted)
+  text-shadow: none
 
 .archives
   column-gap: 10px
@@ -24,23 +26,23 @@
   @extend $block
   padding: 10px
   margin-bottom: 15px
-  background-color: white
+  background-color: var(--color-surface)
 
 .archive-article-title
   text-decoration: none
   font-weight: bold
   transition: color 0.2s
   line-height: line-height
-  color: color-link
+  color: var(--color-link)
   &:hover
-    color: darkred
-    border-bottom: 1px dashed darkred
+    color: var(--color-link-hover)
+    border-bottom: 1px dashed var(--color-link-hover)
 
 .archive-article-footer
   margin-top: 1em
 
 .archive-article-date
-  color: color-grey
+  color: var(--color-text-faint)
   text-decoration: none
   font-size: 0.85em
   line-height: 1.5em
@@ -50,23 +52,23 @@
 #page-nav
   clearfix()
   margin: block-margin auto
-  background: #fff
-  border: 1px solid color-border
+  background: var(--color-surface)
+  border: 1px solid var(--color-border)
   border-radius: 3px
   text-align: center
-  color: color-grey
+  color: var(--color-text-faint)
   overflow: hidden
   a, span
     padding: 10px 20px
     line-height: 20px
     height: 20px
   a
-    color: color-grey
+    color: var(--color-text-faint)
     text-decoration: none
     &:hover
-      background: #258fb8
+      background: var(--color-accent)
       font-weight: 500
-      color: #fff
+      color: var(--color-surface)
   .prev
     float: left
   .next
@@ -76,7 +78,7 @@
     @media mq-mobile
       display: none
   .current
-    color: #007baa
+    color: var(--color-link)
     font-weight: bold
   .space
-    color: color-border
+    color: var(--color-border)
