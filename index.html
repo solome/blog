@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>掬一捧清水窺月落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="掬一捧清水窺月落">
+<meta property="og:url" content="http://solome.js.org/blog/index.html">
+<meta property="og:site_name" content="掬一捧清水窺月落">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="掬一捧">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="掬一捧清水窺月落" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/images/favicon.ico">
+  
+  <script>
+    (function(){
+      var key = 'blog-color-theme';
+      var fallback = 'lake-mist';
+      var available = {'lake-mist': true, 'sakura-gray-pink': true};
+      var selected = fallback;
+
+      try {
+        selected = localStorage.getItem(key) || fallback;
+      } catch (e) {}
+
+      if (!available[selected]) selected = fallback;
+      document.documentElement.setAttribute('data-color-theme', selected);
+    })();
+  </script>
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">掬一捧清水窺月落</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a class="main-nav-link" href="//solome.js.org/">首页</a>
+
+        
+          <a class="main-nav-link" href="/blog/">博客</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+        <a class="main-nav-link" href="//solome.js.org/slides">Slides</a>
+        <!-- <a class="main-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
+
+      </nav>
+      <nav id="sub-nav">
+        <div id="theme-switcher" class="theme-switcher">
+          <button class="theme-switcher-toggle" type="button" aria-label="切换主题" aria-haspopup="listbox" aria-expanded="false"></button>
+          <div class="theme-switcher-menu" role="listbox" aria-label="主题">
+            <button class="theme-option" type="button" role="option" data-theme-value="lake-mist" data-theme-label="湖岚青">
+              <span class="theme-swatch theme-swatch-lake" aria-hidden="true"></span>
+              <span>湖岚青</span>
+            </button>
+            <button class="theme-option" type="button" role="option" data-theme-value="sakura-gray-pink" data-theme-label="樱灰粉">
+              <span class="theme-swatch theme-swatch-sakura" aria-hidden="true"></span>
+              <span>樱灰粉</span>
+            </button>
+          </div>
+        </div>
+        
+          <!-- <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a> -->
+        
+        <!-- <a id="nav-search-btn" class="nav-icon" title="Search"></a> -->
+      </nav>
+      <!-- <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://solome.js.org/blog"></form>
+      </div> -->
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article
+  id="layout/post-ai-devgroup"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Sun Jun 28 2026 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/ai-devgroup/">旧舟与新海：AI Native 如何重塑产品研发组织</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Sun Jun 28 2026 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <blockquote>
+<p>今年接触不少产品、设计同学在反馈他们老板对其有 AI Coding 的要求（“产品也要写代码了”），有转技术的职业焦虑——部分研发对这种变化也存在明显怀疑；当然，还有一部分资深研发还处在“这 AI 生成的源码不能合并至生产分支吧”的犹豫中。</p>
+</blockquote>
+<p>每一轮技术浪潮到来时，最先被冲击的往往不是能力不足的人，而是曾经太成功、太熟悉旧规则的人。</p>
+<p>诺基亚和黑莓并不是不会造手机。恰恰相反，它们曾经代表了移动时代的工业成熟度、渠道能力和工程经验。但 iPhone 出现之后，手机不再只是通信设备，而变成了软件、触控、生态和体验的综合体。旧时代最坚固的船，在新海域里反而显得沉重。</p>
+<p>AI Native 对研发团队的影响，也有类似意味。它不是在传统流程旁边多放一个 AI 工具，也不是让程序员写代码更快一点。它改变的是软件生产的基础设施。当代码生成、调研分析、设计草稿、测试补齐、文档沉淀都可以被 Agent 大规模参与时，团队真正需要重构的是人的角色、协作方式和价值定义。</p>
+<h2 id="旧舟：岗位分工的高效年代"><a href="#旧舟：岗位分工的高效年代" class="headerlink" title="旧舟：岗位分工的高效年代"></a>旧舟：岗位分工的高效年代</h2><p>传统的互联网项目团队通常由产品经理、设计师、研发（前后端、算法及运维等）、测试组成。产品定义需求，设计表达体验，研发完成实现，测试保障质量。这个模式并不落后，相反，它支撑了互联网行业很多年的高速发展。</p>
+<p>因为在过去，人的能力边界决定了组织边界。一个人很难同时理解业务、完成设计、写出生产级代码、覆盖测试和保证上线质量；当设计稿和真实系统之间距离很远，测试又只能在后期系统性介入时，组织自然会把工作切成多个岗位，再通过评审、排期、联调、提测和验收串起来。</p>
+<p>这种模式的价值在于稳定。它能让一个复杂项目被拆解，让不同专业的人在自己的深水区持续积累。很多优秀团队并不是因为分工而低效，相反，它们正是因为尊重专业分工，才得以守住质量。</p>
+<p>这套体系里沉淀了很多值得尊重的东西：工程师对质量的坚持，测试对边界的敏感，设计师对体验的细腻，产品经理对用户问题的追问。传统岗位不是没有价值，它们代表了软件工业化过程中非常重要的一段历史。</p>
+<p>但这种稳定的岗位分工，正在被 AI Agent 重新改写。</p>
+<h2 id="研发的转型"><a href="#研发的转型" class="headerlink" title="研发的转型"></a>研发的转型</h2><h3 id="“古法”阶段"><a href="#“古法”阶段" class="headerlink" title="“古法”阶段"></a>“古法”阶段</h3><p>这个阶段的自我定位是研发工程师或“程序员”，视角聚焦在工程源码——在特定领域或岗位（比如前端、iOS/Android 移动客户端、Windows/macOS 桌面客户端、Node/Java/Python 后端、算法等等）去完成编码任务。</p>
+<p>这个阶段 AI 的作用是辅助我们研发更高效率地写出更高质量的代码，比如 VSCode GitHub Copilot、Cursor 等。视角围绕在：</p>
+<ul>
+<li>阅读、修改源码文件。</li>
+<li>查找代码和问题。</li>
+<li>生成代码、补全实现。</li>
+<li>解释代码结构和修复错误。</li>
+</ul>
+<p>AI 的作用本质还是一个 AI-first IDE 或 AI-enhanced IDE——“我正在写代码，你 AI 辅助我”、“我在一个 AI 原生 IDE 里工作”——给研发工程师使用的专业工具。</p>
+<h3 id="AI-Coding-阶段"><a href="#AI-Coding-阶段" class="headerlink" title="AI Coding 阶段"></a>AI Coding 阶段</h3><p>自我定位不再只是研发工程师“程序员”，而更像“交付责任人”。视角不再聚焦在工程源码本身，而是聚焦在交付结果：用户问题是否解决、产品行为是否符合预期。</p>
+<p>这个阶段 AI 的作用也不再只是辅助我们“更快写代码”，而是可以作为一个能读仓库、改代码、跑命令、查资料、做验证、产出 PR、甚至并行处理任务的 Coding Agent。比如 Codex、Claude Code、Cursor Agent、GitHub Copilot Coding Agent 等。视角围绕在：</p>
+<ul>
+<li>描述目标、背景、约束和验收标准。</li>
+<li>让 AI 理解仓库、定位问题、提出实现方案。</li>
+<li>让 AI 执行编码、重构、测试、验证、修复。</li>
+<li>审查 AI 的计划、diff、测试结果和风险判断。</li>
+<li>将临时任务沉淀为 Spec、测试、文档、架构约束。</li>
+</ul>
+<p>这里会出现两种典型工作方式：</p>
+<p><strong>Vibe Coding</strong> 更适合探索阶段。研发不一定先写清楚完整需求，而是通过自然语言、截图、运行反馈、体验感觉持续引导 AI：“做个大概像这样”“这个交互不顺”“再简洁一点”“先跑起来看看”。它的价值是快速把想法变成可运行原型，适合 Demo、试错、灵感验证和低风险个人工具。</p>
+<p><strong>Specs Coding</strong> 更适合交付阶段。研发先把目标、边界、输入输出、异常场景、验收用例、测试要求写清楚，再让 AI 按规格实现。它的价值是降低歧义，让 AI 的输出可以被审查、验证、复用和长期维护，适合生产功能、复杂系统、多人协作和高风险改动。</p>
+<table>
+<thead>
+<tr>
+<th><strong>维度</strong></th>
+<th><strong>Vibe Coding</strong></th>
+<th><strong>Specs Coding / Spec-Driven Development</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>起点</td>
+<td>一个想法、感觉、目标。</td>
+<td>明确规格、约束、验收标准。</td>
+</tr>
+<tr>
+<td>Prompt 风格</td>
+<td>“帮我做个像 X 的页面，感觉要顺一点”。</td>
+<td>“输入/输出、状态、边界、错误、验收用例如下”。</td>
+</tr>
+<tr>
+<td>人的角色</td>
+<td>导演、试用者、即时反馈者。</td>
+<td>产品/架构/测试/审查者。</td>
+</tr>
+<tr>
+<td>AI 的角色</td>
+<td>快速生成、快速改、快速试。</td>
+<td>按合同实现、补测试、验证一致性。</td>
+</tr>
+<tr>
+<td>成功判断</td>
+<td>看起来对、跑起来行、体验顺。</td>
+<td>符合 spec、测试通过、边界明确。</td>
+</tr>
+<tr>
+<td>适合</td>
+<td>原型、Demo、个人工具、探索 UI/交互。</td>
+<td>生产功能、多人协作、长期维护、复杂系统。</td>
+</tr>
+<tr>
+<td>风险</td>
+<td>容易“能跑但不稳”，隐含需求丢失。</td>
+<td>前期慢一点，但返工少、可审查。</td>
+</tr>
+<tr>
+<td>文档沉淀</td>
+<td>通常少。</td>
+<td>Spec 本身就是长期事实源。</td>
+</tr>
+</tbody></table>
+<p>采用 Specs Coding 模式大部分研发其实已经在开始承担类似产品（需求分析）、测试（交付质量）等相关领域的事项责任了。产品、设计、研发及测试等岗位角色开始转型为 产品设计工程师 PDE(Product Design Engineer，即承担产品、设计、研发、测试等各个项目岗位职责)。</p>
+<p>本质上，AI Coding 不再是一个单纯的 AI-first IDE 或 AI-enhanced IDE，而是一个 Agent-first Engineering Workflow：</p>
+<blockquote>
+<p>不是“我正在写代码，你 AI 辅助我”，而是“我要交付一个结果，你 AI 和我一起规划、实现、验证、收口”。</p>
+</blockquote>
+<p>研发的核心能力也随之变化：从“落地每一行代码”升级为“准确描述问题、设计约束、选择路径、审查结果、控制风险、沉淀长期事实”。代码仍然重要，但它从工作的中心，变成了交付链路中的一个产物。</p>
+<h3 id="OPC-OPT-阶段"><a href="#OPC-OPT-阶段" class="headerlink" title="OPC/OPT 阶段"></a>OPC/OPT 阶段</h3><blockquote>
+<p>OPC/OPT 即 One Person Company / One Person Team 简称。</p>
+</blockquote>
+<p>自我定位进一步变化，更确定是“端到端交付责任人”。一个人不再只完成某个岗位上的工作，而是通过 Agent Team 承担原本需要一个小团队甚至一个公司的多角色协作。</p>
+<p>这个阶段的关注点不再是源码，也不只是单次交付结果，而是如何构建一套可持续运转的个人生产系统。人要设计目标、上下文、流程、约束、验收和反馈回路；Agent 则承担大量可拆解、可工具化、可验证、可并行的工作。</p>
+<p>可以类比那句“凡是能被 JavaScript 实现的，终将被 JavaScript 实现”。在 Agent 时代，大量知识工作也会经历类似迁移：</p>
+<blockquote>
+<p><strong>凡是能被清晰描述、拆解、工具化、验证和迭代的工作，终将被 Agent 化。</strong></p>
+</blockquote>
+<p>这个阶段 AI 的作用不再是一个助手，也不只是一个 Coding Agent，而是一组可编排、可协作、可复用的 Agent Team。它不一定要按岗位拆成多个独立 Agent，更像三类能力被随时调用：探索类能力负责梳理需求、竞品、用户场景和资料；交付类能力把交互、代码、脚本、自动化和文档做成可运行产物；保障类能力持续审查 diff、测试边界、安全风险、上线反馈和长期维护性。产品、设计、研发、测试这些名字会保留，但在 Agent Team 里，它们更像可组合的能力模块，而不是固定岗位。</p>
+<p>人的核心工作也随之上移：先定义目标和成功标准，再提供足够清晰的业务背景、用户画像、代码仓库、历史决策和约束条件；然后设计 Harness，让 Agent 在有工具权限、有检查入口、有质量门禁的环境里工作；最后由人来判断优先级、品味、风险和最终责任，并把一次成功经验沉淀成模板、规范、技能、Agent 配置和长期事实源。</p>
+<p>这里的关键词是 Context + Harness。</p>
+<p>Context 决定 Agent 是否知道该往哪里走。它包括需求规格、架构文档、代码地图、设计原则、历史背景、用户反馈、反例、验收标准等。上下文越清晰，Agent 越像团队成员；上下文越模糊，Agent 越像随机外包。</p>
+<p>Harness 决定 Agent 是否能安全、稳定、可验证地完成工作。它包括工具调用权限、沙箱、MCP、CI、测试命令、review 流程、日志、回滚机制、成本预算、人工确认点等。没有 Harness，Agent 能力越强，失控半径也越大。</p>
+<p>所以第三阶段的本质不是“一个人干更多活”，而是：</p>
+<blockquote>
+<p>一个人搭建一套由 Agent 参与运转的微型组织。</p>
+</blockquote>
+<p>相比前两个阶段：</p>
+<ul>
+<li>古法阶段：人写代码，AI 辅助。</li>
+<li>AI Coding 阶段：人定义交付，AI 参与实现。</li>
+<li>OPC / OPT 阶段：人设计系统，Agent Team 持续产出。</li>
+</ul>
+<p>人的能力重心也再次升级：从编码能力，升级为交付能力，再升级为组织能力。只不过这里被组织的对象，不再主要是人，而是 Agent、工具、上下文、流程和验证系统。</p>
+<blockquote>
+<p>这意味着，如果一个人的工作模式长期停留在被动接收任务、只完成局部交付、缺少主动补位和结果牵引上，会面临更大的转型压力。AI Native 更需要人具备问题定义、跨环节协同和结果闭环意识。</p>
+<p>另一方面，大量个人 Agent 能力也会逐步演变成组织 Agent，比如某个业务线、项目组的数字员工。如果已有相关 Agent 或数字员工，可以将其招募至自己的 Agent Team。</p>
+</blockquote>
+<h2 id="组织的转型"><a href="#组织的转型" class="headerlink" title="组织的转型"></a>组织的转型</h2><h3 id="绝大部分产品、设计、研发、测试会收敛成-PDE"><a href="#绝大部分产品、设计、研发、测试会收敛成-PDE" class="headerlink" title="绝大部分产品、设计、研发、测试会收敛成 PDE"></a>绝大部分产品、设计、研发、测试会收敛成 PDE</h3><p>前面已经说过，传统岗位分工不是低效的代名词。它在人的能力边界清晰、工具能力有限的时代，帮助团队把复杂项目拆开，让产品、设计、研发、测试分别在自己的深水区积累专业性。AI Native 团队组织的核心变化，也不是“人人都去写代码”，不是代码生成更快，而是许多过去被岗位门槛隔开的工作，开始可以被同一个人借助 Agent 串起来。</p>
+<p>因此，在 AI Native 团队里，产品、设计、研发、测试会逐渐聚拢为一种更综合的能力形态 PDE。PDE 负责问题定义、方案选择和结果闭环；Specialist 则是在复杂架构、性能、安全、质量建模、体验系统、领域算法等深水区继续拉高上限，本质上是更高阶的 PDE；Harness 负责让人和 Agent 都能在项目里稳定工作。传统岗位的专业能力优势不会消失，具备更扎实基本功的人反而能更好地驾驭 AI Agent，只是岗位壁垒被 Agent 打破了。</p>
+<p>针对技术深水区——产品、设计转研发面临巨大的“转型”压力，部分研发可能对这类转型存在严重怀疑。转型的关键仍然是“扬长补短”。项目的上限如果是技术瓶颈，团队的大多数人就要向技术深水区靠近；如果项目的上限是产品品味、审美和体验，团队的大多数人就要提高自己的产品判断和审美能力。所谓转型，不是放弃自己的优势，而是围绕这自身的优势发挥到项目真正需要的地方。</p>
+<blockquote>
+<p>需要注意的是大部分项目的瓶颈可能不是技术，而是产品审美——这个是很容易被忽视的。</p>
+</blockquote>
+<h3 id="Harness：打造让-Agent-可靠工作的环境"><a href="#Harness：打造让-Agent-可靠工作的环境" class="headerlink" title="Harness：打造让 Agent 可靠工作的环境"></a>Harness：打造让 Agent 可靠工作的环境</h3><p>如果 PDE 解决“谁来推动问题闭环”（负责把问题推进成结果），Harness Engineer 则解决“这个闭环如何可靠发生”（负责让这个推进过程可重复、可验证、可维护）。</p>
+<p>Agent 很强，但没有上下文、边界和检查的 Agent 只能猜。猜对时像魔法，猜错了就是技术债。Harness 要处理的正是这些失败模式。</p>
+<p>Harness Engineer 与传统 DevOps、Platform Engineer 有重叠，但关注点更偏向 AI Native 的工作环境：Agent 开工前读什么，长期事实源在哪里，任务如何表达，哪些工具可以用，哪些边界不能碰，如何验证结果，如何回滚，如何记录失败模式。</p>
+<p>可以把 Harness 拆成五部分：</p>
+<ul>
+<li><strong>Context</strong>：项目背景、架构边界、业务规则、代码地图、历史决策。</li>
+<li><strong>Rules</strong>：编码规范、目录职责、权限边界、禁止事项。</li>
+<li><strong>Tools</strong>：可调用的命令、MCP、脚本、调试入口、数据环境。</li>
+<li><strong>Checks</strong>：测试、lint、类型检查、构建、回归、验收标准。</li>
+<li><strong>Feedback</strong>：日志、报错、review、CI 结果、用户反馈、上线观察。</li>
+</ul>
+<p>没有这些，AI Native 只是个人技巧。有了这些，Agent 才可能成为团队能力。</p>
+<p>在存量项目中，Harness 尤其重要。多 Git 仓库、知识库分散、历史文档过期、接口契约不清、上下文藏在人脑里，这些都会让 Agent 的能力大幅折损。一个只有资深研发才能安全修改的项目，本质上说明它还依赖大量隐性知识。AI Native 不是把旧项目外面套一层 Agent，而是把项目改造成新人和 Agent 都能理解、修改、验证和演进的系统。</p>
+<p>因此，组织需要把分散的项目资产收拢起来，用 Harness 把上下文、约束和验证路径加固，让 Agent 能够在稳定环境里工作。</p>
+<h3 id="一个-Dumbo-案例：从问题反馈到诊断闭环"><a href="#一个-Dumbo-案例：从问题反馈到诊断闭环" class="headerlink" title="一个 Dumbo 案例：从问题反馈到诊断闭环"></a>一个 Dumbo 案例：从问题反馈到诊断闭环</h3><p>Dumbo 是一个办公协作领域的桌面项目，日常会承载沟通、协作、工具调用和本地工作台等复杂场景。这里不展开它的具体业务细节，只拿其中一个很常见的能力举例：用户遇到业务问题时，如何把“我这里不对”变成研发可以复现、定位和修复的问题。</p>
+<p>在传统流程里，这类需求通常会被拆成几段：产品先定义反馈入口和用户路径，设计补录制器交互和状态提示，研发实现窗口选择、录制、日志、网络和性能证据采集，测试再补目标窗口关闭、录制超时、打包失败、隐私边界等异常场景。这个分工并没有错，但真正困难的地方不在某一段实现，而在于这些判断能不能稳定地串成一条闭环：用户能否低成本提交有效证据，研发能否拿到足够但不过界的信息，系统能否在异常情况下仍然保留可诊断现场。</p>
+<p>如果按 AI Native 的方式推进，这个任务更像由一个 PDE Owner 牵头完成闭环。Owner 先把用户问题、非目标、隐私边界、验收标准说清楚，例如录制必须由用户主动开始，必须明确选择目标窗口，最长只保留有限时间，只生成一个本地诊断包，敏感内容不进入默认采集范围，最终仍由用户手动提交。随后，再让 Agent 参与实现悬浮录制器、目标窗口选择、证据打包、异常状态、测试补齐和文档同步。人的工作不是逐行包办每个模块，而是持续校准体验、边界和风险。</p>
+<p>这时 Harness 的作用就很明显。产品文档说明用户可见行为和隐私边界，架构文档说明代码应该落在哪些模块、哪些接口不能越界，执行计划记录阶段目标、风险和验证路径，检查命令保证文档、类型、测试和格式没有被绕过。Agent 可以写很多代码，但它要在这些边界里工作；人也不再只做口头验收，而是把判断写回文档、测试和规则，让下一次类似任务更容易被安全推进。</p>
+<p>这个案例说明，AI Native 不是把产品、设计、研发都混成同一种旧岗位，也不是让每个人都去手写底层代码。真正的变化是，不同背景的人都可以把自己的判断放进同一个可运行、可验证、可维护的系统里。一个办公场景里的问题反馈能力，最后不只是一个录制器，而是一套从用户问题、体验路径、证据边界、工程实现到研发排查的闭环。</p>
+<h3 id="组织边界从岗位边界变成业务（问题）边界"><a href="#组织边界从岗位边界变成业务（问题）边界" class="headerlink" title="组织边界从岗位边界变成业务（问题）边界"></a>组织边界从岗位边界变成业务（问题）边界</h3><p>前面已经提到传统组织通常按专业切分：产品负责“要做什么”，设计负责“怎么体验”，研发负责“怎么实现”，测试负责“是否可靠”。一个需求进入团队后，常常沿着岗位流水线移动：先被写成需求，再变成设计稿，然后进入研发排期，最后交给测试兜底。</p>
+<p>AI Native 团队更适合按问题切分。谁最理解这个用户问题，谁就牵头把需求、体验、实现、验证串起来。团队不再只以“前端组、后端组、测试组、设计组”作为组织单元，而是围绕一个业务目标临时组装小型交付单元：由 PDE Owner 定义问题和验收标准，把上下文交给一组可调用 Agent，并持续审查它们的输出。这个单元的终点也不再是“代码写完”或“提测完成”，而是从发现问题到上线验证形成一条闭环链路。</p>
+<p>这意味着，组织分类的重心会从岗位边界转向业务问题边界。</p>
+<h3 id="项目管理关注点发生变化"><a href="#项目管理关注点发生变化" class="headerlink" title="项目管理关注点发生变化"></a>项目管理关注点发生变化</h3><p>传统项目（业务）负责人更多盯资源投入和流程进度：人力是否够、排期是否合理、需求吞吐是否稳定、各岗位是否按时交付、提测质量和上线时间是否可控。到了 AI Native 阶段，这些仍然重要，但已经不足以解释一个团队的真实交付能力。</p>
+<table>
+<thead>
+<tr>
+<th>管理对象</th>
+<th>传统项目更关注</th>
+<th>AI Native 项目还要关注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>投入</td>
+<td>人力、排期、岗位进度</td>
+<td>Agent 可执行性、工具权限、成本预算</td>
+</tr>
+<tr>
+<td>需求</td>
+<td>需求吞吐、上线时间</td>
+<td>Spec 清晰度、上下文质量、验收标准</td>
+</tr>
+<tr>
+<td>质量</td>
+<td>提测质量、缺陷率</td>
+<td>自动化验证覆盖、Harness 完备度、人工审查效率</td>
+</tr>
+<tr>
+<td>资产</td>
+<td>项目经验依赖核心成员</td>
+<td>经验是否沉淀为长期事实源、模板和可复用 Agent 能力</td>
+</tr>
+</tbody></table>
+<p>所以，项目管理的关注点也会随之变化。只看千行源码缺陷率、需求吞吐和上线节奏，已经无法清晰衡量 AI Native 团队的真实交付品质。</p>
+<h3 id="回到旧舟与新海"><a href="#回到旧舟与新海" class="headerlink" title="回到旧舟与新海"></a>回到旧舟与新海</h3><p>开头说旧时代最坚固的船，在新海域里反而显得沉重。放在产品研发组织里，这艘“旧舟”不是某个岗位，也不是某类人，而是一整套按岗位流转、按工时排期、按交付节点验收的组织习惯。它在过去有效，也仍然有价值；只是当 Agent 开始承担越来越多执行工作时，真正决定速度和质量的，已经从“谁来写完”转向“谁能把问题、上下文、执行、验证和责任组织起来”。</p>
+<p>所以，AI Native 组织转型不是给每个人配一个 AI 工具，也不是要求所有人变成同一种角色。新海里的核心能力，是让问题有人负责、上下文可以被复用、执行可以被 Agent 放大、验证可以自动发生、责任仍然清晰落在人身上。人不因为 AI 变得不重要，人的判断反而更靠前、更集中，也更难被流程替代。</p>
+<p>真正值得建设的，不是一艘看起来更快的旧舟，而是一套能在新海里持续航行的组织方式：以问题为边界，以 Harness 为基础，以 Agent 为执行放大器，以人为最终判断和责任中心。能完成这个转向的团队，才会把 AI 从个人效率工具，变成组织级生产力。</p>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/ai-devgroup/" data-id="cmr0sn7ht00002wly6kj293mc" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/ai-devgroup/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article
+  id="layout/post-d-life"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Sun Mar 15 2026 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E7%A7%91%E6%8A%80%E8%AF%84%E8%AE%BA/">科技评论</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/d-life/">被围起来的数字生活：从数字地主到数字佃农</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Sun Mar 15 2026 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <blockquote>
+<p>被围起来的数字生活：从数字地主到数字佃农——一场主权收缩的困局。</p>
+</blockquote>
+<p>你购买设备的那一刻，未必已经签下卖身契，但你很可能已经接受了一套由别人预先写好的规则。</p>
+<p>当你点亮新手机的屏幕，面对的往往不是一片待你开垦的数字旷野，而是一座早已规划好路线的高墙花园。你想安装一个来自网络的软件，系统彬彬有礼地提醒你：“请从官方应用商店下载。”你想修改系统设置，那选项灰暗如铁窗，上书“已被管理员禁用”。你想将照片直接传输到电脑，却被引导进入某个特定应用，再经由云端中转——仿佛你不过是数据的临时保管者，而非真正的支配者。</p>
+<p>这一切，并不只是技术进步的自然结果，也不只是某一家公司的恶意设计。它更像是一种结构性合流：资本追求可持续抽租，平台追求更高的可控性，监管追求更低的风险与更清晰的责任边界，而大量普通用户也真诚地偏好“少一点折腾、最好默认可用”的产品体验。几股力量彼此借力，最终共同塑造了今天这座看似便捷、实则不断收缩用户主权的数字花园。</p>
+<p>问题恰恰在这里：秩序、便利与安全并非没有价值，但当它们被组织成一套默认设置、且越来越少给用户留下退出、迁移和自行决定的权利时，我们在数字世界中的身份就发生了悄然变化。至少对那些仍然重视控制权、迁移权和自我支配能力的人来说，这种变化已经不是“体验优化”，而是一场温和而持续的身份降格：我们正从拥有者，退回到被许可使用者；从主人，退回到租客。</p>
+<p>更棘手的是，这种变化并不总以暴力的方式出现。它往往披着“为你好”的外衣，以安全、体验、一体化服务、持续更新的名义完成。于是，真正值得警惕的，不只是某一家公司太强势，而是我们越来越习惯于把原本属于自己的决定权，交给平台代为处理。</p>
+<h2 id="一、从数字旷野到围墙花园：谁拿走了你的主权？"><a href="#一、从数字旷野到围墙花园：谁拿走了你的主权？" class="headerlink" title="一、从数字旷野到围墙花园：谁拿走了你的主权？"></a>一、从数字旷野到围墙花园：谁拿走了你的主权？</h2><p>曾经，个人电脑代表着一种近乎粗粝却真实的自由。开机之后，你面对的是文件系统，是可见的目录，是可以自行决定安装与卸载的软件，是可以自由插拔的外设，是可以被替换、被修补、被折腾的操作系统。你不一定总能驾驭它，但至少你知道：机器的使用逻辑，原则上应该由你来定义。</p>
+<p>那是一个远称不上完美的时代。软件可能崩溃，系统可能蓝屏，驱动冲突和兼容问题足以逼疯任何新手；可与此同时，你的设备仍是你的设备。你可以从任何网站下载安装程序，可以修改系统默认项，可以把文档拖进任何你喜欢的目录，可以决定数据备份到哪里，也可以在平台意志之外，维持一套属于自己的数字生活秩序。</p>
+<p>诚然，那片旷野并非伊甸园。盗版软件横行，系统崩溃是家常便饭，驱动程序冲突足以让新手束手无策，病毒和木马在开放的旷野上肆虐。那时的“自由”，确实伴随着混乱、风险与更高的学习成本。开放，从来不是毫无代价的恩赐。</p>
+<p>也必须承认，并不是每个人都渴望做“国王”。对很多普通用户而言，开放意味着更高的理解门槛、更频繁的故障、更难分辨真伪的风险。后来平台化系统之所以胜利，不只是因为它们更会控制，也因为它们确实把大量原本由个人承担的技术负担，重新打包成了“默认可用的秩序”。这正是它们最强的地方。</p>
+<p>但问题不在于秩序本身，而在于这种秩序越来越少给用户留下真正的选择权。你可以不必亲自处理风险，却也越来越难决定软件从哪里来、数据往哪里去、系统应该如何被使用。你得到的是省心，失去的却是支配权。自由不再被明面剥夺，而是在“替你做好了”的过程中，被一层层拿走。</p>
+<h2 id="二、平台化的圈地：资本、安全与便利如何共同构建数字庄园"><a href="#二、平台化的圈地：资本、安全与便利如何共同构建数字庄园" class="headerlink" title="二、平台化的圈地：资本、安全与便利如何共同构建数字庄园"></a>二、平台化的圈地：资本、安全与便利如何共同构建数字庄园</h2><p>平台时代的形成，并不是一场单线程的阴谋，而是一场多方力量彼此强化的结果。资本当然希望把一次性交易改造成长期抽租，平台天然偏爱标准化、可审计、可封禁、可分成的秩序；监管机构偏爱更容易追责的集中式入口；而大量普通用户，则真实地偏爱“少一点折腾、最好默认可用”的产品体验。</p>
+<p>问题恰恰在这里：这些诉求并非完全虚假，甚至各自都有其现实合理性。但当它们叠加起来，结果却稳定地指向同一个方向——控制权持续从用户手中转移到平台手中。于是，我们看到的，不只是某个资本集团的贪婪，而是一种更稳固的结构：资本逐利、安全治理、规模化运维与便利偏好，共同塑造了今天的数字庄园。</p>
+<p>在这种结构里，资本仍然是最强势的组织者。它最懂得如何把“便利”变成依赖，把“安全”变成授权，把“服务”变成租金，把“默认设置”变成新的服从关系。于是，一场针对用户主权的系统性收缩徐徐展开。</p>
+<h3 id="2-1-从买工具到租服务：所有权如何被抽空"><a href="#2-1-从买工具到租服务：所有权如何被抽空" class="headerlink" title="2.1 从买工具到租服务：所有权如何被抽空"></a>2.1 从买工具到租服务：所有权如何被抽空</h3><p>过去的软件交易，更接近传统商品逻辑：你买下一个版本，获得一个副本，在本地安装，在本地使用。它可能过时，可能不再更新，但至少在一段时间内，它属于你。</p>
+<p>而今天，越来越多的软件与服务转向订阅制、账号制、云端授权制。你支付的，不再是“拥有这个工具”的价钱，而是“继续被允许使用它”的租金。只要你停止付款，访问权就会收回，某些功能会熄火，某些内容会失效，某些积累甚至可能一并消失。</p>
+<p>这并不意味着订阅制毫无合理性。持续更新、云同步、协同编辑、安全补丁、跨设备服务，这些确实构成了新的成本结构。但真正的问题是，当产品从工具转变为持续服务时，用户却没有同步获得足够明确的退出权、迁移权与最低限度的访问保障。于是，订阅不再只是商业模式，也逐渐成为一种支配关系。</p>
+<h3 id="2-2-从开放网络到平台内网络：便利如何变成依附"><a href="#2-2-从开放网络到平台内网络：便利如何变成依附" class="headerlink" title="2.2 从开放网络到平台内网络：便利如何变成依附"></a>2.2 从开放网络到平台内网络：便利如何变成依附</h3><p>平台告诉你：这是为了方便，为了让你无需下载多个 App，无需记住多个密码，无需在不同服务之间反复切换。必须承认，这种便利并不是幻觉。统一登录、统一支付、低学习成本、弱设备门槛，这些都是真实的优势。对很多用户来说，这甚至是他们第一次如此低摩擦地接入数字服务。</p>
+<p>但便利的另一面，是平台替你决定了连接方式、数据去向和服务边界。你不再面对一个开放互联网，而是在“平台里的互联网”里活动；你不再拥有可自由迁移的记录与关系，而是在平台内部“被允许使用”这些积累。问题不在于便利本身，而在于便利被设计成了依附：你越离不开它，就越难带着自己的关系、记录与资产离开它。</p>
+<h3 id="2-3-从用户到行为矿工：数据如何反过来定义你"><a href="#2-3-从用户到行为矿工：数据如何反过来定义你" class="headerlink" title="2.3 从用户到行为矿工：数据如何反过来定义你"></a>2.3 从用户到行为矿工：数据如何反过来定义你</h3><p>平台经济的另一重逻辑，是把用户的一切行为都重新编码为可采集、可分析、可出售、可训练的资源。点击、停留、搜索、支付、聊天、观看、滑动，每一次动作都被记录并回流进更庞大的推荐、广告、画像与优化系统之中。</p>
+<p>表面上，你获得了更懂你的服务；实际上，你也在不知不觉中为平台持续生产价值。更微妙的是，这些数据并非只是“被平台收集”，它们也在反过来塑造你能看到什么、会买什么、会信什么、会习惯于什么。用户不仅成为平台的消费者，也成为平台不断再生产自身权力的原料。</p>
+<h2 id="三、当开放互联网开始后退：我们失去了什么？"><a href="#三、当开放互联网开始后退：我们失去了什么？" class="headerlink" title="三、当开放互联网开始后退：我们失去了什么？"></a>三、当开放互联网开始后退：我们失去了什么？</h2><p>我们失去的，并不只是几个下载入口，或几个自由安装软件的权限。更深层的丧失，是一种曾经默认存在的技术伦理：设备应当首先服务于拥有它的人，软件应当允许被替换，数据应当能够被导出，服务之间应当可以互相连接。</p>
+<p>一旦这些原则退场，用户就不再是系统的主人，而更像平台秩序中的临时居住者。你可以住得舒适，但装修权、改造权、迁移权、继承权，越来越不掌握在你手里。</p>
+<p>开放互联网的价值，不只在于“自由折腾”，更在于它曾经提供了一种制衡机制：任何平台若做得太差，用户还有较低成本的替代路径。可一旦入口、关系链、支付能力、身份认证与数据沉淀都被集中到少数平台内部，这种制衡便会迅速减弱。你依然看似拥有选择，实际上却越来越难真正离开。</p>
+<h2 id="四、AI-Agent-会成为新的破墙工具，还是新的包租人？"><a href="#四、AI-Agent-会成为新的破墙工具，还是新的包租人？" class="headerlink" title="四、AI Agent 会成为新的破墙工具，还是新的包租人？"></a>四、AI Agent 会成为新的破墙工具，还是新的包租人？</h2><p>近来像 OpenClaw 这样的工具之所以引人注目，正因为它提出了一种新的可能：如果平台不愿开放接口，AI 是否可以绕过 API，直接通过“看见屏幕—理解界面—模拟点击”的方式替用户重新取得操作权？</p>
+<p>这确实是一种富有想象力的突围。它意味着，即便平台封死了官方接口，用户仍可能借助模型在交互层面重新进入系统，把原本被平台垄断的流程重新纳入自动化范围之中。从这个意义上说，Agent 技术似乎为“重新夺回主动权”打开了一条缝隙。</p>
+<p>但这种缝隙并不自动通向解放。因为一旦 AI 代理代替用户操作应用，新的问题会立刻出现：谁来控制这个 Agent？谁来承担误操作责任？谁掌握它读取界面、分析上下文、保存凭证和访问敏感信息的权限？如果这些能力最终集中到另一个模型平台手中，那么旧平台的围墙也许只是被绕过了，新的中介秩序却很可能随之建立。</p>
+<p>所以，Agent 不是天然的解放工具。它可能成为用户重新争夺操作权的杠杆，也可能只是“房东换了一个”的下一轮租赁关系。它的政治含义，不在于它看上去多么酷炫，而在于它会把控制权重新交还给谁。</p>
+<h2 id="五、我们何以无力翻身？——制度性约束与结构性困境"><a href="#五、我们何以无力翻身？——制度性约束与结构性困境" class="headerlink" title="五、我们何以无力翻身？——制度性约束与结构性困境"></a>五、我们何以无力翻身？——制度性约束与结构性困境</h2><p>OpenClaw 的局限，折射出一个更深层的困境：平台体系对用户主权的压缩，往往是制度性的、结构性的，而我们的反抗则常常只是技术性的、局部性的。</p>
+<p>这种围墙花园，不仅是技术层面的限制，更是法律、经济、组织与心理层面的多重裹挟：</p>
+<ul>
+<li><strong>法律上</strong>，用户协议为平台提供了近乎天然的护身符。你每一次点击“我同意”，都在接受一套单方面拟定的秩序。这些协议冗长晦涩，但一旦发生纠纷，它们往往又成为平台最可靠的防线。</li>
+<li><strong>经济上</strong>，切换成本高得惊人。你的文件格式、工作流程、社交网络、历史数据、支付记录，全被锁进既有生态。离开并非不可行，只是代价极高。</li>
+<li><strong>组织上</strong>，平台不仅服务个人，也嵌入企业、学校、政务与日常协作。你未必真心认同它，却很难单方面退出它。</li>
+<li><strong>心理上</strong>，越来越多人已把“方便”视为压倒一切的价值，把“默认可用”视为技术理应提供的状态。只要系统还能顺畅运行，很多人并不会主动追问自己究竟失去了什么。</li>
+</ul>
+<p>还需要承认的是，“数字佃农”并不是所有用户都会主动认领的自我描述。有人把封闭生态体验为窒息，也有人把它体验为秩序；有人在意所有权，有人更在意随手可用；有人担心迁移困难，也有人从未打算迁移。率先感到不适的，往往是那些经历过开放互联网、重视可控性、习惯自行管理工具链的人。他们的感受未必在统计意义上最普遍，却常常在结构意义上最敏感——因为他们最早察觉到的，不只是“不方便”，而是用户正在从拥有者退回到被许可使用者。</p>
+<p>更致命的是，平台之间虽然彼此竞争，但在维护“围墙逻辑”上却往往高度相似。苹果的封闭生态、谷歌的应用分发体系、微软的新平台野心，路径不尽相同，却都在强化一个基本趋势：把用户留在自有秩序中，让退出变难，让迁移昂贵，让控制权回收到平台侧。</p>
+<p>面对这种结构性困局，个体当然不是毫无行动空间，但也很难靠一次越狱、一次换机、一次装开源软件就彻底脱身。问题不只是“有没有替代品”，而是我们的数字生活早已深嵌在一整套平台制度之中。</p>
+<h2 id="六、结语：从“数字佃农”到“数字公民”——问题不在于怀旧，而在于重新追问边界"><a href="#六、结语：从“数字佃农”到“数字公民”——问题不在于怀旧，而在于重新追问边界" class="headerlink" title="六、结语：从“数字佃农”到“数字公民”——问题不在于怀旧，而在于重新追问边界"></a>六、结语：从“数字佃农”到“数字公民”——问题不在于怀旧，而在于重新追问边界</h2><p>回看这场围绕数字生活展开的缓慢圈地，我们看到的并不是一个简单的善恶故事。PC 时代的开放更粗粝，也更混乱；移动时代的平台化更整齐，也更省心。问题不在于过去天然更高尚，也不在于今天的一切便利都是骗局。真正值得警惕的是：当安全、便利、效率与商业逻辑被合并成一套越来越封闭的默认秩序，用户对设备、数据、软件和服务的支配权，便开始持续收缩。</p>
+<p>从这个意义上说，“数字佃农”并不是一个适用于所有人的情绪标签，而更像是一种症状描述。不是每个人都会立刻为此焦虑，也不是每个人都愿意为更多控制权支付学习成本和风险成本。但一个社会若长期不再追问这些问题，用户就会在不知不觉中，从公民退回到租客，从拥有者退回到被许可使用者。</p>
+<p>OpenClaw 的意义，也许正不在于它已经带来了真正的解放，而在于它暴露了今天数字秩序中的一个核心事实：即便平台不开放接口，用户依然会寻找新的方式夺回主动权；而每一次这种尝试，又都迅速暴露出新的依赖、新的风险与新的收编机制。它证明了反抗并非不可能，也证明了单靠工具远远不够。</p>
+<p>所以，真正的问题或许不再是“怎样养好一只龙虾”，而是我们是否愿意重新把几个长期被平台替我们回答的问题，拿回公共讨论之中：</p>
+<ul>
+<li>设备究竟归谁支配？</li>
+<li>数据是否应当具备可携带权？</li>
+<li>订阅终止之后，用户是否仍应保有最低限度的访问权？</li>
+<li>平台以安全和便利为名收回的那些控制权，边界究竟在哪里？</li>
+<li>哪些接口、哪些格式、哪些基础能力，应该被视作数字时代的公共设施？</li>
+</ul>
+<p>真正的破局，不会只是某个工具突然横空出世，而是制度层面的重构：法律如何重新界定用户权利，市场如何降低迁移成本，社会如何重新理解“方便”与“自由”的关系，公众又如何重新认识“数据”“接口”“设备支配权”并非技术细节，而是数字时代最基本的公民问题。</p>
+<p>或许，第一步不是要求所有人都立刻成为“数字主权”的信徒，而是重新学会对现有秩序提出怀疑。不是否认便利，而是拒绝把便利自动等同于正当；不是浪漫化开放，而是要求在秩序之中保留退出、迁移和自行决定的空间。</p>
+<p>科技本应扩展人的能力，而不是把人稳定地安置在被管理的位置上。哪怕只有一部分人率先感到了这种收缩，他们的焦虑也未必只是怀旧，它更可能是某种前哨警报：提醒我们，数字世界的边界，正在被谁定义，又正在替谁服务。</p>
+<hr>
+<blockquote>
+<p>温馨提示：本文基于ChatGPT工具辅助完成。</p>
+</blockquote>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/d-life/" data-id="cmr0sn7hx00032wly52fnfowp" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/d-life/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article
+  id="layout/post-realsee-vr-performance"
+  class="article article-type-layout/post"
+  itemscope
+  itemprop="blogPost"
+>
+  <!-- <div class="article-meta">
+    <div class="article-date">
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a>
+  </div>
+
+  </div> -->
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+    </h1>
+  
+ <div class="article-dateref">
+  首次编辑于 Thu Oct 26 2023 23:30:00 GMT+0800 (China Standard Time)
+</div>
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+       <style type="text/css">
+@media screen and (min-width: 960px) {
+
+  .article-entry .rvp-video, .article-entry .rvp-image {
+    max-width: 540px;
+  }
+}
+</style>
+
+<h2 id="壹、背景"><a href="#壹、背景" class="headerlink" title="壹、背景"></a>壹、背景</h2><p>贝壳 VR 看房是贝壳找房如视事业部（现已独立，<a target="_blank" rel="noopener" href="https://www.realsee.com/">如你所视科技有限公司</a>）做的一款在线 VR 3D 看房服务。通过专业的三维空间扫描设备采集房源户型三维数据，经过算法加工之后，可以通过 WebGL/Three.js 等工具将房源以1:1复刻至浏览器上，并支持720°空间自由行走和模型、全景等多种模态间的自由切换。</p>
+<p>尤其是在新冠疫情的影响下，用户可以直接在线上进行 VR 3D 看房，降低筛选、沟通成本。此外，在后续的业务迭代中又引入 VR 带看、VR 经纪人/ AI 讲房、“一键换装”看装修等新业务模式。随着业务复杂度的提升、用户使用群体的覆盖面越来越广，性能问题已经成为项目瓶颈，亟待解决。</p>
+<h3 id="1-现状分析"><a href="#1-现状分析" class="headerlink" title="1. 现状分析"></a>1. 现状分析</h3><p><strong>业务分析</strong></p>
+<p>如视 VR 团队是2017年开始成立的，2018年4月份贝壳找房App 首次对外发版，VR 看房属于新品牌的核心亮点。于是从2017年开始近一年的时间内从0-1搭建贝壳VR看房，团队节奏是很紧的——倒排、抢时间。</p>
+<p>2018年后半程在贝壳 VR 看房的基础上，又新增 VR 经纪人讲房和 VR 线上实时同步带看业务。</p>
+<p>2019年初，引入早期版本的 AI 讲房业务。内部项目“未来家”——即 VR 装修（渲染）技术突破，支持“一键看装修”功能，并支持与实景 VR 同屏对比。</p>
+<p>由于2019年末、2020初新冠疫情的影响，VR 线上实时同步带看业务转变为公司级别核心业务。实现 VR 带看二手房、新房、租赁等业务全场景的覆盖，并支持微信小程序（高流量）。</p>
+<p>2021年初，则重点投入 AI 讲房业务新的探索——添加算法权重，实现 AR 数字人，往更智能（基于用户画像和性能条件实现“千人千面”体验）、更具空间表达的方向发展。<br>2021年末至今（2022年7月），团队方向调整，从贝壳找房剥离并成立如你所视科技有限公司。由支撑贝壳找房VR看房转向 SaaS、PaaS 数字空间综合解决方案创业公司。</p>
+<p><strong>技术分析</strong></p>
+<p>早期为了<em><strong>快</strong></em>，架构上基于 jQuery +发布/订阅者模式实现的模块化开发，后期（2020年中）转向分层+基于 React 技术栈实现的动态模块化架构形式，见下图。</p>
+<figure>
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_01.png"  alt="前端架构图" />
+  <figcaption>图一：前端架构图</figcaption>
+</figure>
+
+<h3 id="2-优化目标"><a href="#2-优化目标" class="headerlink" title="2. 优化目标"></a>2. 优化目标</h3><p>优化目标很多，本文仅抽取两点（围绕内存、FPS、TTI、进VR带看耗时这四点）进行详细说明：</p>
+<p>① 性能满足更多用户诉求，贝壳VR 看房覆盖面更广，不能局限于某些高端设备——<strong>提高用户覆盖面</strong>。<br>② <strong>几个关键路径体验</strong> 亟待解决，已经阻塞业务发展——比如启动Loading耗时长、VR 带看链路上流失率高等等。</p>
+<h2 id="贰、优化经验"><a href="#贰、优化经验" class="headerlink" title="贰、优化经验"></a>贰、优化经验</h2><blockquote>
+<p>前期实际落地时并没有按照 <a href="https://solome.js.org/docs/methodology/performance">性能优化方法论</a> 来执行（当初也没经验），实际上也因此踩了很多坑，浪费了很多时间、资源——特别是在旧架构体系上和产品策略上做的工作 ROI 极低。</p>
+</blockquote>
+<h3 id="1-指标体系"><a href="#1-指标体系" class="headerlink" title="1. 指标体系"></a>1. 指标体系</h3><h4 id="1-1-系统指标"><a href="#1-1-系统指标" class="headerlink" title="1.1 系统指标"></a>1.1 系统指标</h4><p>房源的VR 3D模型是通过WebView基于前端WebGL能力渲染出的，核心指标有两个：</p>
+<ul>
+<li>内存占用（iOS 端直接上报；线上 Android 端无法上报、黑盒，只能通过 <a target="_blank" rel="noopener" href="https://perfdog.qq.com/">PerfDog</a> 线下统计）。</li>
+<li>体现流畅度的 FPS 值。</li>
+</ul>
+<p>分析分布大致的结论如下：</p>
+<ul>
+<li><strong>内存（高崩溃率）</strong>：一个 VR 占用内存大概300MB，正常情况两个 VR 实例大概700MB内存（最低值区间700MB），但线上平均指标实际是 1.2G——而 iOS 系统崩溃阈值是1.5G左右；Android 系统差异大，无明确阈值。</li>
+<li><strong>FPS</strong>：前11s平均50fps以内，正常55fps以上。是合格值，但是进入 VR 7s 阶段，FPS 降至 40fps 以下，拉低平均值。</li>
+</ul>
+<h4 id="1-2-关键路径指标"><a href="#1-2-关键路径指标" class="headerlink" title="1.2 关键路径指标"></a>1.2 关键路径指标</h4><p>关键路径指标有很多，这里抽取两个做详细说明：</p>
+<ul>
+<li><strong>TTI</strong>：可交互时间，即从房源详情页点击进入 VR 到 VR 页面渲染完成可交换的耗时。这个过程有 Loading 过程，内部又称为 Loading 耗时长，优化前平均值在7s左右，优化后2s。</li>
+<li><strong>点击 VR 带看入口到带看就绪耗时</strong>：优化前21s，优化后用户发起端1s内，经纪人端2.5s。</li>
+</ul>
+<blockquote>
+<p>此外，还有跟渲染引擎相关模型渲染、模态切换等指标，由于偏三维领域，本文不展开。本文分别去两个系统指标和关键路径指标进行分析、经验介绍。</p>
+</blockquote>
+<h3 id="2-摸底分析"><a href="#2-摸底分析" class="headerlink" title="2. 摸底分析"></a>2. 摸底分析</h3><h4 id="2-1-内存"><a href="#2-1-内存" class="headerlink" title="2.1 内存"></a>2.1 内存</h4><p>前文提到，一个 VR 占用内存大概300MB，正常情况两个 VR 实例大概700MB 内存，但线上平均指标实际是 1.2G。分析定位后发现：</p>
+<ul>
+<li><strong>非 VR 渲染模块</strong>：除了 VR 耗资源之外，还有地图（百度/腾讯）、多媒体（小区图集/小区视频/讲房音频等）等模块亦占用内存。</li>
+<li><strong>RTC 功能</strong>：除了渲染模块之外，VR 带看依赖的 RTC 功能（实时语音）也会占用 WebView 进程资源。</li>
+<li><strong>UI 资源</strong>：首面板逐帧动画以及其他过渡动画等。</li>
+</ul>
+<p>这些占用内存的模块短期内都是无法省去的，因此性能指标的瓶颈在 1.2G。而且，功能越用越多，内存占用越高，崩溃的概率越高。</p>
+<h4 id="2-2-FPS"><a href="#2-2-FPS" class="headerlink" title="2.2 FPS"></a>2.2 FPS</h4><p>除了在7s左右 FPS 急剧下降之外，整体 FPS 处在合理值范畴。为啥 7s 左右 FPS 会明显下降呢？主要是这里有个 <strong>用计算换降低存储空间成本</strong> 的优化——将三角面片数据及 uv 贴图数据压缩后存储，端上使用再解压使用。</p>
+<h4 id="2-3-TTI"><a href="#2-3-TTI" class="headerlink" title="2.3 TTI"></a>2.3 TTI</h4><p>可交互时间，即从房源详情页点击进入 VR 到 VR 页面渲染完成可交换的耗时。分析后，关键流程如下：</p>
+<figure>
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_02.svg"  alt="启动 Loading 耗时关键阶段流程图" />
+  <figcaption>图二：启动 Loading 耗时关键阶段流程图</figcaption>
+</figure>
+
+<p>从关键流程图来看，到能交互阶段（虽然是部分交互），需要大概7s时间。</p>
+<p><strong>Node 计算</strong></p>
+<ul>
+<li>WHY：户型图敏感数据，不适合暴露在端上计算（比如两点间最短路径）。或无理由，就是写在 Node 层。</li>
+<li>调整：计算结果缓存，离线化支持。</li>
+</ul>
+<p><strong>浏览器端渲染</strong></p>
+<ul>
+<li>WHY：全模块渲染，无动态加载。造成 js 臃肿（依赖的 Three.js 库本身就巨）。</li>
+<li>调整：需 <strong>架构升级</strong>、先分层、非首屏内容异步加载或用户触发渲染。</li>
+</ul>
+<p><strong>六张图居然要花4s去下载？</strong></p>
+<ul>
+<li>WHY：由于 JS/CSS/图标等静态资源（前4s大概200多个 HTTP 请求）都在同个CDN域上，浏览器或 WebView 同时只能执行3-5个 HTTP 请求，无法并行请求六张全景图片。</li>
+<li>调整：多 CDN 域名 + HTTP2 多路复用支持。</li>
+</ul>
+<h4 id="2-4-点击-VR-带看入口到带看就绪耗时"><a href="#2-4-点击-VR-带看入口到带看就绪耗时" class="headerlink" title="2.4 点击 VR 带看入口到带看就绪耗时"></a>2.4 点击 VR 带看入口到带看就绪耗时</h4><p>何为VR带看？VR带看是指用户和经纪人（可以多个用户、多个经纪人）打开同个VR 页面，可以实时语音并且交互画面同步，视频效果如下：</p>
+<figure>
+  <video class="rvp-video" src="//solome.js.org/static/realsee-vr-performance/live_sync.7b9ea663.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
+</figure>
+
+<p><strong>VR 带看启动流程</strong></p>
+<figure>
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_03.svg"  alt="VR 带看启动流程耗时节点流程图" />
+  <figcaption>图三：VR 带看启动流程耗时节点流程图</figcaption>
+</figure>
+
+<p>线下分析15s耗时进入带看就绪状态，但线上真实情况却是21s左右。</p>
+<p>VR 带看类似于远程视频语音，只不过视频内容换成了 VR 画面同屏。可想而之，从触发到就绪需要21s，这是用户不可接受的，这个业务推广面临极大的困难。</p>
+<h3 id="3-策略调整"><a href="#3-策略调整" class="headerlink" title="3. 策略调整"></a>3. 策略调整</h3><h4 id="3-1-产品策略调整"><a href="#3-1-产品策略调整" class="headerlink" title="3.1 产品策略调整"></a>3.1 产品策略调整</h4><ul>
+<li>内存：产品经理将页面拆分为 <strong>首屏模块</strong> 和 <strong>非首屏模块</strong>，首屏模块强制渲染，非首屏模块延迟渲染或用户触发加载——旧的前端架构不支持。</li>
+<li>点击VR带看入口到带看就绪耗时：<ul>
+<li>不需要新开启 WebView，直接在原有的 WebView 上执行带看流程——<em>旧的前端架构不支持</em>。</li>
+<li>就绪重新定义：不需要等 RTC 联通、三维模型渲染就绪才能进入带看；只要 WebSocket 联通就行。</li>
+<li>新产品模式：抢单模式，一个用户对应多个线上经纪人/职业顾问，谁先响应客户资源归谁。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-技术架构升级"><a href="#3-2-技术架构升级" class="headerlink" title="3.2 技术架构升级"></a>3.2 技术架构升级</h4><p>从产品策略的调整来看，基于 jQuery +发布/订阅者模式实现的增量式模块化开发前端架构已经不满足现有的业务和性能诉求。原有的设计是典型的SPA应用，但是新的架构诉求则更像是一个平台，即架构上分层：数据层、View 层，View 层又细分 DOM 层、Canvas 层、协议层及基础插件层。数据层和 View 层组成基础的首屏内容，非首屏内容则基于这两层以动态模块的形式进行开发——<strong>需要时挂载</strong>（占内存），<strong>不需要时卸载</strong>（会延迟清部分内存）。</p>
+<figure>
+  <img class="rvp-image" src="//solome.js.org/static/realsee-vr-performance/image_06.svg"  alt="前端架构分层设计" />
+  <figcaption>图四：前端架构分层设计</figcaption>
+</figure>
+
+<p>图四是图一的简化版本，以首屏内容（产品定义）为核心，非首屏内容以动态模块“热插拔”式支持：</p>
+<ul>
+<li>数据层：基于 <a target="_blank" rel="noopener" href="https://mobx.js.org/README.html">MobX</a> 二次抽象，以React Context <code>&lt;StoreProvider&gt;</code> 形式驱动UI。</li>
+<li>协议层：类 jsBridge，实现与客户端通信，保障业务层逻辑通用——App(iOS/Android) 即jsBridge，小程序依托 WebSocket 实现。</li>
+<li>DOM 层：HTML 标签二维交互。</li>
+<li>Canvas 层：基于 WebGL 三维模型建模抽象——Three.js 生态及自研渲染引擎。</li>
+<li>插件层：以插件的形式进行抽象，实现二维 DOM 和三维 Canvas 混合编程。</li>
+<li>动态模块：经纪人/AI 讲房、VR 带看、地图、多媒体资源等——以主副面板等形式集成。</li>
+</ul>
+<h4 id="3-3-产品策略和技术架构带来的提升"><a href="#3-3-产品策略和技术架构带来的提升" class="headerlink" title="3.3 产品策略和技术架构带来的提升"></a>3.3 产品策略和技术架构带来的提升</h4><ul>
+<li>内存：浅用户（功能使用少的用户，停留时长50s内）崩溃率降低明显；深度用户崩溃率有降低，但是未发生质变。</li>
+<li>FPS：无直接影响。</li>
+<li>TTI-Loading 耗时：由于基于首屏渲染，渲染依赖极大减少，平均值降低至3.3s；再加上摸底分析提到的优化，最后能降到到2s左右。</li>
+<li>点击VR带看入口到带看就绪耗时：<ul>
+<li>用户端1s内——得益于不需要新开启 WebView，直接动态载入 VR 带看模块即可。不强依赖 RTC，瓶颈在 WebSocket 连接速度。</li>
+<li>经纪人/置业顾问端 3.5s 内，基本跟 TTI-Loading 耗时保持一致。</li>
+</ul>
+</li>
+</ul>
+<p>优化后数值基本都达到预期性能指标，但TTI-Loading耗时和内存溢出问题还是严重影响业务，可以成立专项再深度去治理。</p>
+<h3 id="4-专项治理"><a href="#4-专项治理" class="headerlink" title="4. 专项治理"></a>4. 专项治理</h3><p>经过前面三个阶段之后，基本能做到 <em><strong>①整体指标大盘稳定</strong></em>、<em><strong>②产品策略合理</strong></em> 且 <em><strong>③技术架构无缺陷</strong></em> ——能考八十分的高分水准。而专项治理则是将八十分往九十分继续提高。</p>
+<h4 id="4-1-TTI-指标：Loading-耗时长"><a href="#4-1-TTI-指标：Loading-耗时长" class="headerlink" title="4.1 TTI 指标：Loading 耗时长"></a>4.1 TTI 指标：Loading 耗时长</h4><p>虽然已经将Loading 耗时缩减到 3.3s以内了，但是这个过程本身很“膈应”，对业务还是有影响的。更进一步地我们开始思考怎么能把这个过程给去掉，但仅仅局限在 Web 前端的角度我们很难再有所突破。</p>
+<p>本着 <strong>渐进增强</strong> 的原则，由于我们大部分用户是在贝壳/链家App上使用VR看房服务，我们可以重复利用客户端渲染能力。</p>
+<p>分析3.3s的瓶颈：</p>
+<ul>
+<li>1s HTTP请求至浏览器端渲染（HTML「壳子」/CSS/JS等）。</li>
+<li>2s 左右的全景图片请求（六张）。</li>
+</ul>
+<p>至此，我们可以基于 WebView 拦截HTTP请求，让客户端提供HTTP请求预载、代理、缓存等能力。静态资源、全景贴图等在房源详情页提前请求，到 WebView 层拦截使用，终于整个流程平均值降到2s内（高端设备已经到1s内）——已经达到一个很好的效果。</p>
+<p>但是，Loading 这个过程依旧存在。我们继续深度挖掘客户端能力：客户端浅渲染三维模型——即客户端最小程度渲染三维模型（全景效果），由于资源已经提前预载，客户端渲染速度在300ms内（视终端设备性能来定），然后等 WebView 渲染就绪后再替换成前端渲染。所要做的工作是客户端渲染和前端渲染效果对齐即可。</p>
+<p>最终，300ms的延迟肉眼近乎无法感知，无缝衔接——效果如下视频。这个加载效果也步入业内第一梯队。</p>
+<figure>
+  <video style="max-width: 240px;" src="//solome.js.org/static/realsee-vr-performance/1657609527484.mp4" muted="true" controls  alt="VR 同屏" autoPlay="true" />
+</figure>
+
+<h4 id="4-2-内存溢出"><a href="#4-2-内存溢出" class="headerlink" title="4.2 内存溢出"></a>4.2 内存溢出</h4><p>由于动态载入\卸载的加成由于内存瓶颈造成的崩溃率已经有较明显下降。但是针对深度用户，崩溃依旧无法避免，但这部分用户又尤其重要。</p>
+<p>同样的，遵循 <strong>渐进增强，优雅降级</strong> 的原则，我们先系统地整理了影响内存情况的所有因素——见内存溢出影响因素鱼骨图。</p>
+<figure>
+  <img src="//solome.js.org/static/realsee-vr-performance/image_04.png"  alt="内存溢出影响因素鱼骨图" />
+  <figcaption>图五：内存溢出影响因素鱼骨图</figcaption>
+</figure>
+
+<p>同时按照线上内存性能分布情况、算法用户画像分析和测试团队线下测试情况建立了一份数据库。基于这份数据库和算法的用户画像数据来给用户提供不同的功能——即“千人千面”的用户体验，大体逻辑如下：</p>
+<ul>
+<li>针对低端环境用户（终端设备性能弱，电池影响等）：仅提供基本功能，高端功能（高分辨率、装修对比等）禁用（不会加载渲染）。</li>
+<li>针对高端环境用户（高性能设备）：渲染质量高，功能丰富。</li>
+<li>针对用户画像提供功能：比如，用户对装修感兴趣，则推荐装修模块；比如，用户购买意向高，则渐进推荐 VR 带看、AI 讲房等功能</li>
+</ul>
+<p>至此，将原本前端性能优化工作转换成算法团队根据用户画像来推荐功能的工作。性能状况是用户画像的一部分，在性能条件容许的情况下给用户最好的体验和功能，而非之前一股脑儿全给——不管你是什么样的用户，都能得到合适的 VR 3D 看房服务体验。</p>
+<p>而前端的工作重点则开始转变解析 WebSocket 推送的指令——在首屏模块的基础上，该渲染哪些异步模块，该何时卸载哪些异步模块，卸载的同时内存的清理情况。</p>
+<blockquote>
+<p><em><strong>很可惜这部分并没有很务实地落地</strong></em>——<em>可能对于家长而言，孩子考八十就足够了，不强求九十分或更高~</em></p>
+</blockquote>
+<h2 id="叁、表格形式-简化"><a href="#叁、表格形式-简化" class="headerlink" title="叁、表格形式-简化"></a>叁、表格形式-简化</h2><figure>
+  <img src="//solome.js.org/static/realsee-vr-performance/image_05.png"  alt="表格形式-简化" />
+</figure>
+ 
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://solome.js.org/blog/realsee-vr-performance/" data-id="cmr0sn7hz000c2wly5xoqfa37" class="article-share-link">Share</a>
+      
+      <a href="http://solome.js.org/blog/realsee-vr-performance/#disqus_thread" class="article-comment-link">Comments</a>
+       
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/2/">Next ⥤</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%A8%98/">学习札記</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">技术总结</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%97%A5%E5%B8%B8%E7%A2%8E%E7%A2%8E%E5%94%B8/">日常碎碎唸</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%A7%91%E6%8A%80%E8%AF%84%E8%AE%BA/">科技评论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2026/06/">June 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/ai-devgroup/">旧舟与新海：AI Native 如何重塑产品研发组织</a>
+          </li>
+        
+          <li>
+            <a href="/blog/d-life/">被围起来的数字生活：从数字地主到数字佃农</a>
+          </li>
+        
+          <li>
+            <a href="/blog/realsee-vr-performance/">如视 VR 看房性能优化经验总结</a>
+          </li>
+        
+          <li>
+            <a href="/blog/beijing-wildlife-park-play/">北京漫游：大兴野生动物园</a>
+          </li>
+        
+          <li>
+            <a href="/blog/memory-usage-pic/">前端内存分析之图片篇</a>
+          </li>
+        
+          <li>
+            <a href="/blog/gmtc-vr3d/">VR 及 3D 技术在 Web 端架构设计与实践</a>
+          </li>
+        
+          <li>
+            <a href="/blog/those-years-nba-player/">那些年我关注过的NBA球星</a>
+          </li>
+        
+          <li>
+            <a href="/blog/tech-salon-13-app-proto/">前端工程化开发方案 app-proto</a>
+          </li>
+        
+          <li>
+            <a href="/blog/javascript-async/">JavaScript 異步編程小結</a>
+          </li>
+        
+          <li>
+            <a href="/blog/pure-functions-in-fp/">函数式编程之纯函数</a>
+          </li>
+        
+          <li>
+            <a href="/blog/show-icon-in-web/">Web 頁面上的那些圖標</a>
+          </li>
+        
+          <li>
+            <a href="/blog/feeling-of-writing/">写字的感觉</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 - 2026 掬一捧<br>
+      版权声明：<a href="//creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。<br/>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  <a class="mobile-nav-link" href="//solome.js.org/">首页</a>
+
+  
+    <a href="/blog/" class="mobile-nav-link">博客</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+  <a class="mobile-nav-link" href="//solome.js.org/slides">Slides</a>
+  <!-- <a class="mobile-nav-link" href="//solome.js.org/storybook">Storybook</a> -->
+</nav>
+    
+<script>
+  var disqus_shortname = 'juyipeng';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+
+<script src="/blog/js/jquery.2.0.3..min.js"></script>
+
+
+
+  
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+
+  
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
