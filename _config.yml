@@ -66,8 +66,9 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: uncategorized
+default_category: 日常碎碎念
 category_map:
+  日常碎碎念: 日常碎碎唸
 tag_map:
 
 # Metadata elements

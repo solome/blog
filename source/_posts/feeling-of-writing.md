@@ -3,7 +3,7 @@ layout: layout/post
 title: '写字的感觉'
 date: 2014-03-12 23:30:00 +0800
 comments: true
-categories: 日常碎碎唸
+categories: 日常碎碎念
 ---
 
 以前很在意自己写字的感觉，很惬意那意外的享受。

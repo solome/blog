@@ -2,7 +2,7 @@
 title: '北京漫游：大兴野生动物园'
 date: 2023-03-19 23:30:00 +0800
 comments: true
-categories: 日常碎碎唸
+categories: 日常碎碎念
 ---
 
 ### 缘起

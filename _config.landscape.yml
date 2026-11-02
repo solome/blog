@@ -1,2 +1,6 @@
 marked:
   smartypants: false
+widgets:
+  - category
+  - archive
+  - recent_posts
